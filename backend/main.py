@@ -630,6 +630,20 @@ def _direct_company_answer(query: str) -> str | None:
             "migration, governance, and AI/chatbot solutions."
         )
 
+    if any(
+        phrase in compact
+        for phrase in [
+            "what is desire infoweb",
+            "who is desire infoweb",
+            "about desire infoweb",
+            "tell me about desire infoweb",
+        ]
+    ):
+        return (
+            "Desire Infoweb is an IT services company focused on Microsoft technologies and business automation. "
+            f"{SERVICE_SUMMARY}"
+        )
+
     if any(keyword in compact for keyword in ["budget", "cost", "pricing", "price", "estimate", "quotation", "quote"]):
         return BUDGET_SUMMARY
 
@@ -1218,6 +1232,29 @@ def _build_retrieved_context(query: str) -> str:
     return context
 
 
+def _build_runtime_issue_message(error: Exception) -> str:
+    error_text = str(error).strip()
+    lowered = error_text.lower()
+
+    if error_text.startswith("Missing required environment variable:"):
+        missing_name = error_text.split(":", 1)[-1].strip()
+        return (
+            "Server configuration issue detected. "
+            f"Missing environment variable: {missing_name}."
+        )
+
+    if "429" in lowered or "rate limit" in lowered:
+        return "The AI service is temporarily rate-limited. Please try again in a moment."
+
+    if "timeout" in lowered or "timed out" in lowered:
+        return "The AI service timed out. Please try again."
+
+    if "401" in lowered or "unauthorized" in lowered or "forbidden" in lowered:
+        return "Authentication with an upstream AI service failed. Please verify deployed credentials."
+
+    return "Temporary answer generation issue encountered. A safe fallback response was returned."
+
+
 def _generate_completion_with_context(model_input: str, retrieved_context: str) -> str:
     _trace_step(
         "llm.completion.request",
@@ -1257,6 +1294,12 @@ def _stream_answer_tokens(
     retrieved_context: str | None = None,
     top_score: float | None = None,
 ) -> Iterable[str]:
+    direct_answer = _direct_company_answer(normalized_query)
+    if direct_answer:
+        _trace_step("answer.direct", source="company_summary_precheck")
+        yield direct_answer
+        return
+
     if retrieved_context is None or top_score is None:
         retrieved_context, top_score, _ = _retrieve_context_and_score(normalized_query)
     use_embedding_context = _should_use_embedding_context(normalized_query, retrieved_context, top_score)
@@ -1326,6 +1369,11 @@ def _generate_answer(
     retrieved_context: str | None = None,
     top_score: float | None = None,
 ) -> str:
+    direct_answer = _direct_company_answer(normalized_query)
+    if direct_answer:
+        _trace_step("answer.direct", source="company_summary_precheck")
+        return direct_answer
+
     if retrieved_context is None or top_score is None:
         retrieved_context, top_score, _ = _retrieve_context_and_score(normalized_query)
 
@@ -1446,16 +1494,28 @@ async def text_chat(
         raise HTTPException(status_code=503, detail=str(error)) from error
     except Exception as error:
         logger.exception("Text chat pipeline failed")
+        runtime_issue = _build_runtime_issue_message(error)
+        fallback_answer = _no_context_response()
+        trace_id = _get_active_trace_id()
         _trace_step("response.error", status_code=500, error=str(error))
-        _finalize_trace("failed", status_code=500, error=str(error))
-        raise HTTPException(
-            status_code=500,
-            detail=(
-                "Answer generation failed. Verify AZURE_OPENAI_ENDPOINT, AZURE_OPENAI_API_KEY, "
-                "AZURE_OPENAI_CHAT_DEPLOYMENT, AZURE_OPENAI_EMBEDDING_DEPLOYMENT, AZURE_SEARCH_ENDPOINT, "
-                "and AZURE_SEARCH_INDEX_NAME."
-            ),
-        ) from error
+        _trace_step("response.degraded", issue=runtime_issue)
+        if _is_chat_trace_include_context():
+            _finalize_trace("degraded", status_code=200, issue=runtime_issue, reply=fallback_answer)
+        else:
+            _finalize_trace("degraded", status_code=200, issue=runtime_issue, answer_chars=len(fallback_answer))
+
+        degraded_payload = {
+            "reply": fallback_answer,
+            "session_id": _normalize_session_id(session_id),
+            "lead": {
+                "email": "",
+                "name": "",
+            },
+            "citations": [],
+        }
+        if trace_id:
+            degraded_payload["trace_id"] = trace_id
+        return degraded_payload
     finally:
         _deactivate_trace(trace_token)
 
@@ -1564,21 +1624,28 @@ async def text_chat_stream(
             _finalize_trace("retrieval_unavailable", status_code=503, error=str(error), stream=True)
         except Exception as error:
             logger.exception("Text chat streaming pipeline failed")
+            runtime_issue = _build_runtime_issue_message(error)
+            fallback_answer = _no_context_response()
             yield _sse_event(
-                "error",
+                "done",
                 {
-                    "message": (
-                        "Answer generation failed. Verify AZURE_OPENAI_ENDPOINT, "
-                        "AZURE_OPENAI_API_KEY, AZURE_OPENAI_CHAT_DEPLOYMENT, "
-                        "AZURE_OPENAI_EMBEDDING_DEPLOYMENT, AZURE_SEARCH_ENDPOINT, "
-                        "and AZURE_SEARCH_INDEX_NAME."
-                    ),
-                    "error_type": type(error).__name__,
+                    "reply": fallback_answer,
+                    "session_id": effective_session_id,
                     "trace_id": trace_id,
+                    "lead": {
+                        "email": current_lead_email,
+                        "name": current_lead_name,
+                    },
+                    "citations": [],
+                    "suggestions": _build_dynamic_followup_questions(effective_session_id, 3),
                 },
             )
             _trace_step("response.error", status_code=500, error=str(error), stream=True)
-            _finalize_trace("failed", status_code=500, error=str(error), stream=True)
+            _trace_step("response.degraded", issue=runtime_issue, stream=True)
+            if _is_chat_trace_include_context():
+                _finalize_trace("degraded", status_code=200, issue=runtime_issue, reply=fallback_answer, stream=True)
+            else:
+                _finalize_trace("degraded", status_code=200, issue=runtime_issue, answer_chars=len(fallback_answer), stream=True)
         finally:
             trace_state = _get_active_trace()
             if trace_state and not trace_state.get("status"):
