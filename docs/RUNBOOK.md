@@ -23,13 +23,13 @@
 ### Backend 5xx errors
 
 - Check host logs for stack traces
-- Validate external API quotas/limits (Google, Groq, Pinecone)
+- Validate external API quotas/limits (Azure OpenAI, Azure AI Search)
 - Validate env vars are present
 
 ### Voice not transcribing
 
 - Confirm browser sent non-empty audio file
-- Verify Groq API key and account status
+- Verify Groq API key and transcription model
 - Check MIME type compatibility (`audio/webm` preferred)
 
 ### RAG answers irrelevant

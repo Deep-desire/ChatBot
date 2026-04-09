@@ -3,7 +3,7 @@
 Embeddable conversational widget with text + voice, powered by RAG.
 
 - Frontend: React + TypeScript widget in `frontend/`
-- Backend: FastAPI + LangChain + Gemini + Pinecone + Groq + Edge TTS in `backend/`
+- Backend: FastAPI + Azure OpenAI + Azure AI Search + Groq (voice STT) + Edge TTS in `backend/`
 
 ## Documentation Index
 
@@ -41,8 +41,3 @@ npm install
 Copy-Item .env.example .env
 npm run dev
 ```
-# visit2lead-updated
-# visit2lead-updated
-# visit2lead-updated
-# visit2lead-updated
-# v2lead

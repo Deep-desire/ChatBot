@@ -5,13 +5,11 @@
 - Python 3.11+
 - Node.js 18+ and npm
 - API keys:
-  - Google API key
-  - Pinecone API key
-  - Groq API key
-- A Pinecone serverless index configured as:
-  - Name: `chatbot-rag` (or your custom value)
-  - Dimension: `768`
-  - Metric: `cosine`
+  - Azure OpenAI API key
+  - Azure AI Search key (optional if using managed identity)
+  - Groq API key (voice transcription)
+- Azure AI Search service with an index configured for your chatbot documents
+- (Optional) Azure Blob Storage + Azure AI Search indexer already connected for automated indexing
 
 ## 2) Backend Setup (Windows PowerShell)
 
@@ -26,19 +24,28 @@ Copy-Item .env.example .env
 Set values in `backend/.env`:
 
 ```env
-GOOGLE_API_KEY="your_google_api_key_here"
-GOOGLE_EMBEDDING_MODEL=""
-GOOGLE_CHAT_MODEL=""
-PINECONE_API_KEY="your_pinecone_api_key_here"
+AZURE_OPENAI_ENDPOINT="https://thomaschat.cognitiveservices.azure.com/"
+AZURE_OPENAI_API_KEY="your_azure_openai_api_key_here"
+AZURE_OPENAI_API_VERSION="2024-12-01-preview"
+AZURE_OPENAI_CHAT_DEPLOYMENT="gpt-4o"
+AZURE_OPENAI_EMBEDDING_DEPLOYMENT="text-embedding-3-small"
+AZURE_OPENAI_TEMPERATURE="0.1"
+LLM_MAX_OUTPUT_TOKENS="1200"
+AZURE_OPENAI_MAX_COMPLETION_TOKENS="16384"
+AZURE_SEARCH_ENDPOINT="https://your-search-service.search.windows.net"
+AZURE_SEARCH_INDEX_NAME="chatbot-rag"
+AZURE_SEARCH_API_KEY="your_search_key_or_empty_if_managed_identity"
+AZURE_SEARCH_ID_FIELD="id"
+AZURE_SEARCH_CONTENT_FIELD="content"
+AZURE_SEARCH_VECTOR_FIELD="contentVector"
+AZURE_SEARCH_SOURCE_FIELD=""
+AZURE_SEARCH_TOP_K="5"
+AZURE_SEARCH_SCORE_THRESHOLD="0.2"
+AZURE_SEARCH_USE_SEMANTIC="false"
+AZURE_SEARCH_SEMANTIC_CONFIG=""
 GROQ_API_KEY="your_groq_api_key_here"
 GROQ_TRANSCRIPTION_MODEL="whisper-large-v3"
 EDGE_TTS_VOICE="en-US-AriaNeural"
-PINECONE_INDEX_NAME="chatbot-rag"
-AUTO_CREATE_PINECONE_INDEX="false"
-PINECONE_CLOUD="aws"
-PINECONE_REGION="us-east-1"
-PINECONE_DIMENSION="768"
-PINECONE_METRIC="cosine"
 ENABLE_SHAREPOINT_SYNC="false"
 SHAREPOINT_TENANT_ID="your_tenant_id"
 SHAREPOINT_CLIENT_ID="your_app_client_id"
@@ -50,9 +57,6 @@ SHAREPOINT_FIELD_NAME="Name"
 SHAREPOINT_FIELD_EMAIL="email"
 SHAREPOINT_FIELD_CONVERSATION="Conversation"
 ```
-
-`GOOGLE_EMBEDDING_MODEL` is optional. If empty, the backend auto-detects a supported embedding model from your Google account.
-`GOOGLE_CHAT_MODEL` is optional. If empty, the backend auto-detects a supported chat model from your Google account.
 
 ### SharePoint list sync (optional)
 
@@ -66,7 +70,9 @@ Required setup (app-only auth):
 4. Get the SharePoint site ID and list ID (Graph Explorer or SharePoint API).
 5. Ensure your list has fields matching the internal names you set in the env vars (defaults: `Title`, `Name`, `email`, `Conversation`).
 
-### Ingest your knowledge base
+### Ingest your knowledge base (manual)
+
+If you want to ingest local files directly from backend code:
 
 1. Put your source content into `backend/data.txt`
 2. Run:
@@ -75,7 +81,7 @@ Required setup (app-only auth):
 python ingest.py
 ```
 
-### Ingest a PDF or text file via API upload
+### Ingest a PDF or text file via API upload (manual)
 
 1. Optionally set `INGEST_API_KEY` in `backend/.env`
 2. Start backend server
@@ -88,6 +94,10 @@ curl -X POST "http://localhost:8000/api/ingest/upload" ^
 ```
 
 Supported extensions: `.pdf`, `.txt`, `.md`, `.csv`, `.log`
+
+### Using Blob Storage + Search Indexer instead of manual ingestion
+
+If your Blob container is already connected through an Azure AI Search indexer, you can skip manual ingestion commands and let indexers populate the index.
 
 ### Run backend locally
 
@@ -136,7 +146,7 @@ Output directory:
 
 ```powershell
 cd backend
-python -m py_compile main.py ingest.py
+python -m py_compile main.py ingest.py ingestion.py
 ```
 
 ## 5) Quick Local Smoke Test
@@ -151,9 +161,9 @@ If voice fails, verify browser microphone permissions and backend env keys.
 
 ## 6) Troubleshooting Common Startup Errors
 
-### Error: `Client.__init__() got an unexpected keyword argument 'proxies'`
+### Error: dependency import/version issues
 
-Cause: incompatible `httpx` version with `groq` SDK.
+Cause: your virtual environment is stale after dependency changes.
 
 Fix:
 
@@ -162,37 +172,29 @@ cd backend
 .\venv\Scripts\python.exe -m pip install -r requirements.txt
 ```
 
-This project pins `httpx==0.27.2` to avoid this issue.
+### Error: Azure AI Search index/field not found
 
-### Error: `pinecone ... NotFoundException: Resource chatbot-rag not found`
-
-Cause: the Pinecone index in `PINECONE_INDEX_NAME` does not exist in your account/project.
+Cause: index name or configured fields do not match your Azure AI Search index schema.
 
 Fix:
 
-- Create the index in Pinecone (dimension `768`, metric `cosine`), or
-- Update `PINECONE_INDEX_NAME` in `backend/.env` to an existing index name.
+- Verify `AZURE_SEARCH_INDEX_NAME`
+- Verify field names (`AZURE_SEARCH_CONTENT_FIELD`, `AZURE_SEARCH_VECTOR_FIELD`, `AZURE_SEARCH_ID_FIELD`)
+- If using semantic mode, verify `AZURE_SEARCH_SEMANTIC_CONFIG`
 
-Alternative auto-fix:
+### Error: Azure OpenAI deployment not found (404/400)
 
-- Set `AUTO_CREATE_PINECONE_INDEX="true"`
-- Ensure `PINECONE_CLOUD` and `PINECONE_REGION` are correct for your Pinecone environment
-- Restart backend
-
-### Error: `models/text-embedding-004 is not found`
-
-Cause: your Google API key/project does not expose that embedding model in the currently used API path.
+Cause: deployment name in env does not match your Azure OpenAI deployment name.
 
 Fix:
 
-- Set `GOOGLE_EMBEDDING_MODEL` in `backend/.env` to a model available in your account, or leave it empty for auto-detection
-- Re-run ingestion (`python ingest.py`) so vectors are generated with the same embedding model
+- Verify `AZURE_OPENAI_CHAT_DEPLOYMENT` and `AZURE_OPENAI_EMBEDDING_DEPLOYMENT`
+- Ensure the deployments exist in your Azure OpenAI resource
+- Re-run ingestion (`python ingest.py`) if you changed embedding deployment
 
 ### Voice endpoint returns 500
 
-If the response detail mentions Groq model issues:
-
-- Set `GROQ_TRANSCRIPTION_MODEL="whisper-large-v3-turbo"` in `backend/.env`
+If transcription fails, verify `GROQ_API_KEY` and `GROQ_TRANSCRIPTION_MODEL`.
 
 If the response detail mentions Edge TTS voice issues:
 

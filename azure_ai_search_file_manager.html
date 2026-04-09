@@ -1,0 +1,443 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Azure AI Search PDF File Manager</title>
+  <style>
+    :root {
+      --bg: #f5f7fb;
+      --panel: #ffffff;
+      --border: #d8e0ef;
+      --text: #152033;
+      --muted: #5f6f89;
+      --primary: #1b6fd8;
+      --primary-soft: #e9f1ff;
+      --danger: #cc2f55;
+      --success: #1b8d53;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Segoe UI, Tahoma, sans-serif;
+      background: radial-gradient(circle at top right, #eaf2ff, var(--bg));
+      color: var(--text);
+      padding: 24px;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 20px;
+      box-shadow: 0 12px 34px rgba(27, 111, 216, 0.12);
+    }
+
+    h1 { margin: 0 0 10px; font-size: 28px; }
+    .subtitle { margin: 0 0 18px; color: var(--muted); }
+
+    .stack { display: grid; gap: 14px; }
+    .card {
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 14px;
+      background: #fbfdff;
+    }
+
+    label { display: block; font-size: 14px; font-weight: 600; margin-bottom: 6px; }
+    input[type="text"], input[type="file"] {
+      width: 100%;
+      border: 1px solid #c8d4ec;
+      border-radius: 10px;
+      padding: 10px 12px;
+      font-size: 14px;
+      background: #fff;
+    }
+
+    .row {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 10px;
+      align-items: end;
+    }
+
+    .col-4 { grid-column: span 4; }
+    .col-6 { grid-column: span 6; }
+    .col-8 { grid-column: span 8; }
+    .col-12 { grid-column: span 12; }
+
+    button {
+      border: 0;
+      border-radius: 10px;
+      padding: 10px 14px;
+      font-size: 14px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    .btn-primary { background: var(--primary); color: #fff; }
+    .btn-soft { background: var(--primary-soft); color: var(--primary); }
+    .btn-danger { background: #ffe8ef; color: var(--danger); }
+
+    .toolbar { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 12px; }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      background: #fff;
+    }
+
+    th, td {
+      border-bottom: 1px solid var(--border);
+      padding: 10px;
+      text-align: left;
+      font-size: 13px;
+      vertical-align: top;
+    }
+
+    th { background: #eef4ff; }
+    tr:last-child td { border-bottom: 0; }
+
+    .status {
+      margin-top: 10px;
+      min-height: 20px;
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .status.error { color: var(--danger); }
+    .status.success { color: var(--success); }
+
+    .hint {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 8px;
+      line-height: 1.5;
+    }
+
+    @media (max-width: 860px) {
+      .col-4, .col-6, .col-8, .col-12 { grid-column: span 12; }
+      body { padding: 12px; }
+      .container { padding: 14px; }
+      th, td { font-size: 12px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Azure AI Search PDF Manager</h1>
+    <p class="subtitle">Upload, update, delete, and list PDF files indexed in Azure AI Search.</p>
+
+    <div class="stack">
+      <div class="card">
+        <div class="row">
+          <div class="col-8">
+            <label for="apiBase">Azure Function Base URL</label>
+            <input id="apiBase" type="text" placeholder="https://your-function-app.azurewebsites.net/api" />
+          </div>
+          <div class="col-4">
+            <button class="btn-soft" id="saveConfigBtn">Save URL</button>
+          </div>
+          <div class="col-12 hint">
+            Enter base as http://localhost:7071/api (not /api/files). Routes: GET/POST {base}/files and PUT/DELETE {base}/files/{file_id}
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="toolbar">
+          <button class="btn-primary" id="refreshBtn">Refresh File List</button>
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th style="width: 28%">File ID</th>
+              <th style="width: 30%">File Name</th>
+              <th style="width: 12%">Chunks</th>
+              <th style="width: 20%">Uploaded At</th>
+              <th style="width: 10%">Actions</th>
+            </tr>
+          </thead>
+          <tbody id="filesTableBody">
+            <tr><td colspan="5">No data loaded yet.</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="card">
+        <h3>Upload New PDF</h3>
+        <div class="row">
+          <div class="col-8">
+            <label for="newPdf">Select PDF</label>
+            <input id="newPdf" type="file" accept="application/pdf,.pdf" />
+          </div>
+          <div class="col-4">
+            <button class="btn-primary" id="uploadBtn">Upload PDF</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Update Existing PDF</h3>
+        <div class="row">
+          <div class="col-6">
+            <label for="updateFileId">File ID</label>
+            <input id="updateFileId" type="text" placeholder="Paste file_id to update" />
+          </div>
+          <div class="col-6">
+            <label for="updatePdf">Select New PDF</label>
+            <input id="updatePdf" type="file" accept="application/pdf,.pdf" />
+          </div>
+          <div class="col-12">
+            <button class="btn-soft" id="updateBtn">Update PDF</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Delete File</h3>
+        <div class="row">
+          <div class="col-8">
+            <label for="deleteFileId">File ID</label>
+            <input id="deleteFileId" type="text" placeholder="Paste file_id to delete" />
+          </div>
+          <div class="col-4">
+            <button class="btn-danger" id="deleteBtn">Delete</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="status" class="status"></div>
+  </div>
+
+  <script>
+    const API_BASE_STORAGE_KEY = "azure_search_manager_api_base";
+
+    const elements = {
+      apiBase: document.getElementById("apiBase"),
+      saveConfigBtn: document.getElementById("saveConfigBtn"),
+      refreshBtn: document.getElementById("refreshBtn"),
+      filesTableBody: document.getElementById("filesTableBody"),
+      uploadBtn: document.getElementById("uploadBtn"),
+      newPdf: document.getElementById("newPdf"),
+      updateBtn: document.getElementById("updateBtn"),
+      updatePdf: document.getElementById("updatePdf"),
+      updateFileId: document.getElementById("updateFileId"),
+      deleteBtn: document.getElementById("deleteBtn"),
+      deleteFileId: document.getElementById("deleteFileId"),
+      status: document.getElementById("status"),
+    };
+
+    function setStatus(message, kind = "") {
+      elements.status.className = "status" + (kind ? " " + kind : "");
+      elements.status.textContent = message;
+    }
+
+    function normalizeApiBase(value) {
+      let base = (value || "").trim().replace(/\/$/, "");
+      base = base.replace(/\/api\/files$/i, "/api");
+      base = base.replace(/\/files$/i, "");
+      return base;
+    }
+
+    function getApiBase() {
+      return normalizeApiBase(elements.apiBase.value || "");
+    }
+
+    function requireApiBase() {
+      const apiBase = getApiBase();
+      if (!apiBase) {
+        throw new Error("Please set your Azure Function Base URL first.");
+      }
+      return apiBase;
+    }
+
+    function saveApiBase() {
+      const normalized = getApiBase();
+      elements.apiBase.value = normalized;
+      localStorage.setItem(API_BASE_STORAGE_KEY, normalized);
+      setStatus("API base URL saved.", "success");
+    }
+
+    async function requestJson(url, options = {}) {
+      const response = await fetch(url, options);
+      const text = await response.text();
+      let data = {};
+      try {
+        data = text ? JSON.parse(text) : {};
+      } catch {
+        data = {};
+      }
+      if (!response.ok) {
+        const errorMessage = data.error || data.message || "Request failed.";
+        throw new Error(errorMessage);
+      }
+      return data;
+    }
+
+    function renderFilesTable(files) {
+      if (!files.length) {
+        elements.filesTableBody.innerHTML = "<tr><td colspan='5'>No files found in Azure AI Search manifest.</td></tr>";
+        return;
+      }
+
+      elements.filesTableBody.innerHTML = files.map((file) => {
+        const safeId = String(file.file_id || "");
+        const safeName = String(file.file_name || "");
+        const safeChunks = String(file.chunk_count || 0);
+        const safeDate = String(file.uploaded_at || "-");
+
+        return `
+          <tr>
+            <td>${safeId}</td>
+            <td>${safeName}</td>
+            <td>${safeChunks}</td>
+            <td>${safeDate}</td>
+            <td>
+              <button class="btn-soft" data-fill-id="${safeId}">Use</button>
+            </td>
+          </tr>
+        `;
+      }).join("");
+
+      elements.filesTableBody.querySelectorAll("button[data-fill-id]").forEach((button) => {
+        button.addEventListener("click", () => {
+          const fileId = button.getAttribute("data-fill-id") || "";
+          elements.updateFileId.value = fileId;
+          elements.deleteFileId.value = fileId;
+          setStatus("File ID copied to update/delete forms.", "success");
+        });
+      });
+    }
+
+    async function refreshFiles() {
+      try {
+        setStatus("Loading files...");
+        const apiBase = requireApiBase();
+        const data = await requestJson(`${apiBase}/files`);
+        renderFilesTable(Array.isArray(data.files) ? data.files : []);
+        setStatus("File list updated.", "success");
+      } catch (error) {
+        setStatus(error.message || "Failed to load files.", "error");
+      }
+    }
+
+    async function uploadPdf() {
+      try {
+        const apiBase = requireApiBase();
+        const file = elements.newPdf.files && elements.newPdf.files[0];
+        if (!file) {
+          throw new Error("Select a PDF file first.");
+        }
+        if (!file.name.toLowerCase().endsWith(".pdf")) {
+          throw new Error("Only PDF files are allowed.");
+        }
+
+        setStatus("Uploading PDF...");
+        await requestJson(`${apiBase}/files?file_name=${encodeURIComponent(file.name)}`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/pdf",
+            "x-file-name": file.name,
+          },
+          body: await file.arrayBuffer(),
+        });
+
+        elements.newPdf.value = "";
+        await refreshFiles();
+        setStatus("PDF uploaded successfully.", "success");
+      } catch (error) {
+        setStatus(error.message || "Upload failed.", "error");
+      }
+    }
+
+    async function updatePdf() {
+      try {
+        const apiBase = requireApiBase();
+        const fileId = (elements.updateFileId.value || "").trim();
+        const file = elements.updatePdf.files && elements.updatePdf.files[0];
+
+        if (!fileId) {
+          throw new Error("Enter a file_id for update.");
+        }
+        if (!file) {
+          throw new Error("Select a replacement PDF first.");
+        }
+        if (!file.name.toLowerCase().endsWith(".pdf")) {
+          throw new Error("Only PDF files are allowed.");
+        }
+
+        setStatus("Updating PDF...");
+        await requestJson(`${apiBase}/files/${encodeURIComponent(fileId)}?file_name=${encodeURIComponent(file.name)}`, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/pdf",
+            "x-file-name": file.name,
+          },
+          body: await file.arrayBuffer(),
+        });
+
+        elements.updatePdf.value = "";
+        await refreshFiles();
+        setStatus("PDF updated successfully.", "success");
+      } catch (error) {
+        setStatus(error.message || "Update failed.", "error");
+      }
+    }
+
+    async function deleteFile() {
+      try {
+        const apiBase = requireApiBase();
+        const fileId = (elements.deleteFileId.value || "").trim();
+        if (!fileId) {
+          throw new Error("Enter a file_id to delete.");
+        }
+
+        const confirmed = window.confirm("Delete this file from Azure AI Search index? This cannot be undone.");
+        if (!confirmed) {
+          return;
+        }
+
+        setStatus("Deleting file...");
+        await requestJson(`${apiBase}/files/${encodeURIComponent(fileId)}`, {
+          method: "DELETE",
+        });
+
+        await refreshFiles();
+        setStatus("File deleted successfully.", "success");
+      } catch (error) {
+        setStatus(error.message || "Delete failed.", "error");
+      }
+    }
+
+    elements.saveConfigBtn.addEventListener("click", saveApiBase);
+    elements.refreshBtn.addEventListener("click", refreshFiles);
+    elements.uploadBtn.addEventListener("click", uploadPdf);
+    elements.updateBtn.addEventListener("click", updatePdf);
+    elements.deleteBtn.addEventListener("click", deleteFile);
+
+    (function init() {
+      const stored = localStorage.getItem(API_BASE_STORAGE_KEY) || "";
+      elements.apiBase.value = normalizeApiBase(stored);
+
+      if (window.location.protocol === "file:") {
+        setStatus("Open this page via http://127.0.0.1:5500 (not file://) to avoid CORS issues.", "error");
+        return;
+      }
+
+      if (stored) {
+        refreshFiles();
+      } else {
+        setStatus("Set Azure Function Base URL to start.");
+      }
+    })();
+  </script>
+</body>
+</html>

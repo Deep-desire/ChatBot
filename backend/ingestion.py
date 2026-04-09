@@ -1,11 +1,14 @@
 import os
+import uuid
 from functools import lru_cache
 from pathlib import Path
+from datetime import datetime, timezone
 
-import google.generativeai as genai
+from azure.core.credentials import AzureKeyCredential
+from azure.identity import DefaultAzureCredential
+from azure.search.documents import SearchClient
 from langchain_community.document_loaders import PyPDFLoader, TextLoader
-from langchain_google_genai import GoogleGenerativeAIEmbeddings
-from langchain_pinecone import PineconeVectorStore
+from langchain_openai import AzureOpenAIEmbeddings
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 
 
@@ -17,38 +20,62 @@ def _get_required_env(name: str) -> str:
 
 
 def _get_embedding_model() -> str:
-    configured_model = os.getenv("GOOGLE_EMBEDDING_MODEL")
-    if configured_model:
-        return configured_model
+    return _get_required_env("AZURE_OPENAI_EMBEDDING_DEPLOYMENT")
 
-    return _detect_embedding_model()
+
+def _get_azure_openai_endpoint() -> str:
+    return _get_required_env("AZURE_OPENAI_ENDPOINT")
+
+
+def _get_azure_openai_api_key() -> str:
+    return _get_required_env("AZURE_OPENAI_API_KEY")
+
+
+def _get_azure_openai_api_version() -> str:
+    return os.getenv("AZURE_OPENAI_API_VERSION", "2024-12-01-preview")
+
+
+def _get_azure_search_endpoint() -> str:
+    return _get_required_env("AZURE_SEARCH_ENDPOINT")
+
+
+def _get_azure_search_index_name() -> str:
+    return _get_required_env("AZURE_SEARCH_INDEX_NAME")
+
+
+def _get_azure_search_api_key() -> str:
+    return os.getenv("AZURE_SEARCH_API_KEY", "").strip()
+
+
+def _get_azure_search_id_field() -> str:
+    return os.getenv("AZURE_SEARCH_ID_FIELD", "id").strip() or "id"
+
+
+def _get_azure_search_content_field() -> str:
+    return os.getenv("AZURE_SEARCH_CONTENT_FIELD", "content").strip() or "content"
+
+
+def _get_azure_search_vector_field() -> str:
+    return os.getenv("AZURE_SEARCH_VECTOR_FIELD", "contentVector").strip()
+
+
+def _get_azure_search_source_field() -> str:
+    return os.getenv("AZURE_SEARCH_SOURCE_FIELD", "").strip()
 
 
 @lru_cache(maxsize=1)
-def _detect_embedding_model() -> str:
-    genai.configure(api_key=_get_required_env("GOOGLE_API_KEY"))
+def _get_search_client() -> SearchClient:
+    api_key = _get_azure_search_api_key()
+    if api_key:
+        credential = AzureKeyCredential(api_key)
+    else:
+        credential = DefaultAzureCredential()
 
-    available_models: list[str] = []
-    for model in genai.list_models():
-        methods = set(getattr(model, "supported_generation_methods", []) or [])
-        if "embedContent" in methods:
-            model_name = getattr(model, "name", "")
-            if model_name:
-                available_models.append(model_name)
-
-    if not available_models:
-        raise ValueError(
-            "No Google embedding models are available for this API key. "
-            "Set GOOGLE_EMBEDDING_MODEL explicitly to a supported model."
-        )
-
-    preferred_suffixes = ["text-embedding-004", "embedding-001", "text-embedding-005"]
-    for suffix in preferred_suffixes:
-        for model_name in available_models:
-            if model_name.endswith(suffix):
-                return model_name
-
-    return available_models[0]
+    return SearchClient(
+        endpoint=_get_azure_search_endpoint(),
+        index_name=_get_azure_search_index_name(),
+        credential=credential,
+    )
 
 
 def _load_documents(file_path: str):
@@ -73,13 +100,50 @@ def ingest_file(file_path: str, source_name: str | None = None) -> dict:
     for chunk in chunks:
         chunk.metadata = {**chunk.metadata, "source": resolved_source}
 
-    embeddings = GoogleGenerativeAIEmbeddings(model=_get_embedding_model())
-    index_name = _get_required_env("PINECONE_INDEX_NAME")
+    embedding_deployment = _get_embedding_model()
+    embeddings = AzureOpenAIEmbeddings(
+        azure_endpoint=_get_azure_openai_endpoint(),
+        api_key=_get_azure_openai_api_key(),
+        openai_api_version=_get_azure_openai_api_version(),
+        azure_deployment=embedding_deployment,
+        model=embedding_deployment,
+    )
+    index_name = _get_azure_search_index_name()
+    id_field = _get_azure_search_id_field()
+    content_field = _get_azure_search_content_field()
+    vector_field = _get_azure_search_vector_field()
+    source_field = _get_azure_search_source_field()
 
-    PineconeVectorStore.from_documents(chunks, embeddings, index_name=index_name)
+    chunk_texts = [str(chunk.page_content or "").strip() for chunk in chunks]
+    chunk_texts = [chunk_text for chunk_text in chunk_texts if chunk_text]
+    if not chunk_texts:
+        raise ValueError("No text chunks were produced from the source document.")
+
+    vectors = embeddings.embed_documents(chunk_texts) if vector_field else []
+    timestamp = datetime.now(timezone.utc).isoformat()
+
+    upload_documents: list[dict] = []
+    for idx, chunk_text in enumerate(chunk_texts):
+        document = {
+            id_field: f"{resolved_source}::{idx}::{uuid.uuid4().hex}",
+            content_field: chunk_text,
+        }
+
+        if source_field:
+            document[source_field] = resolved_source
+        if vector_field:
+            document[vector_field] = vectors[idx]
+
+        upload_documents.append(document)
+
+    search_client = _get_search_client()
+    batch_size = 100
+    for start in range(0, len(upload_documents), batch_size):
+        search_client.merge_or_upload_documents(upload_documents[start : start + batch_size])
 
     return {
         "source": resolved_source,
-        "chunks": len(chunks),
+        "chunks": len(upload_documents),
         "index": index_name,
+        "indexed_at": timestamp,
     }

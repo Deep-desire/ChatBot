@@ -30,10 +30,16 @@ Ensure repository contains:
 
 Add these on the platform:
 
-- `GOOGLE_API_KEY`
-- `PINECONE_API_KEY`
+- `AZURE_OPENAI_ENDPOINT`
+- `AZURE_OPENAI_API_KEY`
+- `AZURE_OPENAI_API_VERSION`
+- `AZURE_OPENAI_CHAT_DEPLOYMENT`
+- `AZURE_OPENAI_EMBEDDING_DEPLOYMENT`
+- `AZURE_SEARCH_ENDPOINT`
+- `AZURE_SEARCH_INDEX_NAME`
+- `AZURE_SEARCH_API_KEY` (optional when managed identity is configured)
 - `GROQ_API_KEY`
-- `PINECONE_INDEX_NAME`
+- `GROQ_TRANSCRIPTION_MODEL`
 - `INGEST_API_KEY` (optional but recommended to protect ingestion endpoint)
 
 ### 2.4 Verify deployment
@@ -82,19 +88,19 @@ Also:
 ### 5.1 Backend starts but answers fail
 
 - Check missing/invalid API keys
-- Verify Pinecone index exists and name matches `PINECONE_INDEX_NAME`
-- Confirm index dimension is `768`
+- Verify Azure AI Search index exists and name matches `AZURE_SEARCH_INDEX_NAME`
+- Confirm index contains the configured content/vector fields
 
 ### 5.2 Voice endpoint errors
 
 - Ensure incoming mime type is browser-generated `audio/webm`
-- Verify `GROQ_API_KEY`
+- Verify `GROQ_API_KEY` and `GROQ_TRANSCRIPTION_MODEL`
 - Confirm network egress to Groq is allowed
 
 ### 5.3 Empty or poor answers
 
 - Re-run `ingest.py` after updating `data.txt`
-- Check that data chunks are present in Pinecone
+- Check that data chunks are present in Azure AI Search index
 - Increase retriever `k` in backend if needed
 
 ## 6) Optional Single-Host Deploy
