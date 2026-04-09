@@ -22,7 +22,7 @@ interface Citation {
 type LeadStage = 'email' | 'name' | 'chat';
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000';
-const FLOATING_BOT_IMAGE_URL = import.meta.env.VITE_FLOATING_BOT_IMAGE_URL || '';
+const FLOATING_BOT_IMAGE_URL = (import.meta.env.VITE_FLOATING_BOT_IMAGE_URL || '/bot.gif').trim();
 
 const SESSION_STORAGE_KEY = 'vtl_session_id';
 const EMAIL_STORAGE_KEY = 'vtl_lead_email';
