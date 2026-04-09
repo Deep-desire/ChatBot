@@ -398,73 +398,24 @@ def _build_dynamic_followup_questions(session_id: str, limit: int = 3) -> list[s
     with _conversation_lock:
         history = list(_conversation_store.get(session_id, []))
 
-    if not history:
-        return DEFAULT_FOLLOWUP_QUESTIONS[:limit]
-
-    user_questions = { _normalize_question_for_compare(user_text) for user_text, _ in history }
-    combined_context = "\n".join(
-        f"{user_text}\n{assistant_text}" for user_text, assistant_text in history[-4:]
-    ).lower()
-
-    topic_rules: list[tuple[tuple[str, ...], str]] = [
-        (
-            ("service", "sharepoint", "power apps", "power automate", "power bi", "dynamics"),
-            "Can you share similar projects you've delivered in these services?",
-        ),
-        (
-            ("ai", "chatbot", "copilot", "automation", "openai"),
-            "How would you design an AI solution for my specific business use case?",
-        ),
-        (
-            ("budget", "cost", "price", "pricing", "estimate", "quotation", "quote"),
-            "What details do you need from me to prepare an accurate estimate?",
-        ),
-        (
-            ("timeline", "delivery", "duration", "deadline", "time"),
-            "What is a realistic timeline for this type of implementation?",
-        ),
-        (
-            ("industry", "domain", "sector", "retail", "healthcare", "finance", "education"),
-            "Have you implemented this for companies in my industry?",
-        ),
-        (
-            ("teams", "website", "whatsapp", "integration", "channel"),
-            "Which deployment channel would you recommend for best user adoption?",
-        ),
-        (
-            ("data", "sharepoint", "blob", "document", "knowledge", "pdf"),
-            "How do you keep chatbot knowledge secure and up to date over time?",
-        ),
-        (
-            ("support", "maintenance", "sla", "post-launch"),
-            "What post-launch support and maintenance model do you provide?",
-        ),
-    ]
+    if not history or limit <= 0:
+        return []
 
     suggestions: list[str] = []
-    seen = set()
+    seen: set[str] = set()
 
-    for keywords, suggestion in topic_rules:
-        if any(keyword in combined_context for keyword in keywords):
-            key = _normalize_question_for_compare(suggestion)
-            if key in seen or key in user_questions:
-                continue
-            suggestions.append(suggestion)
-            seen.add(key)
-        if len(suggestions) >= limit:
-            return suggestions
+    # Use only previous user prompts from the same session history.
+    if len(history) <= 1:
+        return []
 
-    fallback_questions = [
-        "Would you like a step-by-step implementation plan for your requirement?",
-        "Should I suggest the best engagement model for your project scope?",
-        *DEFAULT_FOLLOWUP_QUESTIONS,
-    ]
-
-    for question in fallback_questions:
-        key = _normalize_question_for_compare(question)
-        if key in seen or key in user_questions:
+    for user_text, _ in reversed(history[:-1]):
+        candidate = user_text.strip()
+        if not candidate:
             continue
-        suggestions.append(question)
+        key = _normalize_question_for_compare(candidate)
+        if not key or key in seen:
+            continue
+        suggestions.append(candidate)
         seen.add(key)
         if len(suggestions) >= limit:
             break
@@ -1329,10 +1280,6 @@ def _should_attach_citations(answer: str, normalized_query: str, citations: list
     if normalized_answer == _no_context_response().strip():
         return False
 
-    direct_answer = _direct_company_answer(normalized_query)
-    if direct_answer and normalized_answer == direct_answer.strip():
-        return False
-
     return True
 
 
@@ -1403,23 +1350,12 @@ def _stream_answer_tokens(
     retrieved_context: str | None = None,
     top_score: float | None = None,
 ) -> Iterable[str]:
-    direct_answer = _direct_company_answer(normalized_query)
-    if direct_answer:
-        _trace_step("answer.direct", source="company_summary_precheck")
-        yield direct_answer
-        return
-
     if retrieved_context is None or top_score is None:
         retrieved_context, top_score, _ = _retrieve_context_and_score(normalized_query)
     use_embedding_context = _should_use_embedding_context(normalized_query, retrieved_context, top_score)
     _raise_if_strict_without_context(use_embedding_context, retrieved_context, top_score)
 
     if not use_embedding_context:
-        direct_answer = _direct_company_answer(normalized_query)
-        if direct_answer:
-            _trace_step("answer.direct", source="company_summary")
-            yield direct_answer
-            return
         _trace_step("answer.no_context", source="no_context_response")
         yield _no_context_response()
         return
@@ -1478,17 +1414,11 @@ def _generate_answer(
     retrieved_context: str | None = None,
     top_score: float | None = None,
 ) -> str:
-    direct_answer = _direct_company_answer(normalized_query)
-    if direct_answer:
-        _trace_step("answer.direct", source="company_summary_precheck")
-        return direct_answer
-
     if retrieved_context is None or top_score is None:
         retrieved_context, top_score, _ = _retrieve_context_and_score(normalized_query)
 
     use_embedding_context = _should_use_embedding_context(normalized_query, retrieved_context, top_score)
     _raise_if_strict_without_context(use_embedding_context, retrieved_context, top_score)
-    direct_answer = None if use_embedding_context else _direct_company_answer(normalized_query)
 
     if use_embedding_context:
         try:
@@ -1500,38 +1430,11 @@ def _generate_answer(
                 completion_error,
             )
             _trace_step("answer.context_completion.error", error=str(completion_error))
-            if not _allow_generic_fallback():
-                _trace_step("answer.no_context", source="context_error_and_generic_disabled")
-                return _no_context_response()
+            _trace_step("answer.no_context", source="context_completion_failed")
+            return _no_context_response()
 
-    if direct_answer:
-        _trace_step("answer.direct", source="company_summary")
-        return direct_answer
-
-    if not _allow_generic_fallback():
-        _trace_step("answer.no_context", source="generic_disabled")
-        return _no_context_response()
-
-    try:
-        _trace_step("answer.path", mode="generic_with_context")
-        answer = _generate_completion_with_context(model_input, retrieved_context)
-        if answer:
-            return answer
-        raise ValueError("Azure OpenAI completion returned an empty answer.")
-    except Exception as completion_error:
-        logger.warning(
-            "Generic completion failed (%s). Retrying without retrieved context.",
-            completion_error,
-        )
-
-    try:
-        _trace_step("answer.path", mode="generic_without_context")
-        answer = _generate_completion_with_context(model_input, "")
-        if answer:
-            return answer
-        raise ValueError("Azure OpenAI completion returned an empty answer.")
-    except Exception:
-        raise
+    _trace_step("answer.no_context", source="context_not_relevant")
+    return _no_context_response()
 
 
 def _required_backend_env_checks() -> list[tuple[str, list[str]]]:
@@ -1646,21 +1549,14 @@ async def text_chat(
         )
 
         model_input = _build_model_input(effective_session_id, normalized_query)
-        direct_answer = _direct_company_answer(normalized_query)
-        if direct_answer:
-            _trace_step("answer.direct", source="company_summary_endpoint_short_circuit")
-            answer = direct_answer
-            citations: list[dict[str, Any]] = []
-            response_citations: list[dict[str, Any]] = []
-        else:
-            retrieved_context, top_score, citations = _retrieve_context_and_score(normalized_query)
-            answer = _generate_answer(
-                model_input,
-                normalized_query,
-                retrieved_context=retrieved_context,
-                top_score=top_score,
-            )
-            response_citations = citations if _should_attach_citations(answer, normalized_query, citations) else []
+        retrieved_context, top_score, citations = _retrieve_context_and_score(normalized_query)
+        answer = _generate_answer(
+            model_input,
+            normalized_query,
+            retrieved_context=retrieved_context,
+            top_score=top_score,
+        )
+        response_citations = citations if _should_attach_citations(answer, normalized_query, citations) else []
         _save_conversation_turn(effective_session_id, normalized_query, answer)
         await _sync_sharepoint_lead_safely(effective_session_id)
 
@@ -1759,23 +1655,17 @@ async def text_chat_stream(
         response_citations: list[dict[str, Any]] = []
 
         try:
-            direct_answer = _direct_company_answer(normalized_query)
-            if direct_answer:
-                _trace_step("answer.direct", source="company_summary_endpoint_short_circuit", stream=True)
-                answer_parts.append(direct_answer)
-                yield _sse_event("token", {"token": direct_answer})
-            else:
-                retrieved_context, top_score, citations = _retrieve_context_and_score(normalized_query)
-                for token in _stream_answer_tokens(
-                    model_input,
-                    normalized_query,
-                    retrieved_context=retrieved_context,
-                    top_score=top_score,
-                ):
-                    if not token:
-                        continue
-                    answer_parts.append(token)
-                    yield _sse_event("token", {"token": token})
+            retrieved_context, top_score, citations = _retrieve_context_and_score(normalized_query)
+            for token in _stream_answer_tokens(
+                model_input,
+                normalized_query,
+                retrieved_context=retrieved_context,
+                top_score=top_score,
+            ):
+                if not token:
+                    continue
+                answer_parts.append(token)
+                yield _sse_event("token", {"token": token})
 
             final_answer = "".join(answer_parts).strip()
             if not final_answer:

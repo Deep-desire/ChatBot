@@ -39,10 +39,7 @@ const FLOATING_BOT_IMAGE_URL = (import.meta.env.VITE_FLOATING_BOT_IMAGE_URL || '
 const SESSION_STORAGE_KEY = 'vtl_session_id';
 const EMAIL_STORAGE_KEY = 'vtl_lead_email';
 const NAME_STORAGE_KEY = 'vtl_lead_name';
-const DEFAULT_SUGGESTED_QUESTIONS = [
-  'What is Desire Infoweb?',
-  'What services does Desire Infoweb provide?',
-];
+const DEFAULT_SUGGESTED_QUESTIONS: string[] = [];
 
 const normalizeQuestionText = (value: string): string => {
   return value.trim().toLowerCase().replace(/\s+/g, ' ');
