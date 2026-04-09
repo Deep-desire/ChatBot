@@ -5,6 +5,7 @@ import uuid
 import logging
 import json
 import base64
+import warnings
 from contextvars import ContextVar, Token
 from datetime import datetime, timezone
 from collections import deque
@@ -14,6 +15,12 @@ from threading import Lock
 from time import time
 from typing import Any, AsyncGenerator, Iterable
 from urllib.parse import quote
+
+warnings.filterwarnings(
+    "ignore",
+    message=r"invalid escape sequence '\\W'",
+    category=SyntaxWarning,
+)
 
 from azure.core.credentials import AzureKeyCredential
 from azure.identity import DefaultAzureCredential
@@ -729,7 +736,7 @@ def _get_chat_model() -> str:
 
 
 def _get_azure_openai_endpoint() -> str:
-    return _get_required_env("AZURE_OPENAI_ENDPOINT")
+    return _get_required_env("AZURE_OPENAI_ENDPOINT").rstrip("/")
 
 
 def _get_azure_openai_api_key() -> str:
@@ -1173,12 +1180,24 @@ def _should_use_embedding_context(normalized_query: str, retrieved_context: str,
     overlap_ratio, overlap_count, query_term_count = _compute_query_overlap(normalized_query, retrieved_context)
     overlap_threshold = _get_query_overlap_threshold()
     min_overlap_terms = _get_query_min_overlap_terms()
-    if overlap_count < min_overlap_terms:
+
+    if query_term_count == 0:
+        _trace_step(
+            "context.rejected",
+            reason="query_has_no_meaningful_terms",
+            min_overlap_terms=min_overlap_terms,
+            query_term_count=query_term_count,
+        )
+        return False
+
+    required_overlap_terms = min(min_overlap_terms, query_term_count)
+    if overlap_count < required_overlap_terms:
         _trace_step(
             "context.rejected",
             reason="query_overlap_terms_below_minimum",
             overlap_count=overlap_count,
-            min_overlap_terms=min_overlap_terms,
+            min_overlap_terms=required_overlap_terms,
+            configured_min_overlap_terms=min_overlap_terms,
             query_term_count=query_term_count,
         )
         return False
@@ -1201,7 +1220,8 @@ def _should_use_embedding_context(normalized_query: str, retrieved_context: str,
         overlap_ratio=round(overlap_ratio, 4),
         overlap_threshold=overlap_threshold,
         overlap_count=overlap_count,
-        min_overlap_terms=min_overlap_terms,
+        min_overlap_terms=required_overlap_terms,
+        configured_min_overlap_terms=min_overlap_terms,
         context_chars=len(retrieved_context),
     )
     return True
@@ -1502,6 +1522,32 @@ async def health_config() -> dict:
         "missing_count": len(missing),
         "missing": missing,
         "sharepoint_sync_enabled": _is_sharepoint_sync_enabled(),
+        "effective": {
+            "azure_openai_endpoint": _get_azure_openai_endpoint() if (os.getenv("AZURE_OPENAI_ENDPOINT") or "").strip() else "",
+            "azure_openai_chat_deployment": next(
+                (
+                    (os.getenv(name) or "").strip()
+                    for name in ["AZURE_OPENAI_CHAT_DEPLOYMENT", "AZURE_OPENAI_DEPLOYMENT", "AZURE_OPENAI_CHAT_MODEL"]
+                    if (os.getenv(name) or "").strip()
+                ),
+                "",
+            ),
+            "azure_openai_embedding_deployment": next(
+                (
+                    (os.getenv(name) or "").strip()
+                    for name in ["AZURE_OPENAI_EMBEDDING_DEPLOYMENT", "AZURE_OPENAI_EMBED_DEPLOYMENT", "AZURE_OPENAI_EMBEDDING_MODEL"]
+                    if (os.getenv(name) or "").strip()
+                ),
+                "",
+            ),
+            "azure_search_endpoint": (os.getenv("AZURE_SEARCH_ENDPOINT") or "").strip(),
+            "azure_search_index_name": (os.getenv("AZURE_SEARCH_INDEX_NAME") or "").strip(),
+            "query_overlap_threshold": _get_query_overlap_threshold(),
+            "query_min_overlap_terms": _get_query_min_overlap_terms(),
+            "azure_search_score_threshold": _get_embedding_similarity_threshold(),
+            "azure_search_required": _is_azure_search_required(),
+            "allow_generic_fallback": _allow_generic_fallback(),
+        },
     }
 
 
@@ -1532,14 +1578,21 @@ async def text_chat(
         )
 
         model_input = _build_model_input(effective_session_id, normalized_query)
-        retrieved_context, top_score, citations = _retrieve_context_and_score(normalized_query)
-        answer = _generate_answer(
-            model_input,
-            normalized_query,
-            retrieved_context=retrieved_context,
-            top_score=top_score,
-        )
-        response_citations = citations if _should_attach_citations(answer, normalized_query, citations) else []
+        direct_answer = _direct_company_answer(normalized_query)
+        if direct_answer:
+            _trace_step("answer.direct", source="company_summary_endpoint_short_circuit")
+            answer = direct_answer
+            citations: list[dict[str, Any]] = []
+            response_citations: list[dict[str, Any]] = []
+        else:
+            retrieved_context, top_score, citations = _retrieve_context_and_score(normalized_query)
+            answer = _generate_answer(
+                model_input,
+                normalized_query,
+                retrieved_context=retrieved_context,
+                top_score=top_score,
+            )
+            response_citations = citations if _should_attach_citations(answer, normalized_query, citations) else []
         _save_conversation_turn(effective_session_id, normalized_query, answer)
         await _sync_sharepoint_lead_safely(effective_session_id)
 
@@ -1638,17 +1691,23 @@ async def text_chat_stream(
         response_citations: list[dict[str, Any]] = []
 
         try:
-            retrieved_context, top_score, citations = _retrieve_context_and_score(normalized_query)
-            for token in _stream_answer_tokens(
-                model_input,
-                normalized_query,
-                retrieved_context=retrieved_context,
-                top_score=top_score,
-            ):
-                if not token:
-                    continue
-                answer_parts.append(token)
-                yield _sse_event("token", {"token": token})
+            direct_answer = _direct_company_answer(normalized_query)
+            if direct_answer:
+                _trace_step("answer.direct", source="company_summary_endpoint_short_circuit", stream=True)
+                answer_parts.append(direct_answer)
+                yield _sse_event("token", {"token": direct_answer})
+            else:
+                retrieved_context, top_score, citations = _retrieve_context_and_score(normalized_query)
+                for token in _stream_answer_tokens(
+                    model_input,
+                    normalized_query,
+                    retrieved_context=retrieved_context,
+                    top_score=top_score,
+                ):
+                    if not token:
+                        continue
+                    answer_parts.append(token)
+                    yield _sse_event("token", {"token": token})
 
             final_answer = "".join(answer_parts).strip()
             if not final_answer:
