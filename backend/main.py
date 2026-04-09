@@ -14,7 +14,7 @@ from pathlib import Path
 from threading import Lock
 from time import time
 from typing import Any, AsyncGenerator, Iterable
-from urllib.parse import quote
+from urllib.parse import quote, unquote
 
 warnings.filterwarnings(
     "ignore",
@@ -1000,27 +1000,81 @@ def _looks_like_url(value: str) -> bool:
     return lowered.startswith("http://") or lowered.startswith("https://")
 
 
+def _normalize_citation_url(value: str) -> str:
+    raw = (value or "").strip().strip('"').strip("'")
+    if not raw:
+        return ""
+
+    if _looks_like_url(raw):
+        return raw.replace(" ", "%20")
+
+    decoded = unquote(raw).strip()
+    if _looks_like_url(decoded):
+        return decoded.replace(" ", "%20")
+
+    if raw.lower().startswith("www."):
+        return f"https://{raw}".replace(" ", "%20")
+
+    if decoded.lower().startswith("www."):
+        return f"https://{decoded}".replace(" ", "%20")
+
+    # Handle raw host/path values such as desirechatbotweb.blob.core.windows.net/container/file.pdf
+    if re.match(r"^[a-z0-9.-]+\.[a-z]{2,}/", raw, flags=re.IGNORECASE):
+        return f"https://{raw}".replace(" ", "%20")
+
+    if re.match(r"^[a-z0-9.-]+\.[a-z]{2,}/", decoded, flags=re.IGNORECASE):
+        return f"https://{decoded}".replace(" ", "%20")
+
+    return ""
+
+
+def _try_decode_base64_to_url(value: str) -> str:
+    candidate = (value or "").strip()
+    if not candidate:
+        return ""
+
+    variants: list[str] = [candidate]
+    variants.append(re.sub(r"_pages_\d+$", "", candidate, flags=re.IGNORECASE))
+    variants.append(re.sub(r"(?:_)?\d+$", "", candidate))
+
+    # Some IDs embed the encoded URL inside an underscore-delimited token.
+    for token in re.split(r"[_|]", candidate):
+        token = token.strip()
+        if len(token) >= 12:
+            variants.append(token)
+            variants.append(re.sub(r"(?:_)?\d+$", "", token))
+
+    seen: set[str] = set()
+    for item in variants:
+        fragment = item.strip()
+        if not fragment or fragment in seen:
+            continue
+        seen.add(fragment)
+
+        padded = fragment + ("=" * (-len(fragment) % 4))
+        for decoder in (base64.b64decode, base64.urlsafe_b64decode):
+            try:
+                decoded = decoder(padded).decode("utf-8", errors="ignore").strip()
+            except Exception:
+                continue
+
+            normalized = _normalize_citation_url(decoded)
+            if normalized:
+                return normalized
+
+    return ""
+
+
 def _decode_parent_id_to_url(parent_id: str) -> str:
     encoded = (parent_id or "").strip()
     if not encoded:
         return ""
 
-    if _looks_like_url(encoded):
-        return encoded
+    normalized = _normalize_citation_url(encoded)
+    if normalized:
+        return normalized
 
-    trimmed = encoded.rstrip("0123456789")
-    if not trimmed:
-        return ""
-
-    padding = "=" * (-len(trimmed) % 4)
-    try:
-        decoded = base64.b64decode(trimmed + padding).decode("utf-8", errors="ignore").strip()
-    except Exception:
-        return ""
-
-    if _looks_like_url(decoded):
-        return decoded
-    return ""
+    return _try_decode_base64_to_url(encoded)
 
 
 def _extract_citation_from_payload(payload: dict) -> dict[str, Any]:
@@ -1037,9 +1091,23 @@ def _extract_citation_from_payload(payload: dict) -> dict[str, Any]:
         str(payload.get("source_url") or "").strip(),
         str(payload.get("source") or "").strip(),
         str(payload.get("metadata_storage_path") or "").strip(),
+        str(payload.get("parent_id") or "").strip(),
+        str(payload.get("id") or "").strip(),
+        str(payload.get("chunk_id") or "").strip(),
         _decode_parent_id_to_url(str(payload.get("parent_id") or "").strip()),
     ]
-    link = next((item for item in link_candidates if _looks_like_url(item)), "")
+
+    link = ""
+    for item in link_candidates:
+        normalized = _normalize_citation_url(item)
+        if normalized:
+            link = normalized
+            break
+
+        decoded = _try_decode_base64_to_url(item)
+        if decoded:
+            link = decoded
+            break
 
     try:
         score = float(payload.get("@search.score") or 0.0)

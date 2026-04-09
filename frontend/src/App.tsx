@@ -62,6 +62,29 @@ const decodeHeaderValue = (value: string | null): string => {
   }
 };
 
+const normalizeCitationUrl = (value: unknown): string | undefined => {
+  if (typeof value !== 'string') {
+    return undefined;
+  }
+
+  let url = value.trim();
+  if (!url) {
+    return undefined;
+  }
+
+  if (/^www\./i.test(url)) {
+    url = `https://${url}`;
+  } else if (!/^https?:\/\//i.test(url)) {
+    if (/^[a-z0-9.-]+\.[a-z]{2,}\//i.test(url)) {
+      url = `https://${url}`;
+    } else {
+      return undefined;
+    }
+  }
+
+  return url.replace(/ /g, '%20');
+};
+
 const buildTraceErrorMessage = (message: string, traceId: string = ''): string => {
   const cleaned = message.trim() || 'Sorry, an error occurred while streaming the response.';
   if (!traceId) {
@@ -444,7 +467,7 @@ function App() {
                 title: typeof item.title === 'string' && item.title.trim()
                   ? item.title.trim()
                   : 'Source document',
-                url: typeof item.url === 'string' && item.url.trim() ? item.url.trim() : undefined,
+                url: normalizeCitationUrl(item.url),
                 id: typeof item.id === 'string' && item.id.trim() ? item.id.trim() : undefined,
                 score: typeof item.score === 'number' ? item.score : undefined,
               }))
