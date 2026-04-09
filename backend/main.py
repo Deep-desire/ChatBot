@@ -148,6 +148,15 @@ def _get_required_env(name: str) -> str:
     return value
 
 
+def _get_required_env_any(names: list[str]) -> str:
+    for name in names:
+        value = os.getenv(name)
+        if value and value.strip():
+            return value.strip()
+    joined = ", ".join(names)
+    raise ValueError(f"Missing required environment variable. Set one of: {joined}")
+
+
 def _is_env_true(name: str, default: str = "false") -> bool:
     return os.getenv(name, default).strip().lower() in {"1", "true", "yes", "on"}
 
@@ -700,11 +709,23 @@ def _direct_company_answer(query: str) -> str | None:
 
 
 def _get_embedding_model() -> str:
-    return _get_required_env("AZURE_OPENAI_EMBEDDING_DEPLOYMENT")
+    return _get_required_env_any(
+        [
+            "AZURE_OPENAI_EMBEDDING_DEPLOYMENT",
+            "AZURE_OPENAI_EMBED_DEPLOYMENT",
+            "AZURE_OPENAI_EMBEDDING_MODEL",
+        ]
+    )
 
 
 def _get_chat_model() -> str:
-    return _get_required_env("AZURE_OPENAI_CHAT_DEPLOYMENT")
+    return _get_required_env_any(
+        [
+            "AZURE_OPENAI_CHAT_DEPLOYMENT",
+            "AZURE_OPENAI_DEPLOYMENT",
+            "AZURE_OPENAI_CHAT_MODEL",
+        ]
+    )
 
 
 def _get_azure_openai_endpoint() -> str:
@@ -1236,11 +1257,11 @@ def _build_runtime_issue_message(error: Exception) -> str:
     error_text = str(error).strip()
     lowered = error_text.lower()
 
-    if error_text.startswith("Missing required environment variable:"):
-        missing_name = error_text.split(":", 1)[-1].strip()
+    if error_text.startswith("Missing required environment variable"):
+        missing_name = error_text.split(":", 1)[-1].strip() if ":" in error_text else error_text
         return (
             "Server configuration issue detected. "
-            f"Missing environment variable: {missing_name}."
+            f"{missing_name}."
         )
 
     if "429" in lowered or "rate limit" in lowered:
@@ -1425,9 +1446,63 @@ def _generate_answer(
         raise
 
 
+def _required_backend_env_checks() -> list[tuple[str, list[str]]]:
+    return [
+        ("AZURE_OPENAI_ENDPOINT", ["AZURE_OPENAI_ENDPOINT"]),
+        ("AZURE_OPENAI_API_KEY", ["AZURE_OPENAI_API_KEY"]),
+        (
+            "AZURE_OPENAI_CHAT_DEPLOYMENT",
+            ["AZURE_OPENAI_CHAT_DEPLOYMENT", "AZURE_OPENAI_DEPLOYMENT", "AZURE_OPENAI_CHAT_MODEL"],
+        ),
+        (
+            "AZURE_OPENAI_EMBEDDING_DEPLOYMENT",
+            ["AZURE_OPENAI_EMBEDDING_DEPLOYMENT", "AZURE_OPENAI_EMBED_DEPLOYMENT", "AZURE_OPENAI_EMBEDDING_MODEL"],
+        ),
+        ("AZURE_SEARCH_ENDPOINT", ["AZURE_SEARCH_ENDPOINT"]),
+        ("AZURE_SEARCH_INDEX_NAME", ["AZURE_SEARCH_INDEX_NAME"]),
+    ]
+
+
+def _missing_backend_env_summary() -> list[dict[str, Any]]:
+    missing: list[dict[str, Any]] = []
+    for required_name, accepted_names in _required_backend_env_checks():
+        is_present = any((os.getenv(name) or "").strip() for name in accepted_names)
+        if not is_present:
+            missing.append(
+                {
+                    "required": required_name,
+                    "accepted": accepted_names,
+                }
+            )
+
+    if _is_sharepoint_sync_enabled():
+        for name in [
+            "SHAREPOINT_TENANT_ID",
+            "SHAREPOINT_CLIENT_ID",
+            "SHAREPOINT_CLIENT_SECRET",
+            "SHAREPOINT_SITE_ID",
+            "SHAREPOINT_LIST_ID",
+        ]:
+            if not (os.getenv(name) or "").strip():
+                missing.append({"required": name, "accepted": [name]})
+
+    return missing
+
+
 @app.get("/health")
 async def health() -> dict:
     return {"status": "ok"}
+
+
+@app.get("/health/config")
+async def health_config() -> dict:
+    missing = _missing_backend_env_summary()
+    return {
+        "status": "ok" if not missing else "degraded",
+        "missing_count": len(missing),
+        "missing": missing,
+        "sharepoint_sync_enabled": _is_sharepoint_sync_enabled(),
+    }
 
 
 @app.post("/api/chat/text")

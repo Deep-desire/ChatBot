@@ -22,7 +22,18 @@ interface Citation {
 type LeadStage = 'email' | 'name' | 'chat';
 
 const DEFAULT_API_BASE_URL = import.meta.env.DEV ? 'http://localhost:8000' : '/backend';
-const API_BASE_URL = (import.meta.env.VITE_API_BASE_URL || DEFAULT_API_BASE_URL).replace(/\/+$/, '');
+const API_BASE_URL = (() => {
+  const configuredValue = (import.meta.env.VITE_API_BASE_URL || '').trim();
+  const candidate = (configuredValue || DEFAULT_API_BASE_URL).replace(/\/+$/, '');
+  const pointsToLocalhost = /^https?:\/\/(localhost|127\.0\.0\.1)(:\d+)?(\/.*)?$/i.test(candidate);
+
+  // In deployed environments, localhost is unreachable from the browser and causes CORS/PNA failures.
+  if (!import.meta.env.DEV && pointsToLocalhost) {
+    return '/backend';
+  }
+
+  return candidate;
+})();
 const FLOATING_BOT_IMAGE_URL = (import.meta.env.VITE_FLOATING_BOT_IMAGE_URL || '/bot.gif').trim();
 
 const SESSION_STORAGE_KEY = 'vtl_session_id';
