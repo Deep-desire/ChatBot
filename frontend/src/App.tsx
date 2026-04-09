@@ -46,6 +46,18 @@ const normalizeQuestionText = (value: string): string => {
 };
 
 const STARTER_QUESTION_KEYS = new Set(DEFAULT_SUGGESTED_QUESTIONS.map(normalizeQuestionText));
+const LOW_SIGNAL_SUGGESTION_KEYS = new Set([
+  'hi',
+  'hii',
+  'hiii',
+  'hello',
+  'hey',
+  'ok',
+  'okay',
+  'thanks',
+  'thankyou',
+  'thank you',
+]);
 
 const decodeHeaderValue = (value: string | null): string => {
   if (!value) {
@@ -212,6 +224,9 @@ function App() {
       .filter((item: string) => {
         const normalized = normalizeQuestionText(item);
         if (!normalized || STARTER_QUESTION_KEYS.has(normalized)) {
+          return false;
+        }
+        if (LOW_SIGNAL_SUGGESTION_KEYS.has(normalized) || normalized.length < 8) {
           return false;
         }
         if (currentPromptKey && normalized === currentPromptKey) {
