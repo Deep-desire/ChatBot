@@ -482,39 +482,51 @@ function App() {
         }
       };
 
-      while (true) {
-        const { done, value } = await reader.read();
-        if (done) {
-          break;
+      const processRawEvent = (rawEvent: string) => {
+        const lines = rawEvent.replace(/\r/g, '').split('\n');
+        let eventType = 'message';
+        const dataLines: string[] = [];
+
+        for (const line of lines) {
+          if (line.startsWith('event:')) {
+            eventType = line.slice(6).trim();
+            continue;
+          }
+          if (line.startsWith('data:')) {
+            dataLines.push(line.slice(5).trim());
+          }
         }
 
-        buffer += decoder.decode(value, { stream: true });
+        if (dataLines.length > 0) {
+          processEvent(eventType, dataLines.join('\n'));
+        }
+      };
 
+      const drainEventBuffer = (flushRemainder: boolean = false) => {
         let splitIndex = buffer.indexOf('\n\n');
         while (splitIndex !== -1) {
           const rawEvent = buffer.slice(0, splitIndex);
           buffer = buffer.slice(splitIndex + 2);
-
-          const lines = rawEvent.replace(/\r/g, '').split('\n');
-          let eventType = 'message';
-          const dataLines: string[] = [];
-
-          for (const line of lines) {
-            if (line.startsWith('event:')) {
-              eventType = line.slice(6).trim();
-              continue;
-            }
-            if (line.startsWith('data:')) {
-              dataLines.push(line.slice(5).trim());
-            }
-          }
-
-          if (dataLines.length > 0) {
-            processEvent(eventType, dataLines.join('\n'));
-          }
-
+          processRawEvent(rawEvent);
           splitIndex = buffer.indexOf('\n\n');
         }
+
+        if (flushRemainder && buffer.trim()) {
+          processRawEvent(buffer);
+          buffer = '';
+        }
+      };
+
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) {
+          buffer += decoder.decode();
+          drainEventBuffer(true);
+          break;
+        }
+
+        buffer += decoder.decode(value, { stream: true });
+        drainEventBuffer();
       }
 
       if (!streamedText.trim()) {

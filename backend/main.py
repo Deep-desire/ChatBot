@@ -403,6 +403,18 @@ def _build_dynamic_followup_questions(session_id: str, limit: int = 3) -> list[s
 
     suggestions: list[str] = []
     seen: set[str] = set()
+    low_signal_queries = {
+        "hi",
+        "hii",
+        "hiii",
+        "hello",
+        "hey",
+        "ok",
+        "okay",
+        "thanks",
+        "thankyou",
+        "thank you",
+    }
 
     # Use only previous user prompts from the same session history.
     if len(history) <= 1:
@@ -411,6 +423,11 @@ def _build_dynamic_followup_questions(session_id: str, limit: int = 3) -> list[s
     for user_text, _ in reversed(history[:-1]):
         candidate = user_text.strip()
         if not candidate:
+            continue
+        normalized_candidate = re.sub(r"\s+", " ", candidate.lower()).strip()
+        if normalized_candidate in low_signal_queries:
+            continue
+        if len(normalized_candidate) < 8:
             continue
         key = _normalize_question_for_compare(candidate)
         if not key or key in seen:
