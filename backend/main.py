@@ -143,7 +143,7 @@ NO_CONTEXT_RESPONSE = (
 OVERLAP_STOPWORDS = {
     "the", "and", "for", "with", "from", "into", "that", "this", "what", "when", "where", "which",
     "about", "your", "you", "have", "has", "are", "was", "were", "will", "would", "could", "should",
-    "give", "detail", "details", "please", "need", "want", "tell", "me", "our", "their", "they",
+    "please", "need", "want", "tell", "me", "our", "their", "they",
     "first", "day", "procedure", "process", "step", "steps",
 }
 
@@ -823,8 +823,10 @@ def _direct_company_answer(query: str) -> str | None:
     q = query.lower().strip()
     compact = re.sub(r"\s+", " ", re.sub(r"[^a-z0-9\s]", " ", q)).strip()
     compact_no_space = compact.replace(" ", "")
+    logger.debug("Direct answer check: query='%s', compact='%s'", q, compact)
 
     if re.match(r"^(hi+|hello+|hey+|good morning|good afternoon|good evening)\b", compact) and len(compact.split()) <= 4:
+        logger.debug("Direct answer matched: greeting")
         return (
             "Hello! Welcome to Desire Infoweb. "
             f"{SERVICE_SUMMARY} "
@@ -832,6 +834,7 @@ def _direct_company_answer(query: str) -> str | None:
         )
 
     if any(keyword in compact for keyword in ["what service", "services", "what do you do", "what you do", "what do you provide", "offer"]):
+        logger.debug("Direct answer matched: services query")
         return (
             "We provide end-to-end Microsoft technology services: "
             "SharePoint and intranet solutions, Power Platform (Power Apps/Automate), "
@@ -851,15 +854,18 @@ def _direct_company_answer(query: str) -> str | None:
         ("desire infoweb" in compact or "desireinfoweb" in compact_no_space)
         and any(keyword in compact for keyword in ["detail", "details", "about", "info", "information", "tell me", "what is"])
     ):
+        logger.debug("Direct answer matched: company info query")
         return (
             "Desire Infoweb is an IT services company focused on Microsoft technologies and business automation. "
             f"{SERVICE_SUMMARY}"
         )
 
     if any(keyword in compact for keyword in ["budget", "cost", "pricing", "price", "estimate", "quotation", "quote"]):
+        logger.debug("Direct answer matched: budget query")
         return BUDGET_SUMMARY
 
     if any(keyword in compact for keyword in ["build ai chatbot", "want to build ai chatbot", "ai chatbot project", "chatbot project"]):
+        logger.debug("Direct answer matched: chatbot build query")
         return (
             "Great choice. We can build an AI chatbot for your website or Microsoft Teams with your business data as context. "
             "Typical scope includes discovery, data ingestion (PDF/web/SharePoint), prompt tuning, voice/text support, testing, and deployment. "
@@ -867,6 +873,7 @@ def _direct_company_answer(query: str) -> str | None:
         )
 
     if any(keyword in compact for keyword in ["normal chatbot", "just chatbot", "simple chatbot", "basic chatbot"]):
+        logger.debug("Direct answer matched: basic chatbot query")
         return CHATBOT_IMPLEMENTATION_SUMMARY
 
     if any(
@@ -880,12 +887,15 @@ def _direct_company_answer(query: str) -> str | None:
             "data from sharepoint",
         ]
     ) and "chatbot" in compact:
+        logger.debug("Direct answer matched: chatbot data source query")
         return CHATBOT_DATA_SOURCE_SUMMARY
 
     if any(keyword in compact for keyword in [".net", "dotnet", "net service", "what about net"]):
+        logger.debug("Direct answer matched: .NET query")
         return DOTNET_SUMMARY
 
     if any(keyword in compact for keyword in ["industry", "industries", "domain", "sector"]):
+        logger.debug("Direct answer matched: industry query")
         return INDUSTRY_SUMMARY
 
     if compact in {
@@ -898,8 +908,10 @@ def _direct_company_answer(query: str) -> str | None:
         "tell me about ai services",
         "tell me about ai solutions",
     }:
+        logger.debug("Direct answer matched: generic AI query")
         return AI_SUMMARY
 
+    logger.debug("No direct answer match, will use RAG retrieval")
     return None
 
 
@@ -989,8 +1001,8 @@ def _get_tts_voice() -> str:
 
 
 def _get_max_output_tokens() -> int:
-    requested_raw = os.getenv("LLM_MAX_OUTPUT_TOKENS", "32000")
-    model_cap_raw = os.getenv("AZURE_OPENAI_MAX_COMPLETION_TOKENS", "32384")
+    requested_raw = os.getenv("LLM_MAX_OUTPUT_TOKENS", "16000")
+    model_cap_raw = os.getenv("AZURE_OPENAI_MAX_COMPLETION_TOKENS", "15384")
 
     try:
         requested_tokens = int(requested_raw)
@@ -1356,25 +1368,35 @@ def _extract_context_from_results(results, top_k: int) -> tuple[str, float, list
 def _search_vector_context(query: str, top_k: int) -> tuple[str, float, list[dict[str, Any]]]:
     vector_field = _get_azure_search_vector_field()
     if not vector_field:
+        logger.warning("Vector field not configured, skipping vector search.")
         return "", 0.0, []
 
+    logger.info("Vector search: generating embeddings for query (len=%d)...", len(query))
     query_vector = get_embeddings_client().embed_query(query)
+    logger.info("Vector search: embedding generated (dim=%d)", len(query_vector))
+    
     vector_query = VectorizedQuery(
         vector=query_vector,
         k_nearest_neighbors=top_k,
         fields=vector_field,
     )
+    logger.info("Vector search: executing search against field '%s' with top_k=%d...", vector_field, top_k)
     results = get_search_client().search(
         search_text=None,
         vector_queries=[vector_query],
         top=top_k,
     )
-    return _extract_context_from_results(results, top_k)
+    context, score, citations = _extract_context_from_results(results, top_k)
+    logger.info("Vector search: completed - retrieved %d chars, top_score=%.4f, citations=%d", len(context), score, len(citations))
+    return context, score, citations
 
 
 def _search_text_context(query: str, top_k: int) -> tuple[str, float, list[dict[str, Any]]]:
     semantic_config = _get_azure_search_semantic_config()
+    logger.info("Text search: executing with top_k=%d, semantic_enabled=%s", top_k, _use_azure_search_semantic() and bool(semantic_config))
+    
     if _use_azure_search_semantic() and semantic_config:
+        logger.info("Text search: using semantic config '%s'", semantic_config)
         results = get_search_client().search(
             search_text=query,
             top=top_k,
@@ -1382,12 +1404,15 @@ def _search_text_context(query: str, top_k: int) -> tuple[str, float, list[dict[
             semantic_configuration_name=semantic_config,
         )
     else:
+        logger.info("Text search: using basic keyword search")
         results = get_search_client().search(
             search_text=query,
             top=top_k,
         )
 
-    return _extract_context_from_results(results, top_k)
+    context, score, citations = _extract_context_from_results(results, top_k)
+    logger.info("Text search: completed - retrieved %d chars, top_score=%.4f, citations=%d", len(context), score, len(citations))
+    return context, score, citations
 
 
 def _retrieve_context_and_score(query: str) -> tuple[str, float, list[dict[str, Any]]]:
@@ -1429,10 +1454,18 @@ def _retrieve_context_and_score(query: str) -> tuple[str, float, list[dict[str, 
 
 
 def _should_use_embedding_context(normalized_query: str, retrieved_context: str, top_score: float) -> bool:
+    logger.info("Context evaluation: checking if retrieved context should be used...")
+    logger.info("  - retrieved_context length: %d chars", len(retrieved_context))
+    logger.info("  - top_score: %.6f", top_score)
+    
     if not retrieved_context:
         _trace_step("context.rejected", reason="empty_context")
+        logger.warning("Context rejected: no retrieved context")
         return False
+    
     score_threshold = _get_embedding_similarity_threshold()
+    logger.info("  - score_threshold: %.6f", score_threshold)
+    
     if top_score < score_threshold:
         _trace_step(
             "context.rejected",
@@ -1440,12 +1473,16 @@ def _should_use_embedding_context(normalized_query: str, retrieved_context: str,
             top_score=top_score,
             score_threshold=score_threshold,
         )
+        logger.warning("Context rejected: top_score (%.4f) below threshold (%.4f)", top_score, score_threshold)
         return False
 
     overlap_ratio, overlap_count, query_term_count = _compute_query_overlap(normalized_query, retrieved_context)
     overlap_threshold = _get_query_overlap_threshold()
     min_overlap_terms = _get_query_min_overlap_terms()
     strong_match_score_threshold = _get_strong_match_score_threshold()
+
+    logger.info("  - query terms: %d (overlap: %d/%.2f%%)", query_term_count, overlap_count, overlap_ratio * 100)
+    logger.info("  - thresholds: overlap_ratio=%.2f, overlap_terms=%d, strong_match_score=%.4f", overlap_threshold, min_overlap_terms, strong_match_score_threshold)
 
     if query_term_count == 0:
         _trace_step(
@@ -1454,6 +1491,7 @@ def _should_use_embedding_context(normalized_query: str, retrieved_context: str,
             min_overlap_terms=min_overlap_terms,
             query_term_count=query_term_count,
         )
+        logger.warning("Context rejected: query has no meaningful terms")
         return False
 
     required_overlap_terms = min(min_overlap_terms, query_term_count)
@@ -1468,6 +1506,7 @@ def _should_use_embedding_context(normalized_query: str, retrieved_context: str,
             adjusted_min_overlap_terms=required_overlap_terms,
         )
     if overlap_count < required_overlap_terms:
+        logger.warning("Context rejected: overlap_count (%d) < required_overlap_terms (%d)", overlap_count, required_overlap_terms)
         _trace_step(
             "context.rejected",
             reason="query_overlap_terms_below_minimum",
@@ -1479,6 +1518,7 @@ def _should_use_embedding_context(normalized_query: str, retrieved_context: str,
         return False
 
     if overlap_ratio < overlap_threshold:
+        logger.warning("Context rejected: overlap_ratio (%.4f) < threshold (%.4f)", overlap_ratio, overlap_threshold)
         _trace_step(
             "context.rejected",
             reason="query_overlap_below_threshold",
@@ -1489,6 +1529,7 @@ def _should_use_embedding_context(normalized_query: str, retrieved_context: str,
         )
         return False
 
+    logger.info("Context ACCEPTED: all checks passed (score=%.4f, overlap=%.2f%%/%d terms)", top_score, overlap_ratio * 100, overlap_count)
     _trace_step(
         "context.accepted",
         top_score=top_score,
@@ -1780,6 +1821,65 @@ async def health_config() -> dict:
             "azure_search_required": _is_azure_search_required(),
             "allow_generic_fallback": _allow_generic_fallback(),
         },
+    }
+
+
+@app.get("/debug/search")
+async def debug_search(q: str = "") -> dict:
+    """Direct Azure Search test endpoint for debugging retrieval issues."""
+    if not q or len(q.strip()) < 2:
+        return {
+            "error": "Query too short. Use ?q=your-test-query",
+            "example": "/debug/search?q=fluentify",
+        }
+
+    logger.info("DEBUG: Direct search test for query='%s'", q)
+    
+    results_vector = {"success": False, "error": None, "results": []}
+    results_text = {"success": False, "error": None, "results": []}
+    
+    try:
+        logger.info("DEBUG: Attempting vector search...")
+        context_v, score_v, citations_v = _search_vector_context(q, 3)
+        results_vector = {
+            "success": True,
+            "context_length": len(context_v),
+            "top_score": score_v,
+            "citations_count": len(citations_v),
+            "context_preview": context_v[:300] if context_v else None,
+            "citations": citations_v,
+        }
+    except Exception as e:
+        logger.warning("DEBUG: Vector search failed: %s", e)
+        results_vector["error"] = str(e)
+    
+    try:
+        logger.info("DEBUG: Attempting text search...")
+        context_t, score_t, citations_t = _search_text_context(q, 3)
+        results_text = {
+            "success": True,
+            "context_length": len(context_t),
+            "top_score": score_t,
+            "citations_count": len(citations_t),
+            "context_preview": context_t[:300] if context_t else None,
+            "citations": citations_t,
+        }
+    except Exception as e:
+        logger.warning("DEBUG: Text search failed: %s", e)
+        results_text["error"] = str(e)
+    
+    return {
+        "query": q,
+        "config": {
+            "azure_search_endpoint": (os.getenv("AZURE_SEARCH_ENDPOINT") or "").strip(),
+            "azure_search_index_name": (os.getenv("AZURE_SEARCH_INDEX_NAME") or "").strip(),
+            "azure_search_vector_field": _get_azure_search_vector_field(),
+            "azure_search_content_field": _get_azure_search_content_field(),
+            "score_threshold": _get_embedding_similarity_threshold(),
+            "overlap_threshold": _get_query_overlap_threshold(),
+        },
+        "vector_search": results_vector,
+        "text_search": results_text,
     }
 
 
