@@ -1,4 +1,5 @@
 import json
+import re
 import time
 import urllib.error
 import urllib.parse
@@ -9,6 +10,7 @@ from pathlib import Path
 BASE_URL = "https://visit-to-lead.vercel.app/backend"
 LEAD_EMAIL = "qa@example.com"
 LEAD_NAME = "QA"
+BAD_TAIL_PATTERN = re.compile(r"\b(and|or|to|for|with|but|nor|yet|by|as|if|is|was|are|been|being)\s*$", re.IGNORECASE)
 
 
 def _post_form(path: str, payload: dict[str, str]) -> dict:
@@ -43,6 +45,47 @@ def _post_stream_raw(path: str, payload: dict[str, str]) -> str:
     )
     with urllib.request.urlopen(request, timeout=90) as response:
         return response.read().decode("utf-8", errors="replace")
+
+
+def _parse_sse_token_and_done(stream_text: str) -> tuple[str, str]:
+    token_parts: list[str] = []
+    done_reply = ""
+
+    for block in stream_text.split("\n\n"):
+        if not block.strip():
+            continue
+
+        event_type = "message"
+        data_lines: list[str] = []
+        for line in block.split("\n"):
+            if line.startswith("event:"):
+                event_type = line[6:].strip()
+            elif line.startswith("data:"):
+                data_lines.append(line[5:].strip())
+
+        if not data_lines:
+            continue
+
+        try:
+            payload = json.loads("\n".join(data_lines))
+        except Exception:
+            continue
+
+        if event_type == "token" and isinstance(payload.get("token"), str):
+            token_parts.append(payload["token"])
+        elif event_type == "done" and isinstance(payload.get("reply"), str):
+            done_reply = payload["reply"]
+
+    return "".join(token_parts), done_reply
+
+
+def _has_bad_tail(text: str) -> bool:
+    value = text.strip()
+    if not value:
+        return True
+    if value.endswith((".", "!", "?")):
+        return False
+    return bool(BAD_TAIL_PATTERN.search(value))
 
 
 def _new_session(prefix: str) -> str:
@@ -188,18 +231,27 @@ def run_cycle() -> dict:
         },
     )
 
+    token_1, done_1 = _parse_sse_token_and_done(stream_text_1)
+    token_2, done_2 = _parse_sse_token_and_done(stream_text_2)
+
     report["stream_checks"] = {
         "ai_solutions_prompt": {
             "session": stream_session_1,
             "has_done": "event: done" in stream_text_1,
             "has_error": "event: error" in stream_text_1,
             "token_events": stream_text_1.count("event: token"),
+            "token_done_equal": token_1.strip() == done_1.strip(),
+            "done_has_bad_tail": _has_bad_tail(done_1),
+            "done_chars": len(done_1),
         },
         "fluentify_prompt": {
             "session": stream_session_2,
             "has_done": "event: done" in stream_text_2,
             "has_error": "event: error" in stream_text_2,
             "token_events": stream_text_2.count("event: token"),
+            "token_done_equal": token_2.strip() == done_2.strip(),
+            "done_has_bad_tail": _has_bad_tail(done_2),
+            "done_chars": len(done_2),
         },
     }
 
