@@ -39,10 +39,26 @@ const FLOATING_BOT_IMAGE_URL = (import.meta.env.VITE_FLOATING_BOT_IMAGE_URL || '
 const SESSION_STORAGE_KEY = 'vtl_session_id';
 const EMAIL_STORAGE_KEY = 'vtl_lead_email';
 const NAME_STORAGE_KEY = 'vtl_lead_name';
-const DEFAULT_SUGGESTED_QUESTIONS: string[] = [];
+const DYNAMIC_SUGGESTION_MAX_CHARS = 84;
+const DEFAULT_SUGGESTED_QUESTIONS: string[] = [
+  'What is Desire Infoweb?',
+  'What type of services does Desire Infoweb provide?',
+  'What type of AI projects has Desire Infoweb completed?',
+];
 
 const normalizeQuestionText = (value: string): string => {
   return value.trim().toLowerCase().replace(/\s+/g, ' ');
+};
+
+const clampSuggestionLength = (value: string): string => {
+  const normalized = value.trim().replace(/\s+/g, ' ');
+  if (normalized.length <= DYNAMIC_SUGGESTION_MAX_CHARS) {
+    return normalized;
+  }
+  const sliced = normalized.slice(0, DYNAMIC_SUGGESTION_MAX_CHARS - 1).trim();
+  const boundary = sliced.lastIndexOf(' ');
+  const compact = boundary >= 28 ? sliced.slice(0, boundary).trim() : sliced;
+  return `${compact}?`;
 };
 
 const STARTER_QUESTION_KEYS = new Set(DEFAULT_SUGGESTED_QUESTIONS.map(normalizeQuestionText));
@@ -151,6 +167,9 @@ function App() {
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
   const audioChunksRef = useRef<Blob[]>([]);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const streamCharacterQueueRef = useRef('');
+  const streamTypeTimerRef = useRef<number | null>(null);
+  const streamDrainResolverRef = useRef<(() => void) | null>(null);
 
   useEffect(() => {
     const storedSessionId = localStorage.getItem(SESSION_STORAGE_KEY)?.trim();
@@ -207,13 +226,37 @@ function App() {
 
   useEffect(() => {
     if (messagesEndRef.current) {
-      messagesEndRef.current.scrollIntoView({ behavior: 'smooth' });
+      messagesEndRef.current.scrollIntoView({ behavior: isStreamingResponse ? 'auto' : 'smooth' });
     }
-  }, [messages, isLoading]);
+  }, [messages, isLoading, isStreamingResponse]);
+
+  const invokeAndClearStreamDrainResolver = () => {
+    const resolver = streamDrainResolverRef.current as (() => void) | null;
+    streamDrainResolverRef.current = null;
+    if (resolver) {
+      resolver();
+    }
+  };
+
+  useEffect(() => {
+    return () => {
+      if (streamTypeTimerRef.current !== null) {
+        window.clearTimeout(streamTypeTimerRef.current);
+        streamTypeTimerRef.current = null;
+      }
+      streamCharacterQueueRef.current = '';
+      invokeAndClearStreamDrainResolver();
+    };
+  }, []);
 
   const selectDynamicSuggestions = (rawSuggestions: unknown, currentPrompt: string = ''): string[] => {
     const currentPromptKey = normalizeQuestionText(currentPrompt);
     const seenKeys = new Set<string>();
+    const askedQuestionKeys = new Set(
+      messages
+        .filter((message) => message.role === 'user')
+        .map((message) => normalizeQuestionText(message.text)),
+    );
 
     if (!Array.isArray(rawSuggestions)) {
       return [];
@@ -221,9 +264,13 @@ function App() {
 
     return rawSuggestions
       .filter((item: unknown): item is string => typeof item === 'string' && item.trim().length > 0)
+      .map((item: string) => clampSuggestionLength(item))
       .filter((item: string) => {
         const normalized = normalizeQuestionText(item);
         if (!normalized || STARTER_QUESTION_KEYS.has(normalized)) {
+          return false;
+        }
+        if (askedQuestionKeys.has(normalized)) {
           return false;
         }
         if (LOW_SIGNAL_SUGGESTION_KEYS.has(normalized) || normalized.length < 8) {
@@ -238,14 +285,10 @@ function App() {
         seenKeys.add(normalized);
         return true;
       })
-      .slice(0, 2);
+      .slice(0, 3);
   };
 
   const appendToLatestBotMessage = (chunk: string) => {
-    if (!chunk) {
-      return;
-    }
-
     setMessages((prev) => {
       const next = [...prev];
       for (let index = next.length - 1; index >= 0; index -= 1) {
@@ -255,6 +298,83 @@ function App() {
         }
       }
       return [...next, { role: 'bot', text: chunk }];
+    });
+  };
+
+  const resolveStreamDrainIfIdle = () => {
+    if (streamTypeTimerRef.current !== null || streamCharacterQueueRef.current.length > 0) {
+      return;
+    }
+    invokeAndClearStreamDrainResolver();
+  };
+
+  const getCharacterDelay = (character: string, queueLength: number): number => {
+    const baseDelay = queueLength > 240 ? 6 : queueLength > 120 ? 8 : 12;
+    if (/[.!?]/.test(character)) {
+      return baseDelay + 38;
+    }
+    if (/[,;:]/.test(character)) {
+      return baseDelay + 20;
+    }
+    if (/\s/.test(character)) {
+      return baseDelay + 6;
+    }
+    return baseDelay;
+  };
+
+  const flushRemainingStreamCharacters = () => {
+    if (!streamCharacterQueueRef.current) {
+      return;
+    }
+    const remaining = streamCharacterQueueRef.current;
+    streamCharacterQueueRef.current = '';
+    appendToLatestBotMessage(remaining);
+  };
+
+  const typeNextStreamCharacter = () => {
+    if (!streamCharacterQueueRef.current) {
+      streamTypeTimerRef.current = null;
+      resolveStreamDrainIfIdle();
+      return;
+    }
+
+    const nextCharacter = streamCharacterQueueRef.current[0];
+    streamCharacterQueueRef.current = streamCharacterQueueRef.current.slice(1);
+    appendToLatestBotMessage(nextCharacter);
+
+    const delay = getCharacterDelay(nextCharacter, streamCharacterQueueRef.current.length);
+    streamTypeTimerRef.current = window.setTimeout(typeNextStreamCharacter, delay);
+  };
+
+  const queueStreamToken = (token: string) => {
+    if (!token) {
+      return;
+    }
+    streamCharacterQueueRef.current += token;
+    if (streamTypeTimerRef.current === null) {
+      typeNextStreamCharacter();
+    }
+  };
+
+  const waitForStreamAnimationDrain = async (timeoutMs: number = 2500) => {
+    if (streamTypeTimerRef.current === null && streamCharacterQueueRef.current.length === 0) {
+      return;
+    }
+
+    await new Promise<void>((resolve) => {
+      const fallbackTimer = window.setTimeout(() => {
+        if (streamDrainResolverRef.current === onDrain) {
+          streamDrainResolverRef.current = null;
+        }
+        resolve();
+      }, timeoutMs);
+
+      const onDrain = () => {
+        window.clearTimeout(fallbackTimer);
+        resolve();
+      };
+
+      streamDrainResolverRef.current = onDrain;
     });
   };
 
@@ -293,7 +413,7 @@ function App() {
       const response = await axios.get(`${API_BASE_URL}/api/chat/suggestions`, {
         params: {
           session_id: targetSessionId,
-          limit: 2,
+          limit: 3,
         },
       });
       setDynamicSuggestedQuestions(selectDynamicSuggestions(response.data?.suggestions, currentPrompt));
@@ -303,7 +423,7 @@ function App() {
   };
 
   const visibleSuggestedQuestions = hasStartedChat
-    ? dynamicSuggestedQuestions
+    ? dynamicSuggestedQuestions.slice(0, 3)
     : DEFAULT_SUGGESTED_QUESTIONS;
 
   useEffect(() => {
@@ -374,6 +494,12 @@ function App() {
     setIsLoading(true);
     setIsStreamingResponse(true);
     setIsWaitingForFirstToken(true);
+    streamCharacterQueueRef.current = '';
+    if (streamTypeTimerRef.current !== null) {
+      window.clearTimeout(streamTypeTimerRef.current);
+      streamTypeTimerRef.current = null;
+    }
+invokeAndClearStreamDrainResolver();
     setMessages((prev) => [...prev, { role: 'bot', text: '' }]);
 
     try {
@@ -443,7 +569,7 @@ function App() {
           if (token) {
             setIsWaitingForFirstToken(false);
             streamedText += token;
-            appendToLatestBotMessage(token);
+            queueStreamToken(token);
           }
           return;
         }
@@ -453,7 +579,7 @@ function App() {
           const doneReply = typeof data.reply === 'string' ? data.reply : '';
           if (!streamedText.trim() && doneReply) {
             streamedText = doneReply;
-            setLatestBotMessageText(doneReply);
+            queueStreamToken(doneReply);
           }
 
           if (typeof data.session_id === 'string' && data.session_id.trim()) {
@@ -535,18 +661,20 @@ function App() {
       while (true) {
         const { done, value } = await reader.read();
         if (done) {
-          buffer += decoder.decode();
+          buffer += decoder.decode().replace(/\r/g, '');
           drainEventBuffer(true);
           break;
         }
 
-        buffer += decoder.decode(value, { stream: true });
+        buffer += decoder.decode(value, { stream: true }).replace(/\r/g, '');
         drainEventBuffer();
       }
 
       if (!streamedText.trim()) {
         throw new Error('Empty streamed response');
       }
+
+      await waitForStreamAnimationDrain();
 
       if (streamCitations.length > 0) {
         setLatestBotMessageCitations(streamCitations);
@@ -569,11 +697,22 @@ function App() {
         void refreshSuggestedQuestions(resolvedSessionId, userMsg);
       }
     } catch (error) {
+      if (streamTypeTimerRef.current !== null) {
+        window.clearTimeout(streamTypeTimerRef.current);
+        streamTypeTimerRef.current = null;
+      }
+      flushRemainingStreamCharacters();
       const errorMessage = error instanceof Error && error.message
         ? error.message
         : 'Sorry, an error occurred while streaming the response.';
       setLatestBotMessageText(errorMessage);
     } finally {
+      if (streamTypeTimerRef.current !== null) {
+        window.clearTimeout(streamTypeTimerRef.current);
+        streamTypeTimerRef.current = null;
+      }
+      streamCharacterQueueRef.current = '';
+      invokeAndClearStreamDrainResolver();
       setIsWaitingForFirstToken(false);
       setIsStreamingResponse(false);
       setIsLoading(false);

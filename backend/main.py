@@ -266,11 +266,14 @@ def _trace_step(step: str, **details: Any) -> None:
 
 def _persist_trace(trace: dict[str, Any]) -> None:
     output_path = _get_chat_trace_log_path()
-    output_path.parent.mkdir(parents=True, exist_ok=True)
     serialized = json.dumps(trace, ensure_ascii=False)
-    with _trace_log_lock:
-        with output_path.open("a", encoding="utf-8") as handle:
-            handle.write(serialized + "\n")
+    try:
+        output_path.parent.mkdir(parents=True, exist_ok=True)
+        with _trace_log_lock:
+            with output_path.open("a", encoding="utf-8") as handle:
+                handle.write(serialized + "\n")
+    except Exception as error:
+        logger.warning("Trace persistence skipped (path=%s): %s", output_path, error)
 
 
 def _finalize_trace(status: str, **summary: Any) -> None:
@@ -284,13 +287,16 @@ def _finalize_trace(status: str, **summary: Any) -> None:
     trace.pop("started_at_epoch", None)
     _persist_trace(trace)
     if _is_chat_trace_console_enabled():
-        logger.info(
-            "chat trace %s status=%s endpoint=%s duration_ms=%s",
-            trace.get("trace_id"),
-            status,
-            trace.get("endpoint"),
-            trace.get("duration_ms"),
-        )
+        try:
+            logger.info(
+                "chat trace %s status=%s endpoint=%s duration_ms=%s",
+                trace.get("trace_id"),
+                status,
+                trace.get("endpoint"),
+                trace.get("duration_ms"),
+            )
+        except Exception:
+            pass
 
 
 def _deactivate_trace(token: Token | None) -> None:
@@ -394,6 +400,189 @@ def _normalize_question_for_compare(question: str) -> str:
     return re.sub(r"\W+", "", question).lower()
 
 
+def _looks_like_prompt_phrase(value: str) -> bool:
+    lowered = value.strip().lower()
+    return lowered.startswith(
+        (
+            "can you",
+            "could you",
+            "what ",
+            "which ",
+            "how ",
+            "tell me",
+            "give me",
+            "share ",
+            "please ",
+        )
+    )
+
+
+def _get_suggestion_max_chars() -> int:
+    raw_value = os.getenv("SUGGESTION_MAX_CHARS", "84")
+    try:
+        length = int(raw_value)
+    except ValueError:
+        length = 84
+    return max(40, min(length, 160))
+
+
+def _truncate_question_to_limit(value: str, max_chars: int) -> str:
+    if len(value) <= max_chars:
+        return value
+
+    candidate = value[: max_chars - 1].rstrip()
+    if " " in candidate:
+        maybe_word_boundary = candidate.rsplit(" ", 1)[0].rstrip()
+        if len(maybe_word_boundary) >= 28:
+            candidate = maybe_word_boundary
+    return candidate
+
+
+def _sanitize_followup_question(candidate: str) -> str:
+    value = re.sub(r"\s+", " ", (candidate or "").strip())
+    value = re.sub(r"^[\-\*\d\.)\s]+", "", value).strip()
+    if not value:
+        return ""
+    max_chars = _get_suggestion_max_chars()
+    value = _truncate_question_to_limit(value, max_chars)
+    if value.endswith(":"):
+        value = value[:-1].strip()
+    if not value.endswith("?"):
+        value = value.rstrip(".") + "?"
+    if len(value) > max_chars:
+        value = value[: max_chars - 1].rstrip(" .?!") + "?"
+    if len(value) < 16 or len(value) > max_chars:
+        return ""
+    lowered = value.lower()
+    if "for can you" in lowered or "for what " in lowered:
+        return ""
+    if lowered.count("?") > 1:
+        return ""
+    return value
+
+
+def _extract_questions_from_llm_payload(raw_content: str) -> list[str]:
+    text = (raw_content or "").strip()
+    if not text:
+        return []
+
+    attempts: list[str] = [text]
+    json_like_match = re.search(r"\{[\s\S]*\}|\[[\s\S]*\]", text)
+    if json_like_match:
+        attempts.append(json_like_match.group(0))
+
+    for payload in attempts:
+        try:
+            parsed = json.loads(payload)
+        except Exception:
+            continue
+
+        if isinstance(parsed, dict):
+            questions = parsed.get("questions")
+            if isinstance(questions, list):
+                return [str(item) for item in questions if isinstance(item, str)]
+        if isinstance(parsed, list):
+            return [str(item) for item in parsed if isinstance(item, str)]
+
+    line_candidates = []
+    for line in text.splitlines():
+        cleaned = re.sub(r"^[\-\*\d\.)\s]+", "", line).strip()
+        if cleaned:
+            line_candidates.append(cleaned)
+    return line_candidates
+
+
+def _generate_followups_with_llm(
+    history: list[tuple[str, str]],
+    asked_question_keys: set[str],
+    limit: int,
+) -> list[str]:
+    history_turns = max(1, min(int(os.getenv("SUGGESTION_HISTORY_TURNS", "4")), 8))
+    recent_turns = history[-history_turns:]
+    transcript_lines: list[str] = []
+    for user_text, assistant_text in recent_turns:
+        transcript_lines.append(f"User: {_clip_text(user_text, 220)}")
+        transcript_lines.append(f"Assistant: {_clip_text(assistant_text, 420)}")
+
+    prompt = (
+        "Generate exactly 3 concise, high-quality follow-up questions for the user based on the full conversation. "
+        "Rules: avoid repeating any previously asked user question, avoid generic fillers, avoid malformed nested phrasing, "
+        "and keep each question specific to the discussed topics. Return strict JSON: {\"questions\":[\"q1\",\"q2\",\"q3\"]}.\n\n"
+        "Conversation:\n"
+        + "\n".join(transcript_lines)
+    )
+
+    try:
+        completion = get_azure_openai_client().chat.completions.create(
+            model=_get_chat_model(),
+            messages=[
+                {
+                    "role": "system",
+                    "content": "You generate business chatbot follow-up questions from conversation context.",
+                },
+                {"role": "user", "content": prompt},
+            ],
+            temperature=0.2,
+            max_tokens=220,
+            stream=False,
+        )
+        if not completion.choices:
+            return []
+        raw_content = str(getattr(completion.choices[0].message, "content", "") or "")
+    except Exception as error:
+        _trace_step("suggestions.llm.error", error=str(error))
+        return []
+
+    parsed_questions = _extract_questions_from_llm_payload(raw_content)
+    finalized: list[str] = []
+    seen: set[str] = set()
+    for candidate in parsed_questions:
+        sanitized = _sanitize_followup_question(candidate)
+        if not sanitized:
+            continue
+        key = _normalize_question_for_compare(sanitized)
+        if not key or key in seen or key in asked_question_keys:
+            continue
+        finalized.append(sanitized)
+        seen.add(key)
+        if len(finalized) >= limit:
+            break
+
+    return finalized[:limit]
+
+
+def _extract_topic_seeds_from_history(history: list[tuple[str, str]], max_topics: int = 3) -> list[str]:
+    seeds: list[str] = []
+    seen: set[str] = set()
+
+    for user_text, assistant_text in reversed(history):
+        assistant_candidates: list[str] = []
+        assistant_candidates.extend(re.findall(r"(?m)^#{1,6}\s+(.+)$", assistant_text or ""))
+        assistant_candidates.extend(re.findall(r"\*\*([^*\n]{4,90})\*\*", assistant_text or ""))
+
+        first_sentence = re.split(r"[\n\.\!\?]", (assistant_text or "").strip(), maxsplit=1)[0].strip()
+        if 12 <= len(first_sentence) <= 100:
+            assistant_candidates.append(first_sentence)
+
+        user_candidate = re.sub(r"\s+", " ", (user_text or "").strip()).rstrip("?.!,;:")
+        if 12 <= len(user_candidate) <= 100 and not _looks_like_prompt_phrase(user_candidate):
+            assistant_candidates.append(user_candidate)
+
+        for candidate in assistant_candidates:
+            cleaned = re.sub(r"\s+", " ", candidate.strip()).rstrip("?.!,;:")
+            if len(cleaned) < 8 or _looks_like_prompt_phrase(cleaned):
+                continue
+            key = _normalize_question_for_compare(cleaned)
+            if not key or key in seen:
+                continue
+            seeds.append(cleaned)
+            seen.add(key)
+            if len(seeds) >= max_topics:
+                return seeds
+
+    return seeds
+
+
 def _build_dynamic_followup_questions(session_id: str, limit: int = 3) -> list[str]:
     with _conversation_lock:
         history = list(_conversation_store.get(session_id, []))
@@ -402,7 +591,7 @@ def _build_dynamic_followup_questions(session_id: str, limit: int = 3) -> list[s
         return []
 
     suggestions: list[str] = []
-    seen: set[str] = set()
+    seen_suggestions: set[str] = set()
     low_signal_queries = {
         "hi",
         "hii",
@@ -416,26 +605,61 @@ def _build_dynamic_followup_questions(session_id: str, limit: int = 3) -> list[s
         "thank you",
     }
 
-    # Use only previous user prompts from the same session history.
-    if len(history) <= 1:
-        return []
+    asked_question_keys = {
+        _normalize_question_for_compare(user_text)
+        for user_text, _ in history
+        if user_text and user_text.strip()
+    }
 
-    for user_text, _ in reversed(history[:-1]):
-        candidate = user_text.strip()
-        if not candidate:
-            continue
-        normalized_candidate = re.sub(r"\s+", " ", candidate.lower()).strip()
-        if normalized_candidate in low_signal_queries:
-            continue
-        if len(normalized_candidate) < 8:
-            continue
-        key = _normalize_question_for_compare(candidate)
-        if not key or key in seen:
-            continue
-        suggestions.append(candidate)
-        seen.add(key)
-        if len(suggestions) >= limit:
-            break
+    # LLM-based generation uses full recent conversation (user + assistant).
+    if _is_env_true("SUGGESTIONS_USE_LLM", "true"):
+        llm_suggestions = _generate_followups_with_llm(history, asked_question_keys, limit)
+        for candidate in llm_suggestions:
+            key = _normalize_question_for_compare(candidate)
+            if not key or key in seen_suggestions or key in asked_question_keys:
+                continue
+            suggestions.append(candidate)
+            seen_suggestions.add(key)
+            if len(suggestions) >= limit:
+                return suggestions[:limit]
+
+    topic_seeds = _extract_topic_seeds_from_history(history, max_topics=3)
+
+    if not topic_seeds:
+        # Final fallback stays concise and user-safe.
+        for candidate in DEFAULT_FOLLOWUP_QUESTIONS:
+            sanitized = _sanitize_followup_question(candidate)
+            key = _normalize_question_for_compare(sanitized)
+            if not sanitized or not key or key in seen_suggestions or key in asked_question_keys:
+                continue
+            suggestions.append(sanitized)
+            seen_suggestions.add(key)
+            if len(suggestions) >= limit:
+                break
+        return suggestions[:limit]
+
+    for topic_seed in topic_seeds:
+        trimmed_topic = topic_seed[:90].rstrip()
+        generated_candidates = [
+            f"Can you share implementation details for {trimmed_topic}?",
+            f"What technologies and architecture were used in {trimmed_topic}?",
+            f"What business outcomes were achieved with {trimmed_topic}?",
+            f"Can you share similar projects related to {trimmed_topic}?",
+            f"What would be the timeline and cost range for a project like {trimmed_topic}?",
+        ]
+
+        for candidate in generated_candidates:
+            sanitized = _sanitize_followup_question(candidate)
+            key = _normalize_question_for_compare(sanitized)
+            if not sanitized or not key or key in seen_suggestions or key in asked_question_keys:
+                continue
+            normalized_candidate = sanitized.lower().strip("?")
+            if normalized_candidate in low_signal_queries:
+                continue
+            suggestions.append(sanitized)
+            seen_suggestions.add(key)
+            if len(suggestions) >= limit:
+                return suggestions[:limit]
 
     return suggestions[:limit]
 
@@ -597,9 +821,10 @@ async def _sync_sharepoint_lead_safely(session_id: str) -> None:
 
 def _direct_company_answer(query: str) -> str | None:
     q = query.lower().strip()
-    compact = re.sub(r"[^a-z0-9\s]", "", q)
+    compact = re.sub(r"\s+", " ", re.sub(r"[^a-z0-9\s]", " ", q)).strip()
+    compact_no_space = compact.replace(" ", "")
 
-    if re.fullmatch(r"(hi|hello|hey|hii|hiii|good morning|good afternoon|good evening)", compact):
+    if re.match(r"^(hi+|hello+|hey+|good morning|good afternoon|good evening)\b", compact) and len(compact.split()) <= 4:
         return (
             "Hello! Welcome to Desire Infoweb. "
             f"{SERVICE_SUMMARY} "
@@ -622,6 +847,9 @@ def _direct_company_answer(query: str) -> str | None:
             "about desire infoweb",
             "tell me about desire infoweb",
         ]
+    ) or (
+        ("desire infoweb" in compact or "desireinfoweb" in compact_no_space)
+        and any(keyword in compact for keyword in ["detail", "details", "about", "info", "information", "tell me", "what is"])
     ):
         return (
             "Desire Infoweb is an IT services company focused on Microsoft technologies and business automation. "
@@ -637,20 +865,6 @@ def _direct_company_answer(query: str) -> str | None:
             "Typical scope includes discovery, data ingestion (PDF/web/SharePoint), prompt tuning, voice/text support, testing, and deployment. "
             "If you share your goal and preferred channel, I can suggest the best implementation approach."
         )
-
-    if any(
-        keyword in compact
-        for keyword in [
-            "ever done",
-            "done this type",
-            "this type of project",
-            "done similar",
-            "have done",
-            "previous chatbot",
-            "chatbot past project",
-        ]
-    ):
-        return AI_PROJECTS_SUMMARY
 
     if any(keyword in compact for keyword in ["normal chatbot", "just chatbot", "simple chatbot", "basic chatbot"]):
         return CHATBOT_IMPLEMENTATION_SUMMARY
@@ -668,16 +882,22 @@ def _direct_company_answer(query: str) -> str | None:
     ) and "chatbot" in compact:
         return CHATBOT_DATA_SOURCE_SUMMARY
 
-    if any(keyword in compact for keyword in ["past project", "case study", "ai project", "previous ai", "what this company ai"]):
-        return AI_PROJECTS_SUMMARY
-
     if any(keyword in compact for keyword in [".net", "dotnet", "net service", "what about net"]):
         return DOTNET_SUMMARY
 
     if any(keyword in compact for keyword in ["industry", "industries", "domain", "sector"]):
         return INDUSTRY_SUMMARY
 
-    if any(keyword in compact for keyword in [" ai", "ai ", "chatbot", "openai", "copilot", "machine learning", "automation"]):
+    if compact in {
+        "ai",
+        "ai services",
+        "ai solutions",
+        "what is ai",
+        "what ai services",
+        "what ai solutions",
+        "tell me about ai services",
+        "tell me about ai solutions",
+    }:
         return AI_SUMMARY
 
     return None
@@ -769,8 +989,8 @@ def _get_tts_voice() -> str:
 
 
 def _get_max_output_tokens() -> int:
-    requested_raw = os.getenv("LLM_MAX_OUTPUT_TOKENS", "1200")
-    model_cap_raw = os.getenv("AZURE_OPENAI_MAX_COMPLETION_TOKENS", "16384")
+    requested_raw = os.getenv("LLM_MAX_OUTPUT_TOKENS", "32000")
+    model_cap_raw = os.getenv("AZURE_OPENAI_MAX_COMPLETION_TOKENS", "32384")
 
     try:
         requested_tokens = int(requested_raw)
@@ -800,31 +1020,40 @@ def _get_llm_temperature() -> float:
 def _get_embedding_similarity_threshold() -> float:
     raw_value = os.getenv(
         "AZURE_SEARCH_SCORE_THRESHOLD",
-        os.getenv("EMBEDDING_SIMILARITY_THRESHOLD", "0.2"),
+        os.getenv("EMBEDDING_SIMILARITY_THRESHOLD", "0.12"),
     )
     try:
         threshold = float(raw_value)
     except ValueError:
-        threshold = 0.2
+        threshold = 0.12
     return max(0.0, threshold)
 
 
 def _get_query_overlap_threshold() -> float:
-    raw_value = os.getenv("QUERY_OVERLAP_THRESHOLD", "0.18")
+    raw_value = os.getenv("QUERY_OVERLAP_THRESHOLD", "0.08")
     try:
         threshold = float(raw_value)
     except ValueError:
-        threshold = 0.18
+        threshold = 0.08
     return max(0.0, min(threshold, 1.0))
 
 
 def _get_query_min_overlap_terms() -> int:
-    raw_value = os.getenv("QUERY_MIN_OVERLAP_TERMS", "2")
+    raw_value = os.getenv("QUERY_MIN_OVERLAP_TERMS", "1")
     try:
         count = int(raw_value)
     except ValueError:
-        count = 2
+        count = 1
     return max(1, min(count, 20))
+
+
+def _get_strong_match_score_threshold() -> float:
+    raw_value = os.getenv("RAG_STRONG_MATCH_SCORE_THRESHOLD", "0.55")
+    try:
+        threshold = float(raw_value)
+    except ValueError:
+        threshold = 0.55
+    return max(0.0, min(threshold, 2.0))
 
 
 def _tokenize_terms(value: str) -> set[str]:
@@ -1216,6 +1445,7 @@ def _should_use_embedding_context(normalized_query: str, retrieved_context: str,
     overlap_ratio, overlap_count, query_term_count = _compute_query_overlap(normalized_query, retrieved_context)
     overlap_threshold = _get_query_overlap_threshold()
     min_overlap_terms = _get_query_min_overlap_terms()
+    strong_match_score_threshold = _get_strong_match_score_threshold()
 
     if query_term_count == 0:
         _trace_step(
@@ -1227,6 +1457,16 @@ def _should_use_embedding_context(normalized_query: str, retrieved_context: str,
         return False
 
     required_overlap_terms = min(min_overlap_terms, query_term_count)
+    if top_score >= strong_match_score_threshold:
+        required_overlap_terms = min(required_overlap_terms, 1)
+        overlap_threshold = min(overlap_threshold, 0.05)
+        _trace_step(
+            "context.relaxed_for_strong_match",
+            top_score=top_score,
+            strong_match_score_threshold=strong_match_score_threshold,
+            adjusted_overlap_threshold=overlap_threshold,
+            adjusted_min_overlap_terms=required_overlap_terms,
+        )
     if overlap_count < required_overlap_terms:
         _trace_step(
             "context.rejected",
@@ -1313,7 +1553,7 @@ def _build_runtime_issue_message(error: Exception) -> str:
         missing_name = error_text.split(":", 1)[-1].strip() if ":" in error_text else error_text
         return (
             "Server configuration issue detected. "
-            f"{missing_name}."
+            f"{missing_name}. Check deployed environment variables and /health/config."
         )
 
     if "429" in lowered or "rate limit" in lowered:
@@ -1326,6 +1566,10 @@ def _build_runtime_issue_message(error: Exception) -> str:
         return "Authentication with an upstream AI service failed. Please verify deployed credentials."
 
     return "Temporary answer generation issue encountered. A safe fallback response was returned."
+
+
+def _is_missing_required_env_error(error: Exception) -> bool:
+    return str(error).strip().startswith("Missing required environment variable")
 
 
 def _generate_completion_with_context(model_input: str, retrieved_context: str) -> str:
@@ -1604,6 +1848,12 @@ async def text_chat(
     except Exception as error:
         logger.exception("Text chat pipeline failed")
         runtime_issue = _build_runtime_issue_message(error)
+        if _is_missing_required_env_error(error):
+            _trace_step("response.error", status_code=503, error=str(error))
+            _trace_step("response.failed", issue=runtime_issue)
+            _finalize_trace("config_error", status_code=503, error=runtime_issue)
+            raise HTTPException(status_code=503, detail=runtime_issue) from error
+
         fallback_answer = _no_context_response()
         trace_id = _get_active_trace_id()
         _trace_step("response.error", status_code=500, error=str(error))
@@ -1734,6 +1984,20 @@ async def text_chat_stream(
         except Exception as error:
             logger.exception("Text chat streaming pipeline failed")
             runtime_issue = _build_runtime_issue_message(error)
+            if _is_missing_required_env_error(error):
+                yield _sse_event(
+                    "error",
+                    {
+                        "message": runtime_issue,
+                        "error_type": type(error).__name__,
+                        "trace_id": trace_id,
+                    },
+                )
+                _trace_step("response.error", status_code=503, error=str(error), stream=True)
+                _trace_step("response.failed", issue=runtime_issue, stream=True)
+                _finalize_trace("config_error", status_code=503, error=runtime_issue, stream=True)
+                return
+
             fallback_answer = _no_context_response()
             yield _sse_event(
                 "done",
