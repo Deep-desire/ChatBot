@@ -327,6 +327,7 @@ def _normalize_user_query(query: str) -> str:
     replacements = {
         "serivce": "service",
         "serivces": "services",
+        "fluetify": "fluentify",
         "qhat": "what",
         "wht": "what",
         "u": "you",
@@ -1001,8 +1002,8 @@ def _get_tts_voice() -> str:
 
 
 def _get_max_output_tokens() -> int:
-    requested_raw = os.getenv("LLM_MAX_OUTPUT_TOKENS", "16000")
-    model_cap_raw = os.getenv("AZURE_OPENAI_MAX_COMPLETION_TOKENS", "15384")
+    requested_raw = os.getenv("LLM_MAX_OUTPUT_TOKENS", "4200")
+    model_cap_raw = os.getenv("AZURE_OPENAI_MAX_COMPLETION_TOKENS", "16096")
 
     try:
         requested_tokens = int(requested_raw)
@@ -1014,7 +1015,7 @@ def _get_max_output_tokens() -> int:
     except ValueError:
         model_cap = 16384
 
-    bounded_tokens = max(64, min(requested_tokens, model_cap))
+    bounded_tokens = max(64, min(requested_tokens, model_cap, 4096))
     if bounded_tokens != requested_tokens:
         logger.warning(
             "LLM_MAX_OUTPUT_TOKENS=%s exceeds allowed range; using %s instead.",
@@ -1023,6 +1024,142 @@ def _get_max_output_tokens() -> int:
         )
 
     return bounded_tokens
+
+
+def _get_retry_output_tokens() -> int:
+    raw_value = os.getenv("LLM_RETRY_OUTPUT_TOKENS", "700")
+    try:
+        value = int(raw_value)
+    except ValueError:
+        value = 700
+    return max(64, min(value, _get_max_output_tokens()))
+
+
+def _is_token_limit_error(error: Exception) -> bool:
+    message = str(error).lower()
+    return any(
+        marker in message
+        for marker in [
+            "maximum context length",
+            "context_length_exceeded",
+            "too many tokens",
+            "max tokens",
+            "reduce your prompt",
+            "max_completion_tokens",
+        ]
+    )
+
+
+def _extract_current_query_from_model_input(model_input: str) -> str:
+    marker = "Current user question:\n"
+    if marker in model_input:
+        return model_input.split(marker, 1)[1].strip()
+    return model_input.strip()
+
+
+def _get_max_completion_segments() -> int:
+    raw_value = os.getenv("LLM_MAX_CONTINUATION_SEGMENTS", "5")
+    try:
+        value = int(raw_value)
+    except ValueError:
+        value = 5
+    return max(1, min(value, 10))
+
+
+def _is_length_finish_reason(finish_reason: Any) -> bool:
+    return str(finish_reason or "").strip().lower() == "length"
+
+
+def _build_continuation_prompt(original_query: str, partial_answer: str) -> str:
+    tail = _clip_text(partial_answer[-1400:], 1400)
+    return (
+        "Continue the same answer from exactly where it stopped. "
+        "Do not repeat earlier content, do not restart headings, and keep markdown formatting consistent.\n\n"
+        f"Original user question:\n{original_query}\n\n"
+        "Already generated answer (tail):\n"
+        f"{tail}"
+    )
+
+
+def _looks_abruptly_truncated(answer: str) -> bool:
+    text = (answer or "").rstrip()
+    if not text:
+        return True
+    if text.endswith((".", "!", "?", "`", "```")):
+        return False
+    if text.endswith((":", "-", "*", "#")):
+        return True
+    # If last line is a heading or list lead-in, treat as truncated.
+    last_line = text.splitlines()[-1].strip()
+    if not last_line:
+        return False
+    if re.match(r"^#{1,6}\s+", last_line):
+        return True
+    if re.match(r"^[-*]\s*$", last_line):
+        return True
+    return True
+
+
+def _build_closing_completion_prompt(original_query: str, partial_answer: str) -> str:
+    tail = _clip_text(partial_answer[-1200:], 1200)
+    return (
+        "Finish the response cleanly from where it stopped in 2-4 concise lines. "
+        "Do not repeat previous text and do not start over.\n\n"
+        f"Original user question:\n{original_query}\n\n"
+        "Current partial answer tail:\n"
+        f"{tail}"
+    )
+
+
+def _create_chat_completion(
+    *,
+    retrieved_context: str,
+    user_content: str,
+    max_tokens: int,
+    stream: bool,
+) -> Any:
+    messages = [
+        {"role": "system", "content": system_prompt.format(context=retrieved_context)},
+        {"role": "user", "content": user_content},
+    ]
+
+    try:
+        return get_azure_openai_client().chat.completions.create(
+            model=_get_chat_model(),
+            messages=messages,
+            temperature=_get_llm_temperature(),
+            max_tokens=max_tokens,
+            stream=stream,
+        )
+    except Exception as error:
+        if not _is_token_limit_error(error):
+            raise
+
+        retry_tokens = min(_get_retry_output_tokens(), max_tokens)
+        reduced_user_input = _extract_current_query_from_model_input(user_content)
+        _trace_step(
+            "llm.request.retry_low_tokens",
+            reason="token_limit",
+            stream=stream,
+            retry_max_tokens=retry_tokens,
+            reduced_input_chars=len(reduced_user_input),
+        )
+        logger.warning(
+            "LLM request hit token/context limit; retrying with stream=%s max_tokens=%s.",
+            stream,
+            retry_tokens,
+        )
+
+        return get_azure_openai_client().chat.completions.create(
+            model=_get_chat_model(),
+            messages=[
+                {"role": "system", "content": system_prompt.format(context=retrieved_context)},
+                {"role": "user", "content": reduced_user_input},
+            ],
+            temperature=_get_llm_temperature(),
+            max_tokens=retry_tokens,
+            stream=stream,
+        )
 
 
 def _get_llm_temperature() -> float:
@@ -1091,12 +1228,60 @@ def _get_memory_turns() -> int:
     return int(os.getenv("CONVERSATION_MEMORY_TURNS", "6"))
 
 
+def _build_response_style_instruction(current_query: str) -> str:
+    query = current_query.lower().strip()
+
+    detailed_markers = {
+        "detailed",
+        "in depth",
+        "in-depth",
+        "full detail",
+        "full details",
+        "step by step",
+        "architecture",
+        "implementation",
+        "deep dive",
+        "technical details",
+    }
+    wants_detailed = any(marker in query for marker in detailed_markers)
+
+    asks_broad_list = (
+        ("all" in query and "project" in query)
+        or "list all" in query
+        or "all voice based" in query
+        or "all ai projects" in query
+    )
+
+    if wants_detailed:
+        return (
+            "Response style: Provide a well-structured but focused answer in markdown. "
+            "Avoid unnecessary repetition. Use concise sections and practical points."
+        )
+
+    if asks_broad_list:
+        return (
+            "Response style: Keep it concise. Return at most 4 projects, each with 1 short line for challenge, "
+            "solution, and impact. End with a one-line offer to share full details if needed."
+        )
+
+    return (
+        "Response style: Keep the answer concise and useful in 4-8 lines, focused on the exact question. "
+        "Avoid long paragraphs unless explicitly requested."
+    )
+
+
 def _build_model_input(session_id: str, current_query: str) -> str:
     with _conversation_lock:
         history = list(_conversation_store.get(session_id, []))
 
+    style_instruction = _build_response_style_instruction(current_query)
+
     if not history:
-        return current_query
+        return (
+            f"{style_instruction}\n\n"
+            "Current user question:\n"
+            + current_query
+        )
 
     history_lines: list[str] = []
     for user_text, assistant_text in history:
@@ -1104,6 +1289,7 @@ def _build_model_input(session_id: str, current_query: str) -> str:
         history_lines.append(f"Assistant: {assistant_text}")
 
     return (
+        f"{style_instruction}\n\n"
         "Conversation history:\n"
         + "\n".join(history_lines)
         + "\n\nCurrent user question:\n"
@@ -1619,29 +1805,80 @@ def _generate_completion_with_context(model_input: str, retrieved_context: str) 
         model=_get_chat_model(),
         context_chars=len(retrieved_context),
     )
-    completion = get_azure_openai_client().chat.completions.create(
-        model=_get_chat_model(),
-        messages=[
-            {"role": "system", "content": system_prompt.format(context=retrieved_context)},
-            {"role": "user", "content": model_input},
-        ],
-        temperature=_get_llm_temperature(),
-        max_tokens=_get_max_output_tokens(),
-        stream=False,
-    )
+    original_query = _extract_current_query_from_model_input(model_input)
+    current_prompt = model_input
+    answer_parts: list[str] = []
+    segment_count = 0
+    max_segments = _get_max_completion_segments()
 
-    if not completion.choices:
-        raise ValueError("Completion response returned no choices.")
+    reached_segment_cap_with_length_finish = False
+    for segment_index in range(max_segments):
+        max_tokens = _get_max_output_tokens() if segment_index == 0 else _get_retry_output_tokens()
+        completion = _create_chat_completion(
+            retrieved_context=retrieved_context,
+            user_content=current_prompt,
+            max_tokens=max_tokens,
+            stream=False,
+        )
 
-    message = completion.choices[0].message
-    answer = str(getattr(message, "content", "") or "").strip()
+        if not completion.choices:
+            raise ValueError("Completion response returned no choices.")
+
+        choice = completion.choices[0]
+        message = choice.message
+        segment_text = str(getattr(message, "content", "") or "").strip()
+        if segment_text:
+            answer_parts.append(segment_text)
+            segment_count += 1
+
+        finish_reason = getattr(choice, "finish_reason", None)
+        if not _is_length_finish_reason(finish_reason):
+            break
+
+        if segment_index + 1 >= max_segments:
+            _trace_step(
+                "llm.completion.truncated_after_max_segments",
+                max_segments=max_segments,
+                current_answer_chars=len("\n\n".join(answer_parts).strip()),
+            )
+            reached_segment_cap_with_length_finish = True
+            break
+
+        partial_answer = "\n\n".join(answer_parts).strip()
+        current_prompt = _build_continuation_prompt(original_query, partial_answer)
+        _trace_step(
+            "llm.completion.continuation",
+            segment=segment_index + 2,
+            max_segments=max_segments,
+            answer_chars=len(partial_answer),
+        )
+
+    answer = "\n\n".join(answer_parts).strip()
+
+    if reached_segment_cap_with_length_finish and _looks_abruptly_truncated(answer):
+        try:
+            closure_completion = _create_chat_completion(
+                retrieved_context=retrieved_context,
+                user_content=_build_closing_completion_prompt(original_query, answer),
+                max_tokens=_get_retry_output_tokens(),
+                stream=False,
+            )
+            if closure_completion.choices:
+                closure_text = str(getattr(closure_completion.choices[0].message, "content", "") or "").strip()
+                if closure_text:
+                    answer = f"{answer}\n\n{closure_text}".strip()
+                    _trace_step("llm.completion.closure_appended", closure_chars=len(closure_text))
+        except Exception as closure_error:
+            logger.warning("Completion closure append failed (%s).", closure_error)
+            _trace_step("llm.completion.closure_error", error=str(closure_error))
+
     if not answer:
         raise ValueError("Completion response returned an empty answer.")
 
     if _is_chat_trace_include_context():
-        _trace_step("llm.completion.success", answer=answer, answer_chars=len(answer))
+        _trace_step("llm.completion.success", answer=answer, answer_chars=len(answer), segments=segment_count)
     else:
-        _trace_step("llm.completion.success", answer_chars=len(answer))
+        _trace_step("llm.completion.success", answer_chars=len(answer), segments=segment_count)
 
     return answer
 
@@ -1664,35 +1901,94 @@ def _stream_answer_tokens(
 
     try:
         _trace_step("llm.stream.request", model=_get_chat_model(), context_chars=len(retrieved_context))
-        completion_stream = get_azure_openai_client().chat.completions.create(
-            model=_get_chat_model(),
-            messages=[
-                {"role": "system", "content": system_prompt.format(context=retrieved_context)},
-                {"role": "user", "content": model_input},
-            ],
-            temperature=_get_llm_temperature(),
-            max_tokens=_get_max_output_tokens(),
-            stream=True,
-        )
-
+        original_query = _extract_current_query_from_model_input(model_input)
+        current_prompt = model_input
+        max_segments = _get_max_completion_segments()
         has_streamed_content = False
         streamed_token_count = 0
-        for chunk in completion_stream:
-            if not chunk.choices:
-                continue
+        streamed_segments = 0
+        streamed_answer_parts: list[str] = []
+        reached_segment_cap_with_length_finish = False
 
-            delta = chunk.choices[0].delta
-            token = getattr(delta, "content", None) if delta else None
-            if not token:
-                continue
+        for segment_index in range(max_segments):
+            max_tokens = _get_max_output_tokens() if segment_index == 0 else _get_retry_output_tokens()
+            completion_stream = _create_chat_completion(
+                retrieved_context=retrieved_context,
+                user_content=current_prompt,
+                max_tokens=max_tokens,
+                stream=True,
+            )
 
-            has_streamed_content = True
-            streamed_token_count += 1
-            yield token
+            segment_had_content = False
+            segment_finish_reason: Any = None
+            for chunk in completion_stream:
+                if not chunk.choices:
+                    continue
+
+                choice = chunk.choices[0]
+                if getattr(choice, "finish_reason", None):
+                    segment_finish_reason = choice.finish_reason
+
+                delta = choice.delta
+                token = getattr(delta, "content", None) if delta else None
+                if not token:
+                    continue
+
+                has_streamed_content = True
+                segment_had_content = True
+                streamed_token_count += 1
+                streamed_answer_parts.append(token)
+                yield token
+
+            if segment_had_content:
+                streamed_segments += 1
+
+            if not _is_length_finish_reason(segment_finish_reason):
+                break
+
+            if segment_index + 1 >= max_segments:
+                _trace_step(
+                    "llm.stream.truncated_after_max_segments",
+                    max_segments=max_segments,
+                    token_count=streamed_token_count,
+                )
+                reached_segment_cap_with_length_finish = True
+                break
+
+            partial_answer = "".join(streamed_answer_parts)
+            current_prompt = _build_continuation_prompt(original_query, partial_answer)
+            _trace_step(
+                "llm.stream.continuation",
+                segment=segment_index + 2,
+                max_segments=max_segments,
+                token_count=streamed_token_count,
+            )
+
+        if reached_segment_cap_with_length_finish:
+            partial_answer = "".join(streamed_answer_parts)
+            if _looks_abruptly_truncated(partial_answer):
+                try:
+                    closure_completion = _create_chat_completion(
+                        retrieved_context=retrieved_context,
+                        user_content=_build_closing_completion_prompt(original_query, partial_answer),
+                        max_tokens=_get_retry_output_tokens(),
+                        stream=False,
+                    )
+                    if closure_completion.choices:
+                        closure_text = str(getattr(closure_completion.choices[0].message, "content", "") or "").strip()
+                        if closure_text:
+                            streamed_answer_parts.append("\n\n")
+                            streamed_answer_parts.append(closure_text)
+                            streamed_token_count += 1
+                            yield "\n\n" + closure_text
+                            _trace_step("llm.stream.closure_appended", closure_chars=len(closure_text))
+                except Exception as closure_error:
+                    logger.warning("Streaming closure append failed (%s).", closure_error)
+                    _trace_step("llm.stream.closure_error", error=str(closure_error))
 
         if not has_streamed_content:
             raise ValueError("Streaming response returned no content.")
-        _trace_step("llm.stream.success", token_count=streamed_token_count)
+        _trace_step("llm.stream.success", token_count=streamed_token_count, segments=streamed_segments)
     except Exception as stream_error:
         logger.warning(
             "Streaming generation failed (%s). Falling back to non-streaming answer.",

@@ -127,6 +127,27 @@ const normalizeMarkdownText = (text: string): string => {
   return normalized;
 };
 
+const looksAbruptlyTruncated = (text: string): boolean => {
+  const value = (text || '').trim();
+  if (!value) {
+    return true;
+  }
+  if (/[.!?]$/.test(value)) {
+    return false;
+  }
+  const lastLine = value.split('\n').pop()?.trim() || '';
+  if (!lastLine) {
+    return false;
+  }
+  if (/^#{1,6}\s+/.test(lastLine)) {
+    return true;
+  }
+  if (/^[-*]\s*$/.test(lastLine)) {
+    return true;
+  }
+  return value.length > 40;
+};
+
 function MarkdownMessage({ text }: { text: string }) {
   return (
     <ReactMarkdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeSanitize]} className="vtl-markdown">
@@ -540,6 +561,7 @@ invokeAndClearStreamDrainResolver();
       let resolvedLeadName = leadName;
       let streamSuggestions: string[] = [];
       let streamCitations: Citation[] = [];
+      let doneReplyFromServer = '';
 
       const processEvent = (eventType: string, payload: string) => {
         let parsed: unknown;
@@ -577,6 +599,7 @@ invokeAndClearStreamDrainResolver();
         if (eventType === 'done') {
           setIsWaitingForFirstToken(false);
           const doneReply = typeof data.reply === 'string' ? data.reply : '';
+          doneReplyFromServer = doneReply;
           if (!streamedText.trim() && doneReply) {
             streamedText = doneReply;
             queueStreamToken(doneReply);
@@ -675,6 +698,19 @@ invokeAndClearStreamDrainResolver();
       }
 
       await waitForStreamAnimationDrain();
+
+      if (doneReplyFromServer.trim()) {
+        const streamedTrimmed = streamedText.trim();
+        const doneTrimmed = doneReplyFromServer.trim();
+        const isPrefixGap = doneTrimmed.startsWith(streamedTrimmed) && doneTrimmed.length > streamedTrimmed.length;
+        const isLikelyStreamLoss = doneTrimmed.length > streamedTrimmed.length + 24;
+        const isAbrupt = looksAbruptlyTruncated(streamedTrimmed);
+
+        if (isPrefixGap || isLikelyStreamLoss || isAbrupt) {
+          setLatestBotMessageText(doneReplyFromServer);
+          streamedText = doneReplyFromServer;
+        }
+      }
 
       if (streamCitations.length > 0) {
         setLatestBotMessageCitations(streamCitations);
