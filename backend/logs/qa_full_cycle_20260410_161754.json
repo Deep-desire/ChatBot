@@ -1,0 +1,151 @@
+{
+  "generated_at": "2026-04-10T10:47:37.768669+00:00",
+  "environment": "production",
+  "base_url": "https://visit-to-lead.vercel.app/backend",
+  "health_config": {
+    "status": "ok",
+    "missing_count": 0,
+    "effective": {
+      "azure_openai_endpoint": "https://thomaschat.cognitiveservices.azure.com",
+      "azure_openai_chat_deployment": "gpt-4o",
+      "azure_openai_embedding_deployment": "text-embedding-3-small",
+      "azure_search_endpoint": "https://desirechatbotaisearch.search.windows.net",
+      "azure_search_index_name": "rag-1775717847828",
+      "query_overlap_threshold": 0.05,
+      "query_min_overlap_terms": 1,
+      "azure_search_score_threshold": 0.05,
+      "azure_search_required": true,
+      "allow_generic_fallback": false,
+      "use_direct_faq_answers": false,
+      "sharepoint_always_insert": false
+    }
+  },
+  "post_deploy_core_flow": {
+    "session": "qa_core_1775818057768",
+    "q1": {
+      "query": "What is Desire Infoweb?",
+      "chars": 339,
+      "preview": "Thank you for your query. At the moment, I'm unable to provide a relevant response as it falls outside my current scope.\n\nFor further assistance, please contact our support team:\n- vijay@desireinfoweb.com\n- hr@desireinfoweb.in\n- info@desireinfoweb.com\n- India:",
+      "citations_count": 0,
+      "suggestions": []
+    },
+    "q2": {
+      "query": "What AI solutions has Desire Infoweb delivered?",
+      "chars": 339,
+      "preview": "Thank you for your query. At the moment, I'm unable to provide a relevant response as it falls outside my current scope.\n\nFor further assistance, please contact our support team:\n- vijay@desireinfoweb.com\n- hr@desireinfoweb.in\n- info@desireinfoweb.com\n- India:",
+      "citations_count": 0,
+      "suggestions": []
+    },
+    "checks": {
+      "q2_not_equal_q1": false,
+      "q2_not_fallback": false,
+      "q2_detailed": false,
+      "q1_has_citations": false,
+      "q2_has_citations": false,
+      "no_malformed_suggestion": true
+    }
+  },
+  "prompt_matrix": [
+    {
+      "query": "what is fluentify ai",
+      "session": "qa_mx_1775818062844",
+      "chars": 474,
+      "fallback": false,
+      "citations_count": 1,
+      "preview": "Here is a concise answer from indexed documents about **what is fluentify ai**:\n\n- Utilizing the Azure Pronunciation Assessment Service, Fluentify AI evaluates key aspects\n- Fluentify AI offers a comprehensive solution for enhancing language proficiency throug"
+    },
+    {
+      "query": "give me all the voice based projects",
+      "session": "qa_mx_1775818064346",
+      "chars": 1929,
+      "fallback": false,
+      "citations_count": 1,
+      "preview": "Voice-Based Projects Overview\nBelow are the detailed overviews of Desire Infoweb's voice-based projects, including challenge, solution, impact, and technologies:\n\n### AI Interviewer Pro\n- **Challenge**: rsing) \u25cf Databases: Sharepoint / Cloud Storage (for secur"
+    },
+    {
+      "query": "give me all the voice based projects in detail",
+      "session": "qa_mx_1775818065263",
+      "chars": 1929,
+      "fallback": false,
+      "citations_count": 1,
+      "preview": "Voice-Based Projects Overview\nBelow are the detailed overviews of Desire Infoweb's voice-based projects, including challenge, solution, impact, and technologies:\n\n### AI Interviewer Pro\n- **Challenge**: rsing) \u25cf Databases: Sharepoint / Cloud Storage (for secur"
+    },
+    {
+      "query": "what services does desire infoweb provide",
+      "session": "qa_mx_1775818066430",
+      "chars": 482,
+      "fallback": false,
+      "citations_count": 1,
+      "preview": "Here is a concise answer from indexed documents about **what services does desire infoweb provide**:\n\n- \u25cf We provide expert services on Microsoft Power Platform tools like SharePoint,\n- \u25cf We provide expert services in .NET, delivering robust and scalable solut"
+    },
+    {
+      "query": "which industries does desire infoweb mainly serve",
+      "session": "qa_mx_1775818067300",
+      "chars": 339,
+      "fallback": true,
+      "citations_count": 0,
+      "preview": "Thank you for your query. At the moment, I'm unable to provide a relevant response as it falls outside my current scope.\n\nFor further assistance, please contact our support team:\n- vijay@desireinfoweb.com\n- hr@desireinfoweb.in\n- info@desireinfoweb.com\n- India:"
+    },
+    {
+      "query": "give me detail about ai interviewer pro",
+      "session": "qa_mx_1775818068049",
+      "chars": 514,
+      "fallback": false,
+      "citations_count": 1,
+      "preview": "Here is a concise answer from indexed documents about **give me detail about ai interviewer pro**:\n\n- We developed \"AI Interviewer Pro,\" an enterprise-grade voice interview platform powered\n- Project 19: AI Interviewer Pro \u2013 Voice-Based Candidate Screening\n- m"
+    },
+    {
+      "query": "what is compliance voice monitoring project",
+      "session": "qa_mx_1775818068897",
+      "chars": 453,
+      "fallback": false,
+      "citations_count": 1,
+      "preview": "Here is a concise answer from indexed documents about **what is compliance voice monitoring project**:\n\n- Project 2: AI-Based PPE Compliance Monitoring System\n- Project 1: AI-Powered Compliance Monitoring System\n- they were wearing gloves while on the producti"
+    },
+    {
+      "query": "can you give architecture details for fluentify ai",
+      "session": "qa_mx_1775818069780",
+      "chars": 504,
+      "fallback": false,
+      "citations_count": 1,
+      "preview": "Here is a concise answer from indexed documents about **can you give architecture details for fluentify ai**:\n\n- Utilizing the Azure Pronunciation Assessment Service, Fluentify AI evaluates key aspects\n- Fluentify AI offers a comprehensive solution for enhanci"
+    },
+    {
+      "query": "tell me about teams ai assistant project",
+      "session": "qa_mx_1775818070634",
+      "chars": 517,
+      "fallback": false,
+      "citations_count": 1,
+      "preview": "Here is a concise answer from indexed documents about **tell me about teams ai assistant project**:\n\n- seeking to refine their language skills. The integration with Microsoft Teams ensures ease\n- with Microsoft Teams to help professionals, educators, and organ"
+    },
+    {
+      "query": "what budget needed for ai chatbot",
+      "session": "qa_mx_1775818072146",
+      "chars": 514,
+      "fallback": false,
+      "citations_count": 1,
+      "preview": "Here is a concise answer from indexed documents about **what budget needed for ai chatbot**:\n\n- and MS Teams. The chatbot needed to utilize the Azure OpenAI LLM model to provide\n- automate routine tasks and streamline workflows. This integration allowed the ch"
+    }
+  ],
+  "stream_checks": {
+    "ai_solutions_prompt": {
+      "session": "qa_stream_1775818073036",
+      "has_done": true,
+      "has_error": false,
+      "token_events": 1
+    },
+    "fluentify_prompt": {
+      "session": "qa_stream_1775818073810",
+      "has_done": true,
+      "has_error": false,
+      "token_events": 1
+    }
+  },
+  "summary": {
+    "matrix_total": 10,
+    "matrix_fallback_count": 1,
+    "matrix_with_citations": 9,
+    "matrix_min_chars": 339,
+    "matrix_max_chars": 1929
+  }
+}

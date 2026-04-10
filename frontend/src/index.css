@@ -35,7 +35,7 @@ body {
 .vtl-markdown {
 	word-break: break-word;
 	overflow-wrap: anywhere;
-	line-height: 1.5;
+	line-height: 1.62;
 }
 
 .vtl-markdown > *:first-child {
@@ -52,7 +52,21 @@ body {
 .vtl-markdown blockquote,
 .vtl-markdown pre,
 .vtl-markdown table {
-	margin: 0 0 0.6rem;
+	margin: 0 0 0.72rem;
+}
+
+.vtl-markdown h1,
+.vtl-markdown h2,
+.vtl-markdown h3,
+.vtl-markdown h4 {
+	margin: 0.85rem 0 0.45rem;
+	line-height: 1.32;
+	font-weight: 700;
+	color: var(--vtl-text);
+}
+
+.vtl-markdown h3 {
+	font-size: 0.98rem;
 }
 
 .vtl-markdown ul,
@@ -69,7 +83,11 @@ body {
 }
 
 .vtl-markdown li + li {
-	margin-top: 0.2rem;
+	margin-top: 0.28rem;
+}
+
+.vtl-markdown li {
+	padding-left: 0.08rem;
 }
 
 .vtl-markdown a {

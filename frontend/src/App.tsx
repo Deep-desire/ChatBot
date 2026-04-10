@@ -129,23 +129,45 @@ const normalizeMarkdownText = (text: string): string => {
 
 const looksAbruptlyTruncated = (text: string): boolean => {
   const value = (text || '').trim();
+  
+  // Empty text is truncated
   if (!value) {
     return true;
   }
+  
+  // Ends cleanly with punctuation
   if (/[.!?]$/.test(value)) {
     return false;
   }
+  
+  // Ends with connector words (incomplete sentence)
+  if (/\b(and|or|to|for|with|but|nor|yet|by|as|if|is|was|are|been|being)\s*$/.test(value)) {
+    return true;
+  }
+  
+  // Check last line pattern
   const lastLine = value.split('\n').pop()?.trim() || '';
   if (!lastLine) {
     return false;
   }
-  if (/^#{1,6}\s+/.test(lastLine)) {
+  
+  // Last line is just a heading start (incomplete markdown)
+  if (/^#{1,6}\s+$/.test(lastLine)) {
     return true;
   }
+  
+  // Last line is just a list marker (incomplete list item)
   if (/^[-*]\s*$/.test(lastLine)) {
     return true;
   }
-  return value.length > 40;
+  
+  // Last line is just a colon or dash (incomplete continuation)
+  if (/[:–—-]\s*$/.test(lastLine) && lastLine.length < 5) {
+    return true;
+  }
+  
+  // Otherwise, consider it complete (be optimistic about streaming)
+  return false;
 };
 
 function MarkdownMessage({ text }: { text: string }) {
@@ -206,7 +228,8 @@ function App() {
 
     if (storedEmail && storedName) {
       setLeadStage('chat');
-      setHasStartedChat(true);
+      // Show starter questions on each fresh widget load; switch to dynamic after first new prompt.
+      setHasStartedChat(false);
       setMessages([
         {
           role: 'bot',
@@ -702,11 +725,7 @@ invokeAndClearStreamDrainResolver();
       if (doneReplyFromServer.trim()) {
         const streamedTrimmed = streamedText.trim();
         const doneTrimmed = doneReplyFromServer.trim();
-        const isPrefixGap = doneTrimmed.startsWith(streamedTrimmed) && doneTrimmed.length > streamedTrimmed.length;
-        const isLikelyStreamLoss = doneTrimmed.length > streamedTrimmed.length + 24;
-        const isAbrupt = looksAbruptlyTruncated(streamedTrimmed);
-
-        if (isPrefixGap || isLikelyStreamLoss || isAbrupt) {
+        if (streamedTrimmed !== doneTrimmed || looksAbruptlyTruncated(streamedTrimmed)) {
           setLatestBotMessageText(doneReplyFromServer);
           streamedText = doneReplyFromServer;
         }
@@ -914,7 +933,7 @@ invokeAndClearStreamDrainResolver();
             {messages.map((msg, idx) => (
               <div key={`${msg.role}-${idx}`} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
                 <div
-                  className={`p-3 rounded-2xl text-sm max-w-[90%] sm:max-w-[85%] shadow-sm bg-[var(--vtl-panel)] border border-[var(--vtl-border)] text-[var(--vtl-text)] ${
+                  className={`p-3 rounded-2xl text-sm max-w-[94%] sm:max-w-[92%] shadow-sm bg-[var(--vtl-panel)] border border-[var(--vtl-border)] text-[var(--vtl-text)] ${
                     msg.role === 'user' ? 'rounded-br-none' : 'rounded-bl-none'
                   }`}
                 >

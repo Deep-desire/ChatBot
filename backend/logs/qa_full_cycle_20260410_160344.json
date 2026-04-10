@@ -1,0 +1,129 @@
+{
+  "generated_at": "2026-04-10T10:33:25.651095+00:00",
+  "environment": "production",
+  "base_url": "https://visit-to-lead.vercel.app/backend",
+  "pre_deploy_observed": {
+    "q2_was_same_as_q1": true,
+    "malformed_suggestion_seen": "Give me a concise summary of solutions has delivered use cases?"
+  },
+  "post_deploy_core_flow": {
+    "session": "qa_core_1775817205651",
+    "q1": {
+      "query": "What is Desire Infoweb?",
+      "chars": 308,
+      "preview": "Desire Infoweb is an IT services company focused on Microsoft technologies and business automation. Desire Infoweb provides Microsoft-focused IT services including SharePoint, Power Apps, Power Automate, Power BI, Office 365, Teams, Dynamics 365, Azure, .NET, ",
+      "suggestions": [
+        "What services does Desire Infoweb provide?",
+        "Which industries does Desire Infoweb mainly serve?",
+        "What AI solutions has Desire Infoweb delivered?"
+      ]
+    },
+    "q2": {
+      "query": "What AI solutions has Desire Infoweb delivered?",
+      "chars": 568,
+      "preview": "Desire Infoweb has delivered multiple AI solutions across enterprise use cases:\n\n1. Fluentify AI for voice communication assessment with pronunciation scoring and coaching feedback.\n2. AI Interviewer Pro for voice-based candidate screening with automated evalu",
+      "suggestions": [
+        "Can you share detailed use cases for Fluentify AI?",
+        "What outcomes were achieved by the AI Interviewer Pro solution?",
+        "Which industries can adopt these AI solutions first?"
+      ]
+    },
+    "checks": {
+      "q2_not_equal_q1": true,
+      "q2_detailed": true,
+      "no_malformed_suggestion": true
+    }
+  },
+  "prompt_matrix": [
+    {
+      "query": "what is fluentify ai",
+      "session": "qa_mx_1775817208551",
+      "chars": 474,
+      "fallback": false,
+      "preview": "Here is a concise answer from indexed documents about **what is fluentify ai**:\n\n- Utilizing the Azure Pronunciation Assessment Service, Fluentify AI evaluates key aspects\n- Fluentify AI offers a comprehensive solution for enhancing language proficiency throug"
+    },
+    {
+      "query": "give me all the voice based projects",
+      "session": "qa_mx_1775817210265",
+      "chars": 1892,
+      "fallback": false,
+      "preview": "## Voice-Based Projects by Desire Infoweb\n\n### 1. AI Interviewer Pro - Voice-Based Candidate Screening\n- **Challenge**: Manual first-round candidate screening is slow and inconsistent.\n- **Solution**: AI-driven voice interviews with dynamic question generation"
+    },
+    {
+      "query": "give me all the voice based projects in detail",
+      "session": "qa_mx_1775817211661",
+      "chars": 1892,
+      "fallback": false,
+      "preview": "## Voice-Based Projects by Desire Infoweb\n\n### 1. AI Interviewer Pro - Voice-Based Candidate Screening\n- **Challenge**: Manual first-round candidate screening is slow and inconsistent.\n- **Solution**: AI-driven voice interviews with dynamic question generation"
+    },
+    {
+      "query": "what services does desire infoweb provide",
+      "session": "qa_mx_1775817212383",
+      "chars": 270,
+      "fallback": false,
+      "preview": "We provide end-to-end Microsoft technology services: SharePoint and intranet solutions, Power Platform (Power Apps/Automate), Power BI analytics, Office 365 and Teams implementation, Dynamics 365, Azure, .NET development, migration, governance, and AI/chatbot "
+    },
+    {
+      "query": "which industries does desire infoweb mainly serve",
+      "session": "qa_mx_1775817213770",
+      "chars": 140,
+      "fallback": false,
+      "preview": "Desire Infoweb serves industries such as education, retail/e-commerce, finance, real estate, travel, healthcare, and logistics/distribution."
+    },
+    {
+      "query": "give me detail about ai interviewer pro",
+      "session": "qa_mx_1775817215170",
+      "chars": 514,
+      "fallback": false,
+      "preview": "Here is a concise answer from indexed documents about **give me detail about ai interviewer pro**:\n\n- We developed \"AI Interviewer Pro,\" an enterprise-grade voice interview platform powered\n- Project 19: AI Interviewer Pro \u2013 Voice-Based Candidate Screening\n- m"
+    },
+    {
+      "query": "what is compliance voice monitoring project",
+      "session": "qa_mx_1775817216845",
+      "chars": 1848,
+      "fallback": false,
+      "preview": "Voice-Based Projects Overview\nBelow are the detailed overviews of Desire Infoweb's voice-based projects, including challenge, solution, impact, and technologies:\n\n### Fluentify AI\n- **Challenge**: Additionally, it offers practice exercises tailored to help use"
+    },
+    {
+      "query": "can you give architecture details for fluentify ai",
+      "session": "qa_mx_1775817217842",
+      "chars": 504,
+      "fallback": false,
+      "preview": "Here is a concise answer from indexed documents about **can you give architecture details for fluentify ai**:\n\n- Utilizing the Azure Pronunciation Assessment Service, Fluentify AI evaluates key aspects\n- Fluentify AI offers a comprehensive solution for enhanci"
+    },
+    {
+      "query": "tell me about teams ai assistant project",
+      "session": "qa_mx_1775817218834",
+      "chars": 478,
+      "fallback": false,
+      "preview": "Here is a concise answer from indexed documents about **tell me about teams ai assistant project**:\n\n- Project 9: Enhancing Teams Chat with ChatGPT: Leveraging Cognitive Search\n- Project 8: The Teams Chatbot Integrated with ChatGPT\n- seeking to refine their la"
+    },
+    {
+      "query": "what budget needed for ai chatbot",
+      "session": "qa_mx_1775817220550",
+      "chars": 323,
+      "fallback": false,
+      "preview": "Budget depends on scope, integrations, data volume, and deployment model. For an AI chatbot, we usually start with a discovery session and then share a tailored estimate with timeline and milestones. If you share your use case, channels (website/Teams/WhatsApp"
+    }
+  ],
+  "stream_checks": {
+    "ai_solutions_prompt": {
+      "session": "qa_stream_1775817222081",
+      "has_done": true,
+      "has_error": false,
+      "token_events": 0
+    },
+    "fluentify_prompt": {
+      "session": "qa_stream_1775817222809",
+      "has_done": true,
+      "has_error": false,
+      "token_events": 1
+    }
+  },
+  "summary": {
+    "matrix_total": 10,
+    "matrix_fallback_count": 0,
+    "matrix_min_chars": 140,
+    "matrix_max_chars": 1892
+  }
+}

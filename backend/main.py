@@ -39,6 +39,8 @@ from openai import AzureOpenAI
 
 load_dotenv()
 logger = logging.getLogger(__name__)
+logging.getLogger("httpx").setLevel(logging.WARNING)
+logging.getLogger("httpcore").setLevel(logging.WARNING)
 
 app = FastAPI(title="Hybrid Voice + Text RAG Chatbot API")
 
@@ -108,12 +110,6 @@ INDUSTRY_SUMMARY = (
     "real estate, travel, healthcare, and logistics/distribution."
 )
 
-DEFAULT_FOLLOWUP_QUESTIONS = [
-    "What services does Desire Infoweb provide?",
-    "What is Desire Infoweb?",
-    "What type of AI solutions does Desire create?",
-]
-
 _conversation_lock = Lock()
 _conversation_store: dict[str, deque[tuple[str, str]]] = {}
 _lead_lock = Lock()
@@ -149,7 +145,7 @@ OVERLAP_STOPWORDS = {
 
 
 def _get_required_env(name: str) -> str:
-    value = os.getenv(name)
+    value = _sanitize_env_value(os.getenv(name) or "")
     if not value:
         raise ValueError(f"Missing required environment variable: {name}")
     return value
@@ -157,15 +153,27 @@ def _get_required_env(name: str) -> str:
 
 def _get_required_env_any(names: list[str]) -> str:
     for name in names:
-        value = os.getenv(name)
-        if value and value.strip():
-            return value.strip()
+        value = _sanitize_env_value(os.getenv(name) or "")
+        if value:
+            return value
     joined = ", ".join(names)
     raise ValueError(f"Missing required environment variable. Set one of: {joined}")
 
 
+def _sanitize_env_value(value: str) -> str:
+    cleaned = (value or "")
+    cleaned = cleaned.replace("\r", "").replace("\n", "")
+    cleaned = cleaned.replace("\\r", "").replace("\\n", "")
+    return cleaned.strip()
+
+
 def _is_env_true(name: str, default: str = "false") -> bool:
-    return os.getenv(name, default).strip().lower() in {"1", "true", "yes", "on"}
+    return _sanitize_env_value(os.getenv(name, default)).lower() in {"1", "true", "yes", "on"}
+
+
+def _use_direct_faq_answers() -> bool:
+    # Retrieval-first mode is the default in production.
+    return _is_env_true("USE_DIRECT_FAQ_ANSWERS", "false")
 
 
 def _is_chat_trace_enabled() -> bool:
@@ -333,7 +341,25 @@ def _normalize_user_query(query: str) -> str:
         "u": "you",
     }
     words = [replacements.get(token.lower(), token) for token in normalized.split()]
-    return " ".join(words)
+    normalized_query = " ".join(words)
+
+    # Convert assistant-style follow-up prompts into actionable user intents.
+    lowered = normalized_query.lower().strip()
+    transformed = normalized_query
+    match = re.match(r"^do you want (?:a |an )?(.+?)\?*$", lowered)
+    if match:
+        transformed = f"give me {match.group(1).strip()}"
+    else:
+        match = re.match(r"^would you like (?:a |an )?(.+?)\?*$", lowered)
+        if match:
+            transformed = f"give me {match.group(1).strip()}"
+        else:
+            match = re.match(r"^should i share (.+?)\?*$", lowered)
+            if match:
+                transformed = f"share {match.group(1).strip()}"
+
+    transformed = re.sub(r"\s+", " ", transformed).strip()
+    return transformed
 
 
 def _normalize_session_id(session_id: str | None) -> str:
@@ -459,7 +485,80 @@ def _sanitize_followup_question(candidate: str) -> str:
         return ""
     if lowered.count("?") > 1:
         return ""
+    if "thank you for your query" in lowered:
+        return ""
+    if "support team" in lowered:
+        return ""
+    if "here is a concise answer from indexed documents about" in lowered:
+        return ""
+    if re.search(r"\b(summary|details?) of [^?]*\b(has|have)\b[^?]*\buse cases?\b", lowered):
+        return ""
+    trailing_fragment = lowered.rstrip("?").strip()
+    if trailing_fragment:
+        trailing_word = trailing_fragment.split()[-1]
+        if trailing_word in {"to", "for", "with", "about", "of", "in", "on", "at", "from", "and", "or", "the", "a", "an"}:
+            return ""
+        if re.search(r"\b(to enhance|to improve|to optimize|to support)$", trailing_fragment):
+            return ""
     return value
+
+
+def _is_no_context_like_answer(answer: str) -> bool:
+    text = (answer or "").strip().lower()
+    if not text:
+        return False
+    if text.startswith("thank you for your query"):
+        return True
+    if "falls outside my current scope" in text:
+        return True
+    if "for further assistance, please contact our support team" in text:
+        return True
+    canonical = _no_context_response().strip().lower()
+    return text == canonical
+
+
+def _extract_focus_topic_from_query(query: str) -> str:
+    cleaned = re.sub(r"[^a-z0-9\s]", " ", (query or "").lower())
+    tokens = [token for token in re.split(r"\s+", cleaned) if token]
+    stop = {
+        "give", "me", "all", "about", "details", "detail", "tell", "show", "project", "projects",
+        "please", "desire", "infoweb", "the", "a", "an", "to", "for", "of", "in", "on", "with",
+        "can", "you", "i", "want", "need", "list", "what", "use", "uses", "case", "cases",
+        "summary", "concise", "should", "would", "like", "share", "has", "have", "had", "deliver",
+        "delivered", "delivers", "solution", "solutions", "does", "did", "provide", "provides",
+        "mainly", "serve", "serves", "served", "based", "type",
+    }
+    topical = [token for token in tokens if len(token) >= 3 and token not in stop]
+    if not topical:
+        return ""
+    return " ".join(topical[:4]).strip()
+
+
+def _build_query_anchored_followups(latest_user_query: str, limit: int = 3) -> list[str]:
+    topic = _extract_focus_topic_from_query(latest_user_query)
+    if not topic:
+        return []
+
+    raw_candidates = [
+        f"Give me a concise summary of {topic} use cases",
+        f"Share implementation details for {topic}",
+        f"Give me tech stack and business impact for {topic}",
+        f"Compare major {topic} projects and outcomes",
+    ]
+
+    suggestions: list[str] = []
+    seen: set[str] = set()
+    for candidate in raw_candidates:
+        sanitized = _sanitize_followup_question(candidate)
+        key = _normalize_question_for_compare(sanitized)
+        if not sanitized or not key or key in seen:
+            continue
+        suggestions.append(sanitized)
+        seen.add(key)
+        if len(suggestions) >= limit:
+            break
+
+    return suggestions
 
 
 def _extract_questions_from_llm_payload(raw_content: str) -> list[str]:
@@ -524,7 +623,7 @@ def _generate_followups_with_llm(
                 {"role": "user", "content": prompt},
             ],
             temperature=0.2,
-            max_tokens=220,
+            max_tokens=_get_suggestion_max_tokens(),
             stream=False,
         )
         if not completion.choices:
@@ -552,17 +651,27 @@ def _generate_followups_with_llm(
     return finalized[:limit]
 
 
+def _get_suggestion_max_tokens() -> int:
+    raw_value = os.getenv("SUGGESTION_MAX_TOKENS", "380")
+    try:
+        value = int(raw_value)
+    except ValueError:
+        value = 380
+    return max(120, min(value, 900))
+
+
 def _extract_topic_seeds_from_history(history: list[tuple[str, str]], max_topics: int = 3) -> list[str]:
     seeds: list[str] = []
     seen: set[str] = set()
 
     for user_text, assistant_text in reversed(history):
         assistant_candidates: list[str] = []
-        assistant_candidates.extend(re.findall(r"(?m)^#{1,6}\s+(.+)$", assistant_text or ""))
-        assistant_candidates.extend(re.findall(r"\*\*([^*\n]{4,90})\*\*", assistant_text or ""))
+        if not _is_no_context_like_answer(assistant_text):
+            assistant_candidates.extend(re.findall(r"(?m)^#{1,6}\s+(.+)$", assistant_text or ""))
+            assistant_candidates.extend(re.findall(r"\*\*([^*\n]{4,90})\*\*", assistant_text or ""))
 
         first_sentence = re.split(r"[\n\.\!\?]", (assistant_text or "").strip(), maxsplit=1)[0].strip()
-        if 12 <= len(first_sentence) <= 100:
+        if 12 <= len(first_sentence) <= 100 and not _is_no_context_like_answer(first_sentence):
             assistant_candidates.append(first_sentence)
 
         user_candidate = re.sub(r"\s+", " ", (user_text or "").strip()).rstrip("?.!,;:")
@@ -572,6 +681,11 @@ def _extract_topic_seeds_from_history(history: list[tuple[str, str]], max_topics
         for candidate in assistant_candidates:
             cleaned = re.sub(r"\s+", " ", candidate.strip()).rstrip("?.!,;:")
             if len(cleaned) < 8 or _looks_like_prompt_phrase(cleaned):
+                continue
+            lowered_cleaned = cleaned.lower()
+            if lowered_cleaned.startswith("here is a concise answer from indexed documents about"):
+                continue
+            if lowered_cleaned.startswith("voice-based projects overview"):
                 continue
             key = _normalize_question_for_compare(cleaned)
             if not key or key in seen:
@@ -612,6 +726,45 @@ def _build_dynamic_followup_questions(session_id: str, limit: int = 3) -> list[s
         if user_text and user_text.strip()
     }
 
+    latest_user_query = history[-1][0] if history else ""
+    latest_assistant_reply = history[-1][1] if history else ""
+
+    lower_latest_user_query = latest_user_query.lower().strip()
+
+    is_meta_followup_query = lower_latest_user_query.startswith(
+        (
+            "do you want",
+            "would you like",
+            "should i share",
+        )
+    )
+
+    if is_meta_followup_query:
+        for previous_user_text, _ in reversed(history[:-1]):
+            candidate = (previous_user_text or "").strip()
+            lowered = candidate.lower()
+            if not candidate:
+                continue
+            if lowered.startswith(("do you want", "would you like", "should i share")):
+                continue
+            latest_user_query = candidate
+            break
+
+    anchored_candidates = _build_query_anchored_followups(latest_user_query, limit)
+    if anchored_candidates:
+        for candidate in anchored_candidates:
+            key = _normalize_question_for_compare(candidate)
+            if not key or key in seen_suggestions or key in asked_question_keys:
+                continue
+            suggestions.append(candidate)
+            seen_suggestions.add(key)
+            if len(suggestions) >= limit:
+                return suggestions[:limit]
+
+    if _is_no_context_like_answer(latest_assistant_reply):
+        # Do not let fallback text drive follow-up generation quality.
+        return suggestions[:limit]
+
     # LLM-based generation uses full recent conversation (user + assistant).
     if _is_env_true("SUGGESTIONS_USE_LLM", "true"):
         llm_suggestions = _generate_followups_with_llm(history, asked_question_keys, limit)
@@ -627,16 +780,7 @@ def _build_dynamic_followup_questions(session_id: str, limit: int = 3) -> list[s
     topic_seeds = _extract_topic_seeds_from_history(history, max_topics=3)
 
     if not topic_seeds:
-        # Final fallback stays concise and user-safe.
-        for candidate in DEFAULT_FOLLOWUP_QUESTIONS:
-            sanitized = _sanitize_followup_question(candidate)
-            key = _normalize_question_for_compare(sanitized)
-            if not sanitized or not key or key in seen_suggestions or key in asked_question_keys:
-                continue
-            suggestions.append(sanitized)
-            seen_suggestions.add(key)
-            if len(suggestions) >= limit:
-                break
+        # Keep suggestions retrieval-driven and avoid static FAQ-style prompts.
         return suggestions[:limit]
 
     for topic_seed in topic_seeds:
@@ -670,7 +814,7 @@ def _is_sharepoint_sync_enabled() -> bool:
 
 
 def _is_sharepoint_always_insert_enabled() -> bool:
-    return os.getenv("SHAREPOINT_ALWAYS_INSERT", "true").lower() == "true"
+    return os.getenv("SHAREPOINT_ALWAYS_INSERT", "false").lower() == "true"
 
 
 def _get_sharepoint_field_names() -> dict[str, str]:
@@ -821,10 +965,50 @@ async def _sync_sharepoint_lead_safely(session_id: str) -> None:
 
 
 def _direct_company_answer(query: str) -> str | None:
+    if not _use_direct_faq_answers():
+        return None
+
     q = query.lower().strip()
     compact = re.sub(r"\s+", " ", re.sub(r"[^a-z0-9\s]", " ", q)).strip()
     compact_no_space = compact.replace(" ", "")
     logger.debug("Direct answer check: query='%s', compact='%s'", q, compact)
+
+    asks_voice_catalog = (
+        ("voice based projects" in compact)
+        or ("voice based project" in compact and any(token in compact for token in ["all", "list"]))
+        or (
+            "voice" in compact
+            and "projects" in compact
+            and any(token in compact for token in ["all", "list", "complete", "full"])
+        )
+    )
+
+    if asks_voice_catalog:
+        logger.debug("Direct answer matched: voice projects catalog")
+        return (
+            "## Voice-Based Projects by Desire Infoweb\n\n"
+            "### 1. AI Interviewer Pro - Voice-Based Candidate Screening\n"
+            "- **Challenge**: Manual first-round candidate screening is slow and inconsistent.\n"
+            "- **Solution**: AI-driven voice interviews with dynamic question generation and contextual response analysis.\n"
+            "- **Impact**: Faster shortlisting, better screening consistency, and reduced time-to-hire.\n"
+            "- **Technologies**: Gemini/GPT models, Speech-to-Text, TypeScript, React, cloud-native backend.\n\n"
+            "### 2. Fluentify AI - Voice Communication Assessment\n"
+            "- **Challenge**: Teams need objective spoken communication improvement at scale.\n"
+            "- **Solution**: Voice and pronunciation assessment integrated with Microsoft Teams, with detailed feedback on fluency, grammar, and vocabulary.\n"
+            "- **Impact**: Measurable improvement in communication quality with personalized recommendations.\n"
+            "- **Technologies**: Azure Pronunciation Assessment, Azure OpenAI, Microsoft Teams integration, SharePoint/Azure storage.\n\n"
+            "### 3. Voice Workflow Assistant\n"
+            "- **Challenge**: Repetitive workflow actions reduce productivity.\n"
+            "- **Solution**: Voice-triggered workflow assistant for task routing, reminders, and action execution.\n"
+            "- **Impact**: Lower operational overhead and faster day-to-day execution.\n"
+            "- **Technologies**: NLP pipelines, workflow orchestration, cloud APIs, secure enterprise integrations.\n\n"
+            "### 4. Voice-Enabled Compliance Monitoring\n"
+            "- **Challenge**: Real-time compliance enforcement in operations is difficult with manual monitoring alone.\n"
+            "- **Solution**: AI-assisted voice-enabled monitoring and alerts for policy/safety adherence.\n"
+            "- **Impact**: Better compliance visibility and faster corrective actions.\n"
+            "- **Technologies**: AI monitoring stack, real-time processing services, analytics dashboards.\n\n"
+            "If you want, I can give a deep technical breakdown project-by-project (architecture, deployment, and implementation flow)."
+        )
 
     if re.match(r"^(hi+|hello+|hey+|good morning|good afternoon|good evening)\b", compact) and len(compact.split()) <= 4:
         logger.debug("Direct answer matched: greeting")
@@ -832,6 +1016,25 @@ def _direct_company_answer(query: str) -> str | None:
             "Hello! Welcome to Desire Infoweb. "
             f"{SERVICE_SUMMARY} "
             "Tell me your requirement and I can suggest the best service approach."
+        )
+
+    if any(
+        phrase in compact
+        for phrase in [
+            "what ai solutions has desire infoweb delivered",
+            "what type of ai projects has desire infoweb completed",
+            "ai projects delivered",
+            "ai solutions delivered",
+        ]
+    ):
+        logger.debug("Direct answer matched: delivered AI solutions query")
+        return (
+            "Desire Infoweb has delivered multiple AI solutions across enterprise use cases:\n\n"
+            "1. Fluentify AI for voice communication assessment with pronunciation scoring and coaching feedback.\n"
+            "2. AI Interviewer Pro for voice-based candidate screening with automated evaluation support.\n"
+            "3. Teams AI assistants integrated with business workflows for employee support and knowledge lookup.\n"
+            "4. Document-grounded chatbots using SharePoint/Azure storage to answer from company documents.\n\n"
+            "If you want, I can provide a project-wise deep dive with architecture, tech stack, and outcomes."
         )
 
     if any(keyword in compact for keyword in ["what service", "services", "what do you do", "what you do", "what do you provide", "offer"]):
@@ -853,7 +1056,7 @@ def _direct_company_answer(query: str) -> str | None:
         ]
     ) or (
         ("desire infoweb" in compact or "desireinfoweb" in compact_no_space)
-        and any(keyword in compact for keyword in ["detail", "details", "about", "info", "information", "tell me", "what is"])
+        and re.search(r"\b(details?|about|information|profile|overview)\b", compact)
     ):
         logger.debug("Direct answer matched: company info query")
         return (
@@ -945,7 +1148,7 @@ def _get_azure_openai_api_key() -> str:
 
 
 def _get_azure_openai_api_version() -> str:
-    return os.getenv("AZURE_OPENAI_API_VERSION", "2024-12-01-preview")
+    return _sanitize_env_value(os.getenv("AZURE_OPENAI_API_VERSION", "2024-12-01-preview"))
 
 
 def _get_azure_search_endpoint() -> str:
@@ -957,15 +1160,15 @@ def _get_azure_search_index_name() -> str:
 
 
 def _get_azure_search_api_key() -> str:
-    return os.getenv("AZURE_SEARCH_API_KEY", "").strip()
+    return _sanitize_env_value(os.getenv("AZURE_SEARCH_API_KEY", ""))
 
 
 def _get_azure_search_content_field() -> str:
-    return os.getenv("AZURE_SEARCH_CONTENT_FIELD", "content").strip() or "content"
+    return _sanitize_env_value(os.getenv("AZURE_SEARCH_CONTENT_FIELD", "content")) or "content"
 
 
 def _get_azure_search_vector_field() -> str:
-    return os.getenv("AZURE_SEARCH_VECTOR_FIELD", "contentVector").strip()
+    return _sanitize_env_value(os.getenv("AZURE_SEARCH_VECTOR_FIELD", "contentVector"))
 
 
 def _get_azure_search_top_k() -> int:
@@ -978,7 +1181,7 @@ def _get_azure_search_top_k() -> int:
 
 
 def _get_azure_search_semantic_config() -> str:
-    return os.getenv("AZURE_SEARCH_SEMANTIC_CONFIG", "").strip()
+    return _sanitize_env_value(os.getenv("AZURE_SEARCH_SEMANTIC_CONFIG", ""))
 
 
 def _use_azure_search_semantic() -> bool:
@@ -1002,8 +1205,8 @@ def _get_tts_voice() -> str:
 
 
 def _get_max_output_tokens() -> int:
-    requested_raw = os.getenv("LLM_MAX_OUTPUT_TOKENS", "4200")
-    model_cap_raw = os.getenv("AZURE_OPENAI_MAX_COMPLETION_TOKENS", "16096")
+    requested_raw = os.getenv("LLM_MAX_OUTPUT_TOKENS", "52000")
+    model_cap_raw = os.getenv("AZURE_OPENAI_MAX_COMPLETION_TOKENS", "32768")
 
     try:
         requested_tokens = int(requested_raw)
@@ -1015,7 +1218,7 @@ def _get_max_output_tokens() -> int:
     except ValueError:
         model_cap = 16384
 
-    bounded_tokens = max(64, min(requested_tokens, model_cap, 4096))
+    bounded_tokens = max(64, min(requested_tokens, model_cap, 32768))
     if bounded_tokens != requested_tokens:
         logger.warning(
             "LLM_MAX_OUTPUT_TOKENS=%s exceeds allowed range; using %s instead.",
@@ -1027,7 +1230,7 @@ def _get_max_output_tokens() -> int:
 
 
 def _get_retry_output_tokens() -> int:
-    raw_value = os.getenv("LLM_RETRY_OUTPUT_TOKENS", "700")
+    raw_value = os.getenv("LLM_RETRY_OUTPUT_TOKENS", "8000")
     try:
         value = int(raw_value)
     except ValueError:
@@ -1058,12 +1261,12 @@ def _extract_current_query_from_model_input(model_input: str) -> str:
 
 
 def _get_max_completion_segments() -> int:
-    raw_value = os.getenv("LLM_MAX_CONTINUATION_SEGMENTS", "5")
+    raw_value = os.getenv("LLM_MAX_CONTINUATION_SEGMENTS", "24")
     try:
         value = int(raw_value)
     except ValueError:
-        value = 5
-    return max(1, min(value, 10))
+        value = 24
+    return max(1, min(value, 40))
 
 
 def _is_length_finish_reason(finish_reason: Any) -> bool:
@@ -1123,43 +1326,56 @@ def _create_chat_completion(
         {"role": "user", "content": user_content},
     ]
 
-    try:
-        return get_azure_openai_client().chat.completions.create(
-            model=_get_chat_model(),
-            messages=messages,
-            temperature=_get_llm_temperature(),
-            max_tokens=max_tokens,
-            stream=stream,
-        )
-    except Exception as error:
-        if not _is_token_limit_error(error):
+    reduced_user_input = _extract_current_query_from_model_input(user_content)
+    token_attempts: list[int] = []
+    for candidate in [
+        max_tokens,
+        min(_get_retry_output_tokens(), max_tokens),
+        min(4096, max_tokens),
+        min(2048, max_tokens),
+        min(1024, max_tokens),
+    ]:
+        if candidate >= 64 and candidate not in token_attempts:
+            token_attempts.append(candidate)
+
+    last_error: Exception | None = None
+    for idx, attempt_tokens in enumerate(token_attempts):
+        attempt_messages = messages if idx == 0 else [
+            {"role": "system", "content": system_prompt.format(context=retrieved_context)},
+            {"role": "user", "content": reduced_user_input},
+        ]
+        try:
+            if idx > 0:
+                _trace_step(
+                    "llm.request.retry_low_tokens",
+                    reason="token_limit",
+                    stream=stream,
+                    retry_max_tokens=attempt_tokens,
+                    reduced_input_chars=len(reduced_user_input),
+                    attempt=idx + 1,
+                )
+                logger.warning(
+                    "LLM retry attempt=%s stream=%s max_tokens=%s",
+                    idx + 1,
+                    stream,
+                    attempt_tokens,
+                )
+            return get_azure_openai_client().chat.completions.create(
+                model=_get_chat_model(),
+                messages=attempt_messages,
+                temperature=_get_llm_temperature(),
+                max_tokens=attempt_tokens,
+                stream=stream,
+            )
+        except Exception as error:
+            last_error = error
+            if _is_token_limit_error(error):
+                continue
             raise
 
-        retry_tokens = min(_get_retry_output_tokens(), max_tokens)
-        reduced_user_input = _extract_current_query_from_model_input(user_content)
-        _trace_step(
-            "llm.request.retry_low_tokens",
-            reason="token_limit",
-            stream=stream,
-            retry_max_tokens=retry_tokens,
-            reduced_input_chars=len(reduced_user_input),
-        )
-        logger.warning(
-            "LLM request hit token/context limit; retrying with stream=%s max_tokens=%s.",
-            stream,
-            retry_tokens,
-        )
-
-        return get_azure_openai_client().chat.completions.create(
-            model=_get_chat_model(),
-            messages=[
-                {"role": "system", "content": system_prompt.format(context=retrieved_context)},
-                {"role": "user", "content": reduced_user_input},
-            ],
-            temperature=_get_llm_temperature(),
-            max_tokens=retry_tokens,
-            stream=stream,
-        )
+    if last_error is not None:
+        raise last_error
+    raise ValueError("LLM completion failed without an error payload.")
 
 
 def _get_llm_temperature() -> float:
@@ -1252,6 +1468,12 @@ def _build_response_style_instruction(current_query: str) -> str:
         or "all ai projects" in query
     )
 
+    asks_voice_projects = (
+        "voice project" in query
+        or "voice-based project" in query
+        or ("voice" in query and "project" in query)
+    )
+
     if wants_detailed:
         return (
             "Response style: Provide a well-structured but focused answer in markdown. "
@@ -1260,8 +1482,16 @@ def _build_response_style_instruction(current_query: str) -> str:
 
     if asks_broad_list:
         return (
-            "Response style: Keep it concise. Return at most 4 projects, each with 1 short line for challenge, "
-            "solution, and impact. End with a one-line offer to share full details if needed."
+            "Response style: Return a complete structured markdown answer. Include up to 6 projects found in context. "
+            "For each project include: Challenge, Solution, Impact, and Technologies in 1-2 bullets each. "
+            "Avoid truncation and finish with a short summary line."
+        )
+
+    if asks_voice_projects:
+        return (
+            "Response style: Provide a detailed voice-project overview in markdown. Include all relevant voice projects "
+            "from context and for each include Challenge, Solution, Impact, and Technologies. "
+            "Do not stop after one project unless only one exists in context."
         )
 
     return (
@@ -1756,6 +1986,482 @@ def _no_context_response() -> str:
     return os.getenv("NO_CONTEXT_RESPONSE", NO_CONTEXT_RESPONSE).strip() or NO_CONTEXT_RESPONSE
 
 
+def _build_context_grounded_fallback_answer(normalized_query: str, retrieved_context: str) -> str:
+    context = (retrieved_context or "").strip()
+    if not context:
+        return _no_context_response()
+
+    lowered_query = (normalized_query or "").lower()
+    normalized_context = re.sub(r"\n\s*\n", "\n", context)
+    context_lc = normalized_context.lower()
+
+    asks_voice_catalog = (
+        ("voice based projects" in lowered_query)
+        or ("voice based project" in lowered_query and any(token in lowered_query for token in ["all", "list"]))
+        or (
+            "voice" in lowered_query
+            and "projects" in lowered_query
+            and any(token in lowered_query for token in ["all", "list", "complete", "full"])
+        )
+    )
+
+    if asks_voice_catalog:
+        def _clean_field_text(value: str) -> str:
+            cleaned = re.sub(r"\s+", " ", (value or "")).strip(" -•\t")
+            cleaned = re.sub(r"\s*[●•]\s*", ". ", cleaned)
+            cleaned = re.sub(r"^[\)\]\.,:;\-/]+", "", cleaned).strip()
+            cleaned = re.sub(r"\bProject\s*\d+\s*:\s*", "", cleaned, flags=re.IGNORECASE)
+            cleaned = re.sub(
+                r"\b(Client|Industry|Department|Technology Focus Area|Architecture|Deployment|Databases)\s*:\s*[^:]{0,220}",
+                "",
+                cleaned,
+                flags=re.IGNORECASE,
+            )
+            cleaned = re.sub(r"\s{2,}", " ", cleaned).strip(" ,;:-")
+            return cleaned
+
+        def _compact_field_text(value: str, max_sentences: int = 2, max_chars: int = 340) -> str:
+            cleaned = _clean_field_text(value)
+            if not cleaned:
+                return ""
+            parts = [part.strip() for part in re.split(r"(?<=[\.!?])\s+", cleaned) if part.strip()]
+            if parts:
+                cleaned = " ".join(parts[:max_sentences]).strip()
+            if len(cleaned) > max_chars:
+                truncated = cleaned[: max_chars - 1].rstrip()
+                if " " in truncated:
+                    truncated = truncated.rsplit(" ", 1)[0].rstrip()
+                cleaned = truncated.rstrip(" ,;:-") + "."
+            cleaned = re.sub(r"\s+", " ", cleaned).strip()
+            if cleaned.lower().endswith(("our", "and", "or", "to", "for", "with")):
+                cleaned = cleaned.rsplit(" ", 1)[0].rstrip(" ,;:-") + "."
+            return cleaned
+
+        def _extract_labeled_field(source_text: str, label: str, next_labels: list[str]) -> str:
+            match = re.search(rf"\b{label}\s*:\s*", source_text, flags=re.IGNORECASE)
+            if not match:
+                return ""
+            tail = source_text[match.end():]
+            end_idx = len(tail)
+            for next_label in next_labels:
+                next_match = re.search(rf"\b{next_label}\s*:\s*", tail, flags=re.IGNORECASE)
+                if next_match and next_match.start() < end_idx:
+                    end_idx = next_match.start()
+            return _clean_field_text(tail[:end_idx])
+
+        def _extract_project_excerpt(source_text: str, marker: str, window: int = 1100) -> str:
+            lowered = source_text.lower()
+            idx = lowered.find(marker.lower())
+            if idx < 0:
+                return ""
+            start = max(0, idx - 140)
+            end = min(len(source_text), idx + window)
+            snippet = source_text[start:end]
+            snippet = re.sub(r"\s+", " ", snippet).strip()
+            return snippet
+
+        def _extract_sentences(snippet: str, max_sentences: int = 4) -> list[str]:
+            parts = [part.strip() for part in re.split(r"(?<=[\.!?])\s+", snippet) if part.strip()]
+            cleaned: list[str] = []
+            for part in parts:
+                normalized_part = _clean_field_text(part)
+                if len(normalized_part) < 30:
+                    continue
+                if "thank you for your query" in normalized_part.lower():
+                    continue
+                cleaned.append(normalized_part)
+                if len(cleaned) >= max_sentences:
+                    break
+            return cleaned
+
+        def _extract_tech_line(snippet: str) -> str:
+            tech_keywords = [
+                "azure", "openai", "gemini", "teams", "typescript", "react", "python", "speech", "stt",
+                "tts", "sharepoint", "durable functions", "blob", "semantic search", "vectorization",
+            ]
+            matches: list[str] = []
+            lowered = snippet.lower()
+            for kw in tech_keywords:
+                if kw in lowered:
+                    matches.append(kw.title())
+            if matches:
+                deduped: list[str] = []
+                seen: set[str] = set()
+                for item in matches:
+                    key = item.lower()
+                    if key in seen:
+                        continue
+                    seen.add(key)
+                    deduped.append(item)
+                return ", ".join(deduped[:8])
+            return "Not explicitly listed in the retrieved excerpt."
+
+        project_specs = [
+            ("AI Interviewer Pro", ["ai interviewer pro", "candidate screening"]),
+            ("Fluentify AI", ["fluentify", "pronunciation assessment"]),
+            ("Voice Workflow Assistant", ["voice workflow", "voice-driven workflow"]),
+            ("Compliance Voice Monitoring", ["compliance monitoring", "voice-enabled system"]),
+        ]
+
+        sections: list[str] = []
+        for project_name, markers in project_specs:
+            excerpt = ""
+            for marker in markers:
+                excerpt = _extract_project_excerpt(normalized_context, marker)
+                if excerpt:
+                    break
+            if not excerpt:
+                continue
+
+            sentences = _extract_sentences(excerpt, max_sentences=4)
+            if not sentences:
+                continue
+
+            challenge = _extract_labeled_field(excerpt, "Challenge", ["Solution", "Impact", "Technologies"])
+            solution = _extract_labeled_field(excerpt, "Solution", ["Impact", "Technologies", "Challenge"])
+            impact = _extract_labeled_field(excerpt, "Impact", ["Technologies", "Challenge", "Solution"])
+            tech_line = _extract_labeled_field(excerpt, "Technologies", ["Challenge", "Solution", "Impact"])
+
+            if not challenge:
+                challenge = sentences[0]
+            if not solution:
+                solution = sentences[1] if len(sentences) > 1 else "Detailed implementation is available in the project context."
+            if not impact:
+                impact = sentences[2] if len(sentences) > 2 else "Business impact is described in the project documentation."
+            if not tech_line:
+                tech_line = _extract_tech_line(excerpt)
+
+            challenge = _compact_field_text(challenge, max_sentences=2, max_chars=320)
+            solution = _compact_field_text(solution, max_sentences=2, max_chars=360)
+            impact = _compact_field_text(impact, max_sentences=2, max_chars=300)
+            tech_line = _compact_field_text(tech_line, max_sentences=1, max_chars=180)
+
+            if not challenge:
+                challenge = "Project challenge details are available in the indexed project documentation."
+            if not solution:
+                solution = "Project implementation details are available in the indexed project documentation."
+            if not impact:
+                impact = "Project outcomes are available in the indexed project documentation."
+            if not tech_line:
+                tech_line = "Technologies are listed in the indexed project documentation."
+
+            sections.append(
+                "\n".join(
+                    [
+                        f"### {project_name}",
+                        f"- **Challenge**: {challenge}",
+                        f"- **Solution**: {solution}",
+                        f"- **Impact**: {impact}",
+                        f"- **Technologies**: {tech_line}",
+                    ]
+                )
+            )
+
+        if sections:
+            return (
+                "Voice-Based Projects Overview\n\n"
+                "Below are the detailed overviews of Desire Infoweb's voice-based projects, including challenge, solution, impact, and technologies:\n\n"
+                + "\n\n".join(sections[:4])
+            )
+
+    asks_project_catalog = (
+        ("project" in lowered_query or "projects" in lowered_query)
+        and any(token in lowered_query for token in ["all", "list", "based", "catalog", "overview"])
+    )
+
+    if asks_project_catalog:
+        def _clean_project_text(value: str) -> str:
+            cleaned = re.sub(r"\s+", " ", (value or "")).strip(" -•\t")
+            cleaned = re.sub(r"\s*[●•]\s*", ". ", cleaned)
+            cleaned = re.sub(r"\bProject\s*\d+\s*:\s*", "", cleaned, flags=re.IGNORECASE)
+            cleaned = re.sub(r"\s{2,}", " ", cleaned).strip(" ,;:-")
+            if cleaned and cleaned[-1] not in ".!?":
+                cleaned += "."
+            return cleaned
+
+        def _compact_project_text(value: str, max_sentences: int = 2, max_chars: int = 320) -> str:
+            cleaned = _clean_project_text(value)
+            if not cleaned:
+                return ""
+            parts = [part.strip() for part in re.split(r"(?<=[\.!?])\s+", cleaned) if part.strip()]
+            if parts:
+                cleaned = " ".join(parts[:max_sentences]).strip()
+            if len(cleaned) > max_chars:
+                trimmed = cleaned[: max_chars - 1].rstrip()
+                if " " in trimmed:
+                    trimmed = trimmed.rsplit(" ", 1)[0].rstrip()
+                cleaned = trimmed.rstrip(" ,;:-") + "."
+            if cleaned.lower().endswith(("and.", "or.", "to.", "for.", "with.")):
+                cleaned = cleaned.rsplit(" ", 1)[0].rstrip(" ,;:-") + "."
+            return cleaned
+
+        def _extract_between_labels(block_text: str, labels: list[str], next_labels: list[str]) -> str:
+            match = None
+            for label in labels:
+                match = re.search(rf"\b{label}\s*:\s*", block_text, flags=re.IGNORECASE)
+                if match:
+                    break
+            if not match:
+                return ""
+
+            tail = block_text[match.end():]
+            end_idx = len(tail)
+            for next_label in next_labels:
+                next_match = re.search(rf"\b{next_label}\s*:\s*", tail, flags=re.IGNORECASE)
+                if next_match and next_match.start() < end_idx:
+                    end_idx = next_match.start()
+            return _compact_project_text(tail[:end_idx])
+
+        focus_terms = {
+            term
+            for term in _tokenize_terms(lowered_query)
+            if term not in {"project", "projects", "based", "list", "all", "overview", "catalog", "give"}
+        }
+        project_matches = list(re.finditer(r"Project\s*\d+\s*:\s*([^\n]+)", normalized_context, flags=re.IGNORECASE))
+        project_sections: list[str] = []
+
+        for idx, project_match in enumerate(project_matches):
+            start = project_match.start()
+            end = project_matches[idx + 1].start() if idx + 1 < len(project_matches) else min(len(normalized_context), start + 2000)
+            block = normalized_context[start:end]
+            block_lower = block.lower()
+            if focus_terms and not any(term in block_lower for term in focus_terms):
+                continue
+
+            title_raw = _clean_project_text(project_match.group(1))
+            title = re.split(
+                r"\b(Client|Industry|Department|Technology Focus Area|Architecture|Deployment|Databases|Challenge|Solution|Impact|Technologies)\s*:",
+                title_raw,
+                maxsplit=1,
+                flags=re.IGNORECASE,
+            )[0].strip(" ,;:-")
+            if not title:
+                title = "Project"
+
+            challenge = _extract_between_labels(block, ["Challenge"], ["Our Solution", "Solution", "Impact", "Technologies", "Software & Frameworks"])
+            solution = _extract_between_labels(block, ["Our Solution", "Solution"], ["Impact", "Technologies", "Software & Frameworks", "Challenge"])
+            impact = _extract_between_labels(block, ["Impact"], ["Technologies", "Software & Frameworks", "Challenge", "Solution"])
+            technologies = _extract_between_labels(block, ["Technologies", "Software & Frameworks"], ["Challenge", "Solution", "Impact"])
+
+            if not challenge:
+                challenge = "Challenge details are available in indexed documentation."
+            if not solution:
+                solution = "Implementation details are available in indexed documentation."
+            if not impact:
+                impact = "Business outcomes are described in indexed documentation."
+            if not technologies:
+                technologies = "Technology stack is documented in indexed content."
+
+            project_sections.append(
+                "\n".join(
+                    [
+                        f"### {title}",
+                        f"- **Challenge**: {challenge}",
+                        f"- **Solution**: {solution}",
+                        f"- **Impact**: {impact}",
+                        f"- **Technologies**: {technologies}",
+                    ]
+                )
+            )
+
+            if len(project_sections) >= 4:
+                break
+
+        if project_sections:
+            return (
+                "Project Overview\n\n"
+                f"Here are project-wise highlights for **{normalized_query.strip()}** based on indexed documents:\n\n"
+                + "\n\n".join(project_sections)
+            )
+
+    query_terms = _tokenize_terms(normalized_query)
+
+    def _is_complete_sentence(text: str) -> bool:
+        cleaned = (text or "").strip()
+        if not cleaned:
+            return False
+        tail = cleaned.lower().rstrip(".?!").strip()
+        if not tail:
+            return False
+        tail_word = tail.split()[-1]
+        if tail_word in {"and", "or", "to", "for", "with", "about", "of", "in", "on", "at", "from", "the", "a", "an"}:
+            return False
+        return True
+
+    def _looks_like_metadata_noise(text: str) -> bool:
+        lowered = (text or "").lower()
+        label_hits = len(
+            re.findall(
+                r"\b(client|industry|department|technology focus area|architecture|deployment|databases|project\s*\d+)\b",
+                lowered,
+            )
+        )
+        digit_count = len(re.findall(r"\d", lowered))
+        alpha_count = len(re.findall(r"[a-z]", lowered))
+        digit_ratio = (digit_count / max(1, alpha_count + digit_count))
+        if label_hits >= 2:
+            return True
+        if "project" in lowered and digit_count >= 3:
+            return True
+        if digit_ratio > 0.22:
+            return True
+        return False
+
+    def _normalize_sentence(text: str) -> str:
+        cleaned = re.sub(r"\s+", " ", (text or "")).strip(" -•\t")
+        cleaned = cleaned.replace("●", " ").replace("•", " ")
+        cleaned = re.sub(
+            r"\b(Client|Industry|Department|Technology Focus Area|Architecture|Deployment|Databases)\s*:\s*",
+            "",
+            cleaned,
+            flags=re.IGNORECASE,
+        )
+        cleaned = re.sub(r"\s{2,}", " ", cleaned).strip(" ,;:-")
+        if not cleaned:
+            return ""
+        if cleaned[-1] not in ".!?":
+            cleaned = cleaned + "."
+        return cleaned
+
+    normalized_for_sentences = normalized_context.replace("●", ". ").replace("•", ". ")
+    normalized_for_sentences = re.sub(r"\n+", " ", normalized_for_sentences)
+    raw_sentences = [segment.strip() for segment in re.split(r"(?<=[.!?])\s+", normalized_for_sentences) if segment.strip()]
+
+    scored: list[tuple[int, str]] = []
+    seen: set[str] = set()
+    for raw_sentence in raw_sentences:
+        sentence = _normalize_sentence(raw_sentence)
+        if not sentence:
+            continue
+        if len(sentence) < 38 or len(sentence) > 320:
+            continue
+        lowered_sentence = sentence.lower()
+        if "thank you for your query" in lowered_sentence or "for further assistance" in lowered_sentence:
+            continue
+        if _looks_like_metadata_noise(sentence):
+            continue
+        if not _is_complete_sentence(sentence):
+            continue
+
+        key = re.sub(r"\W+", "", lowered_sentence)
+        if not key or key in seen:
+            continue
+        seen.add(key)
+
+        overlap = 0
+        if query_terms:
+            line_terms = _tokenize_terms(sentence)
+            overlap = len(line_terms & query_terms)
+        scored.append((overlap, sentence))
+
+    scored.sort(key=lambda item: (-item[0], -len(item[1])))
+
+    max_items = 6 if ("project" in lowered_query and any(token in lowered_query for token in ["all", "list", "based"])) else 4
+    highlights = [line for _, line in scored[:max_items]]
+    if not highlights:
+        return _no_context_response()
+
+    bullets = "\n".join(f"- {item}" for item in highlights)
+    return (
+        f"Here is a concise answer from indexed documents about **{normalized_query.strip()}**:\n\n"
+        f"{bullets}\n\n"
+        "If you want, I can provide a cleaner project-wise summary next."
+    )
+
+
+def _generate_compact_context_summary(normalized_query: str, retrieved_context: str) -> str:
+    context = (retrieved_context or "").strip()
+    if not context:
+        return ""
+
+    query_terms = _tokenize_terms(normalized_query)
+
+    def _looks_like_metadata_noise(text: str) -> bool:
+        lowered = (text or "").lower()
+        label_hits = len(
+            re.findall(
+                r"\b(client|industry|department|technology focus area|architecture|deployment|databases|project\s*\d+)\b",
+                lowered,
+            )
+        )
+        digit_count = len(re.findall(r"\d", lowered))
+        alpha_count = len(re.findall(r"[a-z]", lowered))
+        digit_ratio = (digit_count / max(1, alpha_count + digit_count))
+        if label_hits >= 2:
+            return True
+        if "project" in lowered and digit_count >= 3:
+            return True
+        if digit_ratio > 0.22:
+            return True
+        return False
+
+    normalized_for_sentences = context.replace("●", ". ").replace("•", ". ")
+    normalized_for_sentences = re.sub(r"\n+", " ", normalized_for_sentences)
+    raw_sentences = [segment.strip() for segment in re.split(r"(?<=[.!?])\s+", normalized_for_sentences) if segment.strip()]
+
+    ranked: list[tuple[int, str]] = []
+    seen: set[str] = set()
+    for raw_sentence in raw_sentences:
+        sentence = re.sub(r"\s+", " ", raw_sentence).strip(" -•\t")
+        if len(sentence) < 42 or len(sentence) > 280:
+            continue
+        lowered_sentence = sentence.lower()
+        if "thank you for your query" in lowered_sentence or "for further assistance" in lowered_sentence:
+            continue
+        if _looks_like_metadata_noise(sentence):
+            continue
+
+        key = re.sub(r"\W+", "", lowered_sentence)
+        if not key or key in seen:
+            continue
+        seen.add(key)
+
+        overlap = 0
+        if query_terms:
+            overlap = len(_tokenize_terms(sentence) & query_terms)
+        ranked.append((overlap, sentence))
+
+    ranked.sort(key=lambda item: (-item[0], -len(item[1])))
+    selected = [sentence for _, sentence in ranked[:6]]
+    if not selected:
+        return ""
+
+    compact_context = "\n".join(f"- {sentence}" for sentence in selected)
+    prompt = (
+        "Create a clean, complete markdown answer using only the context excerpts. "
+        "Do not copy raw metadata, IDs, or fragmented phrases. "
+        "Keep it concise and readable with 3-6 bullets when appropriate.\n\n"
+        f"User question:\n{normalized_query}\n\n"
+        f"Context excerpts:\n{compact_context}"
+    )
+
+    try:
+        completion = get_azure_openai_client().chat.completions.create(
+            model=_get_chat_model(),
+            messages=[
+                {
+                    "role": "system",
+                    "content": "You are a RAG response cleaner. Return only grounded, complete, readable markdown.",
+                },
+                {"role": "user", "content": prompt},
+            ],
+            temperature=0.1,
+            max_tokens=min(520, _get_retry_output_tokens()),
+            stream=False,
+        )
+        if not completion.choices:
+            return ""
+        answer = str(getattr(completion.choices[0].message, "content", "") or "").strip()
+        if not answer or _is_no_context_like_answer(answer):
+            return ""
+        if len(answer) < 80:
+            return ""
+        return answer
+    except Exception as error:
+        _trace_step("answer.compact_context_summary.error", error=str(error))
+        return ""
+
+
 def _should_attach_citations(answer: str, normalized_query: str, citations: list[dict[str, Any]]) -> bool:
     if not citations:
         return False
@@ -2028,6 +2734,14 @@ def _generate_answer(
                 completion_error,
             )
             _trace_step("answer.context_completion.error", error=str(completion_error))
+            compact_summary = _generate_compact_context_summary(normalized_query, retrieved_context)
+            if compact_summary:
+                _trace_step("answer.compact_context_summary", answer_chars=len(compact_summary))
+                return compact_summary
+            fallback_answer = _build_context_grounded_fallback_answer(normalized_query, retrieved_context)
+            if fallback_answer.strip() != _no_context_response().strip():
+                _trace_step("answer.context_fallback", source="context_completion_failed")
+                return fallback_answer
             _trace_step("answer.no_context", source="context_completion_failed")
             return _no_context_response()
 
@@ -2116,6 +2830,8 @@ async def health_config() -> dict:
             "azure_search_score_threshold": _get_embedding_similarity_threshold(),
             "azure_search_required": _is_azure_search_required(),
             "allow_generic_fallback": _allow_generic_fallback(),
+            "use_direct_faq_answers": _use_direct_faq_answers(),
+            "sharepoint_always_insert": _is_sharepoint_always_insert_enabled(),
         },
     }
 
@@ -2204,6 +2920,31 @@ async def text_chat(
             has_email=bool(current_lead_email),
             has_name=bool(current_lead_name),
         )
+
+        direct_answer = _direct_company_answer(normalized_query)
+        if direct_answer:
+            _save_conversation_turn(effective_session_id, normalized_query, direct_answer)
+            await _sync_sharepoint_lead_safely(effective_session_id)
+
+            trace_id = _get_active_trace_id()
+            response_payload = {
+                "reply": direct_answer,
+                "session_id": effective_session_id,
+                "lead": {
+                    "email": current_lead_email,
+                    "name": current_lead_name,
+                },
+                "citations": [],
+            }
+            if trace_id:
+                response_payload["trace_id"] = trace_id
+
+            _trace_step("response.ready", status_code=200, answer_chars=len(direct_answer), source="direct_answer")
+            if _is_chat_trace_include_context():
+                _finalize_trace("success", status_code=200, reply=direct_answer)
+            else:
+                _finalize_trace("success", status_code=200, answer_chars=len(direct_answer))
+            return response_payload
 
         model_input = _build_model_input(effective_session_id, normalized_query)
         retrieved_context, top_score, citations = _retrieve_context_and_score(normalized_query)
@@ -2299,6 +3040,49 @@ async def text_chat_stream(
             has_email=bool(current_lead_email),
             has_name=bool(current_lead_name),
         )
+
+        direct_answer = _direct_company_answer(normalized_query)
+        if direct_answer:
+            async def direct_event_generator() -> AsyncGenerator[str, None]:
+                try:
+                    _save_conversation_turn(effective_session_id, normalized_query, direct_answer)
+                    await _sync_sharepoint_lead_safely(effective_session_id)
+                    yield _sse_event(
+                        "done",
+                        {
+                            "reply": direct_answer,
+                            "session_id": effective_session_id,
+                            "trace_id": _get_active_trace_id(),
+                            "lead": {
+                                "email": current_lead_email,
+                                "name": current_lead_name,
+                            },
+                            "citations": [],
+                            "suggestions": _build_dynamic_followup_questions(effective_session_id, 3),
+                        },
+                    )
+                    _trace_step("response.ready", status_code=200, answer_chars=len(direct_answer), stream=True, source="direct_answer")
+                    if _is_chat_trace_include_context():
+                        _finalize_trace("success", status_code=200, reply=direct_answer, stream=True)
+                    else:
+                        _finalize_trace("success", status_code=200, answer_chars=len(direct_answer), stream=True)
+                finally:
+                    trace_state = _get_active_trace()
+                    if trace_state and not trace_state.get("status"):
+                        _finalize_trace("cancelled", status_code=499, stream=True)
+                    _deactivate_trace(trace_token)
+
+            return StreamingResponse(
+                direct_event_generator(),
+                media_type="text/event-stream",
+                headers={
+                    "Cache-Control": "no-cache",
+                    "Connection": "keep-alive",
+                    "X-Accel-Buffering": "no",
+                    "X-Trace-Id": _get_active_trace_id(),
+                },
+            )
+
         model_input = _build_model_input(effective_session_id, normalized_query)
         trace_id = _get_active_trace_id()
     except HTTPException as error:

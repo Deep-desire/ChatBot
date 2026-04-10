@@ -1,0 +1,158 @@
+{
+  "generated_at": "2026-04-10T11:02:55.880458+00:00",
+  "environment": "production",
+  "base_url": "https://visit-to-lead.vercel.app/backend",
+  "health_config": {
+    "status": "ok",
+    "missing_count": 0,
+    "effective": {
+      "azure_openai_endpoint": "https://thomaschat.cognitiveservices.azure.com",
+      "azure_openai_chat_deployment": "gpt-4o",
+      "azure_openai_embedding_deployment": "text-embedding-3-small",
+      "azure_search_endpoint": "https://desirechatbotaisearch.search.windows.net",
+      "azure_search_index_name": "rag-1775717847828",
+      "query_overlap_threshold": 0.05,
+      "query_min_overlap_terms": 1,
+      "azure_search_score_threshold": 0.05,
+      "azure_search_required": true,
+      "allow_generic_fallback": false,
+      "use_direct_faq_answers": false,
+      "sharepoint_always_insert": false
+    }
+  },
+  "post_deploy_core_flow": {
+    "session": "qa_core_1775818975880",
+    "q1": {
+      "query": "What is Desire Infoweb?",
+      "chars": 512,
+      "preview": "Here is a concise answer from indexed documents about **What is Desire Infoweb?**:\n\n- \u25cf Desire Infoweb Pvt Ltd. is a leading IT offshoring company specializing in\n- experience), scaling the firm's ability to review over 1,000 decks. It provides founders with\n-",
+      "citations_count": 1,
+      "suggestions": [
+        "What specific services does Desire Infoweb offer to its clients?",
+        "Who are the primary clients or industries that Desire Infoweb serves?",
+        "How does Desire Infoweb ensure the sustainability and scalability of its solutions?"
+      ]
+    },
+    "q2": {
+      "query": "What AI solutions has Desire Infoweb delivered?",
+      "chars": 459,
+      "preview": "Here is a concise answer from indexed documents about **What AI solutions has Desire Infoweb delivered?**:\n\n- \u25cf Desire Infoweb Pvt Ltd. is a leading IT offshoring company specializing in\n- \u25cf We provide expert services in .NET, delivering robust and scalable so",
+      "citations_count": 1,
+      "suggestions": [
+        "What industries does Desire Infoweb primarily serve?",
+        "Can you elaborate on the specific platforms used in their multi-platform campaigns?"
+      ]
+    },
+    "checks": {
+      "q2_not_equal_q1": true,
+      "q2_not_fallback": true,
+      "q2_detailed": true,
+      "q1_has_citations": true,
+      "q2_has_citations": true,
+      "no_malformed_suggestion": true
+    }
+  },
+  "prompt_matrix": [
+    {
+      "query": "what is fluentify ai",
+      "session": "qa_mx_1775818983199",
+      "chars": 474,
+      "fallback": false,
+      "citations_count": 1,
+      "preview": "Here is a concise answer from indexed documents about **what is fluentify ai**:\n\n- Utilizing the Azure Pronunciation Assessment Service, Fluentify AI evaluates key aspects\n- Fluentify AI offers a comprehensive solution for enhancing language proficiency throug"
+    },
+    {
+      "query": "give me all the voice based projects",
+      "session": "qa_mx_1775818984688",
+      "chars": 2382,
+      "fallback": false,
+      "citations_count": 1,
+      "preview": "Voice-Based Projects Overview\n\nBelow are the detailed overviews of Desire Infoweb's voice-based projects, including challenge, solution, impact, and technologies:\n\n### AI Interviewer Pro\n- **Challenge**: Recruiters often face a bottleneck when screening hundre"
+    },
+    {
+      "query": "give me all the voice based projects in detail",
+      "session": "qa_mx_1775818986154",
+      "chars": 2382,
+      "fallback": false,
+      "citations_count": 1,
+      "preview": "Voice-Based Projects Overview\n\nBelow are the detailed overviews of Desire Infoweb's voice-based projects, including challenge, solution, impact, and technologies:\n\n### AI Interviewer Pro\n- **Challenge**: Recruiters often face a bottleneck when screening hundre"
+    },
+    {
+      "query": "what services does desire infoweb provide",
+      "session": "qa_mx_1775818987485",
+      "chars": 485,
+      "fallback": false,
+      "citations_count": 1,
+      "preview": "Here is a concise answer from indexed documents about **what services does desire infoweb provide**:\n\n- \u25cf We provide expert services on Microsoft Power Platform tools like SharePoint,\n- \u25cf We provide expert services in .NET, delivering robust and scalable solut"
+    },
+    {
+      "query": "which industries does desire infoweb mainly serve",
+      "session": "qa_mx_1775818988973",
+      "chars": 532,
+      "fallback": false,
+      "citations_count": 1,
+      "preview": "Here is a concise answer from indexed documents about **which industries does desire infoweb mainly serve**:\n\n- \u25cf Desire Infoweb Pvt Ltd. is a leading IT offshoring company specializing in\n- Clauses\") to find specific definitions like \"vessel stranding\" is tim"
+    },
+    {
+      "query": "give me detail about ai interviewer pro",
+      "session": "qa_mx_1775818990553",
+      "chars": 514,
+      "fallback": false,
+      "citations_count": 1,
+      "preview": "Here is a concise answer from indexed documents about **give me detail about ai interviewer pro**:\n\n- We developed \"AI Interviewer Pro,\" an enterprise-grade voice interview platform powered\n- Project 19: AI Interviewer Pro \u2013 Voice-Based Candidate Screening\n- m"
+    },
+    {
+      "query": "what is compliance voice monitoring project",
+      "session": "qa_mx_1775818991978",
+      "chars": 439,
+      "fallback": false,
+      "citations_count": 1,
+      "preview": "Here is a concise answer from indexed documents about **what is compliance voice monitoring project**:\n\n- Project 2: AI-Based PPE Compliance Monitoring System\n- Project 1: AI-Powered Compliance Monitoring System\n- Project 6: AI-Based Vehicle Monitoring & Time "
+    },
+    {
+      "query": "can you give architecture details for fluentify ai",
+      "session": "qa_mx_1775818993527",
+      "chars": 504,
+      "fallback": false,
+      "citations_count": 1,
+      "preview": "Here is a concise answer from indexed documents about **can you give architecture details for fluentify ai**:\n\n- Utilizing the Azure Pronunciation Assessment Service, Fluentify AI evaluates key aspects\n- Fluentify AI offers a comprehensive solution for enhanci"
+    },
+    {
+      "query": "tell me about teams ai assistant project",
+      "session": "qa_mx_1775818995349",
+      "chars": 478,
+      "fallback": false,
+      "citations_count": 1,
+      "preview": "Here is a concise answer from indexed documents about **tell me about teams ai assistant project**:\n\n- Project 9: Enhancing Teams Chat with ChatGPT: Leveraging Cognitive Search\n- Project 8: The Teams Chatbot Integrated with ChatGPT\n- seeking to refine their la"
+    },
+    {
+      "query": "what budget needed for ai chatbot",
+      "session": "qa_mx_1775818996986",
+      "chars": 514,
+      "fallback": false,
+      "citations_count": 1,
+      "preview": "Here is a concise answer from indexed documents about **what budget needed for ai chatbot**:\n\n- and MS Teams. The chatbot needed to utilize the Azure OpenAI LLM model to provide\n- automate routine tasks and streamline workflows. This integration allowed the ch"
+    }
+  ],
+  "stream_checks": {
+    "ai_solutions_prompt": {
+      "session": "qa_stream_1775818998499",
+      "has_done": true,
+      "has_error": false,
+      "token_events": 1
+    },
+    "fluentify_prompt": {
+      "session": "qa_stream_1775819001246",
+      "has_done": true,
+      "has_error": false,
+      "token_events": 1
+    }
+  },
+  "summary": {
+    "matrix_total": 10,
+    "matrix_fallback_count": 0,
+    "matrix_with_citations": 10,
+    "matrix_min_chars": 439,
+    "matrix_max_chars": 2382
+  }
+}
