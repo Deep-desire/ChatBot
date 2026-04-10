@@ -400,18 +400,27 @@ function App() {
     }
   };
 
-  const waitForStreamAnimationDrain = async (timeoutMs: number = 2500) => {
+  const waitForStreamAnimationDrain = async (timeoutMs?: number) => {
     if (streamTypeTimerRef.current === null && streamCharacterQueueRef.current.length === 0) {
       return;
     }
+
+    const queueLength = streamCharacterQueueRef.current.length;
+    const computedTimeout = timeoutMs ?? Math.min(18000, Math.max(3000, queueLength * 10));
 
     await new Promise<void>((resolve) => {
       const fallbackTimer = window.setTimeout(() => {
         if (streamDrainResolverRef.current === onDrain) {
           streamDrainResolverRef.current = null;
         }
+        // Ensure remaining queued characters are not lost on timeout.
+        if (streamTypeTimerRef.current !== null) {
+          window.clearTimeout(streamTypeTimerRef.current);
+          streamTypeTimerRef.current = null;
+        }
+        flushRemainingStreamCharacters();
         resolve();
-      }, timeoutMs);
+      }, computedTimeout);
 
       const onDrain = () => {
         window.clearTimeout(fallbackTimer);
@@ -543,7 +552,7 @@ function App() {
       window.clearTimeout(streamTypeTimerRef.current);
       streamTypeTimerRef.current = null;
     }
-invokeAndClearStreamDrainResolver();
+    invokeAndClearStreamDrainResolver();
     setMessages((prev) => [...prev, { role: 'bot', text: '' }]);
 
     try {
@@ -766,6 +775,7 @@ invokeAndClearStreamDrainResolver();
         window.clearTimeout(streamTypeTimerRef.current);
         streamTypeTimerRef.current = null;
       }
+      flushRemainingStreamCharacters();
       streamCharacterQueueRef.current = '';
       invokeAndClearStreamDrainResolver();
       setIsWaitingForFirstToken(false);
