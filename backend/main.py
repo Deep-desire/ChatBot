@@ -13,8 +13,8 @@ from functools import lru_cache
 from pathlib import Path
 from threading import Lock
 from time import time
-from typing import Any, AsyncGenerator, Iterable
-from urllib.parse import quote, unquote
+from typing import Any, AsyncGenerator, Callable, Iterable
+from urllib.parse import parse_qs, quote, unquote, urlparse
 
 warnings.filterwarnings(
     "ignore",
@@ -33,7 +33,7 @@ from fastapi import FastAPI, File, Form, Header, HTTPException, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import Response, StreamingResponse
 from groq import Groq
-from ingestion import ingest_file
+from ingestion import ingest_blob_container, ingest_file
 from langchain_openai import AzureOpenAIEmbeddings
 from openai import AzureOpenAI
 
@@ -143,6 +143,14 @@ OVERLAP_STOPWORDS = {
     "first", "day", "procedure", "process", "step", "steps",
 }
 
+VIDEO_MATCH_STOPWORDS = {
+    "the", "and", "for", "with", "from", "into", "that", "this", "what", "when", "where",
+    "which", "about", "your", "you", "have", "has", "are", "was", "were", "will", "would",
+    "could", "should", "please", "need", "want", "tell", "me", "our", "their", "they",
+    "http", "https", "www", "watch", "video", "youtube", "youtu", "vimeo", "com", "channel",
+    "project", "portal",
+}
+
 
 def _get_required_env(name: str) -> str:
     value = _sanitize_env_value(os.getenv(name) or "")
@@ -194,6 +202,23 @@ def _get_chat_trace_log_path() -> Path:
     if path.is_absolute():
         return path
     return Path(__file__).resolve().parent / path
+
+
+def _get_chat_process_log_path() -> Path:
+    configured_path = os.getenv("CHAT_PROCESS_LOG_PATH", "logs/chat_process_last10.json").strip() or "logs/chat_process_last10.json"
+    path = Path(configured_path)
+    if path.is_absolute():
+        return path
+    return Path(__file__).resolve().parent / path
+
+
+def _get_chat_process_log_limit() -> int:
+    raw_value = os.getenv("CHAT_PROCESS_LOG_LIMIT", "10")
+    try:
+        limit = int(raw_value)
+    except ValueError:
+        limit = 10
+    return max(1, min(limit, 200))
 
 
 def _get_chat_trace_clip_chars() -> int:
@@ -272,6 +297,10 @@ def _trace_step(step: str, **details: Any) -> None:
     trace.setdefault("steps", []).append(payload)
 
 
+def _trace_pipeline_stage(stage: str, **details: Any) -> None:
+    _trace_step(f"pipeline.{stage}", **details)
+
+
 def _persist_trace(trace: dict[str, Any]) -> None:
     output_path = _get_chat_trace_log_path()
     serialized = json.dumps(trace, ensure_ascii=False)
@@ -284,6 +313,100 @@ def _persist_trace(trace: dict[str, Any]) -> None:
         logger.warning("Trace persistence skipped (path=%s): %s", output_path, error)
 
 
+def _extract_pipeline_process(trace: dict[str, Any]) -> dict[str, Any]:
+    process: dict[str, Any] = {
+        "user_request": {},
+        "ai_request": {},
+        "ai_search_response": {},
+        "ai_search_json_response": {},
+        "ai_search_blob_response": {},
+        "ai_selection": {},
+        "ai_openai_response": {},
+        "display_response": {},
+    }
+
+    for step in trace.get("steps", []):
+        step_name = str(step.get("step") or "")
+        if not step_name.startswith("pipeline."):
+            continue
+
+        stage = step_name.split(".", 1)[1]
+        details = {
+            key: value
+            for key, value in step.items()
+            if key not in {"step", "ts"}
+        }
+        details["ts"] = step.get("ts")
+        process[stage] = details
+
+    # Keep alias for user naming preference in ops discussions.
+    process["ai_research_response"] = process.get("ai_search_response", {})
+    return process
+
+
+def _build_process_log_entry(trace: dict[str, Any]) -> dict[str, Any]:
+    return {
+        "trace_id": trace.get("trace_id"),
+        "started_at": trace.get("started_at"),
+        "ended_at": trace.get("ended_at"),
+        "endpoint": trace.get("endpoint"),
+        "streaming": bool(trace.get("streaming")),
+        "status": trace.get("status"),
+        "duration_ms": trace.get("duration_ms"),
+        "session_id": trace.get("input_session_id") or "",
+        "user_query": trace.get("raw_query") or "",
+        "process": _extract_pipeline_process(trace),
+        "summary": trace.get("summary", {}),
+    }
+
+
+def _persist_process_log(trace: dict[str, Any]) -> None:
+    output_path = _get_chat_process_log_path()
+    limit = _get_chat_process_log_limit()
+    entry = _build_process_log_entry(trace)
+
+    try:
+        output_path.parent.mkdir(parents=True, exist_ok=True)
+        with _trace_log_lock:
+            existing: list[dict[str, Any]] = []
+            if output_path.exists():
+                try:
+                    existing_payload = json.loads(output_path.read_text(encoding="utf-8"))
+                    if isinstance(existing_payload, list):
+                        existing = [item for item in existing_payload if isinstance(item, dict)]
+                except Exception:
+                    existing = []
+
+            existing.append(entry)
+            trimmed = existing[-limit:]
+            output_path.write_text(
+                json.dumps(trimmed, ensure_ascii=False, indent=2),
+                encoding="utf-8",
+            )
+    except Exception as error:
+        logger.warning("Process log persistence skipped (path=%s): %s", output_path, error)
+
+
+def _load_recent_process_logs(limit: int | None = None) -> list[dict[str, Any]]:
+    output_path = _get_chat_process_log_path()
+    if not output_path.exists():
+        return []
+
+    resolved_limit = limit if limit is not None else _get_chat_process_log_limit()
+    resolved_limit = max(1, min(resolved_limit, 200))
+
+    try:
+        payload = json.loads(output_path.read_text(encoding="utf-8"))
+    except Exception:
+        return []
+
+    if not isinstance(payload, list):
+        return []
+
+    entries = [item for item in payload if isinstance(item, dict)]
+    return entries[-resolved_limit:]
+
+
 def _finalize_trace(status: str, **summary: Any) -> None:
     trace = _get_active_trace()
     if not trace:
@@ -294,6 +417,7 @@ def _finalize_trace(status: str, **summary: Any) -> None:
     trace["summary"] = {key: _sanitize_trace_value(value) for key, value in summary.items()}
     trace.pop("started_at_epoch", None)
     _persist_trace(trace)
+    _persist_process_log(trace)
     if _is_chat_trace_console_enabled():
         try:
             logger.info(
@@ -1180,6 +1304,110 @@ def _get_azure_search_top_k() -> int:
     return max(1, min(top_k, 20))
 
 
+def _get_azure_search_excluded_sources() -> set[str]:
+    raw_value = _sanitize_env_value(os.getenv("AZURE_SEARCH_EXCLUDE_SOURCES", ""))
+    if not raw_value:
+        return set()
+    configured = {item.strip().lower() for item in raw_value.split(",") if item.strip()}
+    return configured
+
+
+def _get_knowledge_base_dir() -> str:
+    return _sanitize_env_value(os.getenv("KNOWLEDGE_BASE_DIR", "knowledge")) or "knowledge"
+
+
+def _get_retrieval_priority_scan_factor() -> int:
+    raw_value = _sanitize_env_value(os.getenv("AZURE_SEARCH_PRIORITY_SCAN_FACTOR", "8"))
+    try:
+        factor = int(raw_value)
+    except ValueError:
+        factor = 8
+    return max(1, min(factor, 20))
+
+
+def _get_retrieval_priority_scan_top(top_k: int) -> int:
+    factor = _get_retrieval_priority_scan_factor()
+    return max(top_k, min(100, top_k * factor))
+
+
+def _normalize_source_key(value: str) -> str:
+    candidate = (value or "").strip().replace("\\", "/")
+    if not candidate:
+        return ""
+    return candidate.rsplit("/", 1)[-1].lower()
+
+
+def _get_configured_priority_sources() -> set[str]:
+    raw_value = _sanitize_env_value(os.getenv("AZURE_SEARCH_PRIORITY_SOURCES", ""))
+    if not raw_value:
+        return set()
+
+    configured: set[str] = set()
+    for item in raw_value.split(","):
+        normalized = _normalize_source_key(item)
+        if normalized:
+            configured.add(normalized)
+    return configured
+
+
+def _get_local_knowledge_sources() -> set[str]:
+    knowledge_dir = (Path(__file__).resolve().parent / _get_knowledge_base_dir()).resolve()
+    if not knowledge_dir.exists() or not knowledge_dir.is_dir():
+        return set()
+
+    supported_extensions = SUPPORTED_INGEST_EXTENSIONS.union({".json"})
+    detected: set[str] = set()
+
+    for file_path in knowledge_dir.rglob("*"):
+        if not file_path.is_file():
+            continue
+        suffix = file_path.suffix.lower()
+        if suffix and suffix not in supported_extensions:
+            continue
+
+        normalized_name = _normalize_source_key(file_path.name)
+        if normalized_name:
+            detected.add(normalized_name)
+
+    return detected
+
+
+def _get_priority_knowledge_sources() -> set[str]:
+    return _get_configured_priority_sources().union(_get_local_knowledge_sources())
+
+
+def _blob_only_sources_enabled() -> bool:
+    return _is_env_true("AZURE_BLOB_ONLY_SOURCES", "false")
+
+
+def _get_azure_blob_base_url() -> str:
+    direct = _sanitize_env_value(os.getenv("AZURE_BLOB_ACCOUNT_URL", "")).rstrip("/")
+    if direct:
+        return direct.lower()
+
+    connection_string = _sanitize_env_value(os.getenv("AZURE_BLOB_CONNECTION_STRING", ""))
+    if not connection_string:
+        return ""
+
+    fields: dict[str, str] = {}
+    for fragment in connection_string.split(";"):
+        if "=" not in fragment:
+            continue
+        key, value = fragment.split("=", 1)
+        fields[key.strip().lower()] = value.strip()
+
+    blob_endpoint = fields.get("blobendpoint", "").rstrip("/")
+    if blob_endpoint:
+        return blob_endpoint.lower()
+
+    account_name = fields.get("accountname", "")
+    if not account_name:
+        return ""
+    protocol = fields.get("defaultendpointsprotocol", "https") or "https"
+    suffix = fields.get("endpointsuffix", "core.windows.net") or "core.windows.net"
+    return f"{protocol}://{account_name}.blob.{suffix}".rstrip("/").lower()
+
+
 def _get_azure_search_semantic_config() -> str:
     return _sanitize_env_value(os.getenv("AZURE_SEARCH_SEMANTIC_CONFIG", ""))
 
@@ -1653,6 +1881,268 @@ def _normalize_citation_url(value: str) -> str:
     return ""
 
 
+def _is_blob_source_url(value: str) -> bool:
+    normalized = _normalize_citation_url(value)
+    if not normalized:
+        return False
+
+    lowered = normalized.lower()
+    if ".blob.core.windows.net/" in lowered or ".blob.storage.azure.net/" in lowered:
+        return True
+
+    blob_base = _get_azure_blob_base_url()
+    if blob_base and lowered.startswith(f"{blob_base}/"):
+        return True
+
+    return False
+
+
+def _looks_like_document_file_name(value: str) -> bool:
+    candidate = (value or "").strip().lower().replace("\\", "/")
+    if not candidate:
+        return False
+    name = candidate.rsplit("/", 1)[-1]
+    return bool(re.search(r"\.(pdf|doc|docx|txt|md|csv|xls|xlsx|ppt|pptx|html|htm|json)$", name))
+
+
+def _build_blob_url_from_source_path(value: str) -> str:
+    source = (value or "").strip()
+    if not source:
+        return ""
+
+    normalized = _normalize_citation_url(source)
+    if normalized:
+        return normalized
+
+    blob_base = _get_azure_blob_base_url().rstrip("/")
+    if not blob_base:
+        return ""
+
+    normalized_path = source.replace("\\", "/").strip("/")
+    if "/" not in normalized_path:
+        return ""
+
+    container, blob_path = normalized_path.split("/", 1)
+    container = container.strip()
+    blob_path = blob_path.strip()
+    if not container or not blob_path:
+        return ""
+
+    return f"{blob_base}/{quote(container, safe='-_.~')}/{quote(blob_path, safe='/-_.~')}"
+
+
+def _is_blob_source_payload(payload: dict) -> bool:
+    candidates = [
+        str(payload.get("url") or "").strip(),
+        str(payload.get("source_url") or "").strip(),
+        str(payload.get("metadata_storage_path") or "").strip(),
+        str(payload.get("source") or "").strip(),
+        str(payload.get("file_name") or "").strip(),
+        str(payload.get("document_name") or "").strip(),
+        str(payload.get("id") or "").strip(),
+        str(payload.get("chunk_id") or "").strip(),
+        str(payload.get("parent_id") or "").strip(),
+        _decode_parent_id_to_url(str(payload.get("parent_id") or "").strip()),
+    ]
+
+    for item in candidates:
+        if not item:
+            continue
+        if _is_blob_source_url(item):
+            return True
+        if _build_blob_url_from_source_path(item):
+            return True
+        decoded = _try_decode_base64_to_url(item)
+        if decoded and _is_blob_source_url(decoded):
+            return True
+
+    # Some Azure AI Search indexers only keep filename-level source metadata.
+    # Treat document-like source names as blob-backed (data.txt is filtered elsewhere).
+    source_candidates = [
+        str(payload.get("source") or "").strip(),
+        str(payload.get("file_name") or "").strip(),
+        str(payload.get("document_name") or "").strip(),
+    ]
+    for item in source_candidates:
+        if _looks_like_document_file_name(item):
+            return True
+
+    return False
+
+
+def _extract_urls_from_text(value: str) -> list[str]:
+    if not value:
+        return []
+
+    pattern = re.compile(r"https?://[^\s<>'\"]+", flags=re.IGNORECASE)
+    urls: list[str] = []
+    for match in pattern.finditer(value):
+        candidate = match.group(0).strip().rstrip(".,;:!?)]}'\"")
+        if candidate:
+            urls.append(candidate)
+    return urls
+
+
+def _is_video_candidate_url(url: str) -> bool:
+    lowered = (url or "").lower()
+    if not lowered:
+        return False
+
+    known_hosts = [
+        "youtube.com",
+        "youtu.be",
+        "vimeo.com",
+        "loom.com",
+        "streamable.com",
+        "dailymotion.com",
+        "vidyard.com",
+        "wistia.com",
+    ]
+    if any(host in lowered for host in known_hosts):
+        return True
+
+    return bool(re.search(r"\.(mp4|webm|mov|m3u8)(\?|$)", lowered))
+
+
+def _to_video_embed_url(url: str) -> str:
+    normalized = _normalize_citation_url(url)
+    if not normalized:
+        return ""
+
+    try:
+        parsed = urlparse(normalized)
+    except Exception:
+        return ""
+
+    host = (parsed.netloc or "").lower().split(":", 1)[0]
+    path = (parsed.path or "").strip()
+
+    if host == "youtu.be":
+        video_id = path.strip("/")
+        if video_id:
+            return f"https://www.youtube.com/embed/{video_id}"
+
+    if "youtube.com" in host:
+        if path == "/watch":
+            video_id = parse_qs(parsed.query or "").get("v", [""])[0].strip()
+            if video_id:
+                return f"https://www.youtube.com/embed/{video_id}"
+        if path.startswith("/shorts/"):
+            video_id = path.split("/", 3)[2].strip()
+            if video_id:
+                return f"https://www.youtube.com/embed/{video_id}"
+        if path.startswith("/embed/"):
+            return normalized
+
+    if "vimeo.com" in host:
+        if host.startswith("player.") and path.startswith("/video/"):
+            return normalized
+        match = re.search(r"/(\d+)", path)
+        if match:
+            return f"https://player.vimeo.com/video/{match.group(1)}"
+
+    if re.search(r"\.(mp4|webm|mov|m3u8)(\?|$)", normalized.lower()):
+        return normalized
+
+    return ""
+
+
+def _tokenize_video_match_terms(value: str) -> set[str]:
+    if not value:
+        return set()
+    return {
+        token
+        for token in re.findall(r"[a-z0-9]{3,}", value.lower())
+        if token and token not in VIDEO_MATCH_STOPWORDS
+    }
+
+
+def _guess_video_title_from_context(context_text: str, raw_url: str, normalized_url: str) -> str:
+    lines = [line.strip() for line in context_text.splitlines() if line.strip()]
+    url_variants = {
+        raw_url,
+        normalized_url,
+        unquote(normalized_url),
+    }
+
+    for index, line in enumerate(lines):
+        if not any(variant and variant in line for variant in url_variants):
+            continue
+
+        cleaned_line = re.sub(r"https?://[^\s<>'\"]+", "", line).strip(" -:|\t")
+        if cleaned_line and not re.fullmatch(r"[A-Za-z0-9_-]{8,}", cleaned_line):
+            return cleaned_line
+
+        if index > 0:
+            previous_line = lines[index - 1].strip(" -:|\t")
+            if previous_line and not re.fullmatch(r"[A-Za-z0-9_-]{8,}", previous_line):
+                return previous_line
+        break
+
+    fallback_name = unquote(normalized_url.split("?", 1)[0]).rstrip("/").rsplit("/", 1)[-1].strip()
+    fallback_name = fallback_name.replace("-", " ").replace("_", " ").strip()
+    if fallback_name and not re.fullmatch(r"[A-Za-z0-9]{8,}", fallback_name.replace(" ", "")):
+        return fallback_name.title()
+
+    if "youtube" in normalized_url or "youtu.be" in normalized_url:
+        return "YouTube video"
+    if "vimeo" in normalized_url:
+        return "Vimeo video"
+    return "Video source"
+
+
+def _extract_video_sources_from_context(context_text: str, query_text: str, limit: int = 1) -> list[dict[str, str]]:
+    if not context_text:
+        return []
+
+    resolved_limit = max(1, min(limit, 6))
+    query_tokens = _tokenize_video_match_terms(query_text)
+    seen_embed_urls: set[str] = set()
+    scored_videos: list[tuple[int, int, dict[str, str]]] = []
+
+    for position, raw_url in enumerate(_extract_urls_from_text(context_text)):
+        normalized_url = _normalize_citation_url(raw_url)
+        if not normalized_url or not _is_video_candidate_url(normalized_url):
+            continue
+
+        embed_url = _to_video_embed_url(normalized_url)
+        if not embed_url:
+            continue
+
+        embed_key = embed_url.lower()
+        if embed_key in seen_embed_urls:
+            continue
+        seen_embed_urls.add(embed_key)
+
+        title = _guess_video_title_from_context(context_text, raw_url, normalized_url)
+        text_for_match = f"{title} {normalized_url}"
+        match_score = 1
+        if query_tokens:
+            candidate_tokens = _tokenize_video_match_terms(text_for_match)
+            overlap = query_tokens.intersection(candidate_tokens)
+            if not overlap:
+                continue
+            match_score = len(overlap)
+
+        scored_videos.append(
+            (
+                -match_score,
+                position,
+                {
+                    "title": title,
+                    "url": normalized_url,
+                    "embed_url": embed_url,
+                },
+            )
+        )
+
+    if not scored_videos:
+        return []
+
+    scored_videos.sort(key=lambda item: (item[0], item[1]))
+    return [item[2] for item in scored_videos[:resolved_limit]]
+
+
 def _try_decode_base64_to_url(value: str) -> str:
     candidate = (value or "").strip()
     if not candidate:
@@ -1702,19 +2192,43 @@ def _decode_parent_id_to_url(parent_id: str) -> str:
     return _try_decode_base64_to_url(encoded)
 
 
+def _decode_source_token_from_document_id(value: str) -> str:
+    candidate = (value or "").strip()
+    if not candidate:
+        return ""
+
+    match = re.search(r"(?:^|_)s_([A-Za-z0-9_-]+)_i_\d+_u_[0-9a-fA-F]{16,}$", candidate)
+    if not match:
+        return ""
+
+    token = match.group(1)
+    padded = token + ("=" * (-len(token) % 4))
+    try:
+        decoded = base64.urlsafe_b64decode(padded).decode("utf-8", errors="ignore").strip()
+    except Exception:
+        return ""
+
+    return decoded.replace("\\", "/")
+
+
 def _extract_citation_from_payload(payload: dict) -> dict[str, Any]:
+    source_value = str(payload.get("source") or "").strip()
+    if not source_value:
+        source_value = _extract_source_name_from_payload(payload)
+
     title_candidates = [
         str(payload.get("title") or "").strip(),
-        str(payload.get("source") or "").strip(),
+        source_value,
         str(payload.get("file_name") or "").strip(),
         str(payload.get("document_name") or "").strip(),
     ]
-    title = next((item for item in title_candidates if item), "Source document")
+    title = next((item for item in title_candidates if item), "")
 
     link_candidates = [
         str(payload.get("url") or "").strip(),
         str(payload.get("source_url") or "").strip(),
-        str(payload.get("source") or "").strip(),
+        _build_blob_url_from_source_path(source_value),
+        source_value,
         str(payload.get("metadata_storage_path") or "").strip(),
         str(payload.get("parent_id") or "").strip(),
         str(payload.get("id") or "").strip(),
@@ -1734,6 +2248,35 @@ def _extract_citation_from_payload(payload: dict) -> dict[str, Any]:
             link = decoded
             break
 
+    if not link:
+        content_text = _extract_content_from_payload(payload)
+        candidate_urls = _extract_urls_from_text(content_text)
+        fallback_link = ""
+        for item in candidate_urls:
+            normalized = _normalize_citation_url(item)
+            if not normalized:
+                continue
+            if "desireinfoweb.com/" in normalized.lower():
+                fallback_link = normalized
+                break
+            if not fallback_link:
+                fallback_link = normalized
+        link = fallback_link
+
+    if not title:
+        if source_value:
+            title = source_value.replace("\\", "/").rsplit("/", 1)[-1]
+        elif link:
+            title = link
+        else:
+            title = "Source document"
+    elif title.lower() == "source document" and link:
+        title = link
+
+    source_key = _normalize_source_key(source_value)
+    if link and source_key and source_key in _get_priority_knowledge_sources():
+        title = link
+
     try:
         score = float(payload.get("@search.score") or 0.0)
     except (TypeError, ValueError):
@@ -1747,14 +2290,109 @@ def _extract_citation_from_payload(payload: dict) -> dict[str, Any]:
     }
 
 
-def _extract_context_from_results(results, top_k: int) -> tuple[str, float, list[dict[str, Any]]]:
+def _extract_source_name_from_payload(payload: dict[str, Any]) -> str:
+    direct_candidates = [
+        str(payload.get("source") or "").strip(),
+        str(payload.get("file_name") or "").strip(),
+        str(payload.get("document_name") or "").strip(),
+    ]
+    for item in direct_candidates:
+        if item:
+            return item.replace("\\", "/")
+
+    id_candidates = [
+        str(payload.get("chunk_id") or "").strip(),
+        str(payload.get("id") or "").strip(),
+        str(payload.get("parent_id") or "").strip(),
+    ]
+    for item in id_candidates:
+        if not item:
+            continue
+
+        decoded_source = _decode_source_token_from_document_id(item)
+        if decoded_source:
+            return decoded_source
+
+        if "::" in item:
+            return item.split("::", 1)[0].replace("\\", "/")
+
+        normalized_url = _normalize_citation_url(item)
+        if normalized_url:
+            parsed = urlparse(normalized_url)
+            normalized_path = (parsed.path or "").strip("/")
+            if normalized_path:
+                return normalized_path.replace("\\", "/")
+
+        decoded_url = _try_decode_base64_to_url(item)
+        if decoded_url:
+            parsed = urlparse(decoded_url)
+            normalized_path = (parsed.path or "").strip("/")
+            if normalized_path:
+                return normalized_path.replace("\\", "/")
+
+    return ""
+
+
+def _is_knowledge_source_payload(payload: dict[str, Any], knowledge_sources: set[str]) -> bool:
+    if not knowledge_sources:
+        return False
+
+    source_name = _extract_source_name_from_payload(payload)
+    if not source_name:
+        return False
+
+    source_key = _normalize_source_key(source_name)
+    if source_key and source_key in knowledge_sources:
+        return True
+
+    full_key = source_name.replace("\\", "/").strip().lower()
+    if full_key and full_key in knowledge_sources:
+        return True
+
+    return False
+
+
+def _is_blob_fallback_payload(payload: dict[str, Any], knowledge_sources: set[str]) -> bool:
+    if _is_knowledge_source_payload(payload, knowledge_sources):
+        return False
+
+    if _is_blob_source_payload(payload):
+        return True
+
+    source_name = _extract_source_name_from_payload(payload)
+    return bool(source_name and _looks_like_document_file_name(source_name))
+
+
+def _extract_context_from_results(
+    results,
+    top_k: int,
+    payload_filter: Callable[[dict[str, Any]], bool] | None = None,
+) -> tuple[str, float, list[dict[str, Any]]]:
     context_chunks: list[str] = []
     top_score = 0.0
-    citations: list[dict[str, Any]] = []
-    seen_citations: set[tuple[str, str]] = set()
+    best_citation: dict[str, Any] | None = None
+    best_citation_score = -1.0
+    excluded_sources = _get_azure_search_excluded_sources()
 
     for result in results:
         payload = dict(result)
+
+        if payload_filter and not payload_filter(payload):
+            continue
+
+        if _blob_only_sources_enabled() and not _is_blob_source_payload(payload):
+            continue
+
+        if excluded_sources:
+            source_value = str(
+                payload.get("source")
+                or payload.get("file_name")
+                or payload.get("document_name")
+                or ""
+            ).strip().lower()
+            source_name = source_value.replace("\\", "/").rsplit("/", 1)[-1] if source_value else ""
+            if source_value in excluded_sources or source_name in excluded_sources:
+                continue
 
         try:
             score_value = float(payload.get("@search.score") or 0.0)
@@ -1769,23 +2407,35 @@ def _extract_context_from_results(results, top_k: int) -> tuple[str, float, list
             continue
 
         citation = _extract_citation_from_payload(payload)
-        citation_key = (str(citation.get("title") or ""), str(citation.get("url") or ""))
-        if citation_key not in seen_citations:
-            seen_citations.add(citation_key)
-            citations.append(citation)
+        citation_score = 0.0
+        try:
+            citation_score = float(citation.get("score") or score_value or 0.0)
+        except (TypeError, ValueError):
+            citation_score = score_value
+        if citation_score > best_citation_score:
+            best_citation_score = citation_score
+            best_citation = citation
 
         context_chunks.append(page_content[:2000])
         if len(context_chunks) >= top_k:
             break
 
-    return "\n\n".join(context_chunks), top_score, citations[:top_k]
+    citations = [best_citation] if best_citation else []
+    return "\n\n".join(context_chunks), top_score, citations
 
 
-def _search_vector_context(query: str, top_k: int) -> tuple[str, float, list[dict[str, Any]]]:
+def _search_vector_context(
+    query: str,
+    top_k: int,
+    payload_filter: Callable[[dict[str, Any]], bool] | None = None,
+    scan_top: int | None = None,
+) -> tuple[str, float, list[dict[str, Any]]]:
     vector_field = _get_azure_search_vector_field()
     if not vector_field:
         logger.warning("Vector field not configured, skipping vector search.")
         return "", 0.0, []
+
+    resolved_scan_top = max(top_k, scan_top or top_k)
 
     logger.info("Vector search: generating embeddings for query (len=%d)...", len(query))
     query_vector = get_embeddings_client().embed_query(query)
@@ -1800,22 +2450,34 @@ def _search_vector_context(query: str, top_k: int) -> tuple[str, float, list[dic
     results = get_search_client().search(
         search_text=None,
         vector_queries=[vector_query],
-        top=top_k,
+        top=resolved_scan_top,
     )
-    context, score, citations = _extract_context_from_results(results, top_k)
-    logger.info("Vector search: completed - retrieved %d chars, top_score=%.4f, citations=%d", len(context), score, len(citations))
+    context, score, citations = _extract_context_from_results(results, top_k, payload_filter=payload_filter)
+    logger.info(
+        "Vector search: completed - scan_top=%d retrieved=%d chars top_score=%.4f citations=%d",
+        resolved_scan_top,
+        len(context),
+        score,
+        len(citations),
+    )
     return context, score, citations
 
 
-def _search_text_context(query: str, top_k: int) -> tuple[str, float, list[dict[str, Any]]]:
+def _search_text_context(
+    query: str,
+    top_k: int,
+    payload_filter: Callable[[dict[str, Any]], bool] | None = None,
+    scan_top: int | None = None,
+) -> tuple[str, float, list[dict[str, Any]]]:
     semantic_config = _get_azure_search_semantic_config()
+    resolved_scan_top = max(top_k, scan_top or top_k)
     logger.info("Text search: executing with top_k=%d, semantic_enabled=%s", top_k, _use_azure_search_semantic() and bool(semantic_config))
     
     if _use_azure_search_semantic() and semantic_config:
         logger.info("Text search: using semantic config '%s'", semantic_config)
         results = get_search_client().search(
             search_text=query,
-            top=top_k,
+            top=resolved_scan_top,
             query_type="semantic",
             semantic_configuration_name=semantic_config,
         )
@@ -1823,50 +2485,287 @@ def _search_text_context(query: str, top_k: int) -> tuple[str, float, list[dict[
         logger.info("Text search: using basic keyword search")
         results = get_search_client().search(
             search_text=query,
-            top=top_k,
+            top=resolved_scan_top,
         )
 
-    context, score, citations = _extract_context_from_results(results, top_k)
-    logger.info("Text search: completed - retrieved %d chars, top_score=%.4f, citations=%d", len(context), score, len(citations))
+    context, score, citations = _extract_context_from_results(results, top_k, payload_filter=payload_filter)
+    logger.info(
+        "Text search: completed - scan_top=%d retrieved=%d chars top_score=%.4f citations=%d",
+        resolved_scan_top,
+        len(context),
+        score,
+        len(citations),
+    )
     return context, score, citations
+
+
+def _build_retrieval_candidate(
+    query: str,
+    source_scope: str,
+    retrieval_mode: str,
+    context: str,
+    score: float,
+    citations: list[dict[str, Any]],
+) -> dict[str, Any]:
+    overlap_ratio, overlap_count, query_term_count = _compute_query_overlap(query, context)
+    score_threshold = _get_embedding_similarity_threshold()
+    overlap_threshold = _get_query_overlap_threshold()
+    strong_match_threshold = _get_strong_match_score_threshold()
+
+    if query_term_count == 0:
+        meets_overlap = True
+    else:
+        required_overlap_terms = min(_get_query_min_overlap_terms(), query_term_count)
+        meets_overlap = overlap_count >= required_overlap_terms and (
+            overlap_ratio >= overlap_threshold or score >= strong_match_threshold
+        )
+
+    meets_score = score >= score_threshold
+
+    # Composite rank balances similarity score and lexical overlap.
+    rank = (score * 0.75) + (overlap_ratio * 0.25)
+    if not meets_score:
+        rank -= 0.2
+    if not meets_overlap:
+        rank -= 0.35
+    if not citations:
+        rank -= 0.05
+
+    return {
+        "source_scope": source_scope,
+        "retrieval_mode": retrieval_mode,
+        "context": context,
+        "score": score,
+        "citations": citations,
+        "overlap_ratio": overlap_ratio,
+        "overlap_count": overlap_count,
+        "query_term_count": query_term_count,
+        "rank": rank,
+        "meets_score": meets_score,
+        "meets_overlap": meets_overlap,
+    }
+
+
+def _select_best_retrieval_candidate(candidates: list[dict[str, Any]]) -> dict[str, Any] | None:
+    if not candidates:
+        return None
+
+    return max(
+        candidates,
+        key=lambda item: (
+            float(item.get("rank") or 0.0),
+            float(item.get("score") or 0.0),
+            float(item.get("overlap_ratio") or 0.0),
+            len(str(item.get("context") or "")),
+            1 if str(item.get("source_scope") or "") == "knowledge" else 0,
+        ),
+    )
+
+
+def _build_candidate_log_payload(candidate: dict[str, Any] | None, *, source_scope: str) -> dict[str, Any]:
+    if not candidate:
+        return {
+            "source_scope": source_scope,
+            "found": False,
+            "context_chars": 0,
+            "context_preview": "",
+            "citations_count": 0,
+        }
+
+    context_text = str(candidate.get("context") or "")
+    context_preview = re.sub(r"\s+", " ", context_text).strip()[:600]
+    citations = list(candidate.get("citations") or [])
+
+    return {
+        "source_scope": source_scope,
+        "found": bool(context_text),
+        "retrieval_mode": str(candidate.get("retrieval_mode") or ""),
+        "score": round(float(candidate.get("score") or 0.0), 6),
+        "rank": round(float(candidate.get("rank") or 0.0), 6),
+        "overlap_ratio": round(float(candidate.get("overlap_ratio") or 0.0), 6),
+        "overlap_count": int(candidate.get("overlap_count") or 0),
+        "query_term_count": int(candidate.get("query_term_count") or 0),
+        "meets_score": bool(candidate.get("meets_score")),
+        "meets_overlap": bool(candidate.get("meets_overlap")),
+        "context_chars": len(context_text),
+        "context_preview": context_preview,
+        "citations_count": len(citations),
+        "citation": citations[0] if citations else None,
+    }
 
 
 def _retrieve_context_and_score(query: str) -> tuple[str, float, list[dict[str, Any]]]:
     top_k = _get_azure_search_top_k()
+    priority_sources = _get_priority_knowledge_sources()
+    priority_scan_top = _get_retrieval_priority_scan_top(top_k) if priority_sources else top_k
+
     _trace_step(
         "retrieval.start",
         top_k=top_k,
         vector_field=_get_azure_search_vector_field(),
         content_field=_get_azure_search_content_field(),
+        priority_sources_count=len(priority_sources),
+        priority_scan_top=priority_scan_top,
     )
 
-    try:
-        _trace_step("retrieval.vector.start")
-        context, score, citations = _search_vector_context(query, top_k)
-        if context:
-            _trace_step("retrieval.vector.success", top_score=score, context_chars=len(context))
-            _trace_step("retrieval.citations", count=len(citations))
-            return context, score, citations
-        _trace_step("retrieval.vector.empty")
-    except Exception as retriever_error:
-        logger.warning("Vector retrieval failed (%s). Falling back to text retrieval.", retriever_error)
-        _trace_step("retrieval.vector.error", error=str(retriever_error))
+    knowledge_filter = (
+        (lambda payload: _is_knowledge_source_payload(payload, priority_sources))
+        if priority_sources
+        else None
+    )
+    blob_fallback_filter = (
+        (lambda payload: _is_blob_fallback_payload(payload, priority_sources))
+        if priority_sources
+        else None
+    )
 
-    try:
-        _trace_step("retrieval.text.start")
-        context, score, citations = _search_text_context(query, top_k)
-        _trace_step("retrieval.text.result", top_score=score, context_chars=len(context))
-        _trace_step("retrieval.citations", count=len(citations))
-        return context, score, citations
-    except Exception as retriever_error:
-        logger.warning("Text retrieval failed (%s).", retriever_error)
-        _trace_step("retrieval.text.error", error=str(retriever_error))
-        if _is_azure_search_required():
-            raise RetrievalUnavailableError(
-                "Azure Search retrieval failed. Verify AZURE_SEARCH_ENDPOINT, AZURE_SEARCH_INDEX_NAME, "
-                "network access, and AZURE_SEARCH_API_KEY or managed identity permissions."
-            ) from retriever_error
-        return "", 0.0, []
+    scopes: list[tuple[str, Callable[[dict[str, Any]], bool] | None]]
+    if priority_sources:
+        scopes = [
+            ("knowledge", knowledge_filter),
+            ("blob_fallback", blob_fallback_filter),
+        ]
+    else:
+        scopes = [("all", None)]
+
+    candidates: list[dict[str, Any]] = []
+    retrieval_errors: list[Exception] = []
+
+    for scope_name, scope_filter in scopes:
+        try:
+            _trace_step("retrieval.vector.start", scope=scope_name)
+            context, score, citations = _search_vector_context(
+                query,
+                top_k,
+                payload_filter=scope_filter,
+                scan_top=priority_scan_top,
+            )
+            if context:
+                candidate = _build_retrieval_candidate(
+                    query,
+                    scope_name,
+                    "vector",
+                    context,
+                    score,
+                    citations,
+                )
+                candidates.append(candidate)
+                _trace_step(
+                    "retrieval.vector.success",
+                    scope=scope_name,
+                    top_score=score,
+                    context_chars=len(context),
+                    rank=round(float(candidate.get("rank") or 0.0), 6),
+                    overlap_ratio=round(float(candidate.get("overlap_ratio") or 0.0), 6),
+                )
+            else:
+                _trace_step("retrieval.vector.empty", scope=scope_name)
+        except Exception as retriever_error:
+            logger.warning("Vector retrieval failed for scope=%s (%s).", scope_name, retriever_error)
+            _trace_step("retrieval.vector.error", scope=scope_name, error=str(retriever_error))
+            retrieval_errors.append(retriever_error)
+
+        try:
+            _trace_step("retrieval.text.start", scope=scope_name)
+            context, score, citations = _search_text_context(
+                query,
+                top_k,
+                payload_filter=scope_filter,
+                scan_top=priority_scan_top,
+            )
+            if context:
+                candidate = _build_retrieval_candidate(
+                    query,
+                    scope_name,
+                    "text",
+                    context,
+                    score,
+                    citations,
+                )
+                candidates.append(candidate)
+                _trace_step(
+                    "retrieval.text.result",
+                    scope=scope_name,
+                    top_score=score,
+                    context_chars=len(context),
+                    rank=round(float(candidate.get("rank") or 0.0), 6),
+                    overlap_ratio=round(float(candidate.get("overlap_ratio") or 0.0), 6),
+                )
+            else:
+                _trace_step("retrieval.text.empty", scope=scope_name)
+        except Exception as retriever_error:
+            logger.warning("Text retrieval failed for scope=%s (%s).", scope_name, retriever_error)
+            _trace_step("retrieval.text.error", scope=scope_name, error=str(retriever_error))
+            retrieval_errors.append(retriever_error)
+
+    if priority_sources:
+        knowledge_best = _select_best_retrieval_candidate(
+            [candidate for candidate in candidates if str(candidate.get("source_scope") or "") == "knowledge"]
+        )
+        blob_best = _select_best_retrieval_candidate(
+            [candidate for candidate in candidates if str(candidate.get("source_scope") or "") == "blob_fallback"]
+        )
+
+        _trace_pipeline_stage(
+            "ai_search_json_response",
+            **_build_candidate_log_payload(knowledge_best, source_scope="knowledge"),
+        )
+        _trace_pipeline_stage(
+            "ai_search_blob_response",
+            **_build_candidate_log_payload(blob_best, source_scope="blob_fallback"),
+        )
+
+    selected = _select_best_retrieval_candidate(candidates)
+    if selected:
+        _trace_pipeline_stage(
+            "ai_selection",
+            selected_source_scope=selected.get("source_scope"),
+            selected_retrieval_mode=selected.get("retrieval_mode"),
+            selected_score=round(float(selected.get("score") or 0.0), 6),
+            selected_rank=round(float(selected.get("rank") or 0.0), 6),
+            selected_overlap_ratio=round(float(selected.get("overlap_ratio") or 0.0), 6),
+            candidate_count=len(candidates),
+        )
+        _trace_step(
+            "retrieval.selection",
+            candidate_count=len(candidates),
+            selected_scope=selected.get("source_scope"),
+            selected_mode=selected.get("retrieval_mode"),
+            selected_score=selected.get("score"),
+            selected_rank=round(float(selected.get("rank") or 0.0), 6),
+            selected_overlap_ratio=round(float(selected.get("overlap_ratio") or 0.0), 6),
+            candidates=[
+                {
+                    "scope": candidate.get("source_scope"),
+                    "mode": candidate.get("retrieval_mode"),
+                    "score": round(float(candidate.get("score") or 0.0), 6),
+                    "rank": round(float(candidate.get("rank") or 0.0), 6),
+                    "overlap_ratio": round(float(candidate.get("overlap_ratio") or 0.0), 6),
+                }
+                for candidate in candidates
+            ],
+        )
+        selected_citations = list(selected.get("citations") or [])
+        _trace_step(
+            "retrieval.citations",
+            count=len(selected_citations),
+            primary=selected_citations[0] if selected_citations else None,
+        )
+        return (
+            str(selected.get("context") or ""),
+            float(selected.get("score") or 0.0),
+            selected_citations,
+        )
+
+    if retrieval_errors and _is_azure_search_required():
+        first_error = retrieval_errors[0]
+        raise RetrievalUnavailableError(
+            "Azure Search retrieval failed. Verify AZURE_SEARCH_ENDPOINT, AZURE_SEARCH_INDEX_NAME, "
+            "network access, and AZURE_SEARCH_API_KEY or managed identity permissions."
+        ) from first_error
+
+    _trace_step("retrieval.empty", candidate_count=0)
+    return "", 0.0, []
 
 
 def _should_use_embedding_context(normalized_query: str, retrieved_context: str, top_score: float) -> bool:
@@ -2836,6 +3735,18 @@ async def health_config() -> dict:
     }
 
 
+@app.get("/api/chat/logs/recent")
+async def chat_recent_logs(limit: int = 10) -> dict:
+    resolved_limit = max(1, min(limit, 200))
+    logs = _load_recent_process_logs(resolved_limit)
+    return {
+        "limit": resolved_limit,
+        "count": len(logs),
+        "log_path": str(_get_chat_process_log_path()),
+        "logs": logs,
+    }
+
+
 @app.get("/debug/search")
 async def debug_search(q: str = "") -> dict:
     """Direct Azure Search test endpoint for debugging retrieval issues."""
@@ -2907,6 +3818,7 @@ async def text_chat(
     try:
         normalized_query = _normalize_user_query(query)
         _trace_step("request.normalized", normalized_query=normalized_query)
+        _trace_pipeline_stage("user_request", query=normalized_query, endpoint="/api/chat/text", stream=False)
 
         effective_session_id = _normalize_session_id(session_id)
         _trace_step("session.resolved", effective_session_id=effective_session_id)
@@ -2923,6 +3835,14 @@ async def text_chat(
 
         direct_answer = _direct_company_answer(normalized_query)
         if direct_answer:
+            _trace_pipeline_stage("ai_request", mode="direct_answer", model_input_chars=0)
+            _trace_pipeline_stage(
+                "ai_search_response",
+                source="direct_answer",
+                context_chars=0,
+                top_score=0.0,
+                citations_count=0,
+            )
             _save_conversation_turn(effective_session_id, normalized_query, direct_answer)
             await _sync_sharepoint_lead_safely(effective_session_id)
 
@@ -2935,10 +3855,19 @@ async def text_chat(
                     "name": current_lead_name,
                 },
                 "citations": [],
+                "videos": [],
             }
             if trace_id:
                 response_payload["trace_id"] = trace_id
 
+            _trace_pipeline_stage("ai_openai_response", source="direct_answer", answer_chars=len(direct_answer))
+            _trace_pipeline_stage(
+                "display_response",
+                status_code=200,
+                answer_chars=len(direct_answer),
+                citations_count=0,
+                stream=False,
+            )
             _trace_step("response.ready", status_code=200, answer_chars=len(direct_answer), source="direct_answer")
             if _is_chat_trace_include_context():
                 _finalize_trace("success", status_code=200, reply=direct_answer)
@@ -2947,13 +3876,30 @@ async def text_chat(
             return response_payload
 
         model_input = _build_model_input(effective_session_id, normalized_query)
+        _trace_pipeline_stage(
+            "ai_request",
+            mode="rag",
+            model=_get_chat_model(),
+            model_input_chars=len(model_input),
+        )
         retrieved_context, top_score, citations = _retrieve_context_and_score(normalized_query)
+        response_videos = _extract_video_sources_from_context(retrieved_context, normalized_query, limit=1)
+        _trace_pipeline_stage(
+            "ai_search_response",
+            source="azure_ai_search",
+            context_chars=len(retrieved_context),
+            top_score=top_score,
+            citations_count=len(citations),
+            videos_count=len(response_videos),
+            citation=citations[0] if citations else None,
+        )
         answer = _generate_answer(
             model_input,
             normalized_query,
             retrieved_context=retrieved_context,
             top_score=top_score,
         )
+        _trace_pipeline_stage("ai_openai_response", source="azure_openai", answer_chars=len(answer))
         response_citations = citations if _should_attach_citations(answer, normalized_query, citations) else []
         _save_conversation_turn(effective_session_id, normalized_query, answer)
         await _sync_sharepoint_lead_safely(effective_session_id)
@@ -2967,10 +3913,19 @@ async def text_chat(
                 "name": current_lead_name,
             },
             "citations": response_citations,
+            "videos": response_videos,
         }
         if trace_id:
             response_payload["trace_id"] = trace_id
 
+        _trace_pipeline_stage(
+            "display_response",
+            status_code=200,
+            answer_chars=len(answer),
+            citations_count=len(response_citations),
+            videos_count=len(response_videos),
+            stream=False,
+        )
         _trace_step("response.ready", status_code=200, answer_chars=len(answer))
         if _is_chat_trace_include_context():
             _finalize_trace("success", status_code=200, reply=answer)
@@ -3008,6 +3963,7 @@ async def text_chat(
                 "name": "",
             },
             "citations": [],
+            "videos": [],
         }
         if trace_id:
             degraded_payload["trace_id"] = trace_id
@@ -3028,6 +3984,7 @@ async def text_chat_stream(
     try:
         normalized_query = _normalize_user_query(query)
         _trace_step("request.normalized", normalized_query=normalized_query)
+        _trace_pipeline_stage("user_request", query=normalized_query, endpoint="/api/chat/text/stream", stream=True)
         effective_session_id = _normalize_session_id(session_id)
         _trace_step("session.resolved", effective_session_id=effective_session_id)
         current_lead_email, current_lead_name = _resolve_lead_identity(
@@ -3045,8 +4002,30 @@ async def text_chat_stream(
         if direct_answer:
             async def direct_event_generator() -> AsyncGenerator[str, None]:
                 try:
+                    _trace_pipeline_stage("ai_request", mode="direct_answer", model_input_chars=0, stream=True)
+                    _trace_pipeline_stage(
+                        "ai_search_response",
+                        source="direct_answer",
+                        context_chars=0,
+                        top_score=0.0,
+                        citations_count=0,
+                        stream=True,
+                    )
                     _save_conversation_turn(effective_session_id, normalized_query, direct_answer)
                     await _sync_sharepoint_lead_safely(effective_session_id)
+                    _trace_pipeline_stage(
+                        "ai_openai_response",
+                        source="direct_answer",
+                        answer_chars=len(direct_answer),
+                        stream=True,
+                    )
+                    _trace_pipeline_stage(
+                        "display_response",
+                        status_code=200,
+                        answer_chars=len(direct_answer),
+                        citations_count=0,
+                        stream=True,
+                    )
                     yield _sse_event(
                         "done",
                         {
@@ -3058,6 +4037,7 @@ async def text_chat_stream(
                                 "name": current_lead_name,
                             },
                             "citations": [],
+                            "videos": [],
                             "suggestions": _build_dynamic_followup_questions(effective_session_id, 3),
                         },
                     )
@@ -3084,6 +4064,13 @@ async def text_chat_stream(
             )
 
         model_input = _build_model_input(effective_session_id, normalized_query)
+        _trace_pipeline_stage(
+            "ai_request",
+            mode="rag",
+            model=_get_chat_model(),
+            model_input_chars=len(model_input),
+            stream=True,
+        )
         trace_id = _get_active_trace_id()
     except HTTPException as error:
         _trace_step("response.error", status_code=error.status_code, error=str(error.detail), stream=True)
@@ -3100,9 +4087,21 @@ async def text_chat_stream(
         answer_parts: list[str] = []
         citations: list[dict[str, Any]] = []
         response_citations: list[dict[str, Any]] = []
+        response_videos: list[dict[str, str]] = []
 
         try:
             retrieved_context, top_score, citations = _retrieve_context_and_score(normalized_query)
+            response_videos = _extract_video_sources_from_context(retrieved_context, normalized_query, limit=1)
+            _trace_pipeline_stage(
+                "ai_search_response",
+                source="azure_ai_search",
+                context_chars=len(retrieved_context),
+                top_score=top_score,
+                citations_count=len(citations),
+                videos_count=len(response_videos),
+                citation=citations[0] if citations else None,
+                stream=True,
+            )
             for token in _stream_answer_tokens(
                 model_input,
                 normalized_query,
@@ -3126,10 +4125,23 @@ async def text_chat_stream(
                     yield _sse_event("token", {"token": final_answer})
 
             response_citations = citations if _should_attach_citations(final_answer, normalized_query, citations) else []
+            _trace_pipeline_stage(
+                "ai_openai_response",
+                source="azure_openai",
+                answer_chars=len(final_answer),
+                stream=True,
+            )
 
             _save_conversation_turn(effective_session_id, normalized_query, final_answer)
             await _sync_sharepoint_lead_safely(effective_session_id)
 
+            _trace_pipeline_stage(
+                "display_response",
+                status_code=200,
+                answer_chars=len(final_answer),
+                citations_count=len(response_citations),
+                stream=True,
+            )
             yield _sse_event(
                 "done",
                 {
@@ -3141,6 +4153,7 @@ async def text_chat_stream(
                         "name": current_lead_name,
                     },
                     "citations": response_citations,
+                    "videos": response_videos,
                     "suggestions": _build_dynamic_followup_questions(effective_session_id, 3),
                 },
             )
@@ -3179,6 +4192,19 @@ async def text_chat_stream(
                 return
 
             fallback_answer = _no_context_response()
+            _trace_pipeline_stage(
+                "ai_openai_response",
+                source="fallback",
+                answer_chars=len(fallback_answer),
+                stream=True,
+            )
+            _trace_pipeline_stage(
+                "display_response",
+                status_code=200,
+                answer_chars=len(fallback_answer),
+                citations_count=0,
+                stream=True,
+            )
             yield _sse_event(
                 "done",
                 {
@@ -3190,6 +4216,7 @@ async def text_chat_stream(
                         "name": current_lead_name,
                     },
                     "citations": [],
+                    "videos": [],
                     "suggestions": _build_dynamic_followup_questions(effective_session_id, 3),
                 },
             )
@@ -3251,6 +4278,35 @@ async def ingest_upload(
     finally:
         if os.path.exists(temp_file_path):
             os.remove(temp_file_path)
+
+
+@app.post("/api/ingest/blob")
+async def ingest_blob(
+    container: str | None = Form(default=None),
+    prefix: str | None = Form(default=None),
+    max_files: int | None = Form(default=None),
+    x_ingest_key: str | None = Header(default=None),
+) -> dict:
+    configured_ingest_key = os.getenv("INGEST_API_KEY")
+    if configured_ingest_key and x_ingest_key != configured_ingest_key:
+        raise HTTPException(status_code=401, detail="Invalid ingestion API key")
+
+    try:
+        result = ingest_blob_container(
+            container_name=container,
+            prefix=prefix,
+            max_files=max_files,
+        )
+        return {
+            "status": "success",
+            "message": "Blob documents ingested successfully",
+            **result,
+        }
+    except ValueError as error:
+        raise HTTPException(status_code=400, detail=str(error)) from error
+    except Exception as error:
+        logger.exception("Blob ingestion failed")
+        raise HTTPException(status_code=500, detail=f"Blob ingestion failed: {error}") from error
 
 
 @app.post("/api/chat/voice")

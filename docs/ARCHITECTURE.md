@@ -31,7 +31,7 @@ It is split into two deployable services:
 
 ### 3.1 Knowledge Ingestion Flow
 
-1. `backend/ingest.py` reads `backend/data.txt`
+1. `backend/ingestion.py` ingests from Azure Blob (`--blob`) or a local file (`--file`)
 2. Text is chunked (size 1000, overlap 100)
 3. Chunks are embedded with Azure OpenAI embeddings
 4. Documents are merged/upserted into Azure AI Search index (`AZURE_SEARCH_INDEX_NAME`)

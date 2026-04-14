@@ -99,7 +99,7 @@ Also:
 
 ### 5.3 Empty or poor answers
 
-- Re-run `ingest.py` after updating `data.txt`
+- Re-run `ingestion.py` after updating your knowledge source files
 - Check that data chunks are present in Azure AI Search index
 - Increase retriever `k` in backend if needed
 

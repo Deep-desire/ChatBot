@@ -23,7 +23,13 @@ python -m venv venv
 .\venv\Scripts\Activate.ps1
 pip install -r requirements.txt
 Copy-Item .env.example .env
-python ingest.py
+# Option A: ingest from Azure Blob container (recommended for production)
+# Set AZURE_BLOB_CONNECTION_STRING + AZURE_BLOB_CONTAINER in backend/.env first
+python ingestion.py --blob
+
+# Option B: ingest a local file (manual)
+# python ingestion.py --file data.txt
+
 uvicorn main:app --host 0.0.0.0 --port 8000 --reload
 ```
 

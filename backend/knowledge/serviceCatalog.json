@@ -1,0 +1,620 @@
+{
+  "baseUrl": "https://desireinfoweb.com",
+  "products": [
+    {
+      "id": 1,
+      "title": "Organization Chart",
+      "description": "An organizational chart shows the internal structure of an organization or company. The employees and positions are represented by boxes or other shapes, sometimes including photos, contact information, email and page links, icons, and illustrations. Straight or elbowed lines link the levels together.",
+      "imageUrl": "orgChartImg",
+      "url": "https://desireinfoweb.com/products/organization-chart"
+    },
+    {
+      "id": 2,
+      "title": "New Joinee",
+      "description": "A new employee who has recently joined an organization and is introduced through Microsoft's workplace tools for onboarding and collaboration. A New Joinee profile, onboarding information, and introduction are managed and shared within Microsoft workplace solutions to support onboarding, communication, and team integration.",
+      "imageUrl": "newJoineesImg",
+      "url": "https://desireinfoweb.com/products/new-joinee"
+    },
+    {
+      "id": 3,
+      "title": "Employee Directory",
+      "description": "Employee Directory is a centralized digital directory containing employee details such as name, job title, department, contact information, and profile photo. It is managed through Microsoft workplace platforms to help employees quickly locate and connect with colleagues across the organization.",
+      "imageUrl": "employeeDirectoryImg",
+      "url": "https://desireinfoweb.com/products/employee-directory"
+    },
+    {
+      "id": 4,
+      "title": "Calendar",
+      "description": "Streamline your organization's schedule with an intelligent Calendar Portal built for modern enterprises. Manage events, meetings, holidays, and deadlines across teams with seamless collaboration.",
+      "imageUrl": "calenderImg",
+      "url": "https://desireinfoweb.com/products/calender"
+    },
+    {
+      "id": 5,
+      "title": "Celebration",
+      "description": "The Celebration Web Part displays upcoming employee birthdays and work anniversaries. Users can directly send wishes to employees.",
+      "imageUrl": "celebrationImg",
+      "url": "https://desireinfoweb.com/products/celebration"
+    },
+    {
+      "id": 6,
+      "title": "Project Management Portal",
+      "description": "Transform the way your organization plans, tracks, and delivers projects. A SharePoint-based Project Management Portal centralizes your PMO and gives every stakeholder visibility from task boards to executive dashboards.",
+      "imageUrl": "pmpImg",
+      "url": "https://desireinfoweb.com/products/project-management-portal"
+    },
+    {
+      "id": 7,
+      "title": "Learning Management System",
+      "description": "A Learning Management System helps organizations provide online training, courses, and learning materials to employees, students, or customers in a centralized system.",
+      "imageUrl": "lmsImg",
+      "url": "https://desireinfoweb.com/products/learning-management-system"
+    },
+    {
+      "id": 8,
+      "title": "Audit System",
+      "description": "The Audit System project in SharePoint Online is a centralized solution for managing audits and compliance. It streamlines record tracking, monitoring, and evaluation to improve transparency and accountability.",
+      "imageUrl": "auditSystemImg",
+      "url": "https://desireinfoweb.com/products/audit-system"
+    }
+  ],
+  "aiProjectServicesShowcaseData": [
+    {
+      "id": 1,
+      "title": "Fluentify AI",
+      "subtitle": "Enhancing Language Proficiency with AI",
+      "description": "Fluentify AI offers a comprehensive solution for enhancing language proficiency through data-driven insights and AI-powered assessments. It helps users improve spoken communication effectively for professionals, educators, and organizations.",
+      "features": [
+        "AI-Powered Language Assessment",
+        "Process MS Team, Zoom and Google Meet recording",
+        "Collaborate and Share Feedback",
+        "Optimize Communication Skills"
+      ],
+      "imageSrc": "img1",
+      "imageAlt": "img 1",
+      "url": "https://desireinfoweb.com/services/ai"
+    },
+    {
+      "id": 2,
+      "title": "Insurance Chatbot",
+      "subtitle": "AI Knowledge Base for Insurance and Legal Inquiries",
+      "description": "Insurance Chatbot reduced policy coverage verification time from 15-20 minutes to seconds. It acts as a single source of truth with direct references to official documentation.",
+      "features": [
+        "Accelerate Policy Verification",
+        "Centralized Source of Truth",
+        "Improve Accuracy and Compliance",
+        "Enhance Operational Efficiency"
+      ],
+      "imageSrc": "img2",
+      "imageAlt": "img 2",
+      "url": "https://desireinfoweb.com/services/ai"
+    },
+    {
+      "id": 3,
+      "title": "Social Omni",
+      "subtitle": "AI-Powered Multi-Platform Campaign Creator",
+      "description": "Social Omni reduced campaign creation time from hours to seconds and enabled visually strong multi-platform campaigns with a unified brand voice.",
+      "features": [
+        "Accelerate Campaign Creation",
+        "Unified Multi-Platform Execution",
+        "Enable Collaborative Content Creation",
+        "Democratize High-Quality Marketing Assets"
+      ],
+      "imageSrc": "img3",
+      "imageAlt": "img 3",
+      "url": "https://desireinfoweb.com/services/ai"
+    },
+    {
+      "id": 4,
+      "title": "Smart Learning Chatbot",
+      "subtitle": "AI-Driven Communication",
+      "description": "A conversational AI platform for accurate, on-demand responses. It integrates with a structured knowledge base and Azure-hosted video resources, providing guided responses and related training videos.",
+      "features": [
+        "Enhance User Support Efficiency",
+        "Enable Contextual Learning",
+        "Improve Knowledge Accessibility",
+        "Drive Operational Excellence"
+      ],
+      "imageSrc": "img4",
+      "imageAlt": "img 4",
+      "url": "https://desireinfoweb.com/services/ai"
+    },
+    {
+      "id": 5,
+      "title": "AI-Powered Document Review Specialist",
+      "subtitle": "A reliable CRM dashboard",
+      "description": "Built with Google Gemini 2.5 Flash, this solution acts as a 24/7 senior caseworker by catching clerical and logical errors before submission and reducing manual review time significantly.",
+      "features": [
+        "Cross-Verification Engine",
+        "Regulatory Compliance",
+        "Smart Issue Logging",
+        "Client Management"
+      ],
+      "imageSrc": "img6",
+      "imageAlt": "img 6",
+      "url": "https://desireinfoweb.com/services/ai"
+    },
+    {
+      "id": 6,
+      "title": "Workflow-Driven Document Creation in SharePoint",
+      "subtitle": "Automated Contract Handling and Document Management",
+      "description": "Automated contract handling by retrieving documents from email, storing them in SharePoint, extracting key fields for PowerApps validation, and generating agreements and NDAs from templates.",
+      "features": [
+        "Automated Email-to-SharePoint Document Storage",
+        "Key Data Extraction for PowerApps Validation",
+        "Seamless Agreement and NDA Generation",
+        "Reduced Manual Effort and Improved Accuracy"
+      ],
+      "imageSrc": "img7",
+      "imageAlt": "img 7",
+      "url": "https://desireinfoweb.com/services/ai"
+    }
+  ],
+  "msDynamicsProjectServicesShowcaseData": [
+    {
+      "id": 1,
+      "title": "MS Dynamics CRM",
+      "subtitle": "Intelligent CRM built for enterprise complexity",
+      "description": "A fully integrated CRM for a leading enterprise software provider specializing in ERP, CRM, and BI on SAP and Microsoft Dynamics. The platform consolidates procurement, automation, and client operations.",
+      "features": [
+        "Strategic Project Planning",
+        "Intelligent Resource Management",
+        "Agile Task Automation",
+        "Predictive Client Management"
+      ],
+      "imageSrc": "img1",
+      "imageAlt": "img 1",
+      "url": "https://desireinfoweb.com/services/ms-dynamics"
+    },
+    {
+      "id": 2,
+      "title": "Sales Dashboard",
+      "subtitle": "Business Operations Using Dynamics365",
+      "description": "Customer Construction Equipment used Dynamics 365 for Field Service to streamline field processes, improve maintenance scheduling, and provide better customer support.",
+      "features": [
+        "Collaboration",
+        "Reporting and Analytics",
+        "Task Automation",
+        "Templates"
+      ],
+      "imageSrc": "img2",
+      "imageAlt": "img 2",
+      "url": "https://desireinfoweb.com/services/ms-dynamics"
+    }
+  ],
+  "powerBiProjectServicesShowcaseData": [
+    {
+      "id": 1,
+      "title": "Compare Records",
+      "subtitle": "Better comparison visualization",
+      "description": "Comparing records in a Power BI report involves comparing data from multiple sources, tables, or visualizations within the report.",
+      "features": [
+        "Quick Insights",
+        "Multiple Data Sources",
+        "Data Connectivity",
+        "Comparison Charts"
+      ],
+      "imageSrc": "img1",
+      "imageAlt": "img 1",
+      "url": "https://desireinfoweb.com/services/power-bi"
+    },
+    {
+      "id": 2,
+      "title": "Project Report Dashboard",
+      "subtitle": "Visualize and share insights of projects",
+      "description": "A project report dashboard in Power BI provides an overview of project metrics, milestones, and KPIs to help stakeholders monitor progress and performance.",
+      "features": [
+        "Project Insights",
+        "Multiple Filters",
+        "Project Analytics",
+        "Templates"
+      ],
+      "imageSrc": "img2",
+      "imageAlt": "img 2",
+      "url": "https://desireinfoweb.com/services/power-bi"
+    },
+    {
+      "id": 3,
+      "title": "Analytics Report",
+      "subtitle": "Data analysis using custom visuals",
+      "description": "An analytics report dashboard in Power BI incorporates key elements to visualize and analyze data insights for faster, informed decisions.",
+      "features": [
+        "Trend Analysis",
+        "Geospatial Analysis",
+        "Profitability Analysis",
+        "Data Drill-Down and Filters"
+      ],
+      "imageSrc": "img3",
+      "imageAlt": "img 3",
+      "url": "https://desireinfoweb.com/services/power-bi"
+    },
+    {
+      "id": 4,
+      "title": "Sales Dashboard",
+      "subtitle": "Analyze and present sales data",
+      "description": "A comprehensive sales dashboard in Power BI allows businesses to monitor and analyze sales performance and make informed decisions.",
+      "features": [
+        "Sales by Region",
+        "Customer Analysis",
+        "Sales Forecasting",
+        "Product Performance"
+      ],
+      "imageSrc": "img4",
+      "imageAlt": "img 4",
+      "url": "https://desireinfoweb.com/services/power-bi"
+    }
+  ],
+  "powerPlatformProjectServicesShowcaseData": [
+    {
+      "id": 1,
+      "title": "Timesheet Management",
+      "subtitle": "Process of capturing and managing employee work hours",
+      "description": "A solution for medium-sized IT services companies to track employee and project hours accurately and improve resource allocation and billing quality.",
+      "features": [
+        "Multi language",
+        "Notification Flows",
+        "Customized Design",
+        "Event Calendar"
+      ],
+      "imageSrc": "img1",
+      "imageAlt": "img 1",
+      "url": "https://desireinfoweb.com/services/power-platform"
+    },
+    {
+      "id": 2,
+      "title": "Onboarding Automation with PowerApps",
+      "subtitle": "Onboarding process using PowerApps, automating tasks",
+      "description": "A multinational manufacturing company onboarding solution to streamline employee onboarding, compliance checks, and paperwork reduction.",
+      "features": [
+        "HR processes",
+        "Role-based Permissions",
+        "Custom workflows",
+        "Modern UI"
+      ],
+      "imageSrc": "img2",
+      "imageAlt": "img 2",
+      "url": "https://desireinfoweb.com/services/power-platform"
+    },
+    {
+      "id": 3,
+      "title": "Invoice Management with PowerApps",
+      "subtitle": "Streamline invoice processes, reduce errors, ensure compliance",
+      "description": "A medium-sized manufacturing company solution for invoice creation, tracking, and approval automation to improve payment speed and supplier satisfaction.",
+      "features": [
+        "Hub Intranet",
+        "Multi departments",
+        "FAQs",
+        "User friendly"
+      ],
+      "imageSrc": "img3",
+      "imageAlt": "img 3",
+      "url": "https://desireinfoweb.com/services/power-platform"
+    },
+    {
+      "id": 4,
+      "title": "Contract Management",
+      "subtitle": "Manage contract lifecycle and enhance compliance",
+      "description": "A contract management solution for tracking milestones, renewal dates, and obligations across client and vendor agreements.",
+      "features": [
+        "Hub association",
+        "Discussion boards",
+        "Approval workflows",
+        "Templates"
+      ],
+      "imageSrc": "img4",
+      "imageAlt": "img 4",
+      "url": "https://desireinfoweb.com/services/power-platform"
+    }
+  ],
+  "sharePointProjectServicesShowcaseData": [
+    {
+      "id": 1,
+      "title": "Riyadh intranet",
+      "subtitle": "Deliver a better experience on employee center",
+      "description": "An intranet for Riyadh Airport built in Arabic and English using web parts such as News, Calendar, and social media integration with notifications and flows.",
+      "features": [
+        "Multi language",
+        "Customized Design",
+        "Notification Flows",
+        "Event Calendar"
+      ],
+      "imageSrc": "img1",
+      "imageAlt": "Riyadh intranet",
+      "url": "https://desireinfoweb.com/services/sharepoint"
+    },
+    {
+      "id": 2,
+      "title": "NBAD intranet",
+      "subtitle": "Intranet designed for employee engagement",
+      "description": "A customized intranet with themes, templates, and branding to match organizational identity, designed for responsive use across devices.",
+      "features": [
+        "Multi language",
+        "Customized Design",
+        "Notification Flows",
+        "Event Calendar"
+      ],
+      "imageSrc": "img2",
+      "imageAlt": "NBAD intranet",
+      "url": "https://desireinfoweb.com/services/sharepoint"
+    },
+    {
+      "id": 3,
+      "title": "Healthcare intranet",
+      "subtitle": "Multi-department SharePoint portal",
+      "description": "Team sites for departments and projects serving as collaboration hubs where users share information, calendars, tasks, and co-edit documents in real time.",
+      "features": [
+        "Hub Intranet",
+        "FAQs",
+        "Multi departments",
+        "User friendly"
+      ],
+      "imageSrc": "img3",
+      "imageAlt": "Healthcare intranet",
+      "url": "https://desireinfoweb.com/services/sharepoint"
+    },
+    {
+      "id": 4,
+      "title": "P and G Intranet",
+      "subtitle": "Intranet designed for employee engagement",
+      "description": "A customized intranet with themes and branding, designed to be accessible and functional across smartphones and tablets.",
+      "features": [
+        "Multi language",
+        "Customized Design",
+        "Notification Flows",
+        "Event Calendar"
+      ],
+      "imageSrc": "img4",
+      "imageAlt": "P and G Intranet",
+      "url": "https://desireinfoweb.com/services/sharepoint"
+    },
+    {
+      "id": 5,
+      "title": "Mortgage Refinancing",
+      "subtitle": "Hybrid intranet portal",
+      "description": "A hybrid intranet using SharePoint core capabilities and SPFx to combine out-of-the-box simplicity with custom user-centric features.",
+      "features": [
+        "Multi language",
+        "Customized Design",
+        "Notification Flows",
+        "Event Calendar"
+      ],
+      "imageSrc": "img5",
+      "imageAlt": "Mortgage Refinancing",
+      "url": "https://desireinfoweb.com/services/sharepoint"
+    }
+  ],
+  "webDevelopmentProjectServicesShowcaseData": [
+    {
+      "id": 1,
+      "title": "Insurance",
+      "subtitle": "Deliver a better experience on employee center",
+      "description": "The client required a system to track, add, and update policies from a central platform to manage business operations more efficiently.",
+      "features": [
+        "Policy tracker",
+        "Admin dashboard",
+        "Policy Managers",
+        "Policy purchase"
+      ],
+      "imageSrc": "img1",
+      "imageAlt": "img 1",
+      "url": "https://desireinfoweb.com/services/web-development"
+    },
+    {
+      "id": 2,
+      "title": "Healthcare",
+      "subtitle": "Insurance policies data management",
+      "description": "The client owns an academy and wanted to enhance their existing system with advanced capabilities for their learning app.",
+      "features": [
+        "Multiple roles",
+        "Appointment Dashboard",
+        "Questionnaire",
+        "Meeting Schedule"
+      ],
+      "imageSrc": "img2",
+      "imageAlt": "img 2",
+      "url": "https://desireinfoweb.com/services/web-development"
+    },
+    {
+      "id": 3,
+      "title": "Approval System",
+      "subtitle": "Manufacturing departments approval system",
+      "description": "A premier glass fabrication manufacturer required an approval system to support governance, traceability, and process flow across departments.",
+      "features": [
+        "QR scan",
+        "Approval Events",
+        "Role-Based Approver",
+        "Approval Frequency"
+      ],
+      "imageSrc": "img3",
+      "imageAlt": "img 3",
+      "url": "https://desireinfoweb.com/services/web-development"
+    },
+    {
+      "id": 4,
+      "title": "Language Learning App",
+      "subtitle": "Reading, writing and listening learning app",
+      "description": "The client wanted to extend their current academy platform with advanced learning capabilities and improved user experience.",
+      "features": [
+        "Reading and Writing",
+        "Voice API",
+        "Multi Stage Learning",
+        "User Friendly Design"
+      ],
+      "imageSrc": "img4",
+      "imageAlt": "img 4",
+      "url": "https://desireinfoweb.com/services/web-development"
+    }
+  ],
+  "services": [
+    {
+      "id": 1,
+      "title": "AI or artificial intelligence",
+      "description": "AI refers to the simulation of human intelligence in machines, enabling cognitive tasks. Azure OpenAI combines Microsoft Azure cloud capabilities with OpenAI models for advanced AI solutions.",
+      "imageUrl": "aiImg",
+      "url": "https://desireinfoweb.com/services/ai"
+    },
+    {
+      "id": 2,
+      "title": "Web Development",
+      "description": "Web Development includes building and maintaining websites and web applications across front-end and back-end with responsive design and modern technologies.",
+      "imageUrl": "webImg",
+      "url": "https://desireinfoweb.com/services/web-development"
+    },
+    {
+      "id": 3,
+      "title": "Azure",
+      "description": "Microsoft Azure is a cloud platform offering computing, analytics, and storage services for scalable and secure application deployment and management.",
+      "imageUrl": "msAzureImg",
+      "url": "https://desireinfoweb.com/services/dot-net"
+    },
+    {
+      "id": 4,
+      "title": "Dynamics 365",
+      "description": "Microsoft Dynamics 365 is an integrated suite combining CRM and ERP capabilities to unify data and processes for informed business decisions.",
+      "imageUrl": "msDynamicImg",
+      "url": "https://desireinfoweb.com/services/ms-dynamics"
+    },
+    {
+      "id": 5,
+      "title": "Power BI",
+      "description": "Microsoft Power BI is a business analytics platform for transforming raw data into interactive dashboards and reports for better decision making.",
+      "imageUrl": "msPowerBIImg",
+      "url": "https://desireinfoweb.com/services/power-bi"
+    },
+    {
+      "id": 6,
+      "title": "Power Platform",
+      "description": "Microsoft Power Platform provides tools such as Power BI, Power Apps, and Power Automate for low-code business app development and workflow automation.",
+      "imageUrl": "msPowerPlatformImg",
+      "url": "https://desireinfoweb.com/services/power-platform"
+    },
+    {
+      "id": 7,
+      "title": "SharePoint",
+      "description": "Microsoft SharePoint enables document management, content sharing, and collaboration through centralized platforms that enhance team productivity.",
+      "imageUrl": "msSharePointImg",
+      "url": "https://desireinfoweb.com/services/sharepoint"
+    },
+    {
+      "id": 8,
+      "title": "SEO Services",
+      "description": "SEO services improve search rankings, organic traffic, and online visibility using keyword research, on-page optimization, technical SEO, and content strategies.",
+      "imageUrl": "seoImg",
+      "url": "https://desireinfoweb.com/services/seo"
+    },
+    {
+      "id": 9,
+      "title": "Mobile Development",
+      "description": "Mobile development services include iOS, Android, and cross-platform apps covering strategy, design, development, launch, and ongoing support.",
+      "imageUrl": "webImg",
+      "url": "https://desireinfoweb.com/services/mobile-development"
+    }
+  ],
+  "serviceCatalogFromCode": [
+    {
+      "slug": "ai",
+      "name": "AI or Artificial Intelligence",
+      "eyebrow": "AI Delivery",
+      "overview": "Intelligent assistants, automation experiences, and knowledge-driven solutions built for faster decisions and stronger user support.",
+      "themeGradient": "linear-gradient(135deg, #0d1b3d 0%, #2d2456 52%, #6320ee 100%)",
+      "accent": "#8f7cff",
+      "stack": [
+        "Azure OpenAI",
+        "AI Search",
+        "Prompt Design",
+        "M365",
+        "API Integrations"
+      ],
+      "projectsRef": "aiProjects",
+      "url": "https://desireinfoweb.com/services/ai"
+    },
+    {
+      "slug": "ms-dynamics",
+      "name": "Dynamics 365",
+      "eyebrow": "Business Operations",
+      "overview": "CRM and business workflow solutions that connect teams, streamline processes, and improve visibility across the customer lifecycle.",
+      "themeGradient": "linear-gradient(135deg, #10203d 0%, #1a4f7a 54%, #4e388a 100%)",
+      "accent": "#4ea0ff",
+      "stack": [
+        "Dynamics 365",
+        "Power Platform",
+        "Automation",
+        "Reporting",
+        "Business Workflows"
+      ],
+      "projectsRef": "msDynamicsProjects",
+      "url": "https://desireinfoweb.com/services/ms-dynamics"
+    },
+    {
+      "slug": "power-bi",
+      "name": "Power BI",
+      "eyebrow": "Data Intelligence",
+      "overview": "Reporting experiences that convert raw operational data into visual clarity, faster decisions, and stronger executive visibility.",
+      "themeGradient": "linear-gradient(135deg, #1e183f 0%, #33406d 45%, #6320ee 100%)",
+      "accent": "#7b8fff",
+      "stack": [
+        "Power BI",
+        "DAX",
+        "Power Query",
+        "SQL",
+        "Dashboard Design"
+      ],
+      "projectsRef": "powerBiProjects",
+      "url": "https://desireinfoweb.com/services/power-bi"
+    },
+    {
+      "slug": "power-platform",
+      "name": "Power Platform",
+      "eyebrow": "Process Automation",
+      "overview": "Low-code solutions that simplify approvals, internal workflows, and operational handoffs without sacrificing user experience.",
+      "themeGradient": "linear-gradient(135deg, #1a1d48 0%, #2b3172 48%, #6320ee 100%)",
+      "accent": "#9f78ff",
+      "stack": [
+        "Power Apps",
+        "Power Automate",
+        "Dataverse",
+        "SharePoint",
+        "Teams"
+      ],
+      "projectsRef": "powerPlatformProjects",
+      "url": "https://desireinfoweb.com/services/power-platform"
+    },
+    {
+      "slug": "sharepoint",
+      "name": "SharePoint",
+      "eyebrow": "Digital Workplace",
+      "overview": "Intranet and collaboration platforms designed to improve communication, document access, engagement, and organizational alignment.",
+      "themeGradient": "linear-gradient(135deg, #081d3c 0%, #15467a 46%, #4e388a 100%)",
+      "accent": "#5ab7ff",
+      "stack": [
+        "SharePoint",
+        "SPFx",
+        "Power Automate",
+        "Azure AD",
+        "Collaboration"
+      ],
+      "projectsRef": "sharepointProjects",
+      "url": "https://desireinfoweb.com/services/sharepoint"
+    },
+    {
+      "slug": "web-development",
+      "name": "Web Development",
+      "eyebrow": "Digital Experience",
+      "overview": "Marketing websites and digital products crafted for clarity, conversion, responsiveness, and long-term maintainability.",
+      "themeGradient": "linear-gradient(135deg, #171d38 0%, #33295f 50%, #6320ee 100%)",
+      "accent": "#ff6fc7",
+      "stack": [
+        "Responsive Design",
+        "Frontend UX",
+        "CMS",
+        "SEO Foundations",
+        "Lead Capture"
+      ],
+      "projectsRef": "webDevelopmentProjects",
+      "url": "https://desireinfoweb.com/services/web-development"
+    }
+  ]
+}
+
+
+

@@ -39,13 +39,20 @@ AZURE_SEARCH_ID_FIELD="id"
 AZURE_SEARCH_CONTENT_FIELD="content"
 AZURE_SEARCH_VECTOR_FIELD="contentVector"
 AZURE_SEARCH_SOURCE_FIELD=""
+AZURE_SEARCH_SOURCE_URL_FIELD=""
 AZURE_SEARCH_TOP_K="5"
+AZURE_SEARCH_EXCLUDE_SOURCES=""
 AZURE_SEARCH_SCORE_THRESHOLD="0.2"
 AZURE_SEARCH_USE_SEMANTIC="false"
 AZURE_SEARCH_SEMANTIC_CONFIG=""
 GROQ_API_KEY="your_groq_api_key_here"
 GROQ_TRANSCRIPTION_MODEL="whisper-large-v3"
 EDGE_TTS_VOICE="en-US-AriaNeural"
+AZURE_BLOB_CONNECTION_STRING=""
+AZURE_BLOB_ACCOUNT_URL=""
+AZURE_BLOB_ACCOUNT_KEY=""
+AZURE_BLOB_CONTAINER=""
+AZURE_BLOB_PREFIX=""
 ENABLE_SHAREPOINT_SYNC="false"
 SHAREPOINT_TENANT_ID="your_tenant_id"
 SHAREPOINT_CLIENT_ID="your_app_client_id"
@@ -72,13 +79,29 @@ Required setup (app-only auth):
 
 ### Ingest your knowledge base (manual)
 
-If you want to ingest local files directly from backend code:
+Recommended (Azure Blob):
+
+1. Set `AZURE_BLOB_CONNECTION_STRING` (or `AZURE_BLOB_ACCOUNT_URL` + credentials)
+2. Set `AZURE_BLOB_CONTAINER`
+3. Run:
+
+```powershell
+python ingestion.py --blob
+```
+
+Optional:
+
+- `--prefix folder/path` to ingest only a blob folder
+- `--max-files 20` to limit ingestion batch size
+- Set `AZURE_SEARCH_EXCLUDE_SOURCES="data.txt"` to prevent stale local-source chunks from being used in answers
+
+Local fallback (single file):
 
 1. Put your source content into `backend/data.txt`
 2. Run:
 
 ```powershell
-python ingest.py
+python ingestion.py --file data.txt
 ```
 
 ### Ingest a PDF or text file via API upload (manual)
@@ -94,6 +117,16 @@ curl -X POST "http://localhost:8000/api/ingest/upload" ^
 ```
 
 Supported extensions: `.pdf`, `.txt`, `.md`, `.csv`, `.log`
+
+### Ingest from Azure Blob via API
+
+```powershell
+curl -X POST "http://localhost:8000/api/ingest/blob" ^
+  -H "X-Ingest-Key: your_ingest_key_if_set" ^
+  -F "container=your-container" ^
+  -F "prefix=optional/folder" ^
+  -F "max_files=50"
+```
 
 ### Using Blob Storage + Search Indexer instead of manual ingestion
 
@@ -146,7 +179,7 @@ Output directory:
 
 ```powershell
 cd backend
-python -m py_compile main.py ingest.py ingestion.py
+python -m py_compile main.py ingestion.py
 ```
 
 ## 5) Quick Local Smoke Test
@@ -190,7 +223,7 @@ Fix:
 
 - Verify `AZURE_OPENAI_CHAT_DEPLOYMENT` and `AZURE_OPENAI_EMBEDDING_DEPLOYMENT`
 - Ensure the deployments exist in your Azure OpenAI resource
-- Re-run ingestion (`python ingest.py`) if you changed embedding deployment
+- Re-run ingestion (`python ingestion.py`) if you changed embedding deployment
 
 ### Voice endpoint returns 500
 

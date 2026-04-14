@@ -10,6 +10,7 @@ interface Message {
   text: string;
   isAudio?: boolean;
   citations?: Citation[];
+  videos?: VideoSource[];
 }
 
 interface Citation {
@@ -17,6 +18,12 @@ interface Citation {
   url?: string;
   id?: string;
   score?: number;
+}
+
+interface VideoSource {
+  title: string;
+  url: string;
+  embedUrl: string;
 }
 
 type LeadStage = 'email' | 'name' | 'chat';
@@ -108,6 +115,54 @@ const normalizeCitationUrl = (value: unknown): string | undefined => {
   }
 
   return url.replace(/ /g, '%20');
+};
+
+const buildVideoEmbedUrl = (value: unknown): string | undefined => {
+  const normalized = normalizeCitationUrl(value);
+  if (!normalized) {
+    return undefined;
+  }
+
+  try {
+    const parsed = new URL(normalized);
+    const host = parsed.hostname.toLowerCase();
+    const path = parsed.pathname;
+
+    if (host === 'youtu.be') {
+      const videoId = path.replace(/^\/+/, '').split('/')[0];
+      return videoId ? `https://www.youtube.com/embed/${videoId}` : undefined;
+    }
+
+    if (host.includes('youtube.com')) {
+      if (path === '/watch') {
+        const videoId = parsed.searchParams.get('v') || '';
+        return videoId ? `https://www.youtube.com/embed/${videoId}` : undefined;
+      }
+      if (path.startsWith('/shorts/')) {
+        const videoId = path.split('/')[2] || '';
+        return videoId ? `https://www.youtube.com/embed/${videoId}` : undefined;
+      }
+      if (path.startsWith('/embed/')) {
+        return normalized;
+      }
+    }
+
+    if (host.includes('vimeo.com')) {
+      if (host.startsWith('player.') && path.startsWith('/video/')) {
+        return normalized;
+      }
+      const match = path.match(/\/(\d+)/);
+      return match ? `https://player.vimeo.com/video/${match[1]}` : undefined;
+    }
+
+    if (/\.(mp4|webm|mov|m3u8)(\?|$)/i.test(normalized)) {
+      return normalized;
+    }
+  } catch {
+    return undefined;
+  }
+
+  return undefined;
 };
 
 const buildTraceErrorMessage = (message: string, traceId: string = ''): string => {
@@ -457,6 +512,19 @@ function App() {
     });
   };
 
+  const setLatestBotMessageVideos = (videos: VideoSource[]) => {
+    setMessages((prev) => {
+      const next = [...prev];
+      for (let index = next.length - 1; index >= 0; index -= 1) {
+        if (next[index].role === 'bot') {
+          next[index] = { ...next[index], videos };
+          return next;
+        }
+      }
+      return next;
+    });
+  };
+
   const refreshSuggestedQuestions = async (targetSessionId: string = sessionId, currentPrompt: string = '') => {
     if (!targetSessionId) {
       return;
@@ -593,6 +661,7 @@ function App() {
       let resolvedLeadName = leadName;
       let streamSuggestions: string[] = [];
       let streamCitations: Citation[] = [];
+      let streamVideos: VideoSource[] = [];
       let doneReplyFromServer = '';
 
       const processEvent = (eventType: string, payload: string) => {
@@ -616,6 +685,7 @@ function App() {
           message?: unknown;
           trace_id?: unknown;
           citations?: unknown;
+          videos?: unknown;
         };
 
         if (eventType === 'token') {
@@ -665,6 +735,27 @@ function App() {
                 score: typeof item.score === 'number' ? item.score : undefined,
               }))
               .slice(0, 5);
+          }
+
+          if (Array.isArray(data.videos)) {
+            streamVideos = data.videos
+              .filter((item): item is Record<string, unknown> => !!item && typeof item === 'object')
+              .map((item) => {
+                const url = normalizeCitationUrl(item.url);
+                const embedFromPayload = normalizeCitationUrl(item.embed_url);
+                const embedUrl = embedFromPayload || buildVideoEmbedUrl(url);
+                if (!url || !embedUrl) {
+                  return null;
+                }
+
+                return {
+                  title: typeof item.title === 'string' && item.title.trim() ? item.title.trim() : 'Video source',
+                  url,
+                  embedUrl,
+                };
+              })
+              .filter((item): item is VideoSource => !!item)
+              .slice(0, 1);
           }
           return;
         }
@@ -742,6 +833,10 @@ function App() {
 
       if (streamCitations.length > 0) {
         setLatestBotMessageCitations(streamCitations);
+      }
+
+      if (streamVideos.length > 0) {
+        setLatestBotMessageVideos(streamVideos);
       }
 
       if (resolvedSessionId !== sessionId) {
@@ -987,6 +1082,34 @@ function App() {
                           );
                         })}
                       </ul>
+                    </div>
+                  )}
+
+                  {msg.role === 'bot' && Array.isArray(msg.videos) && msg.videos.length > 0 && (
+                    <div className="mt-3 border-t border-[var(--vtl-border)] pt-2">
+                      <div className="text-xs font-semibold text-[var(--vtl-muted)] mb-2">Videos</div>
+                      <div className="space-y-3">
+                        {msg.videos.map((video: VideoSource, videoIndex: number) => (
+                          <div key={`${video.url}-${videoIndex}`} className="rounded-lg border border-[var(--vtl-border)] overflow-hidden bg-white">
+                            <iframe
+                              src={video.embedUrl}
+                              title={video.title || `Video ${videoIndex + 1}`}
+                              className="w-full h-44 sm:h-52 border-0"
+                              loading="lazy"
+                              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                              allowFullScreen
+                            />
+                            <a
+                              href={video.url}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="block px-2 py-1 text-xs text-[var(--vtl-primary)] underline break-all"
+                            >
+                              {video.title || 'Video source'}
+                            </a>
+                          </div>
+                        ))}
+                      </div>
                     </div>
                   )}
                 </div>

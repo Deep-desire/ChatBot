@@ -147,6 +147,49 @@ curl "http://localhost:8000/api/chat/suggestions?session_id=abc123&limit=3"
 }
 ```
 
+## GET /api/chat/logs/recent
+
+Returns recent combined process logs where each log entry contains the full pipeline in one object:
+
+- `user_request`
+- `ai_request`
+- `ai_search_response`
+- `ai_openai_response`
+- `display_response`
+
+### Request
+
+- Query param: `limit` (number, optional, default `10`, min `1`, max `200`)
+
+### Example (curl)
+
+```bash
+curl "http://localhost:8000/api/chat/logs/recent?limit=10"
+```
+
+### Response
+
+```json
+{
+  "limit": 10,
+  "count": 10,
+  "log_path": ".../backend/logs/chat_process_last10.json",
+  "logs": [
+    {
+      "trace_id": "...",
+      "user_query": "project management portal",
+      "process": {
+        "user_request": {"query": "..."},
+        "ai_request": {"mode": "rag"},
+        "ai_search_response": {"citations_count": 1},
+        "ai_openai_response": {"answer_chars": 420},
+        "display_response": {"status_code": 200}
+      }
+    }
+  ]
+}
+```
+
 ## POST /api/ingest/upload
 
 Uploads and ingests a PDF/text-like file into Azure AI Search.
@@ -185,6 +228,60 @@ Azure AI Search env vars used by ingestion/retrieval:
 - `AZURE_SEARCH_API_KEY` (optional when managed identity is used)
 - `AZURE_SEARCH_CONTENT_FIELD`
 - `AZURE_SEARCH_VECTOR_FIELD`
+- `AZURE_SEARCH_SOURCE_FIELD` (optional source name field)
+- `AZURE_SEARCH_SOURCE_URL_FIELD` (optional source URL field for citations)
+- `AZURE_SEARCH_EXCLUDE_SOURCES` (optional CSV list, for example `data.txt`)
+- `CHAT_PROCESS_LOG_PATH` (default `logs/chat_process_last10.json`)
+- `CHAT_PROCESS_LOG_LIMIT` (default `10`)
+
+## POST /api/ingest/blob
+
+Ingests documents directly from Azure Blob Storage into Azure AI Search.
+
+### Request
+
+- Content type: `multipart/form-data`
+- Optional field: `container` (overrides `AZURE_BLOB_CONTAINER`)
+- Optional field: `prefix` (blob path filter)
+- Optional field: `max_files` (limit files per run)
+- Optional header: `X-Ingest-Key` (required only if `INGEST_API_KEY` is configured)
+
+### Example (curl)
+
+```bash
+curl -X POST "http://localhost:8000/api/ingest/blob" \
+  -H "X-Ingest-Key: your_ingest_key_if_set" \
+  -F "container=knowledge-base" \
+  -F "prefix=policies/" \
+  -F "max_files=50"
+```
+
+### Response
+
+```json
+{
+  "status": "success",
+  "message": "Blob documents ingested successfully",
+  "container": "knowledge-base",
+  "prefix": "policies/",
+  "scanned": 62,
+  "ingested_files": 41,
+  "skipped_files": 21,
+  "chunks": 536,
+  "index": "chatbot-rag",
+  "indexed_at": "2026-04-13T05:45:00.000000+00:00",
+  "sources": ["policies/security.pdf"],
+  "skipped_sources": ["images/logo.png"]
+}
+```
+
+Azure Blob env vars used by blob ingestion:
+
+- `AZURE_BLOB_CONNECTION_STRING` (recommended)
+- `AZURE_BLOB_ACCOUNT_URL` (alternative to connection string)
+- `AZURE_BLOB_ACCOUNT_KEY` (optional when using account URL)
+- `AZURE_BLOB_CONTAINER`
+- `AZURE_BLOB_PREFIX` (optional default prefix)
 
 ## SharePoint List Lead Sync
 

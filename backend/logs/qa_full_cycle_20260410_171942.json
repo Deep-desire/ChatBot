@@ -1,0 +1,159 @@
+{
+  "generated_at": "2026-04-10T11:48:16.890455+00:00",
+  "environment": "production",
+  "base_url": "https://visit-to-lead.vercel.app/backend",
+  "health_config": {
+    "status": "ok",
+    "missing_count": 0,
+    "effective": {
+      "azure_openai_endpoint": "https://thomaschat.cognitiveservices.azure.com",
+      "azure_openai_chat_deployment": "gpt-4o",
+      "azure_openai_embedding_deployment": "text-embedding-3-small",
+      "azure_search_endpoint": "https://desirechatbotaisearch.search.windows.net",
+      "azure_search_index_name": "rag-1775717847828",
+      "query_overlap_threshold": 0.05,
+      "query_min_overlap_terms": 1,
+      "azure_search_score_threshold": 0.05,
+      "azure_search_required": true,
+      "allow_generic_fallback": false,
+      "use_direct_faq_answers": false,
+      "sharepoint_always_insert": false
+    }
+  },
+  "post_deploy_core_flow": {
+    "session": "qa_core_1775821696890",
+    "q1": {
+      "query": "What is Desire Infoweb?",
+      "chars": 1172,
+      "preview": "Desire Infoweb is a company that provides expert services and solutions to help businesses streamline operations, enhance productivity, and drive innovation. Key offerings include:\n\n- **Microsoft Power Platform Services**: Expertise in tools like SharePoint, P",
+      "citations_count": 1,
+      "suggestions": [
+        "What industries or business sizes does Desire Infoweb typically serve?",
+        "Can you provide examples of specific use cases where Desire Infoweb's solutions?",
+        "Does Desire Infoweb offer training or support for teams adopting their Microsoft?"
+      ]
+    },
+    "q2": {
+      "query": "What AI solutions has Desire Infoweb delivered?",
+      "chars": 804,
+      "preview": "### AI Solutions Delivered by Desire Infoweb\n\nDesire Infoweb specializes in delivering advanced AI-driven solutions to help businesses innovate and optimize their operations. Key offerings include:\n\n- **Azure OpenAI Services**: Leveraging AI for natural langua",
+      "citations_count": 1,
+      "suggestions": [
+        "What industries or sectors does Desire Infoweb primarily serve?",
+        "Can you provide examples of specific AI-driven projects completed by Desire Infoweb?",
+        "How does Desire Infoweb ensure data security and compliance in its AI solutions?"
+      ]
+    },
+    "checks": {
+      "q2_not_equal_q1": true,
+      "q2_not_fallback": true,
+      "q2_detailed": true,
+      "q1_has_citations": true,
+      "q2_has_citations": true,
+      "no_malformed_suggestion": true
+    }
+  },
+  "prompt_matrix": [
+    {
+      "query": "what is fluentify ai",
+      "session": "qa_mx_1775821712856",
+      "chars": 616,
+      "fallback": false,
+      "citations_count": 1,
+      "preview": "Fluentify AI is an AI-powered language assessment tool designed to enhance language proficiency through advanced evaluations and seamless integration with Microsoft Teams. Key features include:\n\n- **Pronunciation Assessment**: Utilizes Azure Pronunciation Asse"
+    },
+    {
+      "query": "give me all the voice based projects",
+      "session": "qa_mx_1775821716888",
+      "chars": 398,
+      "fallback": false,
+      "citations_count": 1,
+      "preview": "### Voice-Based Projects\n\nHere are the voice-based projects mentioned:\n\n- **Real-Time Voice Interview Tool**: Conducts voice interviews by asking questions and listening to candidates' spoken responses, simulating a phone screen experience.\n- **AI Interviewer "
+    },
+    {
+      "query": "give me all the voice based projects in detail",
+      "session": "qa_mx_1775821720407",
+      "chars": 734,
+      "fallback": false,
+      "citations_count": 1,
+      "preview": "### Voice-Based Projects\n\nHere are the detailed voice-based projects mentioned:\n\n- **AI Interviewer Pro**:  \n  An enterprise-grade voice interview platform powered by Google Gemini AI. It conducts real-time voice interviews, asking questions and listening to c"
+    },
+    {
+      "query": "what services does desire infoweb provide",
+      "session": "qa_mx_1775821725126",
+      "chars": 972,
+      "fallback": false,
+      "citations_count": 1,
+      "preview": "Desire Infoweb offers a range of expert services to help businesses enhance efficiency, collaboration, and innovation. Their key services include:\n\n- **Microsoft Power Platform**: Expertise in SharePoint, Power Apps, Power Automate, and Power BI to streamline "
+    },
+    {
+      "query": "which industries does desire infoweb mainly serve",
+      "session": "qa_mx_1775821729627",
+      "chars": 1119,
+      "fallback": false,
+      "citations_count": 1,
+      "preview": "Desire Infoweb primarily serves industries that require advanced technological solutions to streamline operations, enhance productivity, and drive innovation. Key industries include:\n\n- **Business Process Automation**: Leveraging Microsoft Power Platform tools"
+    },
+    {
+      "query": "give me detail about ai interviewer pro",
+      "session": "qa_mx_1775821735151",
+      "chars": 1236,
+      "fallback": false,
+      "citations_count": 1,
+      "preview": "### AI Interviewer Pro Overview\n\nAI Interviewer Pro is an advanced voice interview platform designed to streamline and enhance the hiring and business evaluation process. Powered by Google Gemini AI, it offers the following key features:\n\n- **Dynamic Question "
+    },
+    {
+      "query": "what is compliance voice monitoring project",
+      "session": "qa_mx_1775821741957",
+      "chars": 830,
+      "fallback": false,
+      "citations_count": 1,
+      "preview": "The compliance voice monitoring project is not explicitly mentioned in the provided context excerpts. However, the excerpts describe AI-powered monitoring solutions and tools for compliance and operational efficiency. Key highlights include:\n\n- **AI-Powered Mo"
+    },
+    {
+      "query": "can you give architecture details for fluentify ai",
+      "session": "qa_mx_1775821747074",
+      "chars": 1203,
+      "fallback": false,
+      "citations_count": 1,
+      "preview": "### Fluentify AI Architecture Details\n\nFluentify AI is an AI-powered language assessment and improvement tool designed to enhance spoken language proficiency. Key architectural and functional details include:\n\n- **Core Functionality**: Fluentify AI allows user"
+    },
+    {
+      "query": "tell me about teams ai assistant project",
+      "session": "qa_mx_1775821753541",
+      "chars": 883,
+      "fallback": false,
+      "citations_count": 1,
+      "preview": "The Teams AI Assistant project involves leveraging AI to enhance productivity and streamline workflows within Microsoft Teams. Key aspects include:\n\n- **AI-Powered Chatbot**: A Teams-integrated chatbot using ChatGPT to automate routine tasks and provide effici"
+    },
+    {
+      "query": "what budget needed for ai chatbot",
+      "session": "qa_mx_1775821758724",
+      "chars": 1275,
+      "fallback": false,
+      "citations_count": 1,
+      "preview": "### Budget Considerations for an AI Chatbot\n\nThe budget for developing an AI chatbot depends on its features, integrations, and the underlying technology. Based on the provided context, here are key factors to consider:\n\n- **Technology Stack**: The chatbot lev"
+    }
+  ],
+  "stream_checks": {
+    "ai_solutions_prompt": {
+      "session": "qa_stream_1775821770655",
+      "has_done": true,
+      "has_error": false,
+      "token_events": 1
+    },
+    "fluentify_prompt": {
+      "session": "qa_stream_1775821778740",
+      "has_done": true,
+      "has_error": false,
+      "token_events": 1
+    }
+  },
+  "summary": {
+    "matrix_total": 10,
+    "matrix_fallback_count": 0,
+    "matrix_with_citations": 10,
+    "matrix_min_chars": 398,
+    "matrix_max_chars": 1275
+  }
+}

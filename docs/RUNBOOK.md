@@ -2,16 +2,16 @@
 
 ## Routine Workflow
 
-1. Update `backend/data.txt`
+1. Upload/update knowledge files in Azure Blob container
 2. Activate backend virtual environment
-3. Run `python ingest.py`
+3. Run `python ingestion.py --blob` (or call `POST /api/ingest/blob`)
 4. Restart backend if needed
-5. Verify with `GET /health`
+5. Verify with `GET /health` and one chat query with citations
 
 ## Pre-Release Checklist
 
 - Frontend `npm run build` passes
-- Backend `python -m py_compile main.py ingest.py` passes
+- Backend `python -m py_compile main.py ingestion.py` passes
 - CORS restricted to production domains
 - Environment variables configured in hosting platform
 - Smoke tests passed for:

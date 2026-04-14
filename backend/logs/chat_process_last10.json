@@ -1,0 +1,950 @@
+[
+  {
+    "trace_id": "1b8db788-28d9-4c8a-b78d-b66dd702bb8a",
+    "started_at": "2026-04-13T12:02:19.770894+00:00",
+    "ended_at": "2026-04-13T12:02:39.435337+00:00",
+    "endpoint": "/api/chat/text/stream",
+    "streaming": true,
+    "status": "success",
+    "duration_ms": 19664.44,
+    "session_id": "9c47fdf1-0152-4d24-971e-3eea23fdbf13",
+    "user_query": "What is Desire Infoweb?",
+    "process": {
+      "user_request": {
+        "query": "What is Desire Infoweb?",
+        "endpoint": "/api/chat/text/stream",
+        "stream": true,
+        "ts": "2026-04-13T12:02:19.771896+00:00"
+      },
+      "ai_request": {
+        "mode": "rag",
+        "model": "gpt-4o",
+        "model_input_chars": 194,
+        "stream": true,
+        "ts": "2026-04-13T12:02:19.772894+00:00"
+      },
+      "ai_search_response": {
+        "source": "azure_ai_search",
+        "context_chars": 1524,
+        "top_score": 0.74939126,
+        "citations_count": 1,
+        "videos_count": 0,
+        "citation": {
+          "title": "https://desireinfoweb.com/about-us",
+          "url": "https://desireinfoweb.com/about-us",
+          "id": "s_c2VydmljZUNhdGFsb2cudHh0_i_0_u_c76371ec982743fd978ca381a3778da9",
+          "score": 0.749391
+        },
+        "stream": true,
+        "ts": "2026-04-13T12:02:26.635597+00:00"
+      },
+      "ai_openai_response": {
+        "source": "azure_openai",
+        "answer_chars": 763,
+        "stream": true,
+        "ts": "2026-04-13T12:02:33.720177+00:00"
+      },
+      "display_response": {
+        "status_code": 200,
+        "answer_chars": 763,
+        "citations_count": 1,
+        "stream": true,
+        "ts": "2026-04-13T12:02:37.492803+00:00"
+      },
+      "ai_research_response": {
+        "source": "azure_ai_search",
+        "context_chars": 1524,
+        "top_score": 0.74939126,
+        "citations_count": 1,
+        "videos_count": 0,
+        "citation": {
+          "title": "https://desireinfoweb.com/about-us",
+          "url": "https://desireinfoweb.com/about-us",
+          "id": "s_c2VydmljZUNhdGFsb2cudHh0_i_0_u_c76371ec982743fd978ca381a3778da9",
+          "score": 0.749391
+        },
+        "stream": true,
+        "ts": "2026-04-13T12:02:26.635597+00:00"
+      }
+    },
+    "summary": {
+      "status_code": 200,
+      "reply": "Desire Infoweb is an IT services and consulting company specializing in Microsoft technologies and modern business solutions. Key aspects of the company include:\n\n- Expertise in SharePoint, Power Platform, Power BI, Microsoft Teams, Dynamics 365, Azure, and .NET development.\n- Focus on enterprise automation, modern collaboration platforms, analytics, and AI-powered solutions.\n- Services include web development for marketing websites and digital products designed for clarity, responsiveness, and long-term maintainability.\n- Offers products like organizational charts to visualize internal company structures with features such as photos, contact details, and interactive elements.\n\nFor more details, visit their [official website](https://desireinfoweb.com).",
+      "stream": true
+    }
+  },
+  {
+    "trace_id": "e282420e-4aa0-479a-94cf-ae8e09f6ec90",
+    "started_at": "2026-04-13T12:04:55.879790+00:00",
+    "ended_at": "2026-04-13T12:05:08.729873+00:00",
+    "endpoint": "/api/chat/text/stream",
+    "streaming": true,
+    "status": "success",
+    "duration_ms": 12850.08,
+    "session_id": "9c47fdf1-0152-4d24-971e-3eea23fdbf13",
+    "user_query": "What is Desire Infoweb?",
+    "process": {
+      "user_request": {
+        "query": "What is Desire Infoweb?",
+        "endpoint": "/api/chat/text/stream",
+        "stream": true,
+        "ts": "2026-04-13T12:04:55.879790+00:00"
+      },
+      "ai_request": {
+        "mode": "rag",
+        "model": "gpt-4o",
+        "model_input_chars": 1022,
+        "stream": true,
+        "ts": "2026-04-13T12:04:55.879790+00:00"
+      },
+      "ai_search_response": {
+        "source": "azure_ai_search",
+        "context_chars": 1524,
+        "top_score": 0.74939126,
+        "citations_count": 1,
+        "videos_count": 0,
+        "citation": {
+          "title": "https://desireinfoweb.com/about-us",
+          "url": "https://desireinfoweb.com/about-us",
+          "id": "s_c2VydmljZUNhdGFsb2cudHh0_i_0_u_c76371ec982743fd978ca381a3778da9",
+          "score": 0.749391
+        },
+        "stream": true,
+        "ts": "2026-04-13T12:04:59.539344+00:00"
+      },
+      "ai_openai_response": {
+        "source": "azure_openai",
+        "answer_chars": 917,
+        "stream": true,
+        "ts": "2026-04-13T12:05:05.543156+00:00"
+      },
+      "display_response": {
+        "status_code": 200,
+        "answer_chars": 917,
+        "citations_count": 1,
+        "stream": true,
+        "ts": "2026-04-13T12:05:06.861725+00:00"
+      },
+      "ai_research_response": {
+        "source": "azure_ai_search",
+        "context_chars": 1524,
+        "top_score": 0.74939126,
+        "citations_count": 1,
+        "videos_count": 0,
+        "citation": {
+          "title": "https://desireinfoweb.com/about-us",
+          "url": "https://desireinfoweb.com/about-us",
+          "id": "s_c2VydmljZUNhdGFsb2cudHh0_i_0_u_c76371ec982743fd978ca381a3778da9",
+          "score": 0.749391
+        },
+        "stream": true,
+        "ts": "2026-04-13T12:04:59.539344+00:00"
+      }
+    },
+    "summary": {
+      "status_code": 200,
+      "reply": "Desire Infoweb is an IT services and consulting company specializing in Microsoft technologies and modern business solutions. Key offerings include:\n\n- **Core Capabilities**: Expertise in SharePoint, Power Platform, Power BI, Microsoft Teams, Dynamics 365, Azure, .NET development, and AI/chatbot implementations.\n- **Enterprise Automation**: Solutions for streamlining business processes and enhancing collaboration.\n- **Web Development**: Creation of marketing websites and digital products designed for clarity, responsiveness, and long-term maintainability.\n- **Analytics and AI**: Advanced tools for data-driven decision-making and AI-powered business solutions.\n- **Products**: Includes tools like organizational charts to visualize company structures with features such as photos, contact details, and interactive elements.\n\nFor more details, visit their website at [Desire Infoweb](https://desireinfoweb.com).",
+      "stream": true
+    }
+  },
+  {
+    "trace_id": "7ef655c2-8ff5-4eae-bf35-e803d72038db",
+    "started_at": "2026-04-13T12:05:36.839658+00:00",
+    "ended_at": "2026-04-13T12:05:46.553140+00:00",
+    "endpoint": "/api/chat/text/stream",
+    "streaming": true,
+    "status": "success",
+    "duration_ms": 9713.48,
+    "session_id": "9c47fdf1-0152-4d24-971e-3eea23fdbf13",
+    "user_query": "What is Desire Infoweb?",
+    "process": {
+      "user_request": {
+        "query": "What is Desire Infoweb?",
+        "endpoint": "/api/chat/text/stream",
+        "stream": true,
+        "ts": "2026-04-13T12:05:36.839658+00:00"
+      },
+      "ai_request": {
+        "mode": "rag",
+        "model": "gpt-4o",
+        "model_input_chars": 1981,
+        "stream": true,
+        "ts": "2026-04-13T12:05:36.840657+00:00"
+      },
+      "ai_search_response": {
+        "source": "azure_ai_search",
+        "context_chars": 1524,
+        "top_score": 0.74939126,
+        "citations_count": 1,
+        "videos_count": 0,
+        "citation": {
+          "title": "https://desireinfoweb.com/about-us",
+          "url": "https://desireinfoweb.com/about-us",
+          "id": "s_c2VydmljZUNhdGFsb2cudHh0_i_0_u_c76371ec982743fd978ca381a3778da9",
+          "score": 0.749391
+        },
+        "stream": true,
+        "ts": "2026-04-13T12:05:38.820617+00:00"
+      },
+      "ai_openai_response": {
+        "source": "azure_openai",
+        "answer_chars": 670,
+        "stream": true,
+        "ts": "2026-04-13T12:05:43.472874+00:00"
+      },
+      "display_response": {
+        "status_code": 200,
+        "answer_chars": 670,
+        "citations_count": 1,
+        "stream": true,
+        "ts": "2026-04-13T12:05:44.651352+00:00"
+      },
+      "ai_research_response": {
+        "source": "azure_ai_search",
+        "context_chars": 1524,
+        "top_score": 0.74939126,
+        "citations_count": 1,
+        "videos_count": 0,
+        "citation": {
+          "title": "https://desireinfoweb.com/about-us",
+          "url": "https://desireinfoweb.com/about-us",
+          "id": "s_c2VydmljZUNhdGFsb2cudHh0_i_0_u_c76371ec982743fd978ca381a3778da9",
+          "score": 0.749391
+        },
+        "stream": true,
+        "ts": "2026-04-13T12:05:38.820617+00:00"
+      }
+    },
+    "summary": {
+      "status_code": 200,
+      "reply": "Desire Infoweb is an IT services and consulting company specializing in:\n\n- Microsoft technologies, including SharePoint, Power Platform, Power BI, Microsoft Teams, Dynamics 365, and Azure.\n- Enterprise automation, modern collaboration platforms, and AI-powered business solutions.\n- Web development services focused on creating marketing websites and digital products that are clear, responsive, and maintainable.\n- Custom solutions such as .NET development, migration, governance, and AI/chatbot implementations.\n\nThe company also offers products like organizational charts to visually represent internal structures, including employee details and contact information.",
+      "stream": true
+    }
+  },
+  {
+    "trace_id": "121ed8ab-7986-4d0c-9002-3cbaf6bb82ca",
+    "started_at": "2026-04-13T12:06:18.196414+00:00",
+    "ended_at": "2026-04-13T12:06:26.848541+00:00",
+    "endpoint": "/api/chat/text/stream",
+    "streaming": true,
+    "status": "success",
+    "duration_ms": 8652.13,
+    "session_id": "9c47fdf1-0152-4d24-971e-3eea23fdbf13",
+    "user_query": "give me all desire vision base project",
+    "process": {
+      "user_request": {
+        "query": "give me all desire vision base project",
+        "endpoint": "/api/chat/text/stream",
+        "stream": true,
+        "ts": "2026-04-13T12:06:18.196414+00:00"
+      },
+      "ai_request": {
+        "mode": "rag",
+        "model": "gpt-4o",
+        "model_input_chars": 2814,
+        "stream": true,
+        "ts": "2026-04-13T12:06:18.196414+00:00"
+      },
+      "ai_search_response": {
+        "source": "azure_ai_search",
+        "context_chars": 1021,
+        "top_score": 0.61558944,
+        "citations_count": 1,
+        "videos_count": 0,
+        "citation": {
+          "title": "https://desireinfoweb.com/about-us",
+          "url": "https://desireinfoweb.com/about-us",
+          "id": "s_c2VydmljZUNhdGFsb2cudHh0_i_0_u_c76371ec982743fd978ca381a3778da9",
+          "score": 0.615589
+        },
+        "stream": true,
+        "ts": "2026-04-13T12:06:19.702279+00:00"
+      },
+      "ai_openai_response": {
+        "source": "azure_openai",
+        "answer_chars": 938,
+        "stream": true,
+        "ts": "2026-04-13T12:06:25.631346+00:00"
+      },
+      "display_response": {
+        "status_code": 200,
+        "answer_chars": 938,
+        "citations_count": 1,
+        "stream": true,
+        "ts": "2026-04-13T12:06:26.847542+00:00"
+      },
+      "ai_research_response": {
+        "source": "azure_ai_search",
+        "context_chars": 1021,
+        "top_score": 0.61558944,
+        "citations_count": 1,
+        "videos_count": 0,
+        "citation": {
+          "title": "https://desireinfoweb.com/about-us",
+          "url": "https://desireinfoweb.com/about-us",
+          "id": "s_c2VydmljZUNhdGFsb2cudHh0_i_0_u_c76371ec982743fd978ca381a3778da9",
+          "score": 0.615589
+        },
+        "stream": true,
+        "ts": "2026-04-13T12:06:19.702279+00:00"
+      }
+    },
+    "summary": {
+      "status_code": 200,
+      "reply": "### Desire Infoweb Vision-Based Projects\n\nDesire Infoweb specializes in IT services and consulting, focusing on modern technologies and solutions. Their vision-based projects include:\n\n- **Web Development**: Creation of marketing websites and digital products designed for clarity, responsiveness, and long-term maintainability.\n- **Enterprise Automation**: Solutions leveraging Microsoft technologies like SharePoint, Power Platform, and Dynamics 365 for streamlined business processes.\n- **Analytics and AI**: Implementation of Power BI, custom AI solutions, and chatbots to enhance data-driven decision-making.\n- **Modern Collaboration Platforms**: Development and integration of tools like Microsoft Teams for improved organizational communication.\n- **Custom Solutions**: Expertise in Azure, .NET development, and governance for tailored enterprise needs.\n\nFor more details, visit their [official website](https://desireinfoweb.com).",
+      "stream": true
+    }
+  },
+  {
+    "trace_id": "07e6b975-7b71-4768-98ad-1a8ca8e0838b",
+    "started_at": "2026-04-13T12:51:24.871955+00:00",
+    "ended_at": "2026-04-13T12:51:44.734670+00:00",
+    "endpoint": "/api/chat/text/stream",
+    "streaming": true,
+    "status": "success",
+    "duration_ms": 19862.72,
+    "session_id": "9c47fdf1-0152-4d24-971e-3eea23fdbf13",
+    "user_query": "What is Desire Infoweb?",
+    "process": {
+      "user_request": {
+        "query": "What is Desire Infoweb?",
+        "endpoint": "/api/chat/text/stream",
+        "stream": true,
+        "ts": "2026-04-13T12:51:24.873956+00:00"
+      },
+      "ai_request": {
+        "mode": "rag",
+        "model": "gpt-4o",
+        "model_input_chars": 194,
+        "stream": true,
+        "ts": "2026-04-13T12:51:24.873956+00:00"
+      },
+      "ai_search_response": {
+        "source": "azure_ai_search",
+        "context_chars": 4160,
+        "top_score": 12.454051,
+        "citations_count": 1,
+        "videos_count": 0,
+        "citation": {
+          "title": "https://desireinfoweb.com/about-us",
+          "url": "https://desireinfoweb.com/about-us",
+          "id": "s_c2VydmljZUNhdGFsb2cudHh0_i_0_u_c76371ec982743fd978ca381a3778da9",
+          "score": 12.454051
+        },
+        "stream": true,
+        "ts": "2026-04-13T12:51:33.974631+00:00"
+      },
+      "ai_openai_response": {
+        "source": "azure_openai",
+        "answer_chars": 604,
+        "stream": true,
+        "ts": "2026-04-13T12:51:39.753462+00:00"
+      },
+      "display_response": {
+        "status_code": 200,
+        "answer_chars": 604,
+        "citations_count": 1,
+        "stream": true,
+        "ts": "2026-04-13T12:51:42.132940+00:00"
+      },
+      "ai_research_response": {
+        "source": "azure_ai_search",
+        "context_chars": 4160,
+        "top_score": 12.454051,
+        "citations_count": 1,
+        "videos_count": 0,
+        "citation": {
+          "title": "https://desireinfoweb.com/about-us",
+          "url": "https://desireinfoweb.com/about-us",
+          "id": "s_c2VydmljZUNhdGFsb2cudHh0_i_0_u_c76371ec982743fd978ca381a3778da9",
+          "score": 12.454051
+        },
+        "stream": true,
+        "ts": "2026-04-13T12:51:33.974631+00:00"
+      }
+    },
+    "summary": {
+      "status_code": 200,
+      "reply": "### What is Desire Infoweb?\n\nDesire Infoweb is an IT services and consulting company specializing in:\n\n- **Microsoft Technologies**: Expertise in platforms like Azure and Power Platform for scalable and secure solutions.\n- **Enterprise Automation**: Solutions to streamline business processes and improve efficiency.\n- **Modern Collaboration Platforms**: Tools to enhance team collaboration and communication.\n- **Analytics and AI-Powered Business Solutions**: Data-driven insights and AI tools to support decision-making.\n\nFor more information, visit their [official website](https://desireinfoweb.com).",
+      "stream": true
+    }
+  },
+  {
+    "trace_id": "a8c16499-b9b2-4ba5-8c6d-25e5a7faaafa",
+    "started_at": "2026-04-13T12:52:21.705312+00:00",
+    "ended_at": "2026-04-13T12:52:33.050823+00:00",
+    "endpoint": "/api/chat/text/stream",
+    "streaming": true,
+    "status": "success",
+    "duration_ms": 11345.51,
+    "session_id": "9c47fdf1-0152-4d24-971e-3eea23fdbf13",
+    "user_query": "give me detail about desire vision based projects",
+    "process": {
+      "user_request": {
+        "query": "give me detail about desire vision based projects",
+        "endpoint": "/api/chat/text/stream",
+        "stream": true,
+        "ts": "2026-04-13T12:52:21.706311+00:00"
+      },
+      "ai_request": {
+        "mode": "rag",
+        "model": "gpt-4o",
+        "model_input_chars": 889,
+        "stream": true,
+        "ts": "2026-04-13T12:52:21.706311+00:00"
+      },
+      "ai_search_response": {
+        "source": "azure_ai_search",
+        "context_chars": 4043,
+        "top_score": 10.425402,
+        "citations_count": 1,
+        "videos_count": 0,
+        "citation": {
+          "title": "https://desireinfoweb.com/about-us",
+          "url": "https://desireinfoweb.com/about-us",
+          "id": "s_c2VydmljZUNhdGFsb2cudHh0_i_0_u_c76371ec982743fd978ca381a3778da9",
+          "score": 10.425402
+        },
+        "stream": true,
+        "ts": "2026-04-13T12:52:25.567567+00:00"
+      },
+      "ai_openai_response": {
+        "source": "azure_openai",
+        "answer_chars": 802,
+        "stream": true,
+        "ts": "2026-04-13T12:52:31.770175+00:00"
+      },
+      "display_response": {
+        "status_code": 200,
+        "answer_chars": 802,
+        "citations_count": 1,
+        "stream": true,
+        "ts": "2026-04-13T12:52:33.049823+00:00"
+      },
+      "ai_research_response": {
+        "source": "azure_ai_search",
+        "context_chars": 4043,
+        "top_score": 10.425402,
+        "citations_count": 1,
+        "videos_count": 0,
+        "citation": {
+          "title": "https://desireinfoweb.com/about-us",
+          "url": "https://desireinfoweb.com/about-us",
+          "id": "s_c2VydmljZUNhdGFsb2cudHh0_i_0_u_c76371ec982743fd978ca381a3778da9",
+          "score": 10.425402
+        },
+        "stream": true,
+        "ts": "2026-04-13T12:52:25.567567+00:00"
+      }
+    },
+    "summary": {
+      "status_code": 200,
+      "reply": "### Desire Vision-Based Projects\n\nDesire Infoweb specializes in IT services and consulting, focusing on Microsoft technologies, enterprise automation, and AI-powered business solutions. Below are details about their vision-based projects:\n\n- **Project Management Portal**: A SharePoint-based solution that centralizes project management operations. It provides visibility for all stakeholders, from task boards to executive dashboards, transforming how organizations plan, track, and deliver projects.\n\n- **Learning Management System**: A centralized platform designed to deliver online training, courses, and learning materials for employees, students, or customers, enhancing organizational learning and development.\n\nFor more information, visit [Desire Infoweb's website](https://desireinfoweb.com).",
+      "stream": true
+    }
+  },
+  {
+    "trace_id": "efab78e9-2655-4081-88e4-b1b706276cb7",
+    "started_at": "2026-04-13T13:04:57.848809+00:00",
+    "ended_at": "2026-04-13T13:05:16.646397+00:00",
+    "endpoint": "/api/chat/text",
+    "streaming": false,
+    "status": "success",
+    "duration_ms": 18796.59,
+    "session_id": "log_demo_full",
+    "user_query": "What is Desire Infoweb?",
+    "process": {
+      "user_request": {
+        "query": "What is Desire Infoweb?",
+        "endpoint": "/api/chat/text",
+        "stream": false,
+        "ts": "2026-04-13T13:04:57.855804+00:00"
+      },
+      "ai_request": {
+        "mode": "rag",
+        "model": "gpt-4o",
+        "model_input_chars": 194,
+        "ts": "2026-04-13T13:04:57.856804+00:00"
+      },
+      "ai_search_response": {
+        "source": "azure_ai_search",
+        "context_chars": 4160,
+        "top_score": 12.454051,
+        "citations_count": 1,
+        "videos_count": 0,
+        "citation": {
+          "title": "https://desireinfoweb.com/about-us",
+          "url": "https://desireinfoweb.com/about-us",
+          "id": "s_c2VydmljZUNhdGFsb2cudHh0_i_0_u_c76371ec982743fd978ca381a3778da9",
+          "score": 12.454051
+        },
+        "ts": "2026-04-13T13:05:09.393943+00:00"
+      },
+      "ai_search_json_response": {
+        "source_scope": "knowledge",
+        "found": true,
+        "retrieval_mode": "text",
+        "score": 12.454051,
+        "rank": 9.590538,
+        "overlap_ratio": 1.0,
+        "overlap_count": 2,
+        "query_term_count": 2,
+        "meets_score": true,
+        "meets_overlap": true,
+        "context_chars": 4160,
+        "context_preview": "[companyProfile] About Desire Infoweb Desire Infoweb is an IT services and consulting company focused on Microsoft technologies, enterprise automation, modern collaboration platforms, analytics, and AI-powered business solutions. Core capabilities include SharePoint, Power Platform, Power BI, Microsoft Teams, Dynamics 365, Azure, .NET development, migration, governance, and custom AI/chatbot implementations. https://desireinfoweb.com/about-us [products] Organization Chart An organizational chart shows the internal structure of an organization or company. The employees and positions are represe",
+        "citations_count": 1,
+        "citation": {
+          "title": "https://desireinfoweb.com/about-us",
+          "url": "https://desireinfoweb.com/about-us",
+          "id": "s_c2VydmljZUNhdGFsb2cudHh0_i_0_u_c76371ec982743fd978ca381a3778da9",
+          "score": 12.454051
+        },
+        "ts": "2026-04-13T13:05:09.390945+00:00"
+      },
+      "ai_search_blob_response": {
+        "source_scope": "blob_fallback",
+        "found": true,
+        "retrieval_mode": "text",
+        "score": 6.908012,
+        "rank": 5.431009,
+        "overlap_ratio": 1.0,
+        "overlap_count": 2,
+        "query_term_count": 2,
+        "meets_score": true,
+        "meets_overlap": true,
+        "context_chars": 9925,
+        "context_preview": "1 Company Overview ● Desire Infoweb Pvt Ltd. is a leading IT offshoring company specializing in SharePoint, Power Platform, Azure, Dynamics 365, .NET, and AI-driven solutions. SharePoint: ● We provide expert SharePoint services, helping businesses streamline document management, improve collaboration, and build customized intranet solutions to enhance productivity and communication Power Platform: ● We provide expert services on Microsoft Power Platform tools like SharePoint, Power Apps, Power Automate, and Power BI, helping businesses streamline processes, build custom apps, automate workflow",
+        "citations_count": 1,
+        "citation": {
+          "title": "AI Projects  (2).pdf",
+          "url": "https://desirechatbotweb.blob.core.windows.net/desirechatbotweb/AI%20Projects%20%20(2).pdf",
+          "id": "87ba13f8d90b_aHR0cHM6Ly9kZXNpcmVjaGF0Ym90d2ViLmJsb2IuY29yZS53aW5kb3dzLm5ldC9kZXNpcmVjaGF0Ym90d2ViL0FJJTIwUHJvamVjdHMlMjAlMjAoMikucGRm0_pages_0",
+          "score": 6.908012
+        },
+        "ts": "2026-04-13T13:05:09.392943+00:00"
+      },
+      "ai_selection": {
+        "selected_source_scope": "knowledge",
+        "selected_retrieval_mode": "text",
+        "selected_score": 12.454051,
+        "selected_rank": 9.590538,
+        "selected_overlap_ratio": 1.0,
+        "candidate_count": 4,
+        "ts": "2026-04-13T13:05:09.392943+00:00"
+      },
+      "ai_openai_response": {
+        "source": "azure_openai",
+        "answer_chars": 513,
+        "ts": "2026-04-13T13:05:13.917815+00:00"
+      },
+      "display_response": {
+        "status_code": 200,
+        "answer_chars": 513,
+        "citations_count": 1,
+        "videos_count": 0,
+        "stream": false,
+        "ts": "2026-04-13T13:05:16.646397+00:00"
+      },
+      "ai_research_response": {
+        "source": "azure_ai_search",
+        "context_chars": 4160,
+        "top_score": 12.454051,
+        "citations_count": 1,
+        "videos_count": 0,
+        "citation": {
+          "title": "https://desireinfoweb.com/about-us",
+          "url": "https://desireinfoweb.com/about-us",
+          "id": "s_c2VydmljZUNhdGFsb2cudHh0_i_0_u_c76371ec982743fd978ca381a3778da9",
+          "score": 12.454051
+        },
+        "ts": "2026-04-13T13:05:09.393943+00:00"
+      }
+    },
+    "summary": {
+      "status_code": 200,
+      "reply": "### About Desire Infoweb\n\nDesire Infoweb is an IT services and consulting company specializing in:\n\n- **Microsoft Technologies**: Expertise in tools like Azure and Power Platform.\n- **Enterprise Automation**: Solutions for streamlining business processes.\n- **Modern Collaboration Platforms**: Enhancing team productivity and communication.\n- **Analytics and AI**: Delivering data-driven insights and AI-powered business solutions.\n\nFor more information, visit their [official website](https://desireinfoweb.com)."
+    }
+  },
+  {
+    "trace_id": "3c5f232e-d2f9-4d6a-9f66-7ff044b40c82",
+    "started_at": "2026-04-13T13:22:02.649490+00:00",
+    "ended_at": "2026-04-13T13:22:22.661502+00:00",
+    "endpoint": "/api/chat/text/stream",
+    "streaming": true,
+    "status": "success",
+    "duration_ms": 20012.01,
+    "session_id": "9c47fdf1-0152-4d24-971e-3eea23fdbf13",
+    "user_query": "give me detail about desire vision based projects",
+    "process": {
+      "user_request": {
+        "query": "give me detail about desire vision based projects",
+        "endpoint": "/api/chat/text/stream",
+        "stream": true,
+        "ts": "2026-04-13T13:22:02.651489+00:00"
+      },
+      "ai_request": {
+        "mode": "rag",
+        "model": "gpt-4o",
+        "model_input_chars": 220,
+        "stream": true,
+        "ts": "2026-04-13T13:22:02.652489+00:00"
+      },
+      "ai_search_response": {
+        "source": "azure_ai_search",
+        "context_chars": 4043,
+        "top_score": 10.425402,
+        "citations_count": 1,
+        "videos_count": 0,
+        "citation": {
+          "title": "https://desireinfoweb.com/about-us",
+          "url": "https://desireinfoweb.com/about-us",
+          "id": "s_c2VydmljZUNhdGFsb2cudHh0_i_0_u_c76371ec982743fd978ca381a3778da9",
+          "score": 10.425402
+        },
+        "stream": true,
+        "ts": "2026-04-13T13:22:11.998062+00:00"
+      },
+      "ai_search_json_response": {
+        "source_scope": "knowledge",
+        "found": true,
+        "retrieval_mode": "text",
+        "score": 10.425402,
+        "rank": 7.944052,
+        "overlap_ratio": 0.5,
+        "overlap_count": 3,
+        "query_term_count": 6,
+        "meets_score": true,
+        "meets_overlap": true,
+        "context_chars": 4043,
+        "context_preview": "[companyProfile] About Desire Infoweb Desire Infoweb is an IT services and consulting company focused on Microsoft technologies, enterprise automation, modern collaboration platforms, analytics, and AI-powered business solutions. Core capabilities include SharePoint, Power Platform, Power BI, Microsoft Teams, Dynamics 365, Azure, .NET development, migration, governance, and custom AI/chatbot implementations. https://desireinfoweb.com/about-us [products] Organization Chart An organizational chart shows the internal structure of an organization or company. The employees and positions are represe",
+        "citations_count": 1,
+        "citation": {
+          "title": "https://desireinfoweb.com/about-us",
+          "url": "https://desireinfoweb.com/about-us",
+          "id": "s_c2VydmljZUNhdGFsb2cudHh0_i_0_u_c76371ec982743fd978ca381a3778da9",
+          "score": 10.425402
+        },
+        "ts": "2026-04-13T13:22:11.996063+00:00"
+      },
+      "ai_search_blob_response": {
+        "source_scope": "blob_fallback",
+        "found": true,
+        "retrieval_mode": "text",
+        "score": 5.815574,
+        "rank": 4.528347,
+        "overlap_ratio": 0.666667,
+        "overlap_count": 4,
+        "query_term_count": 6,
+        "meets_score": true,
+        "meets_overlap": true,
+        "context_chars": 9868,
+        "context_preview": "achieve their goals with efficiency and reliability. 2 AI Projects Project 1: AI-Powered Compliance Monitoring System Client: Johnson & Johnson Industry: Pharmaceutical Manufacturing Focus: Tablets and Drug Production Departments Involved: Production & Warehouse Challenge: Johnson & Johnson needed a reliable way to monitor hygiene compliance, specifically identifying employees who were not wearing hand gloves during production—a critical requirement in pharmaceutical manufacturing. Our Solution: We implemented an AI-powered intelligent CCTV monitoring system designed to automatically detect gl",
+        "citations_count": 1,
+        "citation": {
+          "title": "AI Projects  (2).pdf",
+          "url": "https://desirechatbotweb.blob.core.windows.net/desirechatbotweb/AI%20Projects%20%20(2).pdf",
+          "id": "87ba13f8d90b_aHR0cHM6Ly9kZXNpcmVjaGF0Ym90d2ViLmJsb2IuY29yZS53aW5kb3dzLm5ldC9kZXNpcmVjaGF0Ym90d2ViL0FJJTIwUHJvamVjdHMlMjAlMjAoMikucGRm0_pages_1",
+          "score": 5.815574
+        },
+        "ts": "2026-04-13T13:22:11.997063+00:00"
+      },
+      "ai_selection": {
+        "selected_source_scope": "knowledge",
+        "selected_retrieval_mode": "text",
+        "selected_score": 10.425402,
+        "selected_rank": 7.944052,
+        "selected_overlap_ratio": 0.5,
+        "candidate_count": 4,
+        "ts": "2026-04-13T13:22:11.997063+00:00"
+      },
+      "ai_openai_response": {
+        "source": "azure_openai",
+        "answer_chars": 965,
+        "stream": true,
+        "ts": "2026-04-13T13:22:19.063645+00:00"
+      },
+      "display_response": {
+        "status_code": 200,
+        "answer_chars": 965,
+        "citations_count": 1,
+        "stream": true,
+        "ts": "2026-04-13T13:22:22.659503+00:00"
+      },
+      "ai_research_response": {
+        "source": "azure_ai_search",
+        "context_chars": 4043,
+        "top_score": 10.425402,
+        "citations_count": 1,
+        "videos_count": 0,
+        "citation": {
+          "title": "https://desireinfoweb.com/about-us",
+          "url": "https://desireinfoweb.com/about-us",
+          "id": "s_c2VydmljZUNhdGFsb2cudHh0_i_0_u_c76371ec982743fd978ca381a3778da9",
+          "score": 10.425402
+        },
+        "stream": true,
+        "ts": "2026-04-13T13:22:11.998062+00:00"
+      }
+    },
+    "summary": {
+      "status_code": 200,
+      "reply": "### Desire Vision-Based Projects\n\nDesire Infoweb specializes in IT services and consulting, offering solutions that leverage Microsoft technologies, enterprise automation, and AI-powered business tools. Below are key details about their vision-based projects:\n\n- **Project Management Portal**: A SharePoint-based solution designed to centralize project management operations. It provides visibility for all stakeholders, from task boards to executive dashboards, enhancing planning, tracking, and delivery of projects.\n\n- **Learning Management System**: A centralized platform for online training and education. It enables organizations to deliver courses, learning materials, and training programs to employees, students, or customers efficiently.\n\nDesire Infoweb focuses on modern collaboration platforms and analytics to streamline organizational processes and improve decision-making. For more details, visit their [official website](https://desireinfoweb.com).",
+      "stream": true
+    }
+  },
+  {
+    "trace_id": "f2048cdb-f6c1-4944-b0af-de5d784e2e51",
+    "started_at": "2026-04-13T13:47:34.804233+00:00",
+    "ended_at": "2026-04-13T13:47:55.856981+00:00",
+    "endpoint": "/api/chat/text/stream",
+    "streaming": true,
+    "status": "success",
+    "duration_ms": 21052.75,
+    "session_id": "9c47fdf1-0152-4d24-971e-3eea23fdbf13",
+    "user_query": "fluentify AI?",
+    "process": {
+      "user_request": {
+        "query": "fluentify AI?",
+        "endpoint": "/api/chat/text/stream",
+        "stream": true,
+        "ts": "2026-04-13T13:47:34.805232+00:00"
+      },
+      "ai_request": {
+        "mode": "rag",
+        "model": "gpt-4o",
+        "model_input_chars": 184,
+        "stream": true,
+        "ts": "2026-04-13T13:47:34.806232+00:00"
+      },
+      "ai_search_response": {
+        "source": "azure_ai_search",
+        "context_chars": 9798,
+        "top_score": 6.4572754,
+        "citations_count": 1,
+        "videos_count": 0,
+        "citation": {
+          "title": "AI Projects  (2).pdf",
+          "url": "https://desirechatbotweb.blob.core.windows.net/desirechatbotweb/AI%20Projects%20%20(2).pdf",
+          "id": "87ba13f8d90b_aHR0cHM6Ly9kZXNpcmVjaGF0Ym90d2ViLmJsb2IuY29yZS53aW5kb3dzLm5ldC9kZXNpcmVjaGF0Ym90d2ViL0FJJTIwUHJvamVjdHMlMjAlMjAoMikucGRm0_pages_13",
+          "score": 6.457275
+        },
+        "stream": true,
+        "ts": "2026-04-13T13:47:46.455255+00:00"
+      },
+      "ai_search_json_response": {
+        "source_scope": "knowledge",
+        "found": true,
+        "retrieval_mode": "text",
+        "score": 5.917959,
+        "rank": 4.688469,
+        "overlap_ratio": 1.0,
+        "overlap_count": 1,
+        "query_term_count": 1,
+        "meets_score": true,
+        "meets_overlap": true,
+        "context_chars": 4433,
+        "context_preview": "[aiProjectServicesShowcaseData] Fluentify AI Fluentify AI offers a comprehensive solution for enhancing language proficiency through data-driven insights and AI-powered assessments. It helps users improve spoken communication effectively for professionals, educators, and organizations. Features: AI-Powered Language Assessment, Process MS Team, Zoom and Google Meet recording, Collaborate and Share Feedback, Optimize Communication Skills https://desireinfoweb.com/services/ai [aiProjectServicesShowcaseData] Insurance Chatbot Insurance Chatbot reduced policy coverage verification time from 15-20 m",
+        "citations_count": 1,
+        "citation": {
+          "title": "https://desireinfoweb.com/services/ai",
+          "url": "https://desireinfoweb.com/services/ai",
+          "id": "s_c2VydmljZUNhdGFsb2cudHh0_i_3_u_54a6a2b795a047618433b3b9646a2561",
+          "score": 5.917959
+        },
+        "ts": "2026-04-13T13:47:46.453259+00:00"
+      },
+      "ai_search_blob_response": {
+        "source_scope": "blob_fallback",
+        "found": true,
+        "retrieval_mode": "text",
+        "score": 6.457275,
+        "rank": 5.092957,
+        "overlap_ratio": 1.0,
+        "overlap_count": 1,
+        "query_term_count": 1,
+        "meets_score": true,
+        "meets_overlap": true,
+        "context_chars": 9798,
+        "context_preview": "to leveraging cutting-edge tools to enhance operations and improve service delivery. Technologies Used: Software & Frameworks: Azure OpenAI, SharePoint Online, MS Teams, Typescript , React , Azure Blob storage , Semantic search , Vectorization Databases: SharePoint Deployment: Azure Cloud Service 25 26 Project 13: Fluentify AI - Enhancing Language Proficiency with AI Client: Internal Project Industry: Education & Technology Focus Area: AI-Driven Language Assessment Department: IT & Education Challenge: The challenge was to develop an AI-powered language assessment tool that integrates with Mic",
+        "citations_count": 1,
+        "citation": {
+          "title": "AI Projects  (2).pdf",
+          "url": "https://desirechatbotweb.blob.core.windows.net/desirechatbotweb/AI%20Projects%20%20(2).pdf",
+          "id": "87ba13f8d90b_aHR0cHM6Ly9kZXNpcmVjaGF0Ym90d2ViLmJsb2IuY29yZS53aW5kb3dzLm5ldC9kZXNpcmVjaGF0Ym90d2ViL0FJJTIwUHJvamVjdHMlMjAlMjAoMikucGRm0_pages_13",
+          "score": 6.457275
+        },
+        "ts": "2026-04-13T13:47:46.454255+00:00"
+      },
+      "ai_selection": {
+        "selected_source_scope": "blob_fallback",
+        "selected_retrieval_mode": "text",
+        "selected_score": 6.457275,
+        "selected_rank": 5.092957,
+        "selected_overlap_ratio": 1.0,
+        "candidate_count": 4,
+        "ts": "2026-04-13T13:47:46.455255+00:00"
+      },
+      "ai_openai_response": {
+        "source": "azure_openai",
+        "answer_chars": 723,
+        "stream": true,
+        "ts": "2026-04-13T13:47:53.367590+00:00"
+      },
+      "display_response": {
+        "status_code": 200,
+        "answer_chars": 723,
+        "citations_count": 1,
+        "stream": true,
+        "ts": "2026-04-13T13:47:55.854987+00:00"
+      },
+      "ai_research_response": {
+        "source": "azure_ai_search",
+        "context_chars": 9798,
+        "top_score": 6.4572754,
+        "citations_count": 1,
+        "videos_count": 0,
+        "citation": {
+          "title": "AI Projects  (2).pdf",
+          "url": "https://desirechatbotweb.blob.core.windows.net/desirechatbotweb/AI%20Projects%20%20(2).pdf",
+          "id": "87ba13f8d90b_aHR0cHM6Ly9kZXNpcmVjaGF0Ym90d2ViLmJsb2IuY29yZS53aW5kb3dzLm5ldC9kZXNpcmVjaGF0Ym90d2ViL0FJJTIwUHJvamVjdHMlMjAlMjAoMikucGRm0_pages_13",
+          "score": 6.457275
+        },
+        "stream": true,
+        "ts": "2026-04-13T13:47:46.455255+00:00"
+      }
+    },
+    "summary": {
+      "status_code": 200,
+      "reply": "Fluentify AI is an AI-powered language assessment tool designed to enhance language proficiency through advanced evaluations and seamless integration with Microsoft Teams. Key features include:\n\n- **Pronunciation Assessment**: Utilizes Azure Pronunciation Assessment Service to evaluate pronunciation, grammar, and vocabulary.\n- **Data-Driven Insights**: Provides comprehensive feedback to improve spoken language skills.\n- **Integration**: Seamlessly integrates with Microsoft Teams for easy accessibility.\n- **AI-Powered Solution**: Leverages cutting-edge AI to deliver accurate and actionable language assessments.\n\nThis tool is ideal for individuals and organizations aiming to improve communication skills effectively.",
+      "stream": true
+    }
+  },
+  {
+    "trace_id": "c4da3f97-f887-40d4-9df0-1979ab5cfb69",
+    "started_at": "2026-04-14T04:49:00.330679+00:00",
+    "ended_at": "2026-04-14T04:49:23.669180+00:00",
+    "endpoint": "/api/chat/text/stream",
+    "streaming": true,
+    "status": "success",
+    "duration_ms": 23338.5,
+    "session_id": "9c47fdf1-0152-4d24-971e-3eea23fdbf13",
+    "user_query": "What is Desire Infoweb?",
+    "process": {
+      "user_request": {
+        "query": "What is Desire Infoweb?",
+        "endpoint": "/api/chat/text/stream",
+        "stream": true,
+        "ts": "2026-04-14T04:49:00.331679+00:00"
+      },
+      "ai_request": {
+        "mode": "rag",
+        "model": "gpt-4o",
+        "model_input_chars": 194,
+        "stream": true,
+        "ts": "2026-04-14T04:49:00.332678+00:00"
+      },
+      "ai_search_response": {
+        "source": "azure_ai_search",
+        "context_chars": 4160,
+        "top_score": 12.454051,
+        "citations_count": 1,
+        "videos_count": 0,
+        "citation": {
+          "title": "https://desireinfoweb.com/about-us",
+          "url": "https://desireinfoweb.com/about-us",
+          "id": "s_c2VydmljZUNhdGFsb2cudHh0_i_0_u_c76371ec982743fd978ca381a3778da9",
+          "score": 12.454051
+        },
+        "stream": true,
+        "ts": "2026-04-14T04:49:07.986919+00:00"
+      },
+      "ai_search_json_response": {
+        "source_scope": "knowledge",
+        "found": true,
+        "retrieval_mode": "text",
+        "score": 12.454051,
+        "rank": 9.590538,
+        "overlap_ratio": 1.0,
+        "overlap_count": 2,
+        "query_term_count": 2,
+        "meets_score": true,
+        "meets_overlap": true,
+        "context_chars": 4160,
+        "context_preview": "[companyProfile] About Desire Infoweb Desire Infoweb is an IT services and consulting company focused on Microsoft technologies, enterprise automation, modern collaboration platforms, analytics, and AI-powered business solutions. Core capabilities include SharePoint, Power Platform, Power BI, Microsoft Teams, Dynamics 365, Azure, .NET development, migration, governance, and custom AI/chatbot implementations. https://desireinfoweb.com/about-us [products] Organization Chart An organizational chart shows the internal structure of an organization or company. The employees and positions are represe",
+        "citations_count": 1,
+        "citation": {
+          "title": "https://desireinfoweb.com/about-us",
+          "url": "https://desireinfoweb.com/about-us",
+          "id": "s_c2VydmljZUNhdGFsb2cudHh0_i_0_u_c76371ec982743fd978ca381a3778da9",
+          "score": 12.454051
+        },
+        "ts": "2026-04-14T04:49:07.981922+00:00"
+      },
+      "ai_search_blob_response": {
+        "source_scope": "blob_fallback",
+        "found": true,
+        "retrieval_mode": "text",
+        "score": 6.908012,
+        "rank": 5.431009,
+        "overlap_ratio": 1.0,
+        "overlap_count": 2,
+        "query_term_count": 2,
+        "meets_score": true,
+        "meets_overlap": true,
+        "context_chars": 9925,
+        "context_preview": "1 Company Overview ● Desire Infoweb Pvt Ltd. is a leading IT offshoring company specializing in SharePoint, Power Platform, Azure, Dynamics 365, .NET, and AI-driven solutions. SharePoint: ● We provide expert SharePoint services, helping businesses streamline document management, improve collaboration, and build customized intranet solutions to enhance productivity and communication Power Platform: ● We provide expert services on Microsoft Power Platform tools like SharePoint, Power Apps, Power Automate, and Power BI, helping businesses streamline processes, build custom apps, automate workflow",
+        "citations_count": 1,
+        "citation": {
+          "title": "AI Projects  (2).pdf",
+          "url": "https://desirechatbotweb.blob.core.windows.net/desirechatbotweb/AI%20Projects%20%20(2).pdf",
+          "id": "87ba13f8d90b_aHR0cHM6Ly9kZXNpcmVjaGF0Ym90d2ViLmJsb2IuY29yZS53aW5kb3dzLm5ldC9kZXNpcmVjaGF0Ym90d2ViL0FJJTIwUHJvamVjdHMlMjAlMjAoMikucGRm0_pages_0",
+          "score": 6.908012
+        },
+        "ts": "2026-04-14T04:49:07.985920+00:00"
+      },
+      "ai_selection": {
+        "selected_source_scope": "knowledge",
+        "selected_retrieval_mode": "text",
+        "selected_score": 12.454051,
+        "selected_rank": 9.590538,
+        "selected_overlap_ratio": 1.0,
+        "candidate_count": 4,
+        "ts": "2026-04-14T04:49:07.985920+00:00"
+      },
+      "ai_openai_response": {
+        "source": "azure_openai",
+        "answer_chars": 505,
+        "stream": true,
+        "ts": "2026-04-14T04:49:12.304513+00:00"
+      },
+      "display_response": {
+        "status_code": 200,
+        "answer_chars": 505,
+        "citations_count": 1,
+        "stream": true,
+        "ts": "2026-04-14T04:49:20.998381+00:00"
+      },
+      "ai_research_response": {
+        "source": "azure_ai_search",
+        "context_chars": 4160,
+        "top_score": 12.454051,
+        "citations_count": 1,
+        "videos_count": 0,
+        "citation": {
+          "title": "https://desireinfoweb.com/about-us",
+          "url": "https://desireinfoweb.com/about-us",
+          "id": "s_c2VydmljZUNhdGFsb2cudHh0_i_0_u_c76371ec982743fd978ca381a3778da9",
+          "score": 12.454051
+        },
+        "stream": true,
+        "ts": "2026-04-14T04:49:07.986919+00:00"
+      }
+    },
+    "summary": {
+      "status_code": 200,
+      "reply": "### About Desire Infoweb\n\nDesire Infoweb is an IT services and consulting company specializing in:\n\n- **Microsoft Technologies**: Expertise in tools like Azure and Power Platform.\n- **Enterprise Automation**: Solutions to streamline business processes.\n- **Modern Collaboration Platforms**: Enhancing team productivity and communication.\n- **Analytics and AI**: Providing data-driven insights and AI-powered business solutions.\n\nFor more details, visit their [official website](https://desireinfoweb.com).",
+      "stream": true
+    }
+  }
+]
