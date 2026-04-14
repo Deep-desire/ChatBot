@@ -6,6 +6,7 @@ import logging
 import json
 import base64
 import warnings
+from difflib import get_close_matches
 from contextvars import ContextVar, Token
 from datetime import datetime, timezone
 from collections import deque
@@ -140,7 +141,7 @@ OVERLAP_STOPWORDS = {
     "the", "and", "for", "with", "from", "into", "that", "this", "what", "when", "where", "which",
     "about", "your", "you", "have", "has", "are", "was", "were", "will", "would", "could", "should",
     "please", "need", "want", "tell", "me", "our", "their", "they",
-    "first", "day", "procedure", "process", "step", "steps",
+    "first", "day", "procedure", "process", "step", "steps", "chat",
 }
 
 VIDEO_MATCH_STOPWORDS = {
@@ -454,18 +455,131 @@ def _encode_header_value(value: str, *, max_chars: int = 2500) -> str:
     return quote(normalized, safe="")
 
 
+def _get_query_spell_similarity_cutoff() -> float:
+    raw = os.getenv("QUERY_SPELL_SIMILARITY_CUTOFF", "0.88")
+    try:
+        return min(0.98, max(0.80, float(raw)))
+    except (TypeError, ValueError):
+        return 0.88
+
+
+def _match_token_case(original: str, replacement: str) -> str:
+    if not replacement:
+        return original
+    if original.isupper():
+        return replacement.upper()
+    if original[0].isupper() and original[1:].islower():
+        return replacement.capitalize()
+    return replacement
+
+
+@lru_cache(maxsize=1)
+def _get_query_spell_vocabulary() -> tuple[str, ...]:
+    seed_text = " ".join(
+        [
+            SERVICE_SUMMARY,
+            AI_SUMMARY,
+            AI_PROJECTS_SUMMARY,
+            BUDGET_SUMMARY,
+            DOTNET_SUMMARY,
+            CHATBOT_IMPLEMENTATION_SUMMARY,
+            CHATBOT_DATA_SOURCE_SUMMARY,
+            INDUSTRY_SUMMARY,
+            "Desire Infoweb ai projects solutions services organization chart fluentify interviewer"
+            " sharepoint azure teams chatbot voice architecture compliance delivered completed",
+        ]
+    )
+    words = {
+        token
+        for token in re.findall(r"[a-z]+", seed_text.lower())
+        if len(token) >= 3
+    }
+    words.update(
+        {
+            "desire",
+            "infoweb",
+            "organization",
+            "chart",
+            "projects",
+            "project",
+            "solutions",
+            "solution",
+            "services",
+            "service",
+            "fluentify",
+            "interviewer",
+            "portfolio",
+            "details",
+            "detail",
+            "give",
+            "what",
+            "show",
+            "list",
+            "all",
+            "about",
+        }
+    )
+    return tuple(sorted(words))
+
+
+def _fuzzy_spell_correct_token(token: str) -> str:
+    vocabulary = _get_query_spell_vocabulary()
+    lowered = token.lower()
+    if len(lowered) < 4 or lowered in vocabulary:
+        return token
+
+    match = get_close_matches(lowered, vocabulary, n=1, cutoff=_get_query_spell_similarity_cutoff())
+    if not match:
+        return token
+    return _match_token_case(token, match[0])
+
+
 def _normalize_user_query(query: str) -> str:
     normalized = query.strip()
     replacements = {
         "serivce": "service",
         "serivces": "services",
+        "servies": "services",
+        "servics": "services",
         "fluetify": "fluentify",
+        "fluintify": "fluentify",
+        "fluntify": "fluentify",
+        "orgration": "organization",
+        "orgaration": "organization",
+        "ogration": "organization",
+        "orgnization": "organization",
+        "organzation": "organization",
+        "oragnization": "organization",
+        "organziation": "organization",
+        "organiztion": "organization",
+        "char": "chart",
+        "chatr": "chart",
+        "porject": "project",
+        "porjects": "projects",
+        "projet": "project",
+        "projets": "projects",
+        "prject": "project",
+        "prjects": "projects",
+        "detial": "detail",
+        "detials": "details",
+        "deatil": "detail",
+        "deatils": "details",
+        "soltion": "solution",
+        "soltions": "solutions",
+        "compnay": "company",
         "qhat": "what",
         "wht": "what",
         "u": "you",
     }
-    words = [replacements.get(token.lower(), token) for token in normalized.split()]
-    normalized_query = " ".join(words)
+
+    def _normalize_match(match: re.Match[str]) -> str:
+        token = match.group(0)
+        replacement = replacements.get(token.lower())
+        if replacement:
+            return _match_token_case(token, replacement)
+        return _fuzzy_spell_correct_token(token)
+
+    normalized_query = re.sub(r"[A-Za-z]+", _normalize_match, normalized)
 
     # Convert assistant-style follow-up prompts into actionable user intents.
     lowered = normalized_query.lower().strip()
@@ -481,6 +595,18 @@ def _normalize_user_query(query: str) -> str:
             match = re.match(r"^should i share (.+?)\?*$", lowered)
             if match:
                 transformed = f"share {match.group(1).strip()}"
+
+    # Fix common product typo/phrase variants seen in user queries.
+    transformed = re.sub(r"\borganization\s+chat\b", "organization chart", transformed, flags=re.IGNORECASE)
+
+    lowered_transformed = transformed.lower().strip()
+    asks_ai_catalog_intent = (
+        any(phrase in lowered_transformed for phrase in ["ai project", "ai projects", "ai solution", "ai solutions"])
+        and any(token in lowered_transformed for token in ["all", "list", "show", "example", "examples", "portfolio", "detail", "details", "more"])
+        and not any(token in lowered_transformed for token in ["fluentify", "interviewer", "compliance", "voice workflow", "organization chart"])
+    )
+    if asks_ai_catalog_intent:
+        transformed = "what ai solutions has desire infoweb delivered"
 
     transformed = re.sub(r"\s+", " ", transformed).strip()
     return transformed
@@ -1134,6 +1260,25 @@ def _direct_company_answer(query: str) -> str | None:
             "If you want, I can give a deep technical breakdown project-by-project (architecture, deployment, and implementation flow)."
         )
 
+    asks_ai_project_catalog = (
+        compact in {"ai projects", "ai project", "all ai projects", "all ai solutions"}
+        or (
+            any(phrase in compact for phrase in ["ai project", "ai projects", "ai solution", "ai solutions"])
+            and any(token in compact for token in ["all", "list", "show", "examples", "example", "portfolio", "delivered", "completed"])
+        )
+    )
+
+    if asks_ai_project_catalog:
+        logger.debug("Direct answer matched: AI project catalog")
+        return (
+            "Desire Infoweb has delivered multiple AI solutions across enterprise use cases:\n\n"
+            "1. Fluentify AI for voice communication assessment with pronunciation scoring and coaching feedback.\n"
+            "2. AI Interviewer Pro for voice-based candidate screening with automated evaluation support.\n"
+            "3. Teams AI assistants integrated with business workflows for employee support and knowledge lookup.\n"
+            "4. Document-grounded chatbots using SharePoint/Azure storage to answer from company documents.\n\n"
+            "If you want, I can provide detailed architecture, technology stack, and outcomes for each project."
+        )
+
     if re.match(r"^(hi+|hello+|hey+|good morning|good afternoon|good evening)\b", compact) and len(compact.split()) <= 4:
         logger.debug("Direct answer matched: greeting")
         return (
@@ -1296,11 +1441,11 @@ def _get_azure_search_vector_field() -> str:
 
 
 def _get_azure_search_top_k() -> int:
-    raw_value = os.getenv("AZURE_SEARCH_TOP_K", "5")
+    raw_value = os.getenv("AZURE_SEARCH_TOP_K", "15")
     try:
         top_k = int(raw_value)
     except ValueError:
-        top_k = 5
+        top_k = 15
     return max(1, min(top_k, 20))
 
 
@@ -1434,7 +1579,7 @@ def _get_tts_voice() -> str:
 
 def _get_max_output_tokens() -> int:
     requested_raw = os.getenv("LLM_MAX_OUTPUT_TOKENS", "52000")
-    model_cap_raw = os.getenv("AZURE_OPENAI_MAX_COMPLETION_TOKENS", "32768")
+    model_cap_raw = os.getenv("AZURE_OPENAI_MAX_COMPLETION_TOKENS", "16384")
 
     try:
         requested_tokens = int(requested_raw)
@@ -1446,7 +1591,7 @@ def _get_max_output_tokens() -> int:
     except ValueError:
         model_cap = 16384
 
-    bounded_tokens = max(64, min(requested_tokens, model_cap, 32768))
+    bounded_tokens = max(64, min(requested_tokens, model_cap, 16384))
     if bounded_tokens != requested_tokens:
         logger.warning(
             "LLM_MAX_OUTPUT_TOKENS=%s exceeds allowed range; using %s instead.",
@@ -1666,6 +1811,15 @@ def _compute_query_overlap(query: str, context: str) -> tuple[float, int, int]:
         return 0.0, 0, len(query_terms)
     overlap_count = len(query_terms & context_terms)
     return overlap_count / len(query_terms), overlap_count, len(query_terms)
+
+
+def _normalize_retrieval_score(score: float, retrieval_mode: str) -> float:
+    safe_score = max(0.0, float(score or 0.0))
+    mode = (retrieval_mode or "").strip().lower()
+    if mode == "text":
+        # Text search scores are not bounded to [0, 1]; compress for fair cross-mode ranking.
+        return safe_score / (safe_score + 2.0)
+    return max(0.0, min(safe_score, 1.0))
 
 
 def _get_memory_turns() -> int:
@@ -2251,17 +2405,21 @@ def _extract_citation_from_payload(payload: dict) -> dict[str, Any]:
     if not link:
         content_text = _extract_content_from_payload(payload)
         candidate_urls = _extract_urls_from_text(content_text)
-        fallback_link = ""
         for item in candidate_urls:
             normalized = _normalize_citation_url(item)
             if not normalized:
                 continue
-            if "desireinfoweb.com/" in normalized.lower():
-                fallback_link = normalized
+            parsed = urlparse(normalized)
+            if _is_blob_source_url(normalized) or _looks_like_document_file_name(parsed.path or ""):
+                link = normalized
                 break
-            if not fallback_link:
-                fallback_link = normalized
-        link = fallback_link
+
+        if not link:
+            for item in candidate_urls:
+                normalized = _normalize_citation_url(item)
+                if normalized and "desireinfoweb.com/" in normalized.lower():
+                    link = normalized
+                    break
 
     if not title:
         if source_value:
@@ -2273,9 +2431,21 @@ def _extract_citation_from_payload(payload: dict) -> dict[str, Any]:
     elif title.lower() == "source document" and link:
         title = link
 
-    source_key = _normalize_source_key(source_value)
-    if link and source_key and source_key in _get_priority_knowledge_sources():
-        title = link
+    if link and title.lower() in {"servicecatalog.txt", "servicecatalog.json"}:
+        parsed_link = urlparse(link)
+        path_name = unquote((parsed_link.path or "").strip("/")).rsplit("/", 1)[-1].strip()
+        if path_name:
+            title = path_name
+        else:
+            title = link
+
+    if _looks_like_url(title):
+        normalized_title_url = _normalize_citation_url(title)
+        if normalized_title_url:
+            parsed_title = urlparse(normalized_title_url)
+            path_name = unquote((parsed_title.path or "").strip("/")).rsplit("/", 1)[-1].strip()
+            if path_name:
+                title = path_name
 
     try:
         score = float(payload.get("@search.score") or 0.0)
@@ -2365,13 +2535,13 @@ def _is_blob_fallback_payload(payload: dict[str, Any], knowledge_sources: set[st
 
 def _extract_context_from_results(
     results,
+    query: str,
     top_k: int,
+    retrieval_mode: str,
     payload_filter: Callable[[dict[str, Any]], bool] | None = None,
 ) -> tuple[str, float, list[dict[str, Any]]]:
-    context_chunks: list[str] = []
-    top_score = 0.0
-    best_citation: dict[str, Any] | None = None
-    best_citation_score = -1.0
+    scored_entries: list[dict[str, Any]] = []
+    query_terms = _tokenize_terms(query)
     excluded_sources = _get_azure_search_excluded_sources()
 
     for result in results:
@@ -2399,28 +2569,65 @@ def _extract_context_from_results(
         except (TypeError, ValueError):
             score_value = 0.0
 
-        if score_value > top_score:
-            top_score = score_value
-
         page_content = _extract_content_from_payload(payload)
         if not page_content:
             continue
 
         citation = _extract_citation_from_payload(payload)
-        citation_score = 0.0
-        try:
-            citation_score = float(citation.get("score") or score_value or 0.0)
-        except (TypeError, ValueError):
-            citation_score = score_value
-        if citation_score > best_citation_score:
-            best_citation_score = citation_score
-            best_citation = citation
+        overlap_ratio, overlap_count, query_term_count = _compute_query_overlap(query, page_content)
+        normalized_score = _normalize_retrieval_score(score_value, retrieval_mode)
 
-        context_chunks.append(page_content[:2000])
-        if len(context_chunks) >= top_k:
+        rank = (overlap_ratio * 0.70) + (normalized_score * 0.30)
+        if query_terms and overlap_count == 0:
+            rank -= 0.22
+        if query_term_count >= 2 and overlap_count < 2:
+            rank -= 0.08
+
+        scored_entries.append(
+            {
+                "content": page_content,
+                "score": score_value,
+                "normalized_score": normalized_score,
+                "overlap_ratio": overlap_ratio,
+                "overlap_count": overlap_count,
+                "rank": rank,
+                "citation": citation,
+            }
+        )
+
+    if not scored_entries:
+        return "", 0.0, []
+
+    scored_entries.sort(
+        key=lambda item: (
+            float(item.get("rank") or 0.0),
+            int(item.get("overlap_count") or 0),
+            float(item.get("normalized_score") or 0.0),
+            float(item.get("score") or 0.0),
+        ),
+        reverse=True,
+    )
+
+    selected_entries = scored_entries[:top_k]
+    context_chunks = [str(item.get("content") or "")[:2000] for item in selected_entries if str(item.get("content") or "")]
+    top_score = max(float(item.get("score") or 0.0) for item in selected_entries)
+
+    citations: list[dict[str, Any]] = []
+    seen_citations: set[str] = set()
+    for item in selected_entries:
+        citation = dict(item.get("citation") or {})
+        key = (
+            str(citation.get("url") or "").strip().lower()
+            or str(citation.get("id") or "").strip().lower()
+            or str(citation.get("title") or "").strip().lower()
+        )
+        if not key or key in seen_citations:
+            continue
+        seen_citations.add(key)
+        citations.append(citation)
+        if len(citations) >= 5:
             break
 
-    citations = [best_citation] if best_citation else []
     return "\n\n".join(context_chunks), top_score, citations
 
 
@@ -2452,7 +2659,13 @@ def _search_vector_context(
         vector_queries=[vector_query],
         top=resolved_scan_top,
     )
-    context, score, citations = _extract_context_from_results(results, top_k, payload_filter=payload_filter)
+    context, score, citations = _extract_context_from_results(
+        results,
+        query,
+        top_k,
+        retrieval_mode="vector",
+        payload_filter=payload_filter,
+    )
     logger.info(
         "Vector search: completed - scan_top=%d retrieved=%d chars top_score=%.4f citations=%d",
         resolved_scan_top,
@@ -2488,7 +2701,13 @@ def _search_text_context(
             top=resolved_scan_top,
         )
 
-    context, score, citations = _extract_context_from_results(results, top_k, payload_filter=payload_filter)
+    context, score, citations = _extract_context_from_results(
+        results,
+        query,
+        top_k,
+        retrieval_mode="text",
+        payload_filter=payload_filter,
+    )
     logger.info(
         "Text search: completed - scan_top=%d retrieved=%d chars top_score=%.4f citations=%d",
         resolved_scan_top,
@@ -2508,6 +2727,7 @@ def _build_retrieval_candidate(
     citations: list[dict[str, Any]],
 ) -> dict[str, Any]:
     overlap_ratio, overlap_count, query_term_count = _compute_query_overlap(query, context)
+    normalized_score = _normalize_retrieval_score(score, retrieval_mode)
     score_threshold = _get_embedding_similarity_threshold()
     overlap_threshold = _get_query_overlap_threshold()
     strong_match_threshold = _get_strong_match_score_threshold()
@@ -2516,14 +2736,22 @@ def _build_retrieval_candidate(
         meets_overlap = True
     else:
         required_overlap_terms = min(_get_query_min_overlap_terms(), query_term_count)
+        if query_term_count >= 2:
+            required_overlap_terms = max(required_overlap_terms, 2)
         meets_overlap = overlap_count >= required_overlap_terms and (
-            overlap_ratio >= overlap_threshold or score >= strong_match_threshold
+            overlap_ratio >= overlap_threshold or normalized_score >= strong_match_threshold
         )
 
-    meets_score = score >= score_threshold
+    meets_score = normalized_score >= score_threshold
 
     # Composite rank balances similarity score and lexical overlap.
-    rank = (score * 0.75) + (overlap_ratio * 0.25)
+    rank = (normalized_score * 0.62) + (overlap_ratio * 0.38)
+    if source_scope == "knowledge":
+        rank += 0.10
+    elif source_scope == "blob_fallback":
+        rank -= 0.06
+    if query_term_count >= 2 and overlap_count < 2:
+        rank -= 0.12
     if not meets_score:
         rank -= 0.2
     if not meets_overlap:
@@ -2536,6 +2764,7 @@ def _build_retrieval_candidate(
         "retrieval_mode": retrieval_mode,
         "context": context,
         "score": score,
+        "normalized_score": normalized_score,
         "citations": citations,
         "overlap_ratio": overlap_ratio,
         "overlap_count": overlap_count,
@@ -2553,9 +2782,13 @@ def _select_best_retrieval_candidate(candidates: list[dict[str, Any]]) -> dict[s
     return max(
         candidates,
         key=lambda item: (
-            float(item.get("rank") or 0.0),
-            float(item.get("score") or 0.0),
+            1 if bool(item.get("meets_overlap")) else 0,
+            1 if bool(item.get("meets_score")) else 0,
+            int(item.get("overlap_count") or 0),
             float(item.get("overlap_ratio") or 0.0),
+            float(item.get("rank") or 0.0),
+            float(item.get("normalized_score") or 0.0),
+            float(item.get("score") or 0.0),
             len(str(item.get("context") or "")),
             1 if str(item.get("source_scope") or "") == "knowledge" else 0,
         ),
@@ -2581,6 +2814,7 @@ def _build_candidate_log_payload(candidate: dict[str, Any] | None, *, source_sco
         "found": bool(context_text),
         "retrieval_mode": str(candidate.get("retrieval_mode") or ""),
         "score": round(float(candidate.get("score") or 0.0), 6),
+        "normalized_score": round(float(candidate.get("normalized_score") or 0.0), 6),
         "rank": round(float(candidate.get("rank") or 0.0), 6),
         "overlap_ratio": round(float(candidate.get("overlap_ratio") or 0.0), 6),
         "overlap_count": int(candidate.get("overlap_count") or 0),
@@ -2810,16 +3044,8 @@ def _should_use_embedding_context(normalized_query: str, retrieved_context: str,
         return False
 
     required_overlap_terms = min(min_overlap_terms, query_term_count)
-    if top_score >= strong_match_score_threshold:
-        required_overlap_terms = min(required_overlap_terms, 1)
-        overlap_threshold = min(overlap_threshold, 0.05)
-        _trace_step(
-            "context.relaxed_for_strong_match",
-            top_score=top_score,
-            strong_match_score_threshold=strong_match_score_threshold,
-            adjusted_overlap_threshold=overlap_threshold,
-            adjusted_min_overlap_terms=required_overlap_terms,
-        )
+    if query_term_count >= 2:
+        required_overlap_terms = max(required_overlap_terms, 2)
     if overlap_count < required_overlap_terms:
         logger.warning("Context rejected: overlap_count (%d) < required_overlap_terms (%d)", overlap_count, required_overlap_terms)
         _trace_step(
@@ -3372,6 +3598,94 @@ def _should_attach_citations(answer: str, normalized_query: str, citations: list
     return True
 
 
+def _get_citation_max_items() -> int:
+    raw_value = _sanitize_env_value(os.getenv("CITATION_MAX_ITEMS", "1"))
+    try:
+        value = int(raw_value)
+    except ValueError:
+        value = 1
+    return max(1, min(value, 5))
+
+
+def _select_response_citations(citations: list[dict[str, Any]], limit: int | None = None) -> list[dict[str, Any]]:
+    if not citations:
+        return []
+
+    resolved_limit = _get_citation_max_items() if limit is None else max(1, min(limit, 5))
+    selected: list[dict[str, Any]] = []
+    seen_urls: set[str] = set()
+
+    # Prefer URL-backed citations first so the UI can always show a clickable full source.
+    ordered_citations = sorted(
+        [dict(item or {}) for item in citations],
+        key=lambda item: 1 if str(item.get("url") or "").strip() else 0,
+        reverse=True,
+    )
+
+    for citation in ordered_citations:
+        url_value = str(citation.get("url") or "").strip().lower()
+        if url_value:
+            if url_value in seen_urls:
+                continue
+            seen_urls.add(url_value)
+            # Keep title as the full URL to satisfy source visibility requirement.
+            citation["title"] = str(citation.get("url") or "").strip()
+
+        selected.append(citation)
+        if len(selected) >= resolved_limit:
+            break
+
+    return selected
+
+
+def _extract_response_videos(normalized_query: str, retrieved_context: str, limit: int = 1) -> list[dict[str, str]]:
+    primary_videos = _extract_video_sources_from_context(retrieved_context, normalized_query, limit=limit)
+    if primary_videos:
+        return primary_videos
+
+    top_k = max(1, min(_get_azure_search_top_k(), 3))
+    priority_sources = _get_priority_knowledge_sources()
+    scan_top = _get_retrieval_priority_scan_top(top_k) if priority_sources else top_k
+
+    if priority_sources:
+        blob_filter: Callable[[dict[str, Any]], bool] | None = (
+            lambda payload: _is_blob_fallback_payload(payload, priority_sources)
+        )
+    else:
+        blob_filter = _is_blob_source_payload
+
+    fallback_contexts: list[str] = []
+    try:
+        blob_vector_context, _, _ = _search_vector_context(
+            normalized_query,
+            top_k,
+            payload_filter=blob_filter,
+            scan_top=scan_top,
+        )
+        if blob_vector_context:
+            fallback_contexts.append(blob_vector_context)
+    except Exception as error:
+        _trace_step("videos.blob_vector.error", error=str(error))
+
+    try:
+        blob_text_context, _, _ = _search_text_context(
+            normalized_query,
+            top_k,
+            payload_filter=blob_filter,
+            scan_top=scan_top,
+        )
+        if blob_text_context:
+            fallback_contexts.append(blob_text_context)
+    except Exception as error:
+        _trace_step("videos.blob_text.error", error=str(error))
+
+    if not fallback_contexts:
+        return []
+
+    merged_context = "\n\n".join(fallback_contexts)
+    return _extract_video_sources_from_context(merged_context, normalized_query, limit=limit)
+
+
 def _build_retrieved_context(query: str) -> str:
     context, _, _ = _retrieve_context_and_score(query)
     return context
@@ -3883,7 +4197,7 @@ async def text_chat(
             model_input_chars=len(model_input),
         )
         retrieved_context, top_score, citations = _retrieve_context_and_score(normalized_query)
-        response_videos = _extract_video_sources_from_context(retrieved_context, normalized_query, limit=1)
+        response_videos = _extract_response_videos(normalized_query, retrieved_context, limit=1)
         _trace_pipeline_stage(
             "ai_search_response",
             source="azure_ai_search",
@@ -3900,7 +4214,11 @@ async def text_chat(
             top_score=top_score,
         )
         _trace_pipeline_stage("ai_openai_response", source="azure_openai", answer_chars=len(answer))
-        response_citations = citations if _should_attach_citations(answer, normalized_query, citations) else []
+        response_citations = (
+            _select_response_citations(citations)
+            if _should_attach_citations(answer, normalized_query, citations)
+            else []
+        )
         _save_conversation_turn(effective_session_id, normalized_query, answer)
         await _sync_sharepoint_lead_safely(effective_session_id)
 
@@ -4091,7 +4409,7 @@ async def text_chat_stream(
 
         try:
             retrieved_context, top_score, citations = _retrieve_context_and_score(normalized_query)
-            response_videos = _extract_video_sources_from_context(retrieved_context, normalized_query, limit=1)
+            response_videos = _extract_response_videos(normalized_query, retrieved_context, limit=1)
             _trace_pipeline_stage(
                 "ai_search_response",
                 source="azure_ai_search",
@@ -4124,7 +4442,11 @@ async def text_chat_stream(
                 if final_answer:
                     yield _sse_event("token", {"token": final_answer})
 
-            response_citations = citations if _should_attach_citations(final_answer, normalized_query, citations) else []
+            response_citations = (
+                _select_response_citations(citations)
+                if _should_attach_citations(final_answer, normalized_query, citations)
+                else []
+            )
             _trace_pipeline_stage(
                 "ai_openai_response",
                 source="azure_openai",

@@ -1061,6 +1061,7 @@ function App() {
                         {msg.citations.map((citation: Citation, citationIndex: number) => {
                           const label = citation.title || `Source ${citationIndex + 1}`;
                           if (citation.url) {
+                            const displayUrl = citation.url;
                             return (
                               <li key={`${label}-${citationIndex}`}>
                                 <a
@@ -1069,7 +1070,7 @@ function App() {
                                   rel="noopener noreferrer"
                                   className="text-[var(--vtl-primary)] underline break-all"
                                 >
-                                  {label}
+                                  {displayUrl}
                                 </a>
                               </li>
                             );
@@ -1105,7 +1106,7 @@ function App() {
                               rel="noopener noreferrer"
                               className="block px-2 py-1 text-xs text-[var(--vtl-primary)] underline break-all"
                             >
-                              {video.title || 'Video source'}
+                              {video.url}
                             </a>
                           </div>
                         ))}
