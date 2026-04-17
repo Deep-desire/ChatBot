@@ -2059,6 +2059,8 @@ system_prompt = (
     "For follow-up questions, continue in context and avoid repeating generic summaries. "
     "If you do not know, say that clearly and offer to connect the user with the team. "
     "Keep answers business-focused, friendly, and practical. Prefer complete answers (around 3-8 sentences) when useful.\n\n"
+
+    
     "Context: {context}"
 )
 
@@ -2165,6 +2167,16 @@ def _normalize_citation_url(value: str) -> str:
     if not raw:
         return ""
 
+    # Block 'about us' page links if not present in the original site
+    about_us_patterns = [
+        "/about-us", "/aboutus", "/about_us", "/about", "about-us", "aboutus", "about_us", "about"
+    ]
+    for pattern in about_us_patterns:
+        if pattern in raw.lower():
+            # If the about us page does not exist, block the link
+            return ""
+    
+    
     if _looks_like_url(raw):
         return _repair_malformed_document_url(raw.replace(" ", "%20"))
 
