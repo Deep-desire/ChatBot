@@ -1,1291 +1,1511 @@
 [
   {
-    "trace_id": "d8f38303-8cb2-4006-8c71-73c240b3e077",
-    "started_at": "2026-04-14T07:44:02.690143+00:00",
-    "ended_at": "2026-04-14T07:44:13.240960+00:00",
+    "trace_id": "8229fab4-e9b0-47b5-bfc3-9660bdf553a6",
+    "started_at": "2026-04-15T13:46:53.497563+00:00",
+    "ended_at": "2026-04-15T13:47:08.211718+00:00",
     "endpoint": "/api/chat/text/stream",
     "streaming": true,
     "status": "success",
-    "duration_ms": 10550.82,
+    "duration_ms": 14714.15,
     "session_id": "9c47fdf1-0152-4d24-971e-3eea23fdbf13",
-    "user_query": "please give me detail about the Vote Count Digitization?",
+    "user_query": "vision based projects?",
     "process": {
       "user_request": {
-        "query": "please give me detail about the Vote Count Digitization?",
+        "query": "vision based projects?",
         "endpoint": "/api/chat/text/stream",
         "stream": true,
-        "ts": "2026-04-14T07:44:02.693141+00:00"
+        "ts": "2026-04-15T13:46:53.500560+00:00"
       },
       "ai_request": {
         "mode": "rag",
         "model": "gpt-4o",
-        "model_input_chars": 2029,
+        "model_input_chars": 4446,
         "stream": true,
-        "ts": "2026-04-14T07:44:02.693141+00:00"
+        "ts": "2026-04-15T13:46:53.500560+00:00"
       },
       "ai_search_response": {
         "source": "azure_ai_search",
-        "context_chars": 29335,
-        "top_score": 13.87778,
-        "citations_count": 2,
+        "context_chars": 29400,
+        "top_score": 6.318492,
+        "citations_count": 13,
         "videos_count": 0,
         "citation": {
           "title": "AI Projects  (2).pdf",
           "url": "https://desirechatbotweb.blob.core.windows.net/desirechatbotweb/AI%20Projects%20%20(2).pdf",
-          "id": "87ba13f8d90b_aHR0cHM6Ly9kZXNpcmVjaGF0Ym90d2ViLmJsb2IuY29yZS53aW5kb3dzLm5ldC9kZXNpcmVjaGF0Ym90d2ViL0FJJTIwUHJvamVjdHMlMjAlMjAoMikucGRm0_pages_7",
-          "score": 13.87778
+          "id": "87ba13f8d90b_aHR0cHM6Ly9kZXNpcmVjaGF0Ym90d2ViLmJsb2IuY29yZS53aW5kb3dzLm5ldC9kZXNpcmVjaGF0Ym90d2ViL0FJJTIwUHJvamVjdHMlMjAlMjAoMikucGRm0_pages_1",
+          "score": 6.318492,
+          "context_snippet": "achieve their goals with efficiency and reliability. 2 AI Projects Project 1: AI-Powered Compliance Monitoring System Client: Johnson & Johnson Industry: Pharmaceutical Manufacturing Focus: Tablets and Drug Production Departments Involved: Production & Warehouse Challenge: Johnson & Johnson needed a reliable way to monitor hygiene compliance, specifically identifying employees who were not wearing hand gloves during production—a critical requirement in pharmaceutical manufacturing. Our Solution: We implemented an AI-powered intelligent CCTV monitoring system designed to automatically detect glove compliance in real time. Impact: Our custom-built AI model accurately recognized each employee and analyzed whether they were wearing gloves while on the production floor. This real-time monitoring helped Johnson & Johnson enhance safety, maintain regulatory standards, and reduce the risk of contamination. Technologies Used: ● Hardware: NVIDIA Edge Devices ● Software & Frameworks: NVIDIA DeepStream, Custom Object Detection Models, Python, React ● Databases: SQL, MongoDB ● Deployment: Docker-based containerized environment 3 4 Project 2: AI-Based PPE Compliance Monitoring System Client: ITC Industry: Manufacturing Manufacturing Focus: Paper Recycling Department: Production Challenge: ITC needed a solution to ensure strict adherence to safety protocols on the production floor. Specifically, they wanted to identify employees who were not wearing full PPE kits, including helmets, jackets, and safety shoes. Our Solution: We developed a smart surveillance system by integrating CCTV cameras with an AI- powered computer vision model. This system automatically detects and monitors PPE",
+          "overlap_count": 3,
+          "overlap_ratio": 1.0,
+          "entry_rank": 0.927872,
+          "retrieval_mode": "text",
+          "source_scope": "blob_fallback"
         },
         "stream": true,
-        "ts": "2026-04-14T07:44:06.960418+00:00"
+        "ts": "2026-04-15T13:47:00.040135+00:00"
       },
       "ai_search_json_response": {
         "source_scope": "knowledge",
         "found": true,
         "retrieval_mode": "text",
-        "score": 5.560646,
-        "normalized_score": 0.735472,
-        "rank": 0.085993,
-        "overlap_ratio": 0.0,
-        "overlap_count": 0,
-        "query_term_count": 5,
+        "score": 3.480197,
+        "normalized_score": 0.63505,
+        "rank": 0.747064,
+        "overlap_ratio": 0.666667,
+        "overlap_count": 2,
+        "query_term_count": 3,
         "meets_score": true,
-        "meets_overlap": false,
-        "context_chars": 12539,
-        "context_preview": "[companyProfile] About Desire Infoweb Desire Infoweb is an IT services and consulting company focused on Microsoft technologies, enterprise automation, modern collaboration platforms, analytics, and AI-powered business solutions. Core capabilities include SharePoint, Power Platform, Power BI, Microsoft Teams, Dynamics 365, Azure, .NET development, migration, governance, and custom AI/chatbot implementations. https://desireinfoweb.com/about-us [products] Organization Chart An organizational chart shows the internal structure of an organization or company. The employees and positions are represe",
-        "citations_count": 5,
+        "meets_overlap": true,
+        "context_chars": 17083,
+        "context_preview": "[products] Calendar Streamline your organization's schedule with an intelligent Calendar Portal built for modern enterprises. Manage events, meetings, holidays, and deadlines across teams with seamless collaboration. https://desireinfoweb.com/products/calender [products] Celebration The Celebration Web Part displays upcoming employee birthdays and work anniversaries. Users can directly send wishes to employees. https://desireinfoweb.com/products/celebration [products] Project Management Portal Transform the way your organization plans, tracks, and delivers projects. A SharePoint-based Project ",
+        "citations_count": 6,
         "citation": {
-          "title": "about-us",
-          "url": "https://desireinfoweb.com/about-us",
-          "id": "s_c2VydmljZUNhdGFsb2cudHh0_i_0_u_c76371ec982743fd978ca381a3778da9",
-          "score": 5.560646
+          "title": "project-management-portal",
+          "url": "https://desireinfoweb.com/products/project-management-portal",
+          "id": "s_c2VydmljZUNhdGFsb2cudHh0_i_2_u_7639d3d354cc475596faad1fae0bbe3d",
+          "score": 3.480197,
+          "context_snippet": "[products] Calendar Streamline your organization's schedule with an intelligent Calendar Portal built for modern enterprises. Manage events, meetings, holidays, and deadlines across teams with seamless collaboration. https://desireinfoweb.com/products/calender [products] Celebration The Celebration Web Part displays upcoming employee birthdays and work anniversaries. Users can directly send wishes to employees. https://desireinfoweb.com/products/celebration [products] Project Management Portal Transform the way your organization plans, tracks, and delivers projects. A SharePoint-based Project Management Portal centralizes your PMO and gives every stakeholder visibility from task boards to executive dashboards. https://desireinfoweb.com/products/project-management-portal",
+          "overlap_count": 2,
+          "overlap_ratio": 0.666667,
+          "entry_rank": 0.657182,
+          "retrieval_mode": "text"
         },
-        "ts": "2026-04-14T07:44:05.920172+00:00"
+        "ts": "2026-04-15T13:46:57.498112+00:00"
       },
       "ai_search_blob_response": {
         "source_scope": "blob_fallback",
         "found": true,
         "retrieval_mode": "text",
-        "score": 13.87778,
-        "normalized_score": 0.874038,
-        "rank": 0.709903,
-        "overlap_ratio": 0.6,
+        "score": 6.318492,
+        "normalized_score": 0.759572,
+        "rank": 0.790935,
+        "overlap_ratio": 1.0,
         "overlap_count": 3,
-        "query_term_count": 5,
+        "query_term_count": 3,
         "meets_score": true,
         "meets_overlap": true,
-        "context_chars": 29335,
-        "context_preview": "Custom Object Detection Models, Python, React ● Databases: SQL, MongoDB ● Deployment: Docker containerized setup for scalable and robust operation 13 14 Project 7: Automated Vote Count Digitization Using Computer Vision Client: Indian Election Commission (Govt. Project) Industry: Government Focus Area: Election Vote Monitoring Department: Election Operations Challenge: The Indian Election Commission required a reliable and automated method to extract vote counts for each candidate from Electronic Voting Machines (EVMs). They needed a system that could digitize the data, ensure accuracy, and ge",
-        "citations_count": 2,
+        "context_chars": 29400,
+        "context_preview": "achieve their goals with efficiency and reliability. 2 AI Projects Project 1: AI-Powered Compliance Monitoring System Client: Johnson & Johnson Industry: Pharmaceutical Manufacturing Focus: Tablets and Drug Production Departments Involved: Production & Warehouse Challenge: Johnson & Johnson needed a reliable way to monitor hygiene compliance, specifically identifying employees who were not wearing hand gloves during production—a critical requirement in pharmaceutical manufacturing. Our Solution: We implemented an AI-powered intelligent CCTV monitoring system designed to automatically detect gl",
+        "citations_count": 7,
         "citation": {
           "title": "AI Projects  (2).pdf",
           "url": "https://desirechatbotweb.blob.core.windows.net/desirechatbotweb/AI%20Projects%20%20(2).pdf",
-          "id": "87ba13f8d90b_aHR0cHM6Ly9kZXNpcmVjaGF0Ym90d2ViLmJsb2IuY29yZS53aW5kb3dzLm5ldC9kZXNpcmVjaGF0Ym90d2ViL0FJJTIwUHJvamVjdHMlMjAlMjAoMikucGRm0_pages_7",
-          "score": 13.87778
+          "id": "87ba13f8d90b_aHR0cHM6Ly9kZXNpcmVjaGF0Ym90d2ViLmJsb2IuY29yZS53aW5kb3dzLm5ldC9kZXNpcmVjaGF0Ym90d2ViL0FJJTIwUHJvamVjdHMlMjAlMjAoMikucGRm0_pages_1",
+          "score": 6.318492,
+          "context_snippet": "achieve their goals with efficiency and reliability. 2 AI Projects Project 1: AI-Powered Compliance Monitoring System Client: Johnson & Johnson Industry: Pharmaceutical Manufacturing Focus: Tablets and Drug Production Departments Involved: Production & Warehouse Challenge: Johnson & Johnson needed a reliable way to monitor hygiene compliance, specifically identifying employees who were not wearing hand gloves during production—a critical requirement in pharmaceutical manufacturing. Our Solution: We implemented an AI-powered intelligent CCTV monitoring system designed to automatically detect glove compliance in real time. Impact: Our custom-built AI model accurately recognized each employee and analyzed whether they were wearing gloves while on the production floor. This real-time monitoring helped Johnson & Johnson enhance safety, maintain regulatory standards, and reduce the risk of contamination. Technologies Used: ● Hardware: NVIDIA Edge Devices ● Software & Frameworks: NVIDIA DeepStream, Custom Object Detection Models, Python, React ● Databases: SQL, MongoDB ● Deployment: Docker-based containerized environment 3 4 Project 2: AI-Based PPE Compliance Monitoring System Client: ITC Industry: Manufacturing Manufacturing Focus: Paper Recycling Department: Production Challenge: ITC needed a solution to ensure strict adherence to safety protocols on the production floor. Specifically, they wanted to identify employees who were not wearing full PPE kits, including helmets, jackets, and safety shoes. Our Solution: We developed a smart surveillance system by integrating CCTV cameras with an AI- powered computer vision model. This system automatically detects and monitors PPE",
+          "overlap_count": 3,
+          "overlap_ratio": 1.0,
+          "entry_rank": 0.927872,
+          "retrieval_mode": "text"
         },
-        "ts": "2026-04-14T07:44:05.922171+00:00"
+        "ts": "2026-04-15T13:46:57.500111+00:00"
       },
       "ai_selection": {
         "selected_source_scope": "blob_fallback",
         "selected_retrieval_mode": "text",
-        "selected_score": 13.87778,
-        "selected_rank": 0.709903,
-        "selected_overlap_ratio": 0.6,
+        "selected_score": 6.318492,
+        "selected_rank": 0.790935,
+        "selected_overlap_ratio": 1.0,
         "candidate_count": 4,
-        "ts": "2026-04-14T07:44:05.922171+00:00"
+        "ts": "2026-04-15T13:46:57.500111+00:00"
       },
       "ai_openai_response": {
         "source": "azure_openai",
-        "answer_chars": 1210,
+        "answer_chars": 811,
         "stream": true,
-        "ts": "2026-04-14T07:44:12.164242+00:00"
+        "ts": "2026-04-15T13:47:07.081379+00:00"
       },
       "display_response": {
         "status_code": 200,
-        "answer_chars": 1210,
+        "answer_chars": 811,
         "citations_count": 1,
         "stream": true,
-        "ts": "2026-04-14T07:44:13.240960+00:00"
+        "ts": "2026-04-15T13:47:08.210718+00:00"
       },
       "ai_research_response": {
         "source": "azure_ai_search",
-        "context_chars": 29335,
-        "top_score": 13.87778,
-        "citations_count": 2,
+        "context_chars": 29400,
+        "top_score": 6.318492,
+        "citations_count": 13,
         "videos_count": 0,
         "citation": {
           "title": "AI Projects  (2).pdf",
           "url": "https://desirechatbotweb.blob.core.windows.net/desirechatbotweb/AI%20Projects%20%20(2).pdf",
-          "id": "87ba13f8d90b_aHR0cHM6Ly9kZXNpcmVjaGF0Ym90d2ViLmJsb2IuY29yZS53aW5kb3dzLm5ldC9kZXNpcmVjaGF0Ym90d2ViL0FJJTIwUHJvamVjdHMlMjAlMjAoMikucGRm0_pages_7",
-          "score": 13.87778
+          "id": "87ba13f8d90b_aHR0cHM6Ly9kZXNpcmVjaGF0Ym90d2ViLmJsb2IuY29yZS53aW5kb3dzLm5ldC9kZXNpcmVjaGF0Ym90d2ViL0FJJTIwUHJvamVjdHMlMjAlMjAoMikucGRm0_pages_1",
+          "score": 6.318492,
+          "context_snippet": "achieve their goals with efficiency and reliability. 2 AI Projects Project 1: AI-Powered Compliance Monitoring System Client: Johnson & Johnson Industry: Pharmaceutical Manufacturing Focus: Tablets and Drug Production Departments Involved: Production & Warehouse Challenge: Johnson & Johnson needed a reliable way to monitor hygiene compliance, specifically identifying employees who were not wearing hand gloves during production—a critical requirement in pharmaceutical manufacturing. Our Solution: We implemented an AI-powered intelligent CCTV monitoring system designed to automatically detect glove compliance in real time. Impact: Our custom-built AI model accurately recognized each employee and analyzed whether they were wearing gloves while on the production floor. This real-time monitoring helped Johnson & Johnson enhance safety, maintain regulatory standards, and reduce the risk of contamination. Technologies Used: ● Hardware: NVIDIA Edge Devices ● Software & Frameworks: NVIDIA DeepStream, Custom Object Detection Models, Python, React ● Databases: SQL, MongoDB ● Deployment: Docker-based containerized environment 3 4 Project 2: AI-Based PPE Compliance Monitoring System Client: ITC Industry: Manufacturing Manufacturing Focus: Paper Recycling Department: Production Challenge: ITC needed a solution to ensure strict adherence to safety protocols on the production floor. Specifically, they wanted to identify employees who were not wearing full PPE kits, including helmets, jackets, and safety shoes. Our Solution: We developed a smart surveillance system by integrating CCTV cameras with an AI- powered computer vision model. This system automatically detects and monitors PPE",
+          "overlap_count": 3,
+          "overlap_ratio": 1.0,
+          "entry_rank": 0.927872,
+          "retrieval_mode": "text",
+          "source_scope": "blob_fallback"
         },
         "stream": true,
-        "ts": "2026-04-14T07:44:06.960418+00:00"
+        "ts": "2026-04-15T13:47:00.040135+00:00"
       }
     },
     "summary": {
       "status_code": 200,
-      "reply": "### Automated Vote Count Digitization Using Computer Vision  \n\n**Client**: Indian Election Commission (Govt. Project)  \n**Industry**: Government  \n**Focus Area**: Election Vote Monitoring  \n\n#### Challenge:  \nThe Indian Election Commission needed an automated system to extract vote counts from Electronic Voting Machines (EVMs) accurately and generate structured reports for transparency and record-keeping.\n\n#### Solution:  \n- **Vision-Based System**: AI models processed real-time footage from CCTV cameras to capture EVM screen data.  \n- **Object Detection**: Identified and cropped relevant sections of EVM displays.  \n- **Custom OCR**: Extracted vote counts for each candidate from the cropped images.  \n- **Data Storage & Reporting**: Secured storage in SQL/MongoDB and automated generation of candidate-wise PDF reports.\n\n#### Impact:  \nImproved accuracy, transparency, and efficiency in vote count reporting, eliminating manual errors and delays.\n\n#### Technologies Used:  \n- **Hardware**: NVIDIA A6000 GPU  \n- **Software**: NVIDIA DeepStream, Python, React  \n- **Databases**: SQL, MongoDB  \n- **Deployment**: Docker containerized infrastructure  \n\nLet me know if you'd like further technical details!",
+      "reply": "Desire Infoweb has completed several vision-based AI projects, including:\n\n- **Compliance Monitoring Systems**: For Johnson & Johnson and ITC, using AI-powered CCTV to ensure hygiene and PPE compliance.\n- **Warehouse Logistics Tracking**: For Mahindra, monitoring box movements, employee involvement, and vehicle loading/unloading efficiency.\n- **Vehicle Monitoring & Space Utilization**: For Siemens and IRB Infrastructure, tracking vehicle types, time spent, and space usage.\n- **Crowd Flow Analytics**: For GMR, analyzing foot and vehicle traffic patterns in commercial spaces.\n- **Election Vote Digitization**: For the Indian Election Commission, automating vote count extraction using computer vision and OCR.\n\nThese projects utilize advanced AI models, NVIDIA hardware, and scalable deployment frameworks.",
       "stream": true
     }
   },
   {
-    "trace_id": "8b142f27-7860-4185-bf2c-f83ad792024a",
-    "started_at": "2026-04-14T07:46:14.899572+00:00",
-    "ended_at": "2026-04-14T07:46:35.160669+00:00",
+    "trace_id": "b4013670-32b3-4ffb-ac76-9d14980d62de",
+    "started_at": "2026-04-15T13:47:42.932110+00:00",
+    "ended_at": "2026-04-15T13:47:55.940544+00:00",
     "endpoint": "/api/chat/text/stream",
     "streaming": true,
     "status": "success",
-    "duration_ms": 20261.1,
+    "duration_ms": 13008.43,
     "session_id": "9c47fdf1-0152-4d24-971e-3eea23fdbf13",
-    "user_query": "tell me about the Audit System?",
+    "user_query": "give me the detail about the fluentify AI?",
     "process": {
       "user_request": {
-        "query": "tell me about the Audit Systems?",
+        "query": "give me the detail about the fluentify AI?",
         "endpoint": "/api/chat/text/stream",
         "stream": true,
-        "ts": "2026-04-14T07:46:14.904569+00:00"
+        "ts": "2026-04-15T13:47:42.935105+00:00"
       },
       "ai_request": {
         "mode": "rag",
         "model": "gpt-4o",
-        "model_input_chars": 203,
+        "model_input_chars": 4872,
         "stream": true,
-        "ts": "2026-04-14T07:46:14.904569+00:00"
+        "ts": "2026-04-15T13:47:42.935105+00:00"
       },
       "ai_search_response": {
         "source": "azure_ai_search",
-        "context_chars": 29160,
-        "top_score": 4.340719,
-        "citations_count": 4,
-        "videos_count": 1,
+        "context_chars": 17443,
+        "top_score": 6.7847877,
+        "citations_count": 10,
+        "videos_count": 0,
         "citation": {
-          "title": "AI Projects  (2).pdf",
-          "url": "https://desirechatbotweb.blob.core.windows.net/desirechatbotweb/AI%20Projects%20%20(2).pdf",
-          "id": "87ba13f8d90b_aHR0cHM6Ly9kZXNpcmVjaGF0Ym90d2ViLmJsb2IuY29yZS53aW5kb3dzLm5ldC9kZXNpcmVjaGF0Ym90d2ViL0FJJTIwUHJvamVjdHMlMjAlMjAoMikucGRm0_pages_24",
-          "score": 4.340719
+          "title": "ai",
+          "url": "https://desireinfoweb.com/services/ai",
+          "id": "s_c2VydmljZUNhdGFsb2cudHh0_i_3_u_8fde875bd12b4142981e16d71c3d2e73",
+          "score": 6.275428,
+          "context_snippet": "[aiProjectServicesShowcaseData] Fluentify AI Fluentify AI offers a comprehensive solution for enhancing language proficiency through data-driven insights and AI-powered assessments. It helps users improve spoken communication effectively for professionals, educators, and organizations. Features: AI-Powered Language Assessment, Process MS Team, Zoom and Google Meet recording, Collaborate and Share Feedback, Optimize Communication Skills https://desireinfoweb.com/services/ai [aiProjectServicesShowcaseData] Insurance Chatbot Insurance Chatbot reduced policy coverage verification time from 15-20 minutes to seconds. It acts as a single source of truth with direct references to official documentation. Features: Accelerate Policy Verification, Centralized Source of Truth, Improve Accuracy and Compliance, Enhance Operational Efficiency https://desireinfoweb.com/services/ai",
+          "overlap_count": 1,
+          "overlap_ratio": 0.333333,
+          "entry_rank": 0.38083,
+          "retrieval_mode": "text",
+          "source_scope": "knowledge"
         },
         "stream": true,
-        "ts": "2026-04-14T07:46:25.257640+00:00"
+        "ts": "2026-04-15T13:47:49.497168+00:00"
       },
       "ai_search_json_response": {
         "source_scope": "knowledge",
         "found": true,
         "retrieval_mode": "text",
-        "score": 5.560646,
-        "normalized_score": 0.735472,
-        "rank": 0.275993,
+        "score": 6.784788,
+        "normalized_score": 0.772334,
+        "rank": 0.585514,
+        "overlap_ratio": 0.333333,
+        "overlap_count": 1,
+        "query_term_count": 3,
+        "meets_score": true,
+        "meets_overlap": true,
+        "context_chars": 17443,
+        "context_preview": "[aiProjectServicesShowcaseData] Fluentify AI Fluentify AI offers a comprehensive solution for enhancing language proficiency through data-driven insights and AI-powered assessments. It helps users improve spoken communication effectively for professionals, educators, and organizations. Features: AI-Powered Language Assessment, Process MS Team, Zoom and Google Meet recording, Collaborate and Share Feedback, Optimize Communication Skills https://desireinfoweb.com/services/ai [aiProjectServicesShowcaseData] Insurance Chatbot Insurance Chatbot reduced policy coverage verification time from 15-20 m",
+        "citations_count": 6,
+        "citation": {
+          "title": "ai",
+          "url": "https://desireinfoweb.com/services/ai",
+          "id": "s_c2VydmljZUNhdGFsb2cudHh0_i_3_u_8fde875bd12b4142981e16d71c3d2e73",
+          "score": 6.275428,
+          "context_snippet": "[aiProjectServicesShowcaseData] Fluentify AI Fluentify AI offers a comprehensive solution for enhancing language proficiency through data-driven insights and AI-powered assessments. It helps users improve spoken communication effectively for professionals, educators, and organizations. Features: AI-Powered Language Assessment, Process MS Team, Zoom and Google Meet recording, Collaborate and Share Feedback, Optimize Communication Skills https://desireinfoweb.com/services/ai [aiProjectServicesShowcaseData] Insurance Chatbot Insurance Chatbot reduced policy coverage verification time from 15-20 minutes to seconds. It acts as a single source of truth with direct references to official documentation. Features: Accelerate Policy Verification, Centralized Source of Truth, Improve Accuracy and Compliance, Enhance Operational Efficiency https://desireinfoweb.com/services/ai",
+          "overlap_count": 1,
+          "overlap_ratio": 0.333333,
+          "entry_rank": 0.38083,
+          "retrieval_mode": "text"
+        },
+        "ts": "2026-04-15T13:47:47.015629+00:00"
+      },
+      "ai_search_blob_response": {
+        "source_scope": "blob_fallback",
+        "found": true,
+        "retrieval_mode": "text",
+        "score": 9.257038,
+        "normalized_score": 0.822333,
+        "rank": 0.456513,
+        "overlap_ratio": 0.333333,
+        "overlap_count": 1,
+        "query_term_count": 3,
+        "meets_score": true,
+        "meets_overlap": true,
+        "context_chars": 29051,
+        "context_preview": "to leveraging cutting-edge tools to enhance operations and improve service delivery. Technologies Used: Software & Frameworks: Azure OpenAI, SharePoint Online, MS Teams, Typescript , React , Azure Blob storage , Semantic search , Vectorization Databases: SharePoint Deployment: Azure Cloud Service 25 26 Project 13: Fluentify AI - Enhancing Language Proficiency with AI Client: Internal Project Industry: Education & Technology Focus Area: AI-Driven Language Assessment Department: IT & Education Challenge: The challenge was to develop an AI-powered language assessment tool that integrates with Mic",
+        "citations_count": 3,
+        "citation": {
+          "title": "AI Projects  (2).pdf",
+          "url": "https://desirechatbotweb.blob.core.windows.net/desirechatbotweb/AI%20Projects%20%20(2).pdf",
+          "id": "87ba13f8d90b_aHR0cHM6Ly9kZXNpcmVjaGF0Ym90d2ViLmJsb2IuY29yZS53aW5kb3dzLm5ldC9kZXNpcmVjaGF0Ym90d2ViL0FJJTIwUHJvamVjdHMlMjAlMjAoMikucGRm0_pages_13",
+          "score": 9.257038,
+          "context_snippet": "to leveraging cutting-edge tools to enhance operations and improve service delivery. Technologies Used: Software & Frameworks: Azure OpenAI, SharePoint Online, MS Teams, Typescript , React , Azure Blob storage , Semantic search , Vectorization Databases: SharePoint Deployment: Azure Cloud Service 25 26 Project 13: Fluentify AI - Enhancing Language Proficiency with AI Client: Internal Project Industry: Education & Technology Focus Area: AI-Driven Language Assessment Department: IT & Education Challenge: The challenge was to develop an AI-powered language assessment tool that integrates with Microsoft Teams to help professionals, educators, and organizations enhance their spoken communication skills. The goal was to provide detailed feedback and scores on key aspects of spoken language, such as pronunciation, grammar, vocabulary, and fluency. Our Solution: We developed Fluentify AI, an AI-powered language assessment tool designed to seamlessly integrate with Microsoft Teams. This innovative tool retrieves meeting recordings, allowing users to select and process them for comprehensive analysis. 27 Utilizing the Azure Pronunciation Assessment Service, Fluentify AI evaluates key aspects of spoken language, including pronunciation, grammar, and vocabulary. The system provides detailed feedback, scores, corrections, and in-depth analysis. Additionally, it offers practice exercises tailored to help users improve their spoken communication skills effectively. Impact: Fluentify AI offers a comprehensive solution for enhancing language proficiency through data-driven insights and AI-powered assessments. It helps users improve their spoken",
+          "overlap_count": 1,
+          "overlap_ratio": 0.333333,
+          "entry_rank": 0.400033,
+          "retrieval_mode": "text"
+        },
+        "ts": "2026-04-15T13:47:47.018628+00:00"
+      },
+      "ai_selection": {
+        "selected_source_scope": "knowledge",
+        "selected_retrieval_mode": "text",
+        "selected_score": 6.784788,
+        "selected_rank": 0.585514,
+        "selected_overlap_ratio": 0.333333,
+        "candidate_count": 4,
+        "ts": "2026-04-15T13:47:47.018628+00:00"
+      },
+      "ai_openai_response": {
+        "source": "azure_openai",
+        "answer_chars": 644,
+        "stream": true,
+        "ts": "2026-04-15T13:47:54.870297+00:00"
+      },
+      "display_response": {
+        "status_code": 200,
+        "answer_chars": 644,
+        "citations_count": 1,
+        "stream": true,
+        "ts": "2026-04-15T13:47:55.939544+00:00"
+      },
+      "ai_research_response": {
+        "source": "azure_ai_search",
+        "context_chars": 17443,
+        "top_score": 6.7847877,
+        "citations_count": 10,
+        "videos_count": 0,
+        "citation": {
+          "title": "ai",
+          "url": "https://desireinfoweb.com/services/ai",
+          "id": "s_c2VydmljZUNhdGFsb2cudHh0_i_3_u_8fde875bd12b4142981e16d71c3d2e73",
+          "score": 6.275428,
+          "context_snippet": "[aiProjectServicesShowcaseData] Fluentify AI Fluentify AI offers a comprehensive solution for enhancing language proficiency through data-driven insights and AI-powered assessments. It helps users improve spoken communication effectively for professionals, educators, and organizations. Features: AI-Powered Language Assessment, Process MS Team, Zoom and Google Meet recording, Collaborate and Share Feedback, Optimize Communication Skills https://desireinfoweb.com/services/ai [aiProjectServicesShowcaseData] Insurance Chatbot Insurance Chatbot reduced policy coverage verification time from 15-20 minutes to seconds. It acts as a single source of truth with direct references to official documentation. Features: Accelerate Policy Verification, Centralized Source of Truth, Improve Accuracy and Compliance, Enhance Operational Efficiency https://desireinfoweb.com/services/ai",
+          "overlap_count": 1,
+          "overlap_ratio": 0.333333,
+          "entry_rank": 0.38083,
+          "retrieval_mode": "text",
+          "source_scope": "knowledge"
+        },
+        "stream": true,
+        "ts": "2026-04-15T13:47:49.497168+00:00"
+      }
+    },
+    "summary": {
+      "status_code": 200,
+      "reply": "**Fluentify AI** is an advanced solution designed to enhance language proficiency through AI-driven insights and assessments. It is ideal for professionals, educators, and organizations aiming to improve spoken communication. Key features include:\n\n- **AI-Powered Language Assessment**: Evaluate and improve communication skills.\n- **Recording Integration**: Process recordings from MS Teams, Zoom, and Google Meet.\n- **Collaborative Feedback**: Share insights and feedback for continuous improvement.\n- **Skill Optimization**: Tailored recommendations to refine communication.\n\nLearn more: [Fluentify AI](https://desireinfoweb.com/services/ai)",
+      "stream": true
+    }
+  },
+  {
+    "trace_id": "3214686e-2d0f-42c0-977f-1ae4ab6f4d3e",
+    "started_at": "2026-04-15T13:48:10.131970+00:00",
+    "ended_at": "2026-04-15T13:48:22.271089+00:00",
+    "endpoint": "/api/chat/text/stream",
+    "streaming": true,
+    "status": "success",
+    "duration_ms": 12139.12,
+    "session_id": "9c47fdf1-0152-4d24-971e-3eea23fdbf13",
+    "user_query": "fluentify AI?",
+    "process": {
+      "user_request": {
+        "query": "fluentify AI?",
+        "endpoint": "/api/chat/text/stream",
+        "stream": true,
+        "ts": "2026-04-15T13:48:10.132975+00:00"
+      },
+      "ai_request": {
+        "mode": "rag",
+        "model": "gpt-4o",
+        "model_input_chars": 4975,
+        "stream": true,
+        "ts": "2026-04-15T13:48:10.132975+00:00"
+      },
+      "ai_search_response": {
+        "source": "azure_ai_search",
+        "context_chars": 16307,
+        "top_score": 6.2754283,
+        "citations_count": 6,
+        "videos_count": 0,
+        "citation": {
+          "title": "ai",
+          "url": "https://desireinfoweb.com/services/ai",
+          "id": "s_c2VydmljZUNhdGFsb2cudHh0_i_3_u_8fde875bd12b4142981e16d71c3d2e73",
+          "score": 6.275428,
+          "context_snippet": "[aiProjectServicesShowcaseData] Fluentify AI Fluentify AI offers a comprehensive solution for enhancing language proficiency through data-driven insights and AI-powered assessments. It helps users improve spoken communication effectively for professionals, educators, and organizations. Features: AI-Powered Language Assessment, Process MS Team, Zoom and Google Meet recording, Collaborate and Share Feedback, Optimize Communication Skills https://desireinfoweb.com/services/ai [aiProjectServicesShowcaseData] Insurance Chatbot Insurance Chatbot reduced policy coverage verification time from 15-20 minutes to seconds. It acts as a single source of truth with direct references to official documentation. Features: Accelerate Policy Verification, Centralized Source of Truth, Improve Accuracy and Compliance, Enhance Operational Efficiency https://desireinfoweb.com/services/ai",
+          "overlap_count": 1,
+          "overlap_ratio": 1.0,
+          "entry_rank": 0.927496,
+          "retrieval_mode": "text",
+          "source_scope": "knowledge"
+        },
+        "stream": true,
+        "ts": "2026-04-15T13:48:16.746500+00:00"
+      },
+      "ai_search_json_response": {
+        "source_scope": "knowledge",
+        "found": true,
+        "retrieval_mode": "text",
+        "score": 6.275428,
+        "normalized_score": 0.758321,
+        "rank": 0.950159,
+        "overlap_ratio": 1.0,
+        "overlap_count": 1,
+        "query_term_count": 1,
+        "meets_score": true,
+        "meets_overlap": true,
+        "context_chars": 16307,
+        "context_preview": "[aiProjectServicesShowcaseData] Fluentify AI Fluentify AI offers a comprehensive solution for enhancing language proficiency through data-driven insights and AI-powered assessments. It helps users improve spoken communication effectively for professionals, educators, and organizations. Features: AI-Powered Language Assessment, Process MS Team, Zoom and Google Meet recording, Collaborate and Share Feedback, Optimize Communication Skills https://desireinfoweb.com/services/ai [aiProjectServicesShowcaseData] Insurance Chatbot Insurance Chatbot reduced policy coverage verification time from 15-20 m",
+        "citations_count": 4,
+        "citation": {
+          "title": "ai",
+          "url": "https://desireinfoweb.com/services/ai",
+          "id": "s_c2VydmljZUNhdGFsb2cudHh0_i_3_u_8fde875bd12b4142981e16d71c3d2e73",
+          "score": 6.275428,
+          "context_snippet": "[aiProjectServicesShowcaseData] Fluentify AI Fluentify AI offers a comprehensive solution for enhancing language proficiency through data-driven insights and AI-powered assessments. It helps users improve spoken communication effectively for professionals, educators, and organizations. Features: AI-Powered Language Assessment, Process MS Team, Zoom and Google Meet recording, Collaborate and Share Feedback, Optimize Communication Skills https://desireinfoweb.com/services/ai [aiProjectServicesShowcaseData] Insurance Chatbot Insurance Chatbot reduced policy coverage verification time from 15-20 minutes to seconds. It acts as a single source of truth with direct references to official documentation. Features: Accelerate Policy Verification, Centralized Source of Truth, Improve Accuracy and Compliance, Enhance Operational Efficiency https://desireinfoweb.com/services/ai",
+          "overlap_count": 1,
+          "overlap_ratio": 1.0,
+          "entry_rank": 0.927496,
+          "retrieval_mode": "text"
+        },
+        "ts": "2026-04-15T13:48:13.976927+00:00"
+      },
+      "ai_search_blob_response": {
+        "source_scope": "blob_fallback",
+        "found": true,
+        "retrieval_mode": "text",
+        "score": 7.416794,
+        "normalized_score": 0.787613,
+        "rank": 0.80832,
+        "overlap_ratio": 1.0,
+        "overlap_count": 1,
+        "query_term_count": 1,
+        "meets_score": true,
+        "meets_overlap": true,
+        "context_chars": 29158,
+        "context_preview": "to leveraging cutting-edge tools to enhance operations and improve service delivery. Technologies Used: Software & Frameworks: Azure OpenAI, SharePoint Online, MS Teams, Typescript , React , Azure Blob storage , Semantic search , Vectorization Databases: SharePoint Deployment: Azure Cloud Service 25 26 Project 13: Fluentify AI - Enhancing Language Proficiency with AI Client: Internal Project Industry: Education & Technology Focus Area: AI-Driven Language Assessment Department: IT & Education Challenge: The challenge was to develop an AI-powered language assessment tool that integrates with Mic",
+        "citations_count": 2,
+        "citation": {
+          "title": "AI Projects  (2).pdf",
+          "url": "https://desirechatbotweb.blob.core.windows.net/desirechatbotweb/AI%20Projects%20%20(2).pdf",
+          "id": "87ba13f8d90b_aHR0cHM6Ly9kZXNpcmVjaGF0Ym90d2ViLmJsb2IuY29yZS53aW5kb3dzLm5ldC9kZXNpcmVjaGF0Ym90d2ViL0FJJTIwUHJvamVjdHMlMjAlMjAoMikucGRm0_pages_13",
+          "score": 7.416794,
+          "context_snippet": "to leveraging cutting-edge tools to enhance operations and improve service delivery. Technologies Used: Software & Frameworks: Azure OpenAI, SharePoint Online, MS Teams, Typescript , React , Azure Blob storage , Semantic search , Vectorization Databases: SharePoint Deployment: Azure Cloud Service 25 26 Project 13: Fluentify AI - Enhancing Language Proficiency with AI Client: Internal Project Industry: Education & Technology Focus Area: AI-Driven Language Assessment Department: IT & Education Challenge: The challenge was to develop an AI-powered language assessment tool that integrates with Microsoft Teams to help professionals, educators, and organizations enhance their spoken communication skills. The goal was to provide detailed feedback and scores on key aspects of spoken language, such as pronunciation, grammar, vocabulary, and fluency. Our Solution: We developed Fluentify AI, an AI-powered language assessment tool designed to seamlessly integrate with Microsoft Teams. This innovative tool retrieves meeting recordings, allowing users to select and process them for comprehensive analysis. 27 Utilizing the Azure Pronunciation Assessment Service, Fluentify AI evaluates key aspects of spoken language, including pronunciation, grammar, and vocabulary. The system provides detailed feedback, scores, corrections, and in-depth analysis. Additionally, it offers practice exercises tailored to help users improve their spoken communication skills effectively. Impact: Fluentify AI offers a comprehensive solution for enhancing language proficiency through data-driven insights and AI-powered assessments. It helps users improve their spoken",
+          "overlap_count": 1,
+          "overlap_ratio": 1.0,
+          "entry_rank": 0.936284,
+          "retrieval_mode": "text"
+        },
+        "ts": "2026-04-15T13:48:13.979926+00:00"
+      },
+      "ai_selection": {
+        "selected_source_scope": "knowledge",
+        "selected_retrieval_mode": "text",
+        "selected_score": 6.275428,
+        "selected_rank": 0.950159,
+        "selected_overlap_ratio": 1.0,
+        "candidate_count": 4,
+        "ts": "2026-04-15T13:48:13.979926+00:00"
+      },
+      "ai_openai_response": {
+        "source": "azure_openai",
+        "answer_chars": 564,
+        "stream": true,
+        "ts": "2026-04-15T13:48:21.253683+00:00"
+      },
+      "display_response": {
+        "status_code": 200,
+        "answer_chars": 564,
+        "citations_count": 1,
+        "stream": true,
+        "ts": "2026-04-15T13:48:22.270090+00:00"
+      },
+      "ai_research_response": {
+        "source": "azure_ai_search",
+        "context_chars": 16307,
+        "top_score": 6.2754283,
+        "citations_count": 6,
+        "videos_count": 0,
+        "citation": {
+          "title": "ai",
+          "url": "https://desireinfoweb.com/services/ai",
+          "id": "s_c2VydmljZUNhdGFsb2cudHh0_i_3_u_8fde875bd12b4142981e16d71c3d2e73",
+          "score": 6.275428,
+          "context_snippet": "[aiProjectServicesShowcaseData] Fluentify AI Fluentify AI offers a comprehensive solution for enhancing language proficiency through data-driven insights and AI-powered assessments. It helps users improve spoken communication effectively for professionals, educators, and organizations. Features: AI-Powered Language Assessment, Process MS Team, Zoom and Google Meet recording, Collaborate and Share Feedback, Optimize Communication Skills https://desireinfoweb.com/services/ai [aiProjectServicesShowcaseData] Insurance Chatbot Insurance Chatbot reduced policy coverage verification time from 15-20 minutes to seconds. It acts as a single source of truth with direct references to official documentation. Features: Accelerate Policy Verification, Centralized Source of Truth, Improve Accuracy and Compliance, Enhance Operational Efficiency https://desireinfoweb.com/services/ai",
+          "overlap_count": 1,
+          "overlap_ratio": 1.0,
+          "entry_rank": 0.927496,
+          "retrieval_mode": "text",
+          "source_scope": "knowledge"
+        },
+        "stream": true,
+        "ts": "2026-04-15T13:48:16.746500+00:00"
+      }
+    },
+    "summary": {
+      "status_code": 200,
+      "reply": "**Fluentify AI** is an AI-powered solution focused on improving language proficiency and spoken communication for professionals, educators, and organizations. Key features include:\n\n- **AI-Powered Language Assessment**: Analyze and enhance communication skills.\n- **Recording Integration**: Process MS Teams, Zoom, and Google Meet recordings.\n- **Collaborative Feedback**: Share insights and feedback for improvement.\n- **Skill Optimization**: Personalized recommendations to refine communication.\n\nLearn more: [Fluentify AI](https://desireinfoweb.com/services/ai)",
+      "stream": true
+    }
+  },
+  {
+    "trace_id": "3bae7c9e-26e7-47ec-8069-b82be590ba46",
+    "started_at": "2026-04-15T14:05:57.129188+00:00",
+    "ended_at": "2026-04-15T14:06:16.353221+00:00",
+    "endpoint": "/api/chat/text/stream",
+    "streaming": true,
+    "status": "success",
+    "duration_ms": 19224.03,
+    "session_id": "9c47fdf1-0152-4d24-971e-3eea23fdbf13",
+    "user_query": "what is Plastic Product?",
+    "process": {
+      "user_request": {
+        "query": "what is Plastic Product?",
+        "endpoint": "/api/chat/text/stream",
+        "stream": true,
+        "ts": "2026-04-15T14:05:57.131190+00:00"
+      },
+      "ai_request": {
+        "mode": "rag",
+        "model": "gpt-4o",
+        "model_input_chars": 4909,
+        "stream": true,
+        "ts": "2026-04-15T14:05:57.131190+00:00"
+      },
+      "ai_search_response": {
+        "source": "azure_ai_search",
+        "context_chars": 27728,
+        "top_score": 8.151272,
+        "citations_count": 22,
+        "videos_count": 0,
+        "citation": {
+          "title": "SEO Case Study.pdf",
+          "url": "https://desirechatbotweb.blob.core.windows.net/desirechatbotweb/SEO%20Case%20Study.pdf",
+          "id": "7894e17f5139_aHR0cHM6Ly9kZXNpcmVjaGF0Ym90d2ViLmJsb2IuY29yZS53aW5kb3dzLm5ldC9kZXNpcmVjaGF0Ym90d2ViL1NFTyUyMENhc2UlMjBTdHVkeS5wZGY1_pages_0",
+          "score": 8.151272,
+          "context_snippet": "SEO CASE STUDY Transforming Digital Presence Through Strategic Search Engine Optimization vijay@desireinfoweb.com www.desireinfoweb.com USA +1 (217) 576-9653 UK +44 (117) 428-8244 India +91-8780468807 OUR SERVICES We offer comprehensive IT solutions tailored to automate and optimize your business requirements. Microsoft SharePoint Microsoft PowerApps Microsoft Power Automate Microsoft Power BI .Net Core Web Development Azure Services AI Services Azure DevOps SEO Dynamics365 CRM Flutter Development What is SEO Search Engine Optimization improves website visibility and ranking in organic search results. SEO involves optimizing content, site structure, and technical aspects to help search engines understand and rank content for relevant queries. Key Aspects On-Page SEO Optimizing individual pages, content, and HTML source code Off-Page SEO Building authority through backlinks and external factors Technical SEO Improving backend structure, site speed, and crawlability Enhanced visibility Better user experience Organic traffic growth CASE STUDY Artificial Plants Wholesale & Retail Challenge • Limited organic visibility • Highly competitive market • Slow website traffic growth Solution • Strategic content optimization • Location-based SEO strategy • Authority link building • Technical SEO improvements Impact Organic Users +90.49% Keywords Ranked 50+ New Users Growth +25.2% Revenue Increase +56.72% CASE STUDY Plastic Product Manufacturing Company Challenge • Limited organic search visibility • High industry competition • Under-optimized website content • Technical performance issues Solution • High-value keyword optimization • Quality backlink strategy • Content structuring for AI search • FAQ optimization Impact Improved Search Rankings Multiple high-intent keywords for indus",
+          "overlap_count": 2,
+          "overlap_ratio": 1.0,
+          "entry_rank": 0.940894,
+          "retrieval_mode": "text",
+          "source_scope": "blob_fallback"
+        },
+        "stream": true,
+        "ts": "2026-04-15T14:06:06.493640+00:00"
+      },
+      "ai_search_json_response": {
+        "source_scope": "knowledge",
+        "found": true,
+        "retrieval_mode": "text",
+        "score": 2.180014,
+        "normalized_score": 0.521533,
+        "rank": 0.14335,
         "overlap_ratio": 0.5,
         "overlap_count": 1,
         "query_term_count": 2,
         "meets_score": true,
         "meets_overlap": false,
-        "context_chars": 12539,
-        "context_preview": "[products] Learning Management System A Learning Management System helps organizations provide online training, courses, and learning materials to employees, students, or customers in a centralized system. https://desireinfoweb.com/products/learning-management-system [products] Audit System The Audit System project in SharePoint Online is a centralized solution for managing audits and compliance. It streamlines record tracking, monitoring, and evaluation to improve transparency and accountability. https://desireinfoweb.com/products/audit-system [products] Project Management Portal Transform th",
-        "citations_count": 5,
+        "context_chars": 15176,
+        "context_preview": "[powerBiProjectServicesShowcaseData] Sales Dashboard A comprehensive sales dashboard in Power BI allows businesses to monitor and analyze sales performance and make informed decisions. Features: Sales by Region, Customer Analysis, Sales Forecasting, Product Performance https://desireinfoweb.com/services/power-bi [powerPlatformProjectServicesShowcaseData] Timesheet Management A solution for medium-sized IT services companies to track employee and project hours accurately and improve resource allocation and billing quality. Features: Multi language, Notification Flows, Customized Design, Event C",
+        "citations_count": 9,
         "citation": {
-          "title": "learning-management-system",
-          "url": "https://desireinfoweb.com/products/learning-management-system",
-          "id": "s_c2VydmljZUNhdGFsb2cudHh0_i_3_u_4db8bc4e45524ee78566de3e471ec7ed",
-          "score": 4.514452
+          "title": "power-bi",
+          "url": "https://desireinfoweb.com/services/power-bi",
+          "id": "s_c2VydmljZUNhdGFsb2cudHh0_i_8_u_698bc1a24d764346bec0c136c8490241",
+          "score": 2.180014,
+          "context_snippet": "[powerBiProjectServicesShowcaseData] Sales Dashboard A comprehensive sales dashboard in Power BI allows businesses to monitor and analyze sales performance and make informed decisions. Features: Sales by Region, Customer Analysis, Sales Forecasting, Product Performance https://desireinfoweb.com/services/power-bi [powerPlatformProjectServicesShowcaseData] Timesheet Management A solution for medium-sized IT services companies to track employee and project hours accurately and improve resource allocation and billing quality. Features: Multi language, Notification Flows, Customized Design, Event Calendar https://desireinfoweb.com/services/power-platform",
+          "overlap_count": 1,
+          "overlap_ratio": 0.5,
+          "entry_rank": 0.42646,
+          "retrieval_mode": "text"
         },
-        "ts": "2026-04-14T07:46:25.248643+00:00"
+        "ts": "2026-04-15T14:06:04.016603+00:00"
       },
       "ai_search_blob_response": {
         "source_scope": "blob_fallback",
         "found": true,
         "retrieval_mode": "text",
-        "score": 4.340719,
-        "normalized_score": 0.684578,
-        "rank": 0.744439,
+        "score": 8.151272,
+        "normalized_score": 0.80298,
+        "rank": 0.817848,
         "overlap_ratio": 1.0,
         "overlap_count": 2,
         "query_term_count": 2,
         "meets_score": true,
         "meets_overlap": true,
-        "context_chars": 29160,
-        "context_preview": "47 Project 20 : AI Agent for Automated Document Generation & Approval Workflow Client: Internal / Enterprise Operations 48 Industry: Business Process Automation Focus Area: Workflow Management & Audit Compliance Department: Procurement & IT Challenge: In complex approval workflows (such as IT equipment purchasing), critical context is often lost in chat threads. The \"story\" of a request—including back-and-forth negotiation comments, timestamps, and supplementary attachments—is rarely captured in the final formal record. Manually compiling these chat logs and status updates into a professional ",
-        "citations_count": 4,
+        "context_chars": 27728,
+        "context_preview": "SEO CASE STUDY Transforming Digital Presence Through Strategic Search Engine Optimization vijay@desireinfoweb.com www.desireinfoweb.com USA +1 (217) 576-9653 UK +44 (117) 428-8244 India +91-8780468807 OUR SERVICES We offer comprehensive IT solutions tailored to automate and optimize your business requirements. Microsoft SharePoint Microsoft PowerApps Microsoft Power Automate Microsoft Power BI .Net Core Web Development Azure Services AI Services Azure DevOps SEO Dynamics365 CRM Flutter Development What is SEO Search Engine Optimization improves website visibility and ranking in organic search ",
+        "citations_count": 9,
         "citation": {
-          "title": "AI Projects  (2).pdf",
-          "url": "https://desirechatbotweb.blob.core.windows.net/desirechatbotweb/AI%20Projects%20%20(2).pdf",
-          "id": "87ba13f8d90b_aHR0cHM6Ly9kZXNpcmVjaGF0Ym90d2ViLmJsb2IuY29yZS53aW5kb3dzLm5ldC9kZXNpcmVjaGF0Ym90d2ViL0FJJTIwUHJvamVjdHMlMjAlMjAoMikucGRm0_pages_24",
-          "score": 4.340719
+          "title": "SEO Case Study.pdf",
+          "url": "https://desirechatbotweb.blob.core.windows.net/desirechatbotweb/SEO%20Case%20Study.pdf",
+          "id": "7894e17f5139_aHR0cHM6Ly9kZXNpcmVjaGF0Ym90d2ViLmJsb2IuY29yZS53aW5kb3dzLm5ldC9kZXNpcmVjaGF0Ym90d2ViL1NFTyUyMENhc2UlMjBTdHVkeS5wZGY1_pages_0",
+          "score": 8.151272,
+          "context_snippet": "SEO CASE STUDY Transforming Digital Presence Through Strategic Search Engine Optimization vijay@desireinfoweb.com www.desireinfoweb.com USA +1 (217) 576-9653 UK +44 (117) 428-8244 India +91-8780468807 OUR SERVICES We offer comprehensive IT solutions tailored to automate and optimize your business requirements. Microsoft SharePoint Microsoft PowerApps Microsoft Power Automate Microsoft Power BI .Net Core Web Development Azure Services AI Services Azure DevOps SEO Dynamics365 CRM Flutter Development What is SEO Search Engine Optimization improves website visibility and ranking in organic search results. SEO involves optimizing content, site structure, and technical aspects to help search engines understand and rank content for relevant queries. Key Aspects On-Page SEO Optimizing individual pages, content, and HTML source code Off-Page SEO Building authority through backlinks and external factors Technical SEO Improving backend structure, site speed, and crawlability Enhanced visibility Better user experience Organic traffic growth CASE STUDY Artificial Plants Wholesale & Retail Challenge • Limited organic visibility • Highly competitive market • Slow website traffic growth Solution • Strategic content optimization • Location-based SEO strategy • Authority link building • Technical SEO improvements Impact Organic Users +90.49% Keywords Ranked 50+ New Users Growth +25.2% Revenue Increase +56.72% CASE STUDY Plastic Product Manufacturing Company Challenge • Limited organic search visibility • High industry competition • Under-optimized website content • Technical performance issues Solution • High-value keyword optimization • Quality backlink strategy • Content structuring for AI search • FAQ optimization Impact Improved Search Rankings Multiple high-intent keywords for indus",
+          "overlap_count": 2,
+          "overlap_ratio": 1.0,
+          "entry_rank": 0.940894,
+          "retrieval_mode": "text"
         },
-        "ts": "2026-04-14T07:46:25.250642+00:00"
+        "ts": "2026-04-15T14:06:04.017602+00:00"
       },
       "ai_selection": {
         "selected_source_scope": "blob_fallback",
         "selected_retrieval_mode": "text",
-        "selected_score": 4.340719,
-        "selected_rank": 0.744439,
+        "selected_score": 8.151272,
+        "selected_rank": 0.817848,
         "selected_overlap_ratio": 1.0,
         "candidate_count": 4,
-        "ts": "2026-04-14T07:46:25.250642+00:00"
+        "ts": "2026-04-15T14:06:04.018601+00:00"
       },
       "ai_openai_response": {
         "source": "azure_openai",
-        "answer_chars": 705,
+        "answer_chars": 819,
         "stream": true,
-        "ts": "2026-04-14T07:46:32.765253+00:00"
+        "ts": "2026-04-15T14:06:15.241458+00:00"
       },
       "display_response": {
         "status_code": 200,
-        "answer_chars": 705,
+        "answer_chars": 819,
         "citations_count": 1,
         "stream": true,
-        "ts": "2026-04-14T07:46:35.158668+00:00"
+        "ts": "2026-04-15T14:06:16.352221+00:00"
       },
       "ai_research_response": {
         "source": "azure_ai_search",
-        "context_chars": 29160,
-        "top_score": 4.340719,
-        "citations_count": 4,
-        "videos_count": 1,
+        "context_chars": 27728,
+        "top_score": 8.151272,
+        "citations_count": 22,
+        "videos_count": 0,
         "citation": {
-          "title": "AI Projects  (2).pdf",
-          "url": "https://desirechatbotweb.blob.core.windows.net/desirechatbotweb/AI%20Projects%20%20(2).pdf",
-          "id": "87ba13f8d90b_aHR0cHM6Ly9kZXNpcmVjaGF0Ym90d2ViLmJsb2IuY29yZS53aW5kb3dzLm5ldC9kZXNpcmVjaGF0Ym90d2ViL0FJJTIwUHJvamVjdHMlMjAlMjAoMikucGRm0_pages_24",
-          "score": 4.340719
+          "title": "SEO Case Study.pdf",
+          "url": "https://desirechatbotweb.blob.core.windows.net/desirechatbotweb/SEO%20Case%20Study.pdf",
+          "id": "7894e17f5139_aHR0cHM6Ly9kZXNpcmVjaGF0Ym90d2ViLmJsb2IuY29yZS53aW5kb3dzLm5ldC9kZXNpcmVjaGF0Ym90d2ViL1NFTyUyMENhc2UlMjBTdHVkeS5wZGY1_pages_0",
+          "score": 8.151272,
+          "context_snippet": "SEO CASE STUDY Transforming Digital Presence Through Strategic Search Engine Optimization vijay@desireinfoweb.com www.desireinfoweb.com USA +1 (217) 576-9653 UK +44 (117) 428-8244 India +91-8780468807 OUR SERVICES We offer comprehensive IT solutions tailored to automate and optimize your business requirements. Microsoft SharePoint Microsoft PowerApps Microsoft Power Automate Microsoft Power BI .Net Core Web Development Azure Services AI Services Azure DevOps SEO Dynamics365 CRM Flutter Development What is SEO Search Engine Optimization improves website visibility and ranking in organic search results. SEO involves optimizing content, site structure, and technical aspects to help search engines understand and rank content for relevant queries. Key Aspects On-Page SEO Optimizing individual pages, content, and HTML source code Off-Page SEO Building authority through backlinks and external factors Technical SEO Improving backend structure, site speed, and crawlability Enhanced visibility Better user experience Organic traffic growth CASE STUDY Artificial Plants Wholesale & Retail Challenge • Limited organic visibility • Highly competitive market • Slow website traffic growth Solution • Strategic content optimization • Location-based SEO strategy • Authority link building • Technical SEO improvements Impact Organic Users +90.49% Keywords Ranked 50+ New Users Growth +25.2% Revenue Increase +56.72% CASE STUDY Plastic Product Manufacturing Company Challenge • Limited organic search visibility • High industry competition • Under-optimized website content • Technical performance issues Solution • High-value keyword optimization • Quality backlink strategy • Content structuring for AI search • FAQ optimization Impact Improved Search Rankings Multiple high-intent keywords for indus",
+          "overlap_count": 2,
+          "overlap_ratio": 1.0,
+          "entry_rank": 0.940894,
+          "retrieval_mode": "text",
+          "source_scope": "blob_fallback"
         },
         "stream": true,
-        "ts": "2026-04-14T07:46:25.257640+00:00"
+        "ts": "2026-04-15T14:06:06.493640+00:00"
       }
     },
     "summary": {
       "status_code": 200,
-      "reply": "The Audit System is a centralized dashboard designed for smarter audit oversight and compliance management. Built on SharePoint and powered by Power BI, it provides actionable insights through interactive visuals and detailed reports. Key features include:\n\n- **Audit Reports Dashboard**: Tracks organization-wide audit health with filtering by status, personnel, and location.\n- **Overdue Audits Dashboard**: Highlights missed deadlines for proactive compliance.\n- **Task Management**: Manage tasks and attachments efficiently.\n\nThis system ensures real-time visibility, faster decision-making, and improved compliance tracking. For more details, visit [Audit System Video](https://youtu.be/VnH1hFP0vhM).",
+      "reply": "The **Plastic Product** case study refers to an SEO project Desire Infoweb executed for a plastic product manufacturing company. \n\n### Key Details:\n- **Challenges**:\n  - Limited organic search visibility.\n  - High competition in the industry.\n  - Under-optimized website content.\n  - Technical performance issues.\n\n- **Solutions**:\n  - High-value keyword optimization.\n  - Quality backlink strategy.\n  - Content structuring for AI search.\n  - FAQ optimization.\n\n- **Impact**:\n  - Improved rankings for high-intent keywords (e.g., industrial lockers & equipment).\n  - Increased organic traffic through better content targeting.\n  - Enhanced commercial visibility, leading to more inbound business inquiries.\n\nThis project showcases Desire Infoweb's expertise in driving measurable SEO results for competitive industries.",
       "stream": true
     }
   },
   {
-    "trace_id": "6c99a6cc-b149-4a6a-91f6-a9d691571a0f",
-    "started_at": "2026-04-14T07:47:32.852569+00:00",
-    "ended_at": "2026-04-14T07:47:43.683815+00:00",
+    "trace_id": "f81dbcfe-a51b-411e-afd9-1beb25e21835",
+    "started_at": "2026-04-16T10:33:00.494023+00:00",
+    "ended_at": "2026-04-16T10:33:23.210181+00:00",
     "endpoint": "/api/chat/text/stream",
     "streaming": true,
     "status": "success",
-    "duration_ms": 10831.25,
-    "session_id": "9c47fdf1-0152-4d24-971e-3eea23fdbf13",
-    "user_query": "give me detail about Project Management Portal?",
+    "duration_ms": 22716.16,
+    "session_id": "ea621e21-eebd-4727-b16a-f5014d2510f2",
+    "user_query": "What is Desire Infoweb?",
     "process": {
       "user_request": {
-        "query": "give me detail about Project Management Portal?",
+        "query": "What is Desire Infoweb?",
         "endpoint": "/api/chat/text/stream",
         "stream": true,
-        "ts": "2026-04-14T07:47:32.853570+00:00"
+        "ts": "2026-04-16T10:33:00.494023+00:00"
       },
       "ai_request": {
         "mode": "rag",
         "model": "gpt-4o",
-        "model_input_chars": 997,
+        "model_input_chars": 194,
         "stream": true,
-        "ts": "2026-04-14T07:47:32.853570+00:00"
+        "ts": "2026-04-16T10:33:00.494023+00:00"
       },
       "ai_search_response": {
         "source": "azure_ai_search",
-        "context_chars": 11383,
-        "top_score": 6.391943,
-        "citations_count": 5,
-        "videos_count": 1,
+        "context_chars": 14568,
+        "top_score": 9.117103,
+        "citations_count": 22,
+        "videos_count": 0,
         "citation": {
-          "title": "project-management-portal",
-          "url": "https://desireinfoweb.com/products/project-management-portal",
-          "id": "s_c2VydmljZUNhdGFsb2cudHh0_i_2_u_6657cc83b9484ac6ab55894dfe7db253",
-          "score": 6.391943
+          "title": "about-us",
+          "url": "https://desireinfoweb.com/about-us",
+          "id": "s_c2VydmljZUNhdGFsb2cudHh0_i_0_u_c76371ec982743fd978ca381a3778da9",
+          "score": 9.117103,
+          "context_snippet": "[companyProfile] About Desire Infoweb Desire Infoweb is an IT services and consulting company focused on Microsoft technologies, enterprise automation, modern collaboration platforms, analytics, and AI-powered business solutions. Core capabilities include SharePoint, Power Platform, Power BI, Microsoft Teams, Dynamics 365, Azure, .NET development, migration, governance, and custom AI/chatbot implementations. https://desireinfoweb.com/about-us [products] Organization Chart An organizational chart shows the internal structure of an organization or company. The employees and positions are represented by boxes or other shapes, sometimes including photos, contact information, email and page links, icons, and illustrations. Straight or elbowed lines link the levels together. https://desireinfoweb.com/products/organization-chart",
+          "overlap_count": 2,
+          "overlap_ratio": 1.0,
+          "entry_rank": 0.946029,
+          "retrieval_mode": "text",
+          "source_scope": "knowledge"
         },
         "stream": true,
-        "ts": "2026-04-14T07:47:37.405724+00:00"
+        "ts": "2026-04-16T10:33:13.104455+00:00"
       },
       "ai_search_json_response": {
         "source_scope": "knowledge",
         "found": true,
         "retrieval_mode": "text",
-        "score": 6.391943,
-        "normalized_score": 0.761676,
-        "rank": 0.800239,
-        "overlap_ratio": 0.6,
-        "overlap_count": 3,
-        "query_term_count": 5,
-        "meets_score": true,
-        "meets_overlap": true,
-        "context_chars": 11383,
-        "context_preview": "[products] Project Management Portal Transform the way your organization plans, tracks, and delivers projects. A SharePoint-based Project Management Portal centralizes your PMO and gives every stakeholder visibility from task boards to executive dashboards. https://desireinfoweb.com/products/project-management-portal [products] Learning Management System A Learning Management System helps organizations provide online training, courses, and learning materials to employees, students, or customers in a centralized system. https://desireinfoweb.com/products/learning-management-system [products] Au",
-        "citations_count": 5,
-        "citation": {
-          "title": "project-management-portal",
-          "url": "https://desireinfoweb.com/products/project-management-portal",
-          "id": "s_c2VydmljZUNhdGFsb2cudHh0_i_2_u_6657cc83b9484ac6ab55894dfe7db253",
-          "score": 6.391943
-        },
-        "ts": "2026-04-14T07:47:36.420320+00:00"
-      },
-      "ai_search_blob_response": {
-        "source_scope": "blob_fallback",
-        "found": true,
-        "retrieval_mode": "text",
-        "score": 4.95239,
-        "normalized_score": 0.712329,
-        "rank": 0.609644,
-        "overlap_ratio": 0.6,
-        "overlap_count": 3,
-        "query_term_count": 5,
-        "meets_score": true,
-        "meets_overlap": true,
-        "context_chars": 29140,
-        "context_preview": "the smartest way to learn, grow, and succeed. Still stuck with scattered files, manual assessments, and no progress tracking? Let's change that. Introducing our learning management system. A powerful learning management system that puts you in control. https://youtu.be/bfTZ2YKs2rY https://youtu.be/bfTZ2YKs2rY Create dynamic courses, upload videos, PDFs, and more. Assign learning paths in just a click. Track learner progress in real time with our intuitive admin dashboard. Build structured courses with chapters, set priorities, and organize materials effortlessly. Assign courses to employees in",
-        "citations_count": 4,
-        "citation": {
-          "title": "Product  Video Content.pdf",
-          "url": "https://desirechatbotweb.blob.core.windows.net/desirechatbotweb/Product%C2%A0%20Video%20Content.pdf",
-          "id": "87ba13f8d90b_aHR0cHM6Ly9kZXNpcmVjaGF0Ym90d2ViLmJsb2IuY29yZS53aW5kb3dzLm5ldC9kZXNpcmVjaGF0Ym90d2ViL1Byb2R1Y3QlQzIlQTAlMjBWaWRlbyUyMENvbnRlbnQucGRm0_pages_8",
-          "score": 4.95239
-        },
-        "ts": "2026-04-14T07:47:36.422319+00:00"
-      },
-      "ai_selection": {
-        "selected_source_scope": "knowledge",
-        "selected_retrieval_mode": "text",
-        "selected_score": 6.391943,
-        "selected_rank": 0.800239,
-        "selected_overlap_ratio": 0.6,
-        "candidate_count": 4,
-        "ts": "2026-04-14T07:47:36.422319+00:00"
-      },
-      "ai_openai_response": {
-        "source": "azure_openai",
-        "answer_chars": 713,
-        "stream": true,
-        "ts": "2026-04-14T07:47:42.583201+00:00"
-      },
-      "display_response": {
-        "status_code": 200,
-        "answer_chars": 713,
-        "citations_count": 1,
-        "stream": true,
-        "ts": "2026-04-14T07:47:43.682816+00:00"
-      },
-      "ai_research_response": {
-        "source": "azure_ai_search",
-        "context_chars": 11383,
-        "top_score": 6.391943,
-        "citations_count": 5,
-        "videos_count": 1,
-        "citation": {
-          "title": "project-management-portal",
-          "url": "https://desireinfoweb.com/products/project-management-portal",
-          "id": "s_c2VydmljZUNhdGFsb2cudHh0_i_2_u_6657cc83b9484ac6ab55894dfe7db253",
-          "score": 6.391943
-        },
-        "stream": true,
-        "ts": "2026-04-14T07:47:37.405724+00:00"
-      }
-    },
-    "summary": {
-      "status_code": 200,
-      "reply": "The **Project Management Portal** is a SharePoint-based solution that centralizes project planning, tracking, and delivery for organizations. It enhances collaboration and visibility across all stakeholders. Key features include:\n\n- **Task Boards**: Visualize and manage tasks efficiently.\n- **Executive Dashboards**: Provide high-level insights into project progress and KPIs.\n- **Resource Allocation**: Optimize team and resource management.\n- **Document Management**: Centralized storage for project-related files.\n\nThis portal streamlines workflows, improves accountability, and supports decision-making. Learn more at [Project Management Portal](https://desireinfoweb.com/products/project-management-portal).",
-      "stream": true
-    }
-  },
-  {
-    "trace_id": "08500c5a-46c2-4915-8f67-a40e7ca44862",
-    "started_at": "2026-04-14T07:48:41.258572+00:00",
-    "ended_at": "2026-04-14T07:48:52.054902+00:00",
-    "endpoint": "/api/chat/text/stream",
-    "streaming": true,
-    "status": "success",
-    "duration_ms": 10796.33,
-    "session_id": "9c47fdf1-0152-4d24-971e-3eea23fdbf13",
-    "user_query": "what is Quick Links? explain deatil?",
-    "process": {
-      "user_request": {
-        "query": "what is Quick Links? explain detail?",
-        "endpoint": "/api/chat/text/stream",
-        "stream": true,
-        "ts": "2026-04-14T07:48:41.262568+00:00"
-      },
-      "ai_request": {
-        "mode": "rag",
-        "model": "gpt-4o",
-        "model_input_chars": 1765,
-        "stream": true,
-        "ts": "2026-04-14T07:48:41.262568+00:00"
-      },
-      "ai_search_response": {
-        "source": "azure_ai_search",
-        "context_chars": 12571,
-        "top_score": 4.1855106,
-        "citations_count": 5,
-        "videos_count": 1,
-        "citation": {
-          "title": "organization-chart",
-          "url": "https://desireinfoweb.com/products/organization-chart",
-          "id": "s_c2VydmljZUNhdGFsb2cudHh0_i_0_u_158ec2b8122241a5ab366c68f4339905",
-          "score": 4.185511
-        },
-        "stream": true,
-        "ts": "2026-04-14T07:48:45.771831+00:00"
-      },
-      "ai_search_json_response": {
-        "source_scope": "knowledge",
-        "found": true,
-        "retrieval_mode": "text",
-        "score": 4.185511,
-        "normalized_score": 0.676664,
-        "rank": 0.709532,
-        "overlap_ratio": 0.5,
-        "overlap_count": 2,
-        "query_term_count": 4,
-        "meets_score": true,
-        "meets_overlap": true,
-        "context_chars": 12571,
-        "context_preview": "[products] Organization Chart An organizational chart shows the internal structure of an organization or company. The employees and positions are represented by boxes or other shapes, sometimes including photos, contact information, email and page links, icons, and illustrations. Straight or elbowed lines link the levels together. https://desireinfoweb.com/products/organization-chart [products] New Joinee A new employee who has recently joined an organization and is introduced through Microsoft's workplace tools for onboarding and collaboration. A New Joinee profile, onboarding information, an",
-        "citations_count": 5,
-        "citation": {
-          "title": "organization-chart",
-          "url": "https://desireinfoweb.com/products/organization-chart",
-          "id": "s_c2VydmljZUNhdGFsb2cudHh0_i_0_u_158ec2b8122241a5ab366c68f4339905",
-          "score": 4.185511
-        },
-        "ts": "2026-04-14T07:48:44.772384+00:00"
-      },
-      "ai_search_blob_response": {
-        "source_scope": "blob_fallback",
-        "found": true,
-        "retrieval_mode": "text",
-        "score": 7.466628,
-        "normalized_score": 0.788732,
-        "rank": 0.619014,
-        "overlap_ratio": 0.5,
-        "overlap_count": 2,
-        "query_term_count": 4,
-        "meets_score": true,
-        "meets_overlap": true,
-        "context_chars": 29300,
-        "context_preview": "execution, and final closure. Collaborate seamlessly with your entire team, managing all in one centralized location. Streamline your projects and empower your team today with our project management portal. Thanks for watching. Audit System https://youtu.be/VnH1hFP0vhM Welcome to the Audit System, your centralized dashboard for smarter audit oversight and decision making. Built on SharePoint and powered by Power BI, this solution transforms compliance data into Actionable Insights. The Audit Reports dashboard is your command center for tracking organization-wide audit health. Explore interacti",
-        "citations_count": 4,
-        "citation": {
-          "title": "Product  Video Content.pdf",
-          "url": "https://desirechatbotweb.blob.core.windows.net/desirechatbotweb/Product%C2%A0%20Video%20Content.pdf",
-          "id": "87ba13f8d90b_aHR0cHM6Ly9kZXNpcmVjaGF0Ym90d2ViLmJsb2IuY29yZS53aW5kb3dzLm5ldC9kZXNpcmVjaGF0Ym90d2ViL1Byb2R1Y3QlQzIlQTAlMjBWaWRlbyUyMENvbnRlbnQucGRm0_pages_2",
-          "score": 7.466628
-        },
-        "ts": "2026-04-14T07:48:44.774383+00:00"
-      },
-      "ai_selection": {
-        "selected_source_scope": "knowledge",
-        "selected_retrieval_mode": "text",
-        "selected_score": 4.185511,
-        "selected_rank": 0.709532,
-        "selected_overlap_ratio": 0.5,
-        "candidate_count": 4,
-        "ts": "2026-04-14T07:48:44.774383+00:00"
-      },
-      "ai_openai_response": {
-        "source": "azure_openai",
-        "answer_chars": 748,
-        "stream": true,
-        "ts": "2026-04-14T07:48:50.804159+00:00"
-      },
-      "display_response": {
-        "status_code": 200,
-        "answer_chars": 748,
-        "citations_count": 1,
-        "stream": true,
-        "ts": "2026-04-14T07:48:52.054902+00:00"
-      },
-      "ai_research_response": {
-        "source": "azure_ai_search",
-        "context_chars": 12571,
-        "top_score": 4.1855106,
-        "citations_count": 5,
-        "videos_count": 1,
-        "citation": {
-          "title": "organization-chart",
-          "url": "https://desireinfoweb.com/products/organization-chart",
-          "id": "s_c2VydmljZUNhdGFsb2cudHh0_i_0_u_158ec2b8122241a5ab366c68f4339905",
-          "score": 4.185511
-        },
-        "stream": true,
-        "ts": "2026-04-14T07:48:45.771831+00:00"
-      }
-    },
-    "summary": {
-      "status_code": 200,
-      "reply": "**Quick Links** is a SharePoint feature designed to provide easy access to frequently used resources, tools, or pages within an organization. It simplifies navigation and enhances productivity by centralizing important links in one place.\n\nKey features include:\n- **Customizable Links**: Add links to internal or external resources, documents, or websites.\n- **Visual Layouts**: Choose from various layouts like tiles, buttons, or lists for better user experience.\n- **Permission Control**: Restrict access to specific links based on user roles.\n- **Integration**: Seamlessly integrates with SharePoint pages and Microsoft tools.\n\nQuick Links improve efficiency by reducing search time and ensuring employees can quickly access essential resources.",
-      "stream": true
-    }
-  },
-  {
-    "trace_id": "d953b7a1-ecde-406e-bb29-98cc8a49004d",
-    "started_at": "2026-04-14T07:49:15.475837+00:00",
-    "ended_at": "2026-04-14T07:49:25.675867+00:00",
-    "endpoint": "/api/chat/text/stream",
-    "streaming": true,
-    "status": "success",
-    "duration_ms": 10200.03,
-    "session_id": "9c47fdf1-0152-4d24-971e-3eea23fdbf13",
-    "user_query": "New Joinee??",
-    "process": {
-      "user_request": {
-        "query": "New Joinee??",
-        "endpoint": "/api/chat/text/stream",
-        "stream": true,
-        "ts": "2026-04-14T07:49:15.475837+00:00"
-      },
-      "ai_request": {
-        "mode": "rag",
-        "model": "gpt-4o",
-        "model_input_chars": 2544,
-        "stream": true,
-        "ts": "2026-04-14T07:49:15.475837+00:00"
-      },
-      "ai_search_response": {
-        "source": "azure_ai_search",
-        "context_chars": 2338,
-        "top_score": 8.567518,
-        "citations_count": 2,
-        "videos_count": 1,
-        "citation": {
-          "title": "organization-chart",
-          "url": "https://desireinfoweb.com/products/organization-chart",
-          "id": "s_c2VydmljZUNhdGFsb2cudHh0_i_0_u_158ec2b8122241a5ab366c68f4339905",
-          "score": 8.567518
-        },
-        "stream": true,
-        "ts": "2026-04-14T07:49:19.265358+00:00"
-      },
-      "ai_search_json_response": {
-        "source_scope": "knowledge",
-        "found": true,
-        "retrieval_mode": "text",
-        "score": 8.567518,
-        "normalized_score": 0.810741,
-        "rank": 0.982659,
+        "score": 9.117103,
+        "normalized_score": 0.820097,
+        "rank": 0.98846,
         "overlap_ratio": 1.0,
         "overlap_count": 2,
         "query_term_count": 2,
         "meets_score": true,
         "meets_overlap": true,
-        "context_chars": 2338,
-        "context_preview": "[products] Organization Chart An organizational chart shows the internal structure of an organization or company. The employees and positions are represented by boxes or other shapes, sometimes including photos, contact information, email and page links, icons, and illustrations. Straight or elbowed lines link the levels together. https://desireinfoweb.com/products/organization-chart [products] New Joinee A new employee who has recently joined an organization and is introduced through Microsoft's workplace tools for onboarding and collaboration. A New Joinee profile, onboarding information, an",
-        "citations_count": 2,
+        "context_chars": 14568,
+        "context_preview": "[companyProfile] About Desire Infoweb Desire Infoweb is an IT services and consulting company focused on Microsoft technologies, enterprise automation, modern collaboration platforms, analytics, and AI-powered business solutions. Core capabilities include SharePoint, Power Platform, Power BI, Microsoft Teams, Dynamics 365, Azure, .NET development, migration, governance, and custom AI/chatbot implementations. https://desireinfoweb.com/about-us [products] Organization Chart An organizational chart shows the internal structure of an organization or company. The employees and positions are represe",
+        "citations_count": 10,
         "citation": {
-          "title": "organization-chart",
-          "url": "https://desireinfoweb.com/products/organization-chart",
-          "id": "s_c2VydmljZUNhdGFsb2cudHh0_i_0_u_158ec2b8122241a5ab366c68f4339905",
-          "score": 8.567518
+          "title": "about-us",
+          "url": "https://desireinfoweb.com/about-us",
+          "id": "s_c2VydmljZUNhdGFsb2cudHh0_i_0_u_c76371ec982743fd978ca381a3778da9",
+          "score": 9.117103,
+          "context_snippet": "[companyProfile] About Desire Infoweb Desire Infoweb is an IT services and consulting company focused on Microsoft technologies, enterprise automation, modern collaboration platforms, analytics, and AI-powered business solutions. Core capabilities include SharePoint, Power Platform, Power BI, Microsoft Teams, Dynamics 365, Azure, .NET development, migration, governance, and custom AI/chatbot implementations. https://desireinfoweb.com/about-us [products] Organization Chart An organizational chart shows the internal structure of an organization or company. The employees and positions are represented by boxes or other shapes, sometimes including photos, contact information, email and page links, icons, and illustrations. Straight or elbowed lines link the levels together. https://desireinfoweb.com/products/organization-chart",
+          "overlap_count": 2,
+          "overlap_ratio": 1.0,
+          "entry_rank": 0.946029,
+          "retrieval_mode": "text"
         },
-        "ts": "2026-04-14T07:49:18.332593+00:00"
+        "ts": "2026-04-16T10:33:10.833027+00:00"
       },
       "ai_search_blob_response": {
         "source_scope": "blob_fallback",
         "found": true,
         "retrieval_mode": "text",
-        "score": 5.588742,
-        "normalized_score": 0.736452,
-        "rank": 0.7766,
+        "score": 13.663195,
+        "normalized_score": 0.872312,
+        "rank": 0.860834,
         "overlap_ratio": 1.0,
         "overlap_count": 2,
         "query_term_count": 2,
         "meets_score": true,
         "meets_overlap": true,
-        "context_chars": 17435,
-        "context_preview": "out a dashboard, our detailed list view gives you all the info you need at a glance. You can also organize your shortcuts into clean, manageable cards, helping you navigate between different project areas effortlessly. For even faster access, our visual tiles provide a one-click gateway to your favorite external tools and services. Stay organized and time every day. Start setting up your own product quick links today. New Joinee https://youtu.be/WB5H79WcMsY https://youtu.be/_Wyw4KhUajA https://youtu.be/WB5H79WcMsY https://youtu.be/_Wyw4KhUajA Say hello to your new team members in style. Introd",
-        "citations_count": 2,
+        "context_chars": 28375,
+        "context_preview": "Calendars Conflict Detection Availability Core Features Enterprise-Grade Security & Integration Enterprise Security Role-based access control, Azure AD integration, and data encryption to protect sensitive schedules. Deep Integrations Bi-directional sync with Outlook, Google Calendar, Teams, and SharePoint company events. Analytics & Reports Insights into meeting frequency, utilization trends, and employee engagement through dashboards. Calendar Portal Walkthrough About Us Empowering Digital Transformation Leading IT offshoring company delivering cutting-edge AI and Microsoft 365 solutions to ",
+        "citations_count": 7,
         "citation": {
-          "title": "Product  Video Content.pdf",
-          "url": "https://desirechatbotweb.blob.core.windows.net/desirechatbotweb/Product%C2%A0%20Video%20Content.pdf",
-          "id": "87ba13f8d90b_aHR0cHM6Ly9kZXNpcmVjaGF0Ym90d2ViLmJsb2IuY29yZS53aW5kb3dzLm5ldC9kZXNpcmVjaGF0Ym90d2ViL1Byb2R1Y3QlQzIlQTAlMjBWaWRlbyUyMENvbnRlbnQucGRm0_pages_3",
-          "score": 5.588742
+          "title": "Desire Infoweb Calendar.pdf",
+          "url": "https://desirechatbotweb.blob.core.windows.net/desirechatbotweb/Desire%20Infoweb%20Calendar.pdf",
+          "id": "7894e17f5139_aHR0cHM6Ly9kZXNpcmVjaGF0Ym90d2ViLmJsb2IuY29yZS53aW5kb3dzLm5ldC9kZXNpcmVjaGF0Ym90d2ViL0Rlc2lyZSUyMEluZm93ZWIlMjBDYWxlbmRhci5wZGY1_pages_1",
+          "score": 13.663195,
+          "context_snippet": "Calendars Conflict Detection Availability Core Features Enterprise-Grade Security & Integration Enterprise Security Role-based access control, Azure AD integration, and data encryption to protect sensitive schedules. Deep Integrations Bi-directional sync with Outlook, Google Calendar, Teams, and SharePoint company events. Analytics & Reports Insights into meeting frequency, utilization trends, and employee engagement through dashboards. Calendar Portal Walkthrough About Us Empowering Digital Transformation Leading IT offshoring company delivering cutting-edge AI and Microsoft 365 solutions to global enterprises. 50+ Certified Experts 100% Success Rate 99% On-Time Delivery 4.9+ Client Rating Complete Solutions Our Product Ecosystem Comprehensive Microsoft 365 solutions designed to transform your workplace Today's Focus Calendar Portal Intelligent scheduling with seamless team collaboration and deep Microsoft integrations Intranet Portals Centralized company hub LMS Training & development Employee Directory People & expertise finder Power BI Dashboards Data-driven insights What We Do Best Our Core Expertise SharePoint Intranets & Document Management solutions Power Platform Automations & Custom Apps development Azure OpenAI Advanced AI & NLP Solutions Dynamics 365 Operations & Customer Engagement MS Teams Collaboration & Communication tools . NET Robust Web & Cloud Applications Let's Start Today Ready to Transform Your Workspace? Join 200+ global enterprises who trust Desire Infoweb to power their digital transformation with intelligent Microsoft 365 solutions. India HQ 509, 510 - Ganesh Glory, Jagatpur Road, Near Nirma University, Ahmedabad, India United States 1834 Chandolin In, Elgin, Illinois 60124 Canada 9-4640 Rae Street, Regina, SK, S4S 3B6 Get in Touch India: +91-",
+          "overlap_count": 2,
+          "overlap_ratio": 1.0,
+          "entry_rank": 0.961694,
+          "retrieval_mode": "text"
         },
-        "ts": "2026-04-14T07:49:18.333576+00:00"
+        "ts": "2026-04-16T10:33:10.833027+00:00"
       },
       "ai_selection": {
         "selected_source_scope": "knowledge",
         "selected_retrieval_mode": "text",
-        "selected_score": 8.567518,
-        "selected_rank": 0.982659,
+        "selected_score": 9.117103,
+        "selected_rank": 0.98846,
         "selected_overlap_ratio": 1.0,
         "candidate_count": 4,
-        "ts": "2026-04-14T07:49:18.334575+00:00"
+        "ts": "2026-04-16T10:33:10.833027+00:00"
       },
       "ai_openai_response": {
         "source": "azure_openai",
-        "answer_chars": 663,
+        "answer_chars": 435,
         "stream": true,
-        "ts": "2026-04-14T07:49:24.124722+00:00"
+        "ts": "2026-04-16T10:33:19.560129+00:00"
       },
       "display_response": {
         "status_code": 200,
-        "answer_chars": 663,
+        "answer_chars": 435,
         "citations_count": 1,
         "stream": true,
-        "ts": "2026-04-14T07:49:25.674868+00:00"
+        "ts": "2026-04-16T10:33:20.672408+00:00"
       },
       "ai_research_response": {
         "source": "azure_ai_search",
-        "context_chars": 2338,
-        "top_score": 8.567518,
+        "context_chars": 14568,
+        "top_score": 9.117103,
+        "citations_count": 22,
+        "videos_count": 0,
+        "citation": {
+          "title": "about-us",
+          "url": "https://desireinfoweb.com/about-us",
+          "id": "s_c2VydmljZUNhdGFsb2cudHh0_i_0_u_c76371ec982743fd978ca381a3778da9",
+          "score": 9.117103,
+          "context_snippet": "[companyProfile] About Desire Infoweb Desire Infoweb is an IT services and consulting company focused on Microsoft technologies, enterprise automation, modern collaboration platforms, analytics, and AI-powered business solutions. Core capabilities include SharePoint, Power Platform, Power BI, Microsoft Teams, Dynamics 365, Azure, .NET development, migration, governance, and custom AI/chatbot implementations. https://desireinfoweb.com/about-us [products] Organization Chart An organizational chart shows the internal structure of an organization or company. The employees and positions are represented by boxes or other shapes, sometimes including photos, contact information, email and page links, icons, and illustrations. Straight or elbowed lines link the levels together. https://desireinfoweb.com/products/organization-chart",
+          "overlap_count": 2,
+          "overlap_ratio": 1.0,
+          "entry_rank": 0.946029,
+          "retrieval_mode": "text",
+          "source_scope": "knowledge"
+        },
+        "stream": true,
+        "ts": "2026-04-16T10:33:13.104455+00:00"
+      }
+    },
+    "summary": {
+      "status_code": 200,
+      "reply": "Desire Infoweb is an IT services and consulting company specializing in Microsoft technologies, enterprise automation, modern collaboration platforms, analytics, and AI-powered business solutions. Key expertise includes SharePoint, Power Platform, Power BI, Microsoft Teams, Dynamics 365, Azure, .NET development, migration, governance, and custom AI/chatbot implementations.\n\nLearn more: [About Us](https://desireinfoweb.com/about-us)",
+      "stream": true
+    }
+  },
+  {
+    "trace_id": "18c2e9fc-5307-4ccc-a99b-17076f7fe03e",
+    "started_at": "2026-04-16T10:34:32.807855+00:00",
+    "ended_at": "2026-04-16T10:34:39.896472+00:00",
+    "endpoint": "/api/chat/text/stream",
+    "streaming": true,
+    "status": "success",
+    "duration_ms": 7088.62,
+    "session_id": "ea621e21-eebd-4727-b16a-f5014d2510f2",
+    "user_query": "what is fluemtifyAI?",
+    "process": {
+      "user_request": {
+        "query": "what is fluemtifyAI?",
+        "endpoint": "/api/chat/text/stream",
+        "stream": true,
+        "ts": "2026-04-16T10:34:32.810714+00:00"
+      },
+      "ai_request": {
+        "mode": "rag",
+        "model": "gpt-4o",
+        "model_input_chars": 691,
+        "stream": true,
+        "ts": "2026-04-16T10:34:32.810714+00:00"
+      },
+      "ai_search_response": {
+        "source": "azure_ai_search",
+        "context_chars": 2706,
+        "top_score": 0.6528652,
+        "citations_count": 21,
+        "videos_count": 0,
+        "citation": {
+          "title": "ai",
+          "url": "https://desireinfoweb.com/services/ai",
+          "id": "s_c2VydmljZUNhdGFsb2cudHh0_i_3_u_8fde875bd12b4142981e16d71c3d2e73",
+          "score": 0.652865,
+          "context_snippet": "[aiProjectServicesShowcaseData] Fluentify AI Fluentify AI offers a comprehensive solution for enhancing language proficiency through data-driven insights and AI-powered assessments. It helps users improve spoken communication effectively for professionals, educators, and organizations. Features: AI-Powered Language Assessment, Process MS Team, Zoom and Google Meet recording, Collaborate and Share Feedback, Optimize Communication Skills https://desireinfoweb.com/services/ai [aiProjectServicesShowcaseData] Insurance Chatbot Insurance Chatbot reduced policy coverage verification time from 15-20 minutes to seconds. It acts as a single source of truth with direct references to official documentation. Features: Accelerate Policy Verification, Centralized Source of Truth, Improve Accuracy and Compliance, Enhance Operational Efficiency https://desireinfoweb.com/services/ai",
+          "overlap_count": 0,
+          "overlap_ratio": 0.0,
+          "entry_rank": -0.02414,
+          "retrieval_mode": "vector",
+          "source_scope": "knowledge"
+        },
+        "stream": true,
+        "ts": "2026-04-16T10:34:39.491696+00:00"
+      },
+      "ai_search_json_response": {
+        "source_scope": "knowledge",
+        "found": true,
+        "retrieval_mode": "vector",
+        "score": 0.652865,
+        "normalized_score": 0.652865,
+        "rank": 0.154776,
+        "overlap_ratio": 0.0,
+        "overlap_count": 0,
+        "query_term_count": 1,
+        "meets_score": true,
+        "meets_overlap": false,
+        "context_chars": 2706,
+        "context_preview": "[aiProjectServicesShowcaseData] Fluentify AI Fluentify AI offers a comprehensive solution for enhancing language proficiency through data-driven insights and AI-powered assessments. It helps users improve spoken communication effectively for professionals, educators, and organizations. Features: AI-Powered Language Assessment, Process MS Team, Zoom and Google Meet recording, Collaborate and Share Feedback, Optimize Communication Skills https://desireinfoweb.com/services/ai [aiProjectServicesShowcaseData] Insurance Chatbot Insurance Chatbot reduced policy coverage verification time from 15-20 m",
+        "citations_count": 1,
+        "citation": {
+          "title": "ai",
+          "url": "https://desireinfoweb.com/services/ai",
+          "id": "s_c2VydmljZUNhdGFsb2cudHh0_i_3_u_8fde875bd12b4142981e16d71c3d2e73",
+          "score": 0.652865,
+          "context_snippet": "[aiProjectServicesShowcaseData] Fluentify AI Fluentify AI offers a comprehensive solution for enhancing language proficiency through data-driven insights and AI-powered assessments. It helps users improve spoken communication effectively for professionals, educators, and organizations. Features: AI-Powered Language Assessment, Process MS Team, Zoom and Google Meet recording, Collaborate and Share Feedback, Optimize Communication Skills https://desireinfoweb.com/services/ai [aiProjectServicesShowcaseData] Insurance Chatbot Insurance Chatbot reduced policy coverage verification time from 15-20 minutes to seconds. It acts as a single source of truth with direct references to official documentation. Features: Accelerate Policy Verification, Centralized Source of Truth, Improve Accuracy and Compliance, Enhance Operational Efficiency https://desireinfoweb.com/services/ai",
+          "overlap_count": 0,
+          "overlap_ratio": 0.0,
+          "entry_rank": -0.02414,
+          "retrieval_mode": "vector"
+        },
+        "ts": "2026-04-16T10:34:37.127884+00:00"
+      },
+      "ai_search_blob_response": {
+        "source_scope": "blob_fallback",
+        "found": true,
+        "retrieval_mode": "text",
+        "score": 3.681371,
+        "normalized_score": 0.647972,
+        "rank": -0.008257,
+        "overlap_ratio": 0.0,
+        "overlap_count": 0,
+        "query_term_count": 1,
+        "meets_score": true,
+        "meets_overlap": false,
+        "context_chars": 29608,
+        "context_preview": "Omni reduced campaign creation time from hours to seconds. It enabled marketers to launch visually stunning, multi-platform campaigns with a unified brand voice instantly. The tool democratized high-end content creation, allowing users to generate professional- grade graphics and copy without needing separate design or copywriting teams. Technologies Used: ● Software & Frameworks: Google Gemini Models (Flash & Pro), React, Node.js, Generative AI (Text-to-Image & Text-to-Text) ● Databases: MongoDB / SQL ● Deployment: Cloud-native architecture 34 Project 16 : Embedded SharePoint \"Chat with Docum",
+        "citations_count": 10,
+        "citation": {
+          "title": "AI Projects  (2).pdf",
+          "url": "https://desirechatbotweb.blob.core.windows.net/desirechatbotweb/AI%20Projects%20%20(2).pdf",
+          "id": "87ba13f8d90b_aHR0cHM6Ly9kZXNpcmVjaGF0Ym90d2ViLmJsb2IuY29yZS53aW5kb3dzLm5ldC9kZXNpcmVjaGF0Ym90d2ViL0FJJTIwUHJvamVjdHMlMjAlMjAoMikucGRm0_pages_17",
+          "score": 3.681371,
+          "context_snippet": "Omni reduced campaign creation time from hours to seconds. It enabled marketers to launch visually stunning, multi-platform campaigns with a unified brand voice instantly. The tool democratized high-end content creation, allowing users to generate professional- grade graphics and copy without needing separate design or copywriting teams. Technologies Used: ● Software & Frameworks: Google Gemini Models (Flash & Pro), React, Node.js, Generative AI (Text-to-Image & Text-to-Text) ● Databases: MongoDB / SQL ● Deployment: Cloud-native architecture 34 Project 16 : Embedded SharePoint \"Chat with Documents\" Assistant 35 Client: Enterprise Client (Internal / Confidential) Industry: Corporate Enterprise Focus Area: Knowledge Management & Employee Productivity Department: IT & HR Challenge: Employees were spending excessive time navigating through complex SharePoint libraries to find specific information buried inside PDF, Word, and Excel documents. Traditional keyword search was often insufficient for answering specific contextual questions. Our Solution: We implemented a lightweight, embedded AI Chatbot directly into the SharePoint environment using the SharePoint Framework (SPFx) Application Customizer. ● Floating Widget: The bot is available as a non-intrusive popup on every SharePoint page, ensuring help is always one click away. ● Document Q&A: Users can ask natural language questions (e.g., \"What is the policy on remote work?\"), and the AI scans the documents in the site to provide a precise answer with citations. Impact: This tool transformed the SharePoint experience from a passive file storage system into an active knowledge hub. It significantly reduced the \"time-to-information\" for employees, allowing them to get answers without opening and reading multiple documents ma",
+          "overlap_count": 0,
+          "overlap_ratio": 0.0,
+          "entry_rank": -0.025608,
+          "retrieval_mode": "text"
+        },
+        "ts": "2026-04-16T10:34:37.128883+00:00"
+      },
+      "ai_selection": {
+        "selected_source_scope": "knowledge",
+        "selected_retrieval_mode": "vector",
+        "selected_score": 0.652865,
+        "selected_rank": 0.154776,
+        "selected_overlap_ratio": 0.0,
+        "candidate_count": 4,
+        "ts": "2026-04-16T10:34:37.128883+00:00"
+      },
+      "ai_openai_response": {
+        "source": "azure_openai",
+        "answer_chars": 339,
+        "stream": true,
+        "ts": "2026-04-16T10:34:39.491696+00:00"
+      },
+      "display_response": {
+        "status_code": 200,
+        "answer_chars": 339,
+        "citations_count": 0,
+        "stream": true,
+        "ts": "2026-04-16T10:34:39.896472+00:00"
+      },
+      "ai_research_response": {
+        "source": "azure_ai_search",
+        "context_chars": 2706,
+        "top_score": 0.6528652,
+        "citations_count": 21,
+        "videos_count": 0,
+        "citation": {
+          "title": "ai",
+          "url": "https://desireinfoweb.com/services/ai",
+          "id": "s_c2VydmljZUNhdGFsb2cudHh0_i_3_u_8fde875bd12b4142981e16d71c3d2e73",
+          "score": 0.652865,
+          "context_snippet": "[aiProjectServicesShowcaseData] Fluentify AI Fluentify AI offers a comprehensive solution for enhancing language proficiency through data-driven insights and AI-powered assessments. It helps users improve spoken communication effectively for professionals, educators, and organizations. Features: AI-Powered Language Assessment, Process MS Team, Zoom and Google Meet recording, Collaborate and Share Feedback, Optimize Communication Skills https://desireinfoweb.com/services/ai [aiProjectServicesShowcaseData] Insurance Chatbot Insurance Chatbot reduced policy coverage verification time from 15-20 minutes to seconds. It acts as a single source of truth with direct references to official documentation. Features: Accelerate Policy Verification, Centralized Source of Truth, Improve Accuracy and Compliance, Enhance Operational Efficiency https://desireinfoweb.com/services/ai",
+          "overlap_count": 0,
+          "overlap_ratio": 0.0,
+          "entry_rank": -0.02414,
+          "retrieval_mode": "vector",
+          "source_scope": "knowledge"
+        },
+        "stream": true,
+        "ts": "2026-04-16T10:34:39.491696+00:00"
+      }
+    },
+    "summary": {
+      "status_code": 200,
+      "reply": "Thank you for your query. At the moment, I'm unable to provide a relevant response as it falls outside my current scope.\n\nFor further assistance, please contact our support team:\n- vijay@desireinfoweb.com\n- hr@desireinfoweb.in\n- info@desireinfoweb.com\n- India: +91-8780468807\n- USA: +1 260 560 2128\n\nWe will be happy to assist you further.",
+      "stream": true
+    }
+  },
+  {
+    "trace_id": "8d5eae10-cce2-4d9f-b33f-9c58350db5cd",
+    "started_at": "2026-04-16T10:34:57.179324+00:00",
+    "ended_at": "2026-04-16T10:35:07.919985+00:00",
+    "endpoint": "/api/chat/text/stream",
+    "streaming": true,
+    "status": "success",
+    "duration_ms": 10740.66,
+    "session_id": "ea621e21-eebd-4727-b16a-f5014d2510f2",
+    "user_query": "Fluentify AI?",
+    "process": {
+      "user_request": {
+        "query": "Fluentify AI?",
+        "endpoint": "/api/chat/text/stream",
+        "stream": true,
+        "ts": "2026-04-16T10:34:57.179324+00:00"
+      },
+      "ai_request": {
+        "mode": "rag",
+        "model": "gpt-4o",
+        "model_input_chars": 1062,
+        "stream": true,
+        "ts": "2026-04-16T10:34:57.179324+00:00"
+      },
+      "ai_search_response": {
+        "source": "azure_ai_search",
+        "context_chars": 16307,
+        "top_score": 6.2754283,
+        "citations_count": 6,
+        "videos_count": 0,
+        "citation": {
+          "title": "ai",
+          "url": "https://desireinfoweb.com/services/ai",
+          "id": "s_c2VydmljZUNhdGFsb2cudHh0_i_3_u_8fde875bd12b4142981e16d71c3d2e73",
+          "score": 6.275428,
+          "context_snippet": "[aiProjectServicesShowcaseData] Fluentify AI Fluentify AI offers a comprehensive solution for enhancing language proficiency through data-driven insights and AI-powered assessments. It helps users improve spoken communication effectively for professionals, educators, and organizations. Features: AI-Powered Language Assessment, Process MS Team, Zoom and Google Meet recording, Collaborate and Share Feedback, Optimize Communication Skills https://desireinfoweb.com/services/ai [aiProjectServicesShowcaseData] Insurance Chatbot Insurance Chatbot reduced policy coverage verification time from 15-20 minutes to seconds. It acts as a single source of truth with direct references to official documentation. Features: Accelerate Policy Verification, Centralized Source of Truth, Improve Accuracy and Compliance, Enhance Operational Efficiency https://desireinfoweb.com/services/ai",
+          "overlap_count": 1,
+          "overlap_ratio": 1.0,
+          "entry_rank": 0.927496,
+          "retrieval_mode": "text",
+          "source_scope": "knowledge"
+        },
+        "stream": true,
+        "ts": "2026-04-16T10:35:03.259136+00:00"
+      },
+      "ai_search_json_response": {
+        "source_scope": "knowledge",
+        "found": true,
+        "retrieval_mode": "text",
+        "score": 6.275428,
+        "normalized_score": 0.758321,
+        "rank": 0.950159,
+        "overlap_ratio": 1.0,
+        "overlap_count": 1,
+        "query_term_count": 1,
+        "meets_score": true,
+        "meets_overlap": true,
+        "context_chars": 16307,
+        "context_preview": "[aiProjectServicesShowcaseData] Fluentify AI Fluentify AI offers a comprehensive solution for enhancing language proficiency through data-driven insights and AI-powered assessments. It helps users improve spoken communication effectively for professionals, educators, and organizations. Features: AI-Powered Language Assessment, Process MS Team, Zoom and Google Meet recording, Collaborate and Share Feedback, Optimize Communication Skills https://desireinfoweb.com/services/ai [aiProjectServicesShowcaseData] Insurance Chatbot Insurance Chatbot reduced policy coverage verification time from 15-20 m",
+        "citations_count": 4,
+        "citation": {
+          "title": "ai",
+          "url": "https://desireinfoweb.com/services/ai",
+          "id": "s_c2VydmljZUNhdGFsb2cudHh0_i_3_u_8fde875bd12b4142981e16d71c3d2e73",
+          "score": 6.275428,
+          "context_snippet": "[aiProjectServicesShowcaseData] Fluentify AI Fluentify AI offers a comprehensive solution for enhancing language proficiency through data-driven insights and AI-powered assessments. It helps users improve spoken communication effectively for professionals, educators, and organizations. Features: AI-Powered Language Assessment, Process MS Team, Zoom and Google Meet recording, Collaborate and Share Feedback, Optimize Communication Skills https://desireinfoweb.com/services/ai [aiProjectServicesShowcaseData] Insurance Chatbot Insurance Chatbot reduced policy coverage verification time from 15-20 minutes to seconds. It acts as a single source of truth with direct references to official documentation. Features: Accelerate Policy Verification, Centralized Source of Truth, Improve Accuracy and Compliance, Enhance Operational Efficiency https://desireinfoweb.com/services/ai",
+          "overlap_count": 1,
+          "overlap_ratio": 1.0,
+          "entry_rank": 0.927496,
+          "retrieval_mode": "text"
+        },
+        "ts": "2026-04-16T10:35:00.670178+00:00"
+      },
+      "ai_search_blob_response": {
+        "source_scope": "blob_fallback",
+        "found": true,
+        "retrieval_mode": "text",
+        "score": 7.416794,
+        "normalized_score": 0.787613,
+        "rank": 0.80832,
+        "overlap_ratio": 1.0,
+        "overlap_count": 1,
+        "query_term_count": 1,
+        "meets_score": true,
+        "meets_overlap": true,
+        "context_chars": 29147,
+        "context_preview": "to leveraging cutting-edge tools to enhance operations and improve service delivery. Technologies Used: Software & Frameworks: Azure OpenAI, SharePoint Online, MS Teams, Typescript , React , Azure Blob storage , Semantic search , Vectorization Databases: SharePoint Deployment: Azure Cloud Service 25 26 Project 13: Fluentify AI - Enhancing Language Proficiency with AI Client: Internal Project Industry: Education & Technology Focus Area: AI-Driven Language Assessment Department: IT & Education Challenge: The challenge was to develop an AI-powered language assessment tool that integrates with Mic",
         "citations_count": 2,
-        "videos_count": 1,
-        "citation": {
-          "title": "organization-chart",
-          "url": "https://desireinfoweb.com/products/organization-chart",
-          "id": "s_c2VydmljZUNhdGFsb2cudHh0_i_0_u_158ec2b8122241a5ab366c68f4339905",
-          "score": 8.567518
-        },
-        "stream": true,
-        "ts": "2026-04-14T07:49:19.265358+00:00"
-      }
-    },
-    "summary": {
-      "status_code": 200,
-      "reply": "**New Joinee** is a solution designed to streamline onboarding and team integration for new employees using Microsoft's workplace tools. It helps organizations introduce new hires effectively and ensure smooth collaboration.\n\nKey features include:\n- **Profile Management**: Create and share detailed new joinee profiles.\n- **Onboarding Information**: Provide essential resources and guidance for new employees.\n- **Team Introduction**: Facilitate introductions and communication within teams.\n- **Microsoft Integration**: Leverage tools like SharePoint and Teams for seamless onboarding.\n\nLearn more at [New Joinee](https://desireinfoweb.com/products/new-joinee).",
-      "stream": true
-    }
-  },
-  {
-    "trace_id": "d5c26074-6b32-4346-ac37-984873c99a26",
-    "started_at": "2026-04-14T07:50:20.519616+00:00",
-    "ended_at": "2026-04-14T07:50:33.507386+00:00",
-    "endpoint": "/api/chat/text/stream",
-    "streaming": true,
-    "status": "success",
-    "duration_ms": 12987.77,
-    "session_id": "9c47fdf1-0152-4d24-971e-3eea23fdbf13",
-    "user_query": "what type of the projects of power automate in desire infoweb?",
-    "process": {
-      "user_request": {
-        "query": "what type of the projects of power automate in desire infoweb?",
-        "endpoint": "/api/chat/text/stream",
-        "stream": true,
-        "ts": "2026-04-14T07:50:20.520616+00:00"
-      },
-      "ai_request": {
-        "mode": "rag",
-        "model": "gpt-4o",
-        "model_input_chars": 3288,
-        "stream": true,
-        "ts": "2026-04-14T07:50:20.520616+00:00"
-      },
-      "ai_search_response": {
-        "source": "azure_ai_search",
-        "context_chars": 29410,
-        "top_score": 13.727654,
-        "citations_count": 4,
-        "videos_count": 0,
         "citation": {
           "title": "AI Projects  (2).pdf",
           "url": "https://desirechatbotweb.blob.core.windows.net/desirechatbotweb/AI%20Projects%20%20(2).pdf",
-          "id": "87ba13f8d90b_aHR0cHM6Ly9kZXNpcmVjaGF0Ym90d2ViLmJsb2IuY29yZS53aW5kb3dzLm5ldC9kZXNpcmVjaGF0Ym90d2ViL0FJJTIwUHJvamVjdHMlMjAlMjAoMikucGRm0_pages_0",
-          "score": 13.727654
+          "id": "87ba13f8d90b_aHR0cHM6Ly9kZXNpcmVjaGF0Ym90d2ViLmJsb2IuY29yZS53aW5kb3dzLm5ldC9kZXNpcmVjaGF0Ym90d2ViL0FJJTIwUHJvamVjdHMlMjAlMjAoMikucGRm0_pages_13",
+          "score": 7.416794,
+          "context_snippet": "to leveraging cutting-edge tools to enhance operations and improve service delivery. Technologies Used: Software & Frameworks: Azure OpenAI, SharePoint Online, MS Teams, Typescript , React , Azure Blob storage , Semantic search , Vectorization Databases: SharePoint Deployment: Azure Cloud Service 25 26 Project 13: Fluentify AI - Enhancing Language Proficiency with AI Client: Internal Project Industry: Education & Technology Focus Area: AI-Driven Language Assessment Department: IT & Education Challenge: The challenge was to develop an AI-powered language assessment tool that integrates with Microsoft Teams to help professionals, educators, and organizations enhance their spoken communication skills. The goal was to provide detailed feedback and scores on key aspects of spoken language, such as pronunciation, grammar, vocabulary, and fluency. Our Solution: We developed Fluentify AI, an AI-powered language assessment tool designed to seamlessly integrate with Microsoft Teams. This innovative tool retrieves meeting recordings, allowing users to select and process them for comprehensive analysis. 27 Utilizing the Azure Pronunciation Assessment Service, Fluentify AI evaluates key aspects of spoken language, including pronunciation, grammar, and vocabulary. The system provides detailed feedback, scores, corrections, and in-depth analysis. Additionally, it offers practice exercises tailored to help users improve their spoken communication skills effectively. Impact: Fluentify AI offers a comprehensive solution for enhancing language proficiency through data-driven insights and AI-powered assessments. It helps users improve their spoken",
+          "overlap_count": 1,
+          "overlap_ratio": 1.0,
+          "entry_rank": 0.936284,
+          "retrieval_mode": "text"
         },
-        "stream": true,
-        "ts": "2026-04-14T07:50:25.986351+00:00"
-      },
-      "ai_search_json_response": {
-        "source_scope": "knowledge",
-        "found": true,
-        "retrieval_mode": "text",
-        "score": 15.366151,
-        "normalized_score": 0.884833,
-        "rank": 0.965263,
-        "overlap_ratio": 0.833333,
-        "overlap_count": 5,
-        "query_term_count": 6,
-        "meets_score": true,
-        "meets_overlap": true,
-        "context_chars": 12832,
-        "context_preview": "[companyProfile] About Desire Infoweb Desire Infoweb is an IT services and consulting company focused on Microsoft technologies, enterprise automation, modern collaboration platforms, analytics, and AI-powered business solutions. Core capabilities include SharePoint, Power Platform, Power BI, Microsoft Teams, Dynamics 365, Azure, .NET development, migration, governance, and custom AI/chatbot implementations. https://desireinfoweb.com/about-us [products] Organization Chart An organizational chart shows the internal structure of an organization or company. The employees and positions are represe",
-        "citations_count": 5,
-        "citation": {
-          "title": "about-us",
-          "url": "https://desireinfoweb.com/about-us",
-          "id": "s_c2VydmljZUNhdGFsb2cudHh0_i_0_u_c76371ec982743fd978ca381a3778da9",
-          "score": 15.366151
-        },
-        "ts": "2026-04-14T07:50:24.939283+00:00"
-      },
-      "ai_search_blob_response": {
-        "source_scope": "blob_fallback",
-        "found": true,
-        "retrieval_mode": "text",
-        "score": 13.727654,
-        "normalized_score": 0.872835,
-        "rank": 0.861158,
-        "overlap_ratio": 1.0,
-        "overlap_count": 6,
-        "query_term_count": 6,
-        "meets_score": true,
-        "meets_overlap": true,
-        "context_chars": 29410,
-        "context_preview": "1 Company Overview ● Desire Infoweb Pvt Ltd. is a leading IT offshoring company specializing in SharePoint, Power Platform, Azure, Dynamics 365, .NET, and AI-driven solutions. SharePoint: ● We provide expert SharePoint services, helping businesses streamline document management, improve collaboration, and build customized intranet solutions to enhance productivity and communication Power Platform: ● We provide expert services on Microsoft Power Platform tools like SharePoint, Power Apps, Power Automate, and Power BI, helping businesses streamline processes, build custom apps, automate workflow",
-        "citations_count": 4,
-        "citation": {
-          "title": "AI Projects  (2).pdf",
-          "url": "https://desirechatbotweb.blob.core.windows.net/desirechatbotweb/AI%20Projects%20%20(2).pdf",
-          "id": "87ba13f8d90b_aHR0cHM6Ly9kZXNpcmVjaGF0Ym90d2ViLmJsb2IuY29yZS53aW5kb3dzLm5ldC9kZXNpcmVjaGF0Ym90d2ViL0FJJTIwUHJvamVjdHMlMjAlMjAoMikucGRm0_pages_0",
-          "score": 13.727654
-        },
-        "ts": "2026-04-14T07:50:24.942281+00:00"
+        "ts": "2026-04-16T10:35:00.670178+00:00"
       },
       "ai_selection": {
-        "selected_source_scope": "blob_fallback",
+        "selected_source_scope": "knowledge",
         "selected_retrieval_mode": "text",
-        "selected_score": 13.727654,
-        "selected_rank": 0.861158,
+        "selected_score": 6.275428,
+        "selected_rank": 0.950159,
         "selected_overlap_ratio": 1.0,
         "candidate_count": 4,
-        "ts": "2026-04-14T07:50:24.942281+00:00"
+        "ts": "2026-04-16T10:35:00.670178+00:00"
       },
       "ai_openai_response": {
         "source": "azure_openai",
-        "answer_chars": 763,
+        "answer_chars": 483,
         "stream": true,
-        "ts": "2026-04-14T07:50:32.455783+00:00"
+        "ts": "2026-04-16T10:35:07.535762+00:00"
       },
       "display_response": {
         "status_code": 200,
-        "answer_chars": 763,
+        "answer_chars": 483,
         "citations_count": 1,
         "stream": true,
-        "ts": "2026-04-14T07:50:33.507386+00:00"
+        "ts": "2026-04-16T10:35:07.919985+00:00"
       },
       "ai_research_response": {
         "source": "azure_ai_search",
-        "context_chars": 29410,
-        "top_score": 13.727654,
-        "citations_count": 4,
+        "context_chars": 16307,
+        "top_score": 6.2754283,
+        "citations_count": 6,
         "videos_count": 0,
         "citation": {
-          "title": "AI Projects  (2).pdf",
-          "url": "https://desirechatbotweb.blob.core.windows.net/desirechatbotweb/AI%20Projects%20%20(2).pdf",
-          "id": "87ba13f8d90b_aHR0cHM6Ly9kZXNpcmVjaGF0Ym90d2ViLmJsb2IuY29yZS53aW5kb3dzLm5ldC9kZXNpcmVjaGF0Ym90d2ViL0FJJTIwUHJvamVjdHMlMjAlMjAoMikucGRm0_pages_0",
-          "score": 13.727654
+          "title": "ai",
+          "url": "https://desireinfoweb.com/services/ai",
+          "id": "s_c2VydmljZUNhdGFsb2cudHh0_i_3_u_8fde875bd12b4142981e16d71c3d2e73",
+          "score": 6.275428,
+          "context_snippet": "[aiProjectServicesShowcaseData] Fluentify AI Fluentify AI offers a comprehensive solution for enhancing language proficiency through data-driven insights and AI-powered assessments. It helps users improve spoken communication effectively for professionals, educators, and organizations. Features: AI-Powered Language Assessment, Process MS Team, Zoom and Google Meet recording, Collaborate and Share Feedback, Optimize Communication Skills https://desireinfoweb.com/services/ai [aiProjectServicesShowcaseData] Insurance Chatbot Insurance Chatbot reduced policy coverage verification time from 15-20 minutes to seconds. It acts as a single source of truth with direct references to official documentation. Features: Accelerate Policy Verification, Centralized Source of Truth, Improve Accuracy and Compliance, Enhance Operational Efficiency https://desireinfoweb.com/services/ai",
+          "overlap_count": 1,
+          "overlap_ratio": 1.0,
+          "entry_rank": 0.927496,
+          "retrieval_mode": "text",
+          "source_scope": "knowledge"
         },
         "stream": true,
-        "ts": "2026-04-14T07:50:25.986351+00:00"
+        "ts": "2026-04-16T10:35:03.259136+00:00"
       }
     },
     "summary": {
       "status_code": 200,
-      "reply": "Desire Infoweb has delivered several impactful projects using Power Automate, focusing on workflow automation and process optimization. Key examples include:\n\n- **Board Resolution Automation**: Automated document generation and approval workflows for high-value tenders, ensuring data consistency and reducing manual effort.\n- **Workflow-Driven Document Management**: Streamlined email-to-SharePoint document storage and data extraction using Power Automate and AI Builder.\n- **Legal Contract Automation (ALIF Agent)**: Automated template selection and advisory for legal contracts by integrating Power Automate with AI Builder and Dataverse.\n\nThese projects showcase how Power Automate is used to enhance efficiency, reduce errors, and automate repetitive tasks.",
+      "reply": "Fluentify AI is an AI-powered solution designed to enhance language proficiency through data-driven insights and assessments. It helps professionals, educators, and organizations improve spoken communication effectively. Key features include:\n\n- AI-Powered Language Assessment  \n- Processing MS Teams, Zoom, and Google Meet recordings  \n- Collaboration and feedback sharing  \n- Optimization of communication skills  \n\nLearn more: [Fluentify AI](https://desireinfoweb.com/services/ai)",
       "stream": true
     }
   },
   {
-    "trace_id": "d7d239d3-4370-4636-8836-55cf5917bb38",
-    "started_at": "2026-04-14T07:53:43.058870+00:00",
-    "ended_at": "2026-04-14T07:53:59.778068+00:00",
+    "trace_id": "8d8ba4b3-398c-401c-b904-badcc0913071",
+    "started_at": "2026-04-17T05:07:42.228043+00:00",
+    "ended_at": "2026-04-17T05:08:01.441160+00:00",
     "endpoint": "/api/chat/text/stream",
     "streaming": true,
     "status": "success",
-    "duration_ms": 16719.2,
-    "session_id": "9c47fdf1-0152-4d24-971e-3eea23fdbf13",
-    "user_query": "what type of the projects done by the desire in dynamics?",
+    "duration_ms": 19213.12,
+    "session_id": "ea621e21-eebd-4727-b16a-f5014d2510f2",
+    "user_query": "give m ethe detail of fluentify AI?",
     "process": {
       "user_request": {
-        "query": "what type of the projects done by the desire in dynamics?",
+        "query": "give m ethe detail of fluentify AI?",
         "endpoint": "/api/chat/text/stream",
         "stream": true,
-        "ts": "2026-04-14T07:53:43.059869+00:00"
+        "ts": "2026-04-17T05:07:42.228043+00:00"
       },
       "ai_request": {
         "mode": "rag",
         "model": "gpt-4o",
-        "model_input_chars": 4127,
+        "model_input_chars": 886,
         "stream": true,
-        "ts": "2026-04-14T07:53:43.059869+00:00"
+        "ts": "2026-04-17T05:07:42.228043+00:00"
       },
       "ai_search_response": {
         "source": "azure_ai_search",
-        "context_chars": 29097,
-        "top_score": 9.499964,
-        "citations_count": 3,
+        "context_chars": 16204,
+        "top_score": 7.092872,
+        "citations_count": 8,
         "videos_count": 0,
         "citation": {
-          "title": "AI Projects  (2).pdf",
-          "url": "https://desirechatbotweb.blob.core.windows.net/desirechatbotweb/AI%20Projects%20%20(2).pdf",
-          "id": "87ba13f8d90b_aHR0cHM6Ly9kZXNpcmVjaGF0Ym90d2ViLmJsb2IuY29yZS53aW5kb3dzLm5ldC9kZXNpcmVjaGF0Ym90d2ViL0FJJTIwUHJvamVjdHMlMjAlMjAoMikucGRm0_pages_0",
-          "score": 8.455418
+          "title": "ai",
+          "url": "https://desireinfoweb.com/services/ai",
+          "id": "s_c2VydmljZUNhdGFsb2cudHh0_i_3_u_8fde875bd12b4142981e16d71c3d2e73",
+          "score": 7.092872,
+          "context_snippet": "[aiProjectServicesShowcaseData] Fluentify AI Fluentify AI offers a comprehensive solution for enhancing language proficiency through data-driven insights and AI-powered assessments. It helps users improve spoken communication effectively for professionals, educators, and organizations. Features: AI-Powered Language Assessment, Process MS Team, Zoom and Google Meet recording, Collaborate and Share Feedback, Optimize Communication Skills https://desireinfoweb.com/services/ai [aiProjectServicesShowcaseData] Insurance Chatbot Insurance Chatbot reduced policy coverage verification time from 15-20 minutes to seconds. It acts as a single source of truth with direct references to official documentation. Features: Accelerate Policy Verification, Centralized Source of Truth, Improve Accuracy and Compliance, Enhance Operational Efficiency https://desireinfoweb.com/services/ai",
+          "overlap_count": 1,
+          "overlap_ratio": 0.25,
+          "entry_rank": 0.329014,
+          "retrieval_mode": "text",
+          "source_scope": "knowledge"
         },
         "stream": true,
-        "ts": "2026-04-14T07:53:51.451466+00:00"
+        "ts": "2026-04-17T05:07:56.759278+00:00"
       },
       "ai_search_json_response": {
         "source_scope": "knowledge",
         "found": true,
         "retrieval_mode": "text",
-        "score": 11.334937,
-        "normalized_score": 0.850018,
-        "rank": 0.855011,
-        "overlap_ratio": 0.6,
-        "overlap_count": 3,
-        "query_term_count": 5,
-        "meets_score": true,
-        "meets_overlap": true,
-        "context_chars": 12634,
-        "context_preview": "[companyProfile] About Desire Infoweb Desire Infoweb is an IT services and consulting company focused on Microsoft technologies, enterprise automation, modern collaboration platforms, analytics, and AI-powered business solutions. Core capabilities include SharePoint, Power Platform, Power BI, Microsoft Teams, Dynamics 365, Azure, .NET development, migration, governance, and custom AI/chatbot implementations. https://desireinfoweb.com/about-us [products] Organization Chart An organizational chart shows the internal structure of an organization or company. The employees and positions are represe",
-        "citations_count": 5,
-        "citation": {
-          "title": "about-us",
-          "url": "https://desireinfoweb.com/about-us",
-          "id": "s_c2VydmljZUNhdGFsb2cudHh0_i_0_u_c76371ec982743fd978ca381a3778da9",
-          "score": 11.334937
-        },
-        "ts": "2026-04-14T07:53:50.404446+00:00"
-      },
-      "ai_search_blob_response": {
-        "source_scope": "blob_fallback",
-        "found": true,
-        "retrieval_mode": "text",
-        "score": 9.499964,
-        "normalized_score": 0.826086,
-        "rank": 0.832174,
-        "overlap_ratio": 1.0,
-        "overlap_count": 5,
-        "query_term_count": 5,
-        "meets_score": true,
-        "meets_overlap": true,
-        "context_chars": 29097,
-        "context_preview": "1 Company Overview ● Desire Infoweb Pvt Ltd. is a leading IT offshoring company specializing in SharePoint, Power Platform, Azure, Dynamics 365, .NET, and AI-driven solutions. SharePoint: ● We provide expert SharePoint services, helping businesses streamline document management, improve collaboration, and build customized intranet solutions to enhance productivity and communication Power Platform: ● We provide expert services on Microsoft Power Platform tools like SharePoint, Power Apps, Power Automate, and Power BI, helping businesses streamline processes, build custom apps, automate workflow",
-        "citations_count": 3,
-        "citation": {
-          "title": "AI Projects  (2).pdf",
-          "url": "https://desirechatbotweb.blob.core.windows.net/desirechatbotweb/AI%20Projects%20%20(2).pdf",
-          "id": "87ba13f8d90b_aHR0cHM6Ly9kZXNpcmVjaGF0Ym90d2ViLmJsb2IuY29yZS53aW5kb3dzLm5ldC9kZXNpcmVjaGF0Ym90d2ViL0FJJTIwUHJvamVjdHMlMjAlMjAoMikucGRm0_pages_0",
-          "score": 8.455418
-        },
-        "ts": "2026-04-14T07:53:50.408443+00:00"
-      },
-      "ai_selection": {
-        "selected_source_scope": "blob_fallback",
-        "selected_retrieval_mode": "text",
-        "selected_score": 9.499964,
-        "selected_rank": 0.832174,
-        "selected_overlap_ratio": 1.0,
-        "candidate_count": 4,
-        "ts": "2026-04-14T07:53:50.408443+00:00"
-      },
-      "ai_openai_response": {
-        "source": "azure_openai",
-        "answer_chars": 913,
-        "stream": true,
-        "ts": "2026-04-14T07:53:58.688772+00:00"
-      },
-      "display_response": {
-        "status_code": 200,
-        "answer_chars": 913,
-        "citations_count": 1,
-        "stream": true,
-        "ts": "2026-04-14T07:53:59.777067+00:00"
-      },
-      "ai_research_response": {
-        "source": "azure_ai_search",
-        "context_chars": 29097,
-        "top_score": 9.499964,
-        "citations_count": 3,
-        "videos_count": 0,
-        "citation": {
-          "title": "AI Projects  (2).pdf",
-          "url": "https://desirechatbotweb.blob.core.windows.net/desirechatbotweb/AI%20Projects%20%20(2).pdf",
-          "id": "87ba13f8d90b_aHR0cHM6Ly9kZXNpcmVjaGF0Ym90d2ViLmJsb2IuY29yZS53aW5kb3dzLm5ldC9kZXNpcmVjaGF0Ym90d2ViL0FJJTIwUHJvamVjdHMlMjAlMjAoMikucGRm0_pages_0",
-          "score": 8.455418
-        },
-        "stream": true,
-        "ts": "2026-04-14T07:53:51.451466+00:00"
-      }
-    },
-    "summary": {
-      "status_code": 200,
-      "reply": "Desire Infoweb has executed various impactful projects using Microsoft Dynamics 365, focusing on streamlining operations, improving visibility, and enhancing customer engagement. Key examples include:\n\n- **Warehouse Management**: Implemented advanced WMS with real-time inventory tracking, barcode scanning, and KPI dashboards, achieving 98% inventory accuracy.\n- **Project Management**: Configured Work Breakdown Structures (WBS), automated billing, and real-time project tracking for improved profitability and resource utilization.\n- **Human Capital Management**: Automated payroll, attendance, and workforce planning for better HR efficiency.\n- **CRM Solutions**: Enhanced lead management, customer 360° view, and automated sales processes for improved customer relationships and revenue forecasting.\n\nThese projects demonstrate expertise in optimizing business processes across industries using Dynamics 365.",
-      "stream": true
-    }
-  },
-  {
-    "trace_id": "52a5237c-85af-47e4-b48a-81e85f841b5b",
-    "started_at": "2026-04-14T07:55:19.009157+00:00",
-    "ended_at": "2026-04-14T07:55:33.135664+00:00",
-    "endpoint": "/api/chat/text/stream",
-    "streaming": true,
-    "status": "success",
-    "duration_ms": 14126.51,
-    "session_id": "9c47fdf1-0152-4d24-971e-3eea23fdbf13",
-    "user_query": "what type of the projects done by the desire in dynamics 365?",
-    "process": {
-      "user_request": {
-        "query": "what type of the projects done by the desire in dynamics 365?",
-        "endpoint": "/api/chat/text/stream",
-        "stream": true,
-        "ts": "2026-04-14T07:55:19.010157+00:00"
-      },
-      "ai_request": {
-        "mode": "rag",
-        "model": "gpt-4o",
-        "model_input_chars": 5120,
-        "stream": true,
-        "ts": "2026-04-14T07:55:19.010157+00:00"
-      },
-      "ai_search_response": {
-        "source": "azure_ai_search",
-        "context_chars": 29390,
-        "top_score": 12.133859,
-        "citations_count": 3,
-        "videos_count": 0,
-        "citation": {
-          "title": "AI Projects  (2).pdf",
-          "url": "https://desirechatbotweb.blob.core.windows.net/desirechatbotweb/AI%20Projects%20%20(2).pdf",
-          "id": "87ba13f8d90b_aHR0cHM6Ly9kZXNpcmVjaGF0Ym90d2ViLmJsb2IuY29yZS53aW5kb3dzLm5ldC9kZXNpcmVjaGF0Ym90d2ViL0FJJTIwUHJvamVjdHMlMjAlMjAoMikucGRm0_pages_0",
-          "score": 10.849454
-        },
-        "stream": true,
-        "ts": "2026-04-14T07:55:24.118850+00:00"
-      },
-      "ai_search_json_response": {
-        "source_scope": "knowledge",
-        "found": true,
-        "retrieval_mode": "text",
-        "score": 13.285466,
-        "normalized_score": 0.869157,
-        "rank": 0.892211,
-        "overlap_ratio": 0.666667,
-        "overlap_count": 4,
-        "query_term_count": 6,
-        "meets_score": true,
-        "meets_overlap": true,
-        "context_chars": 12515,
-        "context_preview": "[companyProfile] About Desire Infoweb Desire Infoweb is an IT services and consulting company focused on Microsoft technologies, enterprise automation, modern collaboration platforms, analytics, and AI-powered business solutions. Core capabilities include SharePoint, Power Platform, Power BI, Microsoft Teams, Dynamics 365, Azure, .NET development, migration, governance, and custom AI/chatbot implementations. https://desireinfoweb.com/about-us [products] Organization Chart An organizational chart shows the internal structure of an organization or company. The employees and positions are represe",
-        "citations_count": 5,
-        "citation": {
-          "title": "about-us",
-          "url": "https://desireinfoweb.com/about-us",
-          "id": "s_c2VydmljZUNhdGFsb2cudHh0_i_0_u_c76371ec982743fd978ca381a3778da9",
-          "score": 13.285466
-        },
-        "ts": "2026-04-14T07:55:23.017394+00:00"
-      },
-      "ai_search_blob_response": {
-        "source_scope": "blob_fallback",
-        "found": true,
-        "retrieval_mode": "text",
-        "score": 12.133859,
-        "normalized_score": 0.858496,
-        "rank": 0.852267,
-        "overlap_ratio": 1.0,
-        "overlap_count": 6,
-        "query_term_count": 6,
-        "meets_score": true,
-        "meets_overlap": true,
-        "context_chars": 29390,
-        "context_preview": "1 Company Overview ● Desire Infoweb Pvt Ltd. is a leading IT offshoring company specializing in SharePoint, Power Platform, Azure, Dynamics 365, .NET, and AI-driven solutions. SharePoint: ● We provide expert SharePoint services, helping businesses streamline document management, improve collaboration, and build customized intranet solutions to enhance productivity and communication Power Platform: ● We provide expert services on Microsoft Power Platform tools like SharePoint, Power Apps, Power Automate, and Power BI, helping businesses streamline processes, build custom apps, automate workflow",
-        "citations_count": 3,
-        "citation": {
-          "title": "AI Projects  (2).pdf",
-          "url": "https://desirechatbotweb.blob.core.windows.net/desirechatbotweb/AI%20Projects%20%20(2).pdf",
-          "id": "87ba13f8d90b_aHR0cHM6Ly9kZXNpcmVjaGF0Ym90d2ViLmJsb2IuY29yZS53aW5kb3dzLm5ldC9kZXNpcmVjaGF0Ym90d2ViL0FJJTIwUHJvamVjdHMlMjAlMjAoMikucGRm0_pages_0",
-          "score": 10.849454
-        },
-        "ts": "2026-04-14T07:55:23.020391+00:00"
-      },
-      "ai_selection": {
-        "selected_source_scope": "blob_fallback",
-        "selected_retrieval_mode": "text",
-        "selected_score": 12.133859,
-        "selected_rank": 0.852267,
-        "selected_overlap_ratio": 1.0,
-        "candidate_count": 4,
-        "ts": "2026-04-14T07:55:23.020391+00:00"
-      },
-      "ai_openai_response": {
-        "source": "azure_openai",
-        "answer_chars": 982,
-        "stream": true,
-        "ts": "2026-04-14T07:55:32.009053+00:00"
-      },
-      "display_response": {
-        "status_code": 200,
-        "answer_chars": 982,
-        "citations_count": 1,
-        "stream": true,
-        "ts": "2026-04-14T07:55:33.134665+00:00"
-      },
-      "ai_research_response": {
-        "source": "azure_ai_search",
-        "context_chars": 29390,
-        "top_score": 12.133859,
-        "citations_count": 3,
-        "videos_count": 0,
-        "citation": {
-          "title": "AI Projects  (2).pdf",
-          "url": "https://desirechatbotweb.blob.core.windows.net/desirechatbotweb/AI%20Projects%20%20(2).pdf",
-          "id": "87ba13f8d90b_aHR0cHM6Ly9kZXNpcmVjaGF0Ym90d2ViLmJsb2IuY29yZS53aW5kb3dzLm5ldC9kZXNpcmVjaGF0Ym90d2ViL0FJJTIwUHJvamVjdHMlMjAlMjAoMikucGRm0_pages_0",
-          "score": 10.849454
-        },
-        "stream": true,
-        "ts": "2026-04-14T07:55:24.118850+00:00"
-      }
-    },
-    "summary": {
-      "status_code": 200,
-      "reply": "Desire Infoweb has delivered diverse projects using Microsoft Dynamics 365, focusing on operational efficiency, financial control, and customer engagement. Key examples include:\n\n- **Warehouse Management**: Implemented real-time inventory tracking, barcode scanning, and advanced WMS features, achieving 98% inventory accuracy and 30-50% productivity gains.\n- **Project Management**: Automated billing, resource scheduling, and real-time project tracking, improving profitability and cash flow.\n- **Human Capital Management**: Streamlined payroll, attendance, and workforce planning for enhanced HR operations.\n- **Financial Management**: Configured modules for budgeting, tax, accounts payable/receivable, and financial reporting.\n- **CRM Enhancements**: Improved customer engagement with lead management, marketing automation, and customer analytics.\n\nThese projects highlight Desire Infoweb's expertise in leveraging Dynamics 365 to optimize business processes across industries.",
-      "stream": true
-    }
-  },
-  {
-    "trace_id": "a7cc1496-5d00-4782-a38f-90d6c4918e05",
-    "started_at": "2026-04-14T07:59:49.124100+00:00",
-    "ended_at": "2026-04-14T08:00:03.574810+00:00",
-    "endpoint": "/api/chat/text/stream",
-    "streaming": true,
-    "status": "success",
-    "duration_ms": 14450.71,
-    "session_id": "9c47fdf1-0152-4d24-971e-3eea23fdbf13",
-    "user_query": "please give me detail about the flutter projects?",
-    "process": {
-      "user_request": {
-        "query": "please give me detail about the flutter projects?",
-        "endpoint": "/api/chat/text/stream",
-        "stream": true,
-        "ts": "2026-04-14T07:59:49.127099+00:00"
-      },
-      "ai_request": {
-        "mode": "rag",
-        "model": "gpt-4o",
-        "model_input_chars": 5414,
-        "stream": true,
-        "ts": "2026-04-14T07:59:49.127099+00:00"
-      },
-      "ai_search_response": {
-        "source": "azure_ai_search",
-        "context_chars": 29274,
-        "top_score": 7.9564586,
-        "citations_count": 4,
-        "videos_count": 0,
-        "citation": {
-          "title": "Flutter Case Study - DesireInfoWeb 2.pdf",
-          "url": "https://desirechatbotweb.blob.core.windows.net/desirechatbotweb/Flutter%20Case%20Study%20-%20DesireInfoWeb%202.pdf",
-          "id": "87ba13f8d90b_aHR0cHM6Ly9kZXNpcmVjaGF0Ym90d2ViLmJsb2IuY29yZS53aW5kb3dzLm5ldC9kZXNpcmVjaGF0Ym90d2ViL0ZsdXR0ZXIlMjBDYXNlJTIwU3R1ZHklMjAtJTIwRGVzaXJlSW5mb1dlYiUyMDIucGRm0_pages_0",
-          "score": 7.956459
-        },
-        "stream": true,
-        "ts": "2026-04-14T07:59:56.096626+00:00"
-      },
-      "ai_search_json_response": {
-        "source_scope": "knowledge",
-        "found": true,
-        "retrieval_mode": "text",
-        "score": 5.560646,
-        "normalized_score": 0.735472,
-        "rank": 0.180993,
+        "score": 7.092872,
+        "normalized_score": 0.780047,
+        "rank": 0.558629,
         "overlap_ratio": 0.25,
         "overlap_count": 1,
         "query_term_count": 4,
         "meets_score": true,
-        "meets_overlap": false,
-        "context_chars": 12563,
-        "context_preview": "[products] Project Management Portal Transform the way your organization plans, tracks, and delivers projects. A SharePoint-based Project Management Portal centralizes your PMO and gives every stakeholder visibility from task boards to executive dashboards. https://desireinfoweb.com/products/project-management-portal [products] Learning Management System A Learning Management System helps organizations provide online training, courses, and learning materials to employees, students, or customers in a centralized system. https://desireinfoweb.com/products/learning-management-system [products] Au",
+        "meets_overlap": true,
+        "context_chars": 16204,
+        "context_preview": "[aiProjectServicesShowcaseData] Fluentify AI Fluentify AI offers a comprehensive solution for enhancing language proficiency through data-driven insights and AI-powered assessments. It helps users improve spoken communication effectively for professionals, educators, and organizations. Features: AI-Powered Language Assessment, Process MS Team, Zoom and Google Meet recording, Collaborate and Share Feedback, Optimize Communication Skills https://desireinfoweb.com/services/ai [aiProjectServicesShowcaseData] Insurance Chatbot Insurance Chatbot reduced policy coverage verification time from 15-20 m",
         "citations_count": 5,
         "citation": {
-          "title": "project-management-portal",
-          "url": "https://desireinfoweb.com/products/project-management-portal",
-          "id": "s_c2VydmljZUNhdGFsb2cudHh0_i_2_u_6657cc83b9484ac6ab55894dfe7db253",
-          "score": 2.993782
+          "title": "ai",
+          "url": "https://desireinfoweb.com/services/ai",
+          "id": "s_c2VydmljZUNhdGFsb2cudHh0_i_3_u_8fde875bd12b4142981e16d71c3d2e73",
+          "score": 7.092872,
+          "context_snippet": "[aiProjectServicesShowcaseData] Fluentify AI Fluentify AI offers a comprehensive solution for enhancing language proficiency through data-driven insights and AI-powered assessments. It helps users improve spoken communication effectively for professionals, educators, and organizations. Features: AI-Powered Language Assessment, Process MS Team, Zoom and Google Meet recording, Collaborate and Share Feedback, Optimize Communication Skills https://desireinfoweb.com/services/ai [aiProjectServicesShowcaseData] Insurance Chatbot Insurance Chatbot reduced policy coverage verification time from 15-20 minutes to seconds. It acts as a single source of truth with direct references to official documentation. Features: Accelerate Policy Verification, Centralized Source of Truth, Improve Accuracy and Compliance, Enhance Operational Efficiency https://desireinfoweb.com/services/ai",
+          "overlap_count": 1,
+          "overlap_ratio": 0.25,
+          "entry_rank": 0.329014,
+          "retrieval_mode": "text"
         },
-        "ts": "2026-04-14T07:59:55.181083+00:00"
+        "ts": "2026-04-17T05:07:49.590331+00:00"
       },
       "ai_search_blob_response": {
         "source_scope": "blob_fallback",
         "found": true,
         "retrieval_mode": "text",
-        "score": 7.956459,
-        "normalized_score": 0.799125,
-        "rank": 0.625458,
-        "overlap_ratio": 0.5,
-        "overlap_count": 2,
+        "score": 8.071627,
+        "normalized_score": 0.801422,
+        "rank": 0.411882,
+        "overlap_ratio": 0.25,
+        "overlap_count": 1,
         "query_term_count": 4,
         "meets_score": true,
         "meets_overlap": true,
-        "context_chars": 29274,
-        "context_preview": "FLUTTER CASE STUDY Transforming Ideas into Cross-Platform Excellence vijay@desireinfoweb.com www.desireinfoweb.com OUR SERVICES SharePoint Microsoft SharePoint Solutions PowerApps Microsoft PowerApps Development Power Automate Workflow Automation Power BI Business Intelligence .NET Core Software Development Azure Services Admin & Migration Services AI Services Artificial Intelligence Azure DevOps DevOps Services QA Automation Quality Assurance Dynamics365 CRM, BC, NAV Flutter Development Cross-Platform Apps Customization SharePoint Branding What is Flutter? Google's open-source UI software dev",
-        "citations_count": 4,
+        "context_chars": 29079,
+        "context_preview": "to leveraging cutting-edge tools to enhance operations and improve service delivery. Technologies Used: Software & Frameworks: Azure OpenAI, SharePoint Online, MS Teams, Typescript , React , Azure Blob storage , Semantic search , Vectorization Databases: SharePoint Deployment: Azure Cloud Service 25 26 Project 13: Fluentify AI - Enhancing Language Proficiency with AI Client: Internal Project Industry: Education & Technology Focus Area: AI-Driven Language Assessment Department: IT & Education Challenge: The challenge was to develop an AI-powered language assessment tool that integrates with Mic",
+        "citations_count": 3,
         "citation": {
-          "title": "Flutter Case Study - DesireInfoWeb 2.pdf",
-          "url": "https://desirechatbotweb.blob.core.windows.net/desirechatbotweb/Flutter%20Case%20Study%20-%20DesireInfoWeb%202.pdf",
-          "id": "87ba13f8d90b_aHR0cHM6Ly9kZXNpcmVjaGF0Ym90d2ViLmJsb2IuY29yZS53aW5kb3dzLm5ldC9kZXNpcmVjaGF0Ym90d2ViL0ZsdXR0ZXIlMjBDYXNlJTIwU3R1ZHklMjAtJTIwRGVzaXJlSW5mb1dlYiUyMDIucGRm0_pages_0",
-          "score": 7.956459
+          "title": "AI Projects  (2).pdf",
+          "url": "https://desirechatbotweb.blob.core.windows.net/desirechatbotweb/AI%20Projects%20%20(2).pdf",
+          "id": "87ba13f8d90b_aHR0cHM6Ly9kZXNpcmVjaGF0Ym90d2ViLmJsb2IuY29yZS53aW5kb3dzLm5ldC9kZXNpcmVjaGF0Ym90d2ViL0FJJTIwUHJvamVjdHMlMjAlMjAoMikucGRm0_pages_13",
+          "score": 8.071627,
+          "context_snippet": "to leveraging cutting-edge tools to enhance operations and improve service delivery. Technologies Used: Software & Frameworks: Azure OpenAI, SharePoint Online, MS Teams, Typescript , React , Azure Blob storage , Semantic search , Vectorization Databases: SharePoint Deployment: Azure Cloud Service 25 26 Project 13: Fluentify AI - Enhancing Language Proficiency with AI Client: Internal Project Industry: Education & Technology Focus Area: AI-Driven Language Assessment Department: IT & Education Challenge: The challenge was to develop an AI-powered language assessment tool that integrates with Microsoft Teams to help professionals, educators, and organizations enhance their spoken communication skills. The goal was to provide detailed feedback and scores on key aspects of spoken language, such as pronunciation, grammar, vocabulary, and fluency. Our Solution: We developed Fluentify AI, an AI-powered language assessment tool designed to seamlessly integrate with Microsoft Teams. This innovative tool retrieves meeting recordings, allowing users to select and process them for comprehensive analysis. 27 Utilizing the Azure Pronunciation Assessment Service, Fluentify AI evaluates key aspects of spoken language, including pronunciation, grammar, and vocabulary. The system provides detailed feedback, scores, corrections, and in-depth analysis. Additionally, it offers practice exercises tailored to help users improve their spoken communication skills effectively. Impact: Fluentify AI offers a comprehensive solution for enhancing language proficiency through data-driven insights and AI-powered assessments. It helps users improve their spoken",
+          "overlap_count": 1,
+          "overlap_ratio": 0.25,
+          "entry_rank": 0.335427,
+          "retrieval_mode": "text"
         },
-        "ts": "2026-04-14T07:59:55.183082+00:00"
+        "ts": "2026-04-17T05:07:49.590331+00:00"
       },
       "ai_selection": {
-        "selected_source_scope": "blob_fallback",
+        "selected_source_scope": "knowledge",
         "selected_retrieval_mode": "text",
-        "selected_score": 7.956459,
-        "selected_rank": 0.625458,
-        "selected_overlap_ratio": 0.5,
+        "selected_score": 7.092872,
+        "selected_rank": 0.558629,
+        "selected_overlap_ratio": 0.25,
         "candidate_count": 4,
-        "ts": "2026-04-14T07:59:55.183082+00:00"
+        "ts": "2026-04-17T05:07:49.590331+00:00"
       },
       "ai_openai_response": {
         "source": "azure_openai",
-        "answer_chars": 952,
+        "answer_chars": 533,
         "stream": true,
-        "ts": "2026-04-14T08:00:02.583063+00:00"
+        "ts": "2026-04-17T05:08:00.975704+00:00"
       },
       "display_response": {
         "status_code": 200,
-        "answer_chars": 952,
+        "answer_chars": 533,
         "citations_count": 1,
         "stream": true,
-        "ts": "2026-04-14T08:00:03.574810+00:00"
+        "ts": "2026-04-17T05:08:01.441160+00:00"
       },
       "ai_research_response": {
         "source": "azure_ai_search",
-        "context_chars": 29274,
-        "top_score": 7.9564586,
-        "citations_count": 4,
+        "context_chars": 16204,
+        "top_score": 7.092872,
+        "citations_count": 8,
         "videos_count": 0,
         "citation": {
-          "title": "Flutter Case Study - DesireInfoWeb 2.pdf",
-          "url": "https://desirechatbotweb.blob.core.windows.net/desirechatbotweb/Flutter%20Case%20Study%20-%20DesireInfoWeb%202.pdf",
-          "id": "87ba13f8d90b_aHR0cHM6Ly9kZXNpcmVjaGF0Ym90d2ViLmJsb2IuY29yZS53aW5kb3dzLm5ldC9kZXNpcmVjaGF0Ym90d2ViL0ZsdXR0ZXIlMjBDYXNlJTIwU3R1ZHklMjAtJTIwRGVzaXJlSW5mb1dlYiUyMDIucGRm0_pages_0",
-          "score": 7.956459
+          "title": "ai",
+          "url": "https://desireinfoweb.com/services/ai",
+          "id": "s_c2VydmljZUNhdGFsb2cudHh0_i_3_u_8fde875bd12b4142981e16d71c3d2e73",
+          "score": 7.092872,
+          "context_snippet": "[aiProjectServicesShowcaseData] Fluentify AI Fluentify AI offers a comprehensive solution for enhancing language proficiency through data-driven insights and AI-powered assessments. It helps users improve spoken communication effectively for professionals, educators, and organizations. Features: AI-Powered Language Assessment, Process MS Team, Zoom and Google Meet recording, Collaborate and Share Feedback, Optimize Communication Skills https://desireinfoweb.com/services/ai [aiProjectServicesShowcaseData] Insurance Chatbot Insurance Chatbot reduced policy coverage verification time from 15-20 minutes to seconds. It acts as a single source of truth with direct references to official documentation. Features: Accelerate Policy Verification, Centralized Source of Truth, Improve Accuracy and Compliance, Enhance Operational Efficiency https://desireinfoweb.com/services/ai",
+          "overlap_count": 1,
+          "overlap_ratio": 0.25,
+          "entry_rank": 0.329014,
+          "retrieval_mode": "text",
+          "source_scope": "knowledge"
         },
         "stream": true,
-        "ts": "2026-04-14T07:59:56.096626+00:00"
+        "ts": "2026-04-17T05:07:56.759278+00:00"
       }
     },
     "summary": {
       "status_code": 200,
-      "reply": "Desire Infoweb has delivered innovative Flutter projects focused on cross-platform app development, ensuring seamless user experiences across mobile, web, and desktop. Key examples include:\n\n- **Football Sherpa**: A gamified training platform for youth athletes featuring leaderboards, AI-driven coaching, and parental oversight compliant with COPPA/GDPR.\n- **Tip Top Cabby**: A ride management app with real-time notifications, smart navigation, secure payments, and enhanced safety features for drivers and passengers.\n- **Calibmate App**: A calibration management tool with real-time tracking, dynamic data entry, and regulatory compliance for improved operational efficiency.\n- **Bs Accounting**: An all-in-one CRM, accounting, and document management solution with GST compliance and field sales automation.\n\nThese projects showcase Desire Infoweb's expertise in building scalable, feature-rich Flutter applications tailored to diverse industries.",
+      "reply": "**Fluentify AI** is an AI-powered solution designed to enhance language proficiency for professionals, educators, and organizations. It provides:\n\n- **AI-Powered Language Assessment**: Evaluate and improve communication skills.\n- **Recording Processing**: Analyze MS Teams, Zoom, and Google Meet recordings.\n- **Collaborative Feedback**: Share insights and optimize communication.\n- **Skill Optimization**: Data-driven insights for effective spoken communication.\n\nLearn more at [Fluentify AI](https://desireinfoweb.com/services/ai).",
       "stream": true
     }
   },
   {
-    "trace_id": "c2e5574a-3ac9-451d-8a67-ddc0b486d550",
-    "started_at": "2026-04-14T08:01:24.841699+00:00",
-    "ended_at": "2026-04-14T08:01:40.985510+00:00",
+    "trace_id": "a14efabd-89e2-436b-8cad-132d242f270e",
+    "started_at": "2026-04-17T05:09:09.393337+00:00",
+    "ended_at": "2026-04-17T05:09:26.817104+00:00",
     "endpoint": "/api/chat/text/stream",
     "streaming": true,
     "status": "success",
-    "duration_ms": 16143.81,
-    "session_id": "9c47fdf1-0152-4d24-971e-3eea23fdbf13",
-    "user_query": "give me detail about the dynamics 365 key module???",
+    "duration_ms": 17423.77,
+    "session_id": "ea621e21-eebd-4727-b16a-f5014d2510f2",
+    "user_query": "What is SANAS?",
     "process": {
       "user_request": {
-        "query": "give me detail about the dynamics 365 key module???",
+        "query": "What is SANAS?",
         "endpoint": "/api/chat/text/stream",
         "stream": true,
-        "ts": "2026-04-14T08:01:24.842699+00:00"
+        "ts": "2026-04-17T05:09:09.393337+00:00"
       },
       "ai_request": {
         "mode": "rag",
         "model": "gpt-4o",
-        "model_input_chars": 5657,
+        "model_input_chars": 1452,
         "stream": true,
-        "ts": "2026-04-14T08:01:24.843698+00:00"
+        "ts": "2026-04-17T05:09:09.393337+00:00"
       },
       "ai_search_response": {
         "source": "azure_ai_search",
-        "context_chars": 29247,
-        "top_score": 10.06841,
-        "citations_count": 3,
+        "context_chars": 28562,
+        "top_score": 13.922595,
+        "citations_count": 23,
         "videos_count": 0,
         "citation": {
-          "title": "Dynamics Case Study.pdf",
-          "url": "https://desirechatbotweb.blob.core.windows.net/desirechatbotweb/Dynamics%20Case%20Study.pdf",
-          "id": "87ba13f8d90b_aHR0cHM6Ly9kZXNpcmVjaGF0Ym90d2ViLmJsb2IuY29yZS53aW5kb3dzLm5ldC9kZXNpcmVjaGF0Ym90d2ViL0R5bmFtaWNzJTIwQ2FzZSUyMFN0dWR5LnBkZg2_pages_0",
-          "score": 10.06841
+          "title": "SANAS System .pdf",
+          "url": "https://desirechatbotweb.blob.core.windows.net/desirechatbotweb/SANAS%20System%20.pdf",
+          "id": "7894e17f5139_aHR0cHM6Ly9kZXNpcmVjaGF0Ym90d2ViLmJsb2IuY29yZS53aW5kb3dzLm5ldC9kZXNpcmVjaGF0Ym90d2ViL1NBTkFTJTIwU3lzdGVtJTIwLnBkZg2_pages_0",
+          "score": 13.922595,
+          "context_snippet": "Microsoft Solutions Partner SANAS SYSTEM Comprehensive Accreditation Management Solution Built on Microsoft Power Platform SharePoint Integration End-to-End Automation Our Services Comprehensive solutions tailored to meet your diverse business needs Microsoft SharePoint Customization & Branding Solutions Microsoft PowerApps Custom Business Applications Microsoft Power Automate Workflow Automation Microsoft Power BI Business Intelligence & Analytics .Net Core Enterprise Application Development Azure Admin & Migration Cloud Infrastructure Management AI Services Artificial Intelligence Solutions Azure DevOps Services CI/CD & Development Operations Quality Assurance Automated Testing Solutions Microsoft Dynamics 365 CRM, BC & NAV Solutions Flutter Development Cross-Platform Mobile Apps IT Consulting & Support Strategic Technology Guidance SANAS System Comprehensive Accreditation Management Solution What is SANAS? SANAS stands for the South African National Accreditation System. It is South Africa's national body responsible for accreditation the formal process of certifying that organizations (like testing labs, inspection bodies, and certification bodies) are competent to carry out specific technical activities according to recognized standards. Key Modules Schedule of Accreditation Manages technical scope, standards, and methods with structured approval workflows Accreditation Search Advanced filtering and lookup for accredited organizations and entities Assessment Process Complete lifecycle management with stage-based tracking and approvals Tender Management End-to-end procurement lifecycle from creation to award and closure Schedule of Accreditation (SOA) Manages technical scope of accreditation for each legal entity Problem Statement Manual inconsistencies Lack of trac",
+          "overlap_count": 1,
+          "overlap_ratio": 1.0,
+          "entry_rank": 0.962318,
+          "retrieval_mode": "text",
+          "source_scope": "blob_fallback"
         },
         "stream": true,
-        "ts": "2026-04-14T08:01:29.118860+00:00"
+        "ts": "2026-04-17T05:09:20.122250+00:00"
       },
       "ai_search_json_response": {
         "source_scope": "knowledge",
         "found": true,
-        "retrieval_mode": "text",
-        "score": 9.585016,
-        "normalized_score": 0.827363,
-        "rank": 0.802965,
-        "overlap_ratio": 0.5,
-        "overlap_count": 3,
-        "query_term_count": 6,
+        "retrieval_mode": "vector",
+        "score": 0.566036,
+        "normalized_score": 0.566036,
+        "rank": 0.100942,
+        "overlap_ratio": 0.0,
+        "overlap_count": 0,
+        "query_term_count": 1,
         "meets_score": true,
-        "meets_overlap": true,
-        "context_chars": 13309,
-        "context_preview": "[companyProfile] About Desire Infoweb Desire Infoweb is an IT services and consulting company focused on Microsoft technologies, enterprise automation, modern collaboration platforms, analytics, and AI-powered business solutions. Core capabilities include SharePoint, Power Platform, Power BI, Microsoft Teams, Dynamics 365, Azure, .NET development, migration, governance, and custom AI/chatbot implementations. https://desireinfoweb.com/about-us [products] Organization Chart An organizational chart shows the internal structure of an organization or company. The employees and positions are represe",
-        "citations_count": 5,
+        "meets_overlap": false,
+        "context_chars": 2514,
+        "context_preview": "[sharePointProjectServicesShowcaseData] Riyadh intranet An intranet for Riyadh Airport built in Arabic and English using web parts such as News, Calendar, and social media integration with notifications and flows. Features: Multi language, Customized Design, Notification Flows, Event Calendar https://desireinfoweb.com/services/sharepoint [sharePointProjectServicesShowcaseData] NBAD intranet A customized intranet with themes, templates, and branding to match organizational identity, designed for responsive use across devices. Features: Multi language, Customized Design, Notification Flows, Even",
+        "citations_count": 2,
         "citation": {
-          "title": "about-us",
-          "url": "https://desireinfoweb.com/about-us",
-          "id": "s_c2VydmljZUNhdGFsb2cudHh0_i_0_u_c76371ec982743fd978ca381a3778da9",
-          "score": 9.585016
+          "title": "sharepoint",
+          "url": "https://desireinfoweb.com/services/sharepoint",
+          "id": "s_c2VydmljZUNhdGFsb2cudHh0_i_10_u_6bbd8b23c4854e67946ca4dd7338179e",
+          "score": 0.566036,
+          "context_snippet": "[sharePointProjectServicesShowcaseData] Riyadh intranet An intranet for Riyadh Airport built in Arabic and English using web parts such as News, Calendar, and social media integration with notifications and flows. Features: Multi language, Customized Design, Notification Flows, Event Calendar https://desireinfoweb.com/services/sharepoint [sharePointProjectServicesShowcaseData] NBAD intranet A customized intranet with themes, templates, and branding to match organizational identity, designed for responsive use across devices. Features: Multi language, Customized Design, Notification Flows, Event Calendar https://desireinfoweb.com/services/sharepoint [sharePointProjectServicesShowcaseData] Healthcare intranet Team sites for departments and projects serving as collaboration hubs where users share information, calendars, tasks, and co-edit documents in real time. Features: Hub Intranet, FAQs, Multi departments, User friendly https://desireinfoweb.com/services/sharepoint",
+          "overlap_count": 0,
+          "overlap_ratio": 0.0,
+          "entry_rank": -0.050189,
+          "retrieval_mode": "vector"
         },
-        "ts": "2026-04-14T08:01:28.159761+00:00"
+        "ts": "2026-04-17T05:09:15.917443+00:00"
       },
       "ai_search_blob_response": {
         "source_scope": "blob_fallback",
         "found": true,
         "retrieval_mode": "text",
-        "score": 10.06841,
-        "normalized_score": 0.834278,
-        "rank": 0.710586,
-        "overlap_ratio": 0.666667,
-        "overlap_count": 4,
-        "query_term_count": 6,
+        "score": 13.922595,
+        "normalized_score": 0.874392,
+        "rank": 0.862123,
+        "overlap_ratio": 1.0,
+        "overlap_count": 1,
+        "query_term_count": 1,
         "meets_score": true,
         "meets_overlap": true,
-        "context_chars": 29247,
-        "context_preview": "DYNAMICS CASE STUDY Empowering Business Through Intelligent Solutions Cloud-Based AI-Powered Enterprise Solutions vijay@desireinfoweb.com www.desireinfoweb.com What is Microsoft Dynamics 365? A cloud-based, AI-powered suite of intelligent business applications combining CRM and ERP capabilities. Streamlines operations, improves customer engagement, and boosts productivity by unifying data across sales, marketing, service, finance, and supply chain functions. CRM Customer Relationship Management for sales, marketing, and service excellence ERP Enterprise Resource Planning for finance, operation",
-        "citations_count": 3,
+        "context_chars": 28562,
+        "context_preview": "Microsoft Solutions Partner SANAS SYSTEM Comprehensive Accreditation Management Solution Built on Microsoft Power Platform SharePoint Integration End-to-End Automation Our Services Comprehensive solutions tailored to meet your diverse business needs Microsoft SharePoint Customization & Branding Solutions Microsoft PowerApps Custom Business Applications Microsoft Power Automate Workflow Automation Microsoft Power BI Business Intelligence & Analytics .Net Core Enterprise Application Development Azure Admin & Migration Cloud Infrastructure Management AI Services Artificial Intelligence Solutions ",
+        "citations_count": 9,
         "citation": {
-          "title": "Dynamics Case Study.pdf",
-          "url": "https://desirechatbotweb.blob.core.windows.net/desirechatbotweb/Dynamics%20Case%20Study.pdf",
-          "id": "87ba13f8d90b_aHR0cHM6Ly9kZXNpcmVjaGF0Ym90d2ViLmJsb2IuY29yZS53aW5kb3dzLm5ldC9kZXNpcmVjaGF0Ym90d2ViL0R5bmFtaWNzJTIwQ2FzZSUyMFN0dWR5LnBkZg2_pages_0",
-          "score": 10.06841
+          "title": "SANAS System .pdf",
+          "url": "https://desirechatbotweb.blob.core.windows.net/desirechatbotweb/SANAS%20System%20.pdf",
+          "id": "7894e17f5139_aHR0cHM6Ly9kZXNpcmVjaGF0Ym90d2ViLmJsb2IuY29yZS53aW5kb3dzLm5ldC9kZXNpcmVjaGF0Ym90d2ViL1NBTkFTJTIwU3lzdGVtJTIwLnBkZg2_pages_0",
+          "score": 13.922595,
+          "context_snippet": "Microsoft Solutions Partner SANAS SYSTEM Comprehensive Accreditation Management Solution Built on Microsoft Power Platform SharePoint Integration End-to-End Automation Our Services Comprehensive solutions tailored to meet your diverse business needs Microsoft SharePoint Customization & Branding Solutions Microsoft PowerApps Custom Business Applications Microsoft Power Automate Workflow Automation Microsoft Power BI Business Intelligence & Analytics .Net Core Enterprise Application Development Azure Admin & Migration Cloud Infrastructure Management AI Services Artificial Intelligence Solutions Azure DevOps Services CI/CD & Development Operations Quality Assurance Automated Testing Solutions Microsoft Dynamics 365 CRM, BC & NAV Solutions Flutter Development Cross-Platform Mobile Apps IT Consulting & Support Strategic Technology Guidance SANAS System Comprehensive Accreditation Management Solution What is SANAS? SANAS stands for the South African National Accreditation System. It is South Africa's national body responsible for accreditation the formal process of certifying that organizations (like testing labs, inspection bodies, and certification bodies) are competent to carry out specific technical activities according to recognized standards. Key Modules Schedule of Accreditation Manages technical scope, standards, and methods with structured approval workflows Accreditation Search Advanced filtering and lookup for accredited organizations and entities Assessment Process Complete lifecycle management with stage-based tracking and approvals Tender Management End-to-end procurement lifecycle from creation to award and closure Schedule of Accreditation (SOA) Manages technical scope of accreditation for each legal entity Problem Statement Manual inconsistencies Lack of trac",
+          "overlap_count": 1,
+          "overlap_ratio": 1.0,
+          "entry_rank": 0.962318,
+          "retrieval_mode": "text"
         },
-        "ts": "2026-04-14T08:01:28.161759+00:00"
+        "ts": "2026-04-17T05:09:15.917443+00:00"
       },
       "ai_selection": {
         "selected_source_scope": "blob_fallback",
         "selected_retrieval_mode": "text",
-        "selected_score": 10.06841,
-        "selected_rank": 0.710586,
-        "selected_overlap_ratio": 0.666667,
+        "selected_score": 13.922595,
+        "selected_rank": 0.862123,
+        "selected_overlap_ratio": 1.0,
         "candidate_count": 4,
-        "ts": "2026-04-14T08:01:28.161759+00:00"
+        "ts": "2026-04-17T05:09:15.917443+00:00"
       },
       "ai_openai_response": {
         "source": "azure_openai",
-        "answer_chars": 1471,
+        "answer_chars": 747,
         "stream": true,
-        "ts": "2026-04-14T08:01:39.933548+00:00"
+        "ts": "2026-04-17T05:09:26.374631+00:00"
       },
       "display_response": {
         "status_code": 200,
-        "answer_chars": 1471,
+        "answer_chars": 747,
         "citations_count": 1,
         "stream": true,
-        "ts": "2026-04-14T08:01:40.984511+00:00"
+        "ts": "2026-04-17T05:09:26.817104+00:00"
       },
       "ai_research_response": {
         "source": "azure_ai_search",
-        "context_chars": 29247,
-        "top_score": 10.06841,
-        "citations_count": 3,
+        "context_chars": 28562,
+        "top_score": 13.922595,
+        "citations_count": 23,
         "videos_count": 0,
         "citation": {
-          "title": "Dynamics Case Study.pdf",
-          "url": "https://desirechatbotweb.blob.core.windows.net/desirechatbotweb/Dynamics%20Case%20Study.pdf",
-          "id": "87ba13f8d90b_aHR0cHM6Ly9kZXNpcmVjaGF0Ym90d2ViLmJsb2IuY29yZS53aW5kb3dzLm5ldC9kZXNpcmVjaGF0Ym90d2ViL0R5bmFtaWNzJTIwQ2FzZSUyMFN0dWR5LnBkZg2_pages_0",
-          "score": 10.06841
+          "title": "SANAS System .pdf",
+          "url": "https://desirechatbotweb.blob.core.windows.net/desirechatbotweb/SANAS%20System%20.pdf",
+          "id": "7894e17f5139_aHR0cHM6Ly9kZXNpcmVjaGF0Ym90d2ViLmJsb2IuY29yZS53aW5kb3dzLm5ldC9kZXNpcmVjaGF0Ym90d2ViL1NBTkFTJTIwU3lzdGVtJTIwLnBkZg2_pages_0",
+          "score": 13.922595,
+          "context_snippet": "Microsoft Solutions Partner SANAS SYSTEM Comprehensive Accreditation Management Solution Built on Microsoft Power Platform SharePoint Integration End-to-End Automation Our Services Comprehensive solutions tailored to meet your diverse business needs Microsoft SharePoint Customization & Branding Solutions Microsoft PowerApps Custom Business Applications Microsoft Power Automate Workflow Automation Microsoft Power BI Business Intelligence & Analytics .Net Core Enterprise Application Development Azure Admin & Migration Cloud Infrastructure Management AI Services Artificial Intelligence Solutions Azure DevOps Services CI/CD & Development Operations Quality Assurance Automated Testing Solutions Microsoft Dynamics 365 CRM, BC & NAV Solutions Flutter Development Cross-Platform Mobile Apps IT Consulting & Support Strategic Technology Guidance SANAS System Comprehensive Accreditation Management Solution What is SANAS? SANAS stands for the South African National Accreditation System. It is South Africa's national body responsible for accreditation the formal process of certifying that organizations (like testing labs, inspection bodies, and certification bodies) are competent to carry out specific technical activities according to recognized standards. Key Modules Schedule of Accreditation Manages technical scope, standards, and methods with structured approval workflows Accreditation Search Advanced filtering and lookup for accredited organizations and entities Assessment Process Complete lifecycle management with stage-based tracking and approvals Tender Management End-to-end procurement lifecycle from creation to award and closure Schedule of Accreditation (SOA) Manages technical scope of accreditation for each legal entity Problem Statement Manual inconsistencies Lack of trac",
+          "overlap_count": 1,
+          "overlap_ratio": 1.0,
+          "entry_rank": 0.962318,
+          "retrieval_mode": "text",
+          "source_scope": "blob_fallback"
         },
         "stream": true,
-        "ts": "2026-04-14T08:01:29.118860+00:00"
+        "ts": "2026-04-17T05:09:20.122250+00:00"
       }
     },
     "summary": {
       "status_code": 200,
-      "reply": "Microsoft Dynamics 365 offers a wide range of key modules designed to streamline business processes across various domains. Below are the primary modules and their functionalities:\n\n### **Financial Management**\n- General Ledger, Tax, Accounts Payable/Receivable\n- Budgeting, Fixed Assets, Multi-Currency Support\n- Financial Reporting, Fund Accounting, Consolidation\n\n### **Supply Chain Management**\n- Inventory Control, Sales Order Processing, Purchase Order Processing\n- Warehouse Management, Material Requirements Planning (MRP)\n- Lean Manufacturing, Product Configurator, Quality Control\n\n### **Human Capital Management**\n- Recruitment, Employee Development, Payroll, Benefits\n- Attendance & Leave Management, Compensation Modeling\n- Training Course Management, Absence Management\n\n### **Project and Service Management**\n- Project Accounting, Professional Services Automation\n- Service Management, Asset Management, Revenue Recognition\n- Service Subscriptions, Work Order Management\n\n### **Manufacturing**\n- Production Scheduling, BOM Management, Routing\n- Capacity Planning, Shop Floor Tracking, Quality Management\n- Cost Roll-Up Configuration, Lean Manufacturing\n\n### **CRM (Customer Relationship Management)**\n- Sales Management, Marketing Automation, Customer Service\n- Customer Insights & Analytics, Lead Management\n- Automated Case Routing, Journey Automation\n\nThese modules are highly adaptable and integrate seamlessly to provide end-to-end business solutions.",
+      "reply": "**SANAS** stands for the **South African National Accreditation System**, which is South Africa's official body responsible for accreditation. It certifies organizations like testing labs, inspection bodies, and certification bodies to ensure they meet recognized technical standards.\n\nDesire Infoweb offers a **Comprehensive Accreditation Management Solution** for SANAS, featuring:\n\n- **Schedule of Accreditation (SOA)**: Centralized scope management with workflows.\n- **Accreditation Search**: Advanced filtering for accredited entities.\n- **Assessment Process**: End-to-end lifecycle tracking.\n- **Tender Management**: Full procurement lifecycle automation.\n\nFor more details, visit [Desire Infoweb SANAS Solutions](https://desireinfoweb.com).",
+      "stream": true
+    }
+  },
+  {
+    "trace_id": "e7e7de2a-fd46-4780-a2cc-251268d06c63",
+    "started_at": "2026-04-17T05:17:10.115307+00:00",
+    "ended_at": "2026-04-17T05:17:28.809556+00:00",
+    "endpoint": "/api/chat/text/stream",
+    "streaming": true,
+    "status": "success",
+    "duration_ms": 18694.25,
+    "session_id": "ea621e21-eebd-4727-b16a-f5014d2510f2",
+    "user_query": "What is SANAS?",
+    "process": {
+      "user_request": {
+        "query": "What is SANAS?",
+        "endpoint": "/api/chat/text/stream",
+        "stream": true,
+        "ts": "2026-04-17T05:17:10.115307+00:00"
+      },
+      "ai_request": {
+        "mode": "rag",
+        "model": "gpt-4o",
+        "model_input_chars": 2841,
+        "stream": true,
+        "ts": "2026-04-17T05:17:10.115307+00:00"
+      },
+      "ai_search_response": {
+        "source": "azure_ai_search",
+        "context_chars": 28562,
+        "top_score": 13.922595,
+        "citations_count": 23,
+        "videos_count": 0,
+        "citation": {
+          "title": "SANAS System .pdf",
+          "url": "https://desirechatbotweb.blob.core.windows.net/desirechatbotweb/SANAS%20System%20.pdf",
+          "id": "7894e17f5139_aHR0cHM6Ly9kZXNpcmVjaGF0Ym90d2ViLmJsb2IuY29yZS53aW5kb3dzLm5ldC9kZXNpcmVjaGF0Ym90d2ViL1NBTkFTJTIwU3lzdGVtJTIwLnBkZg2_pages_0",
+          "score": 13.922595,
+          "context_snippet": "Microsoft Solutions Partner SANAS SYSTEM Comprehensive Accreditation Management Solution Built on Microsoft Power Platform SharePoint Integration End-to-End Automation Our Services Comprehensive solutions tailored to meet your diverse business needs Microsoft SharePoint Customization & Branding Solutions Microsoft PowerApps Custom Business Applications Microsoft Power Automate Workflow Automation Microsoft Power BI Business Intelligence & Analytics .Net Core Enterprise Application Development Azure Admin & Migration Cloud Infrastructure Management AI Services Artificial Intelligence Solutions Azure DevOps Services CI/CD & Development Operations Quality Assurance Automated Testing Solutions Microsoft Dynamics 365 CRM, BC & NAV Solutions Flutter Development Cross-Platform Mobile Apps IT Consulting & Support Strategic Technology Guidance SANAS System Comprehensive Accreditation Management Solution What is SANAS? SANAS stands for the South African National Accreditation System. It is South Africa's national body responsible for accreditation the formal process of certifying that organizations (like testing labs, inspection bodies, and certification bodies) are competent to carry out specific technical activities according to recognized standards. Key Modules Schedule of Accreditation Manages technical scope, standards, and methods with structured approval workflows Accreditation Search Advanced filtering and lookup for accredited organizations and entities Assessment Process Complete lifecycle management with stage-based tracking and approvals Tender Management End-to-end procurement lifecycle from creation to award and closure Schedule of Accreditation (SOA) Manages technical scope of accreditation for each legal entity Problem Statement Manual inconsistencies Lack of trac",
+          "overlap_count": 1,
+          "overlap_ratio": 1.0,
+          "entry_rank": 0.962318,
+          "retrieval_mode": "text",
+          "source_scope": "blob_fallback"
+        },
+        "stream": true,
+        "ts": "2026-04-17T05:17:24.010869+00:00"
+      },
+      "ai_search_json_response": {
+        "source_scope": "knowledge",
+        "found": true,
+        "retrieval_mode": "vector",
+        "score": 0.566036,
+        "normalized_score": 0.566036,
+        "rank": 0.100942,
+        "overlap_ratio": 0.0,
+        "overlap_count": 0,
+        "query_term_count": 1,
+        "meets_score": true,
+        "meets_overlap": false,
+        "context_chars": 2514,
+        "context_preview": "[sharePointProjectServicesShowcaseData] Riyadh intranet An intranet for Riyadh Airport built in Arabic and English using web parts such as News, Calendar, and social media integration with notifications and flows. Features: Multi language, Customized Design, Notification Flows, Event Calendar https://desireinfoweb.com/services/sharepoint [sharePointProjectServicesShowcaseData] NBAD intranet A customized intranet with themes, templates, and branding to match organizational identity, designed for responsive use across devices. Features: Multi language, Customized Design, Notification Flows, Even",
+        "citations_count": 2,
+        "citation": {
+          "title": "sharepoint",
+          "url": "https://desireinfoweb.com/services/sharepoint",
+          "id": "s_c2VydmljZUNhdGFsb2cudHh0_i_10_u_6bbd8b23c4854e67946ca4dd7338179e",
+          "score": 0.566036,
+          "context_snippet": "[sharePointProjectServicesShowcaseData] Riyadh intranet An intranet for Riyadh Airport built in Arabic and English using web parts such as News, Calendar, and social media integration with notifications and flows. Features: Multi language, Customized Design, Notification Flows, Event Calendar https://desireinfoweb.com/services/sharepoint [sharePointProjectServicesShowcaseData] NBAD intranet A customized intranet with themes, templates, and branding to match organizational identity, designed for responsive use across devices. Features: Multi language, Customized Design, Notification Flows, Event Calendar https://desireinfoweb.com/services/sharepoint [sharePointProjectServicesShowcaseData] Healthcare intranet Team sites for departments and projects serving as collaboration hubs where users share information, calendars, tasks, and co-edit documents in real time. Features: Hub Intranet, FAQs, Multi departments, User friendly https://desireinfoweb.com/services/sharepoint",
+          "overlap_count": 0,
+          "overlap_ratio": 0.0,
+          "entry_rank": -0.050189,
+          "retrieval_mode": "vector"
+        },
+        "ts": "2026-04-17T05:17:19.596974+00:00"
+      },
+      "ai_search_blob_response": {
+        "source_scope": "blob_fallback",
+        "found": true,
+        "retrieval_mode": "text",
+        "score": 13.922595,
+        "normalized_score": 0.874392,
+        "rank": 0.862123,
+        "overlap_ratio": 1.0,
+        "overlap_count": 1,
+        "query_term_count": 1,
+        "meets_score": true,
+        "meets_overlap": true,
+        "context_chars": 28562,
+        "context_preview": "Microsoft Solutions Partner SANAS SYSTEM Comprehensive Accreditation Management Solution Built on Microsoft Power Platform SharePoint Integration End-to-End Automation Our Services Comprehensive solutions tailored to meet your diverse business needs Microsoft SharePoint Customization & Branding Solutions Microsoft PowerApps Custom Business Applications Microsoft Power Automate Workflow Automation Microsoft Power BI Business Intelligence & Analytics .Net Core Enterprise Application Development Azure Admin & Migration Cloud Infrastructure Management AI Services Artificial Intelligence Solutions ",
+        "citations_count": 9,
+        "citation": {
+          "title": "SANAS System .pdf",
+          "url": "https://desirechatbotweb.blob.core.windows.net/desirechatbotweb/SANAS%20System%20.pdf",
+          "id": "7894e17f5139_aHR0cHM6Ly9kZXNpcmVjaGF0Ym90d2ViLmJsb2IuY29yZS53aW5kb3dzLm5ldC9kZXNpcmVjaGF0Ym90d2ViL1NBTkFTJTIwU3lzdGVtJTIwLnBkZg2_pages_0",
+          "score": 13.922595,
+          "context_snippet": "Microsoft Solutions Partner SANAS SYSTEM Comprehensive Accreditation Management Solution Built on Microsoft Power Platform SharePoint Integration End-to-End Automation Our Services Comprehensive solutions tailored to meet your diverse business needs Microsoft SharePoint Customization & Branding Solutions Microsoft PowerApps Custom Business Applications Microsoft Power Automate Workflow Automation Microsoft Power BI Business Intelligence & Analytics .Net Core Enterprise Application Development Azure Admin & Migration Cloud Infrastructure Management AI Services Artificial Intelligence Solutions Azure DevOps Services CI/CD & Development Operations Quality Assurance Automated Testing Solutions Microsoft Dynamics 365 CRM, BC & NAV Solutions Flutter Development Cross-Platform Mobile Apps IT Consulting & Support Strategic Technology Guidance SANAS System Comprehensive Accreditation Management Solution What is SANAS? SANAS stands for the South African National Accreditation System. It is South Africa's national body responsible for accreditation the formal process of certifying that organizations (like testing labs, inspection bodies, and certification bodies) are competent to carry out specific technical activities according to recognized standards. Key Modules Schedule of Accreditation Manages technical scope, standards, and methods with structured approval workflows Accreditation Search Advanced filtering and lookup for accredited organizations and entities Assessment Process Complete lifecycle management with stage-based tracking and approvals Tender Management End-to-end procurement lifecycle from creation to award and closure Schedule of Accreditation (SOA) Manages technical scope of accreditation for each legal entity Problem Statement Manual inconsistencies Lack of trac",
+          "overlap_count": 1,
+          "overlap_ratio": 1.0,
+          "entry_rank": 0.962318,
+          "retrieval_mode": "text"
+        },
+        "ts": "2026-04-17T05:17:19.596974+00:00"
+      },
+      "ai_selection": {
+        "selected_source_scope": "blob_fallback",
+        "selected_retrieval_mode": "text",
+        "selected_score": 13.922595,
+        "selected_rank": 0.862123,
+        "selected_overlap_ratio": 1.0,
+        "candidate_count": 4,
+        "ts": "2026-04-17T05:17:19.596974+00:00"
+      },
+      "ai_openai_response": {
+        "source": "azure_openai",
+        "answer_chars": 748,
+        "stream": true,
+        "ts": "2026-04-17T05:17:28.411905+00:00"
+      },
+      "display_response": {
+        "status_code": 200,
+        "answer_chars": 748,
+        "citations_count": 1,
+        "stream": true,
+        "ts": "2026-04-17T05:17:28.809556+00:00"
+      },
+      "ai_research_response": {
+        "source": "azure_ai_search",
+        "context_chars": 28562,
+        "top_score": 13.922595,
+        "citations_count": 23,
+        "videos_count": 0,
+        "citation": {
+          "title": "SANAS System .pdf",
+          "url": "https://desirechatbotweb.blob.core.windows.net/desirechatbotweb/SANAS%20System%20.pdf",
+          "id": "7894e17f5139_aHR0cHM6Ly9kZXNpcmVjaGF0Ym90d2ViLmJsb2IuY29yZS53aW5kb3dzLm5ldC9kZXNpcmVjaGF0Ym90d2ViL1NBTkFTJTIwU3lzdGVtJTIwLnBkZg2_pages_0",
+          "score": 13.922595,
+          "context_snippet": "Microsoft Solutions Partner SANAS SYSTEM Comprehensive Accreditation Management Solution Built on Microsoft Power Platform SharePoint Integration End-to-End Automation Our Services Comprehensive solutions tailored to meet your diverse business needs Microsoft SharePoint Customization & Branding Solutions Microsoft PowerApps Custom Business Applications Microsoft Power Automate Workflow Automation Microsoft Power BI Business Intelligence & Analytics .Net Core Enterprise Application Development Azure Admin & Migration Cloud Infrastructure Management AI Services Artificial Intelligence Solutions Azure DevOps Services CI/CD & Development Operations Quality Assurance Automated Testing Solutions Microsoft Dynamics 365 CRM, BC & NAV Solutions Flutter Development Cross-Platform Mobile Apps IT Consulting & Support Strategic Technology Guidance SANAS System Comprehensive Accreditation Management Solution What is SANAS? SANAS stands for the South African National Accreditation System. It is South Africa's national body responsible for accreditation the formal process of certifying that organizations (like testing labs, inspection bodies, and certification bodies) are competent to carry out specific technical activities according to recognized standards. Key Modules Schedule of Accreditation Manages technical scope, standards, and methods with structured approval workflows Accreditation Search Advanced filtering and lookup for accredited organizations and entities Assessment Process Complete lifecycle management with stage-based tracking and approvals Tender Management End-to-end procurement lifecycle from creation to award and closure Schedule of Accreditation (SOA) Manages technical scope of accreditation for each legal entity Problem Statement Manual inconsistencies Lack of trac",
+          "overlap_count": 1,
+          "overlap_ratio": 1.0,
+          "entry_rank": 0.962318,
+          "retrieval_mode": "text",
+          "source_scope": "blob_fallback"
+        },
+        "stream": true,
+        "ts": "2026-04-17T05:17:24.010869+00:00"
+      }
+    },
+    "summary": {
+      "status_code": 200,
+      "reply": "**SANAS** stands for the **South African National Accreditation System**, South Africa's official body for accreditation. It certifies organizations like testing labs, inspection bodies, and certification bodies to ensure compliance with recognized technical standards.\n\nDesire Infoweb provides a **Comprehensive Accreditation Management Solution** for SANAS, including:\n\n- **Schedule of Accreditation (SOA)**: Centralized scope management with workflows.\n- **Accreditation Search**: Advanced filtering for accredited entities.\n- **Assessment Process**: End-to-end lifecycle tracking and approvals.\n- **Tender Management**: Full procurement lifecycle automation.\n\nFor more details, visit [Desire Infoweb SANAS Solutions](https://desireinfoweb.com).",
       "stream": true
     }
   }

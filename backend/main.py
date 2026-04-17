@@ -152,6 +152,13 @@ VIDEO_MATCH_STOPWORDS = {
     "project", "portal",
 }
 
+SOURCE_MATCH_STOPWORDS = {
+    "the", "and", "for", "with", "from", "into", "that", "this", "what", "when", "where", "which",
+    "about", "your", "you", "have", "has", "are", "was", "were", "will", "would", "could", "should",
+    "please", "need", "want", "tell", "me", "our", "their", "they", "give", "show", "list", "all",
+    "detail", "details", "desire", "infoweb", "desireinfoweb", "kindly",
+}
+
 
 def _get_required_env(name: str) -> str:
     value = _sanitize_env_value(os.getenv(name) or "")
@@ -517,6 +524,20 @@ def _get_query_spell_vocabulary() -> tuple[str, ...]:
             "list",
             "all",
             "about",
+            "learning",
+            "management",
+            "portal",
+            "system",
+            "lms",
+            "audit",
+            "quick",
+            "links",
+            "dynamics",
+            "module",
+            "modules",
+            "sharepoint",
+            "new",
+            "joinee",
         }
     )
     return tuple(sorted(words))
@@ -532,6 +553,90 @@ def _fuzzy_spell_correct_token(token: str) -> str:
     if not match:
         return token
     return _match_token_case(token, match[0])
+
+
+def _normalize_similarity_text(value: str) -> str:
+    return re.sub(r"\s+", " ", re.sub(r"[^a-z0-9]+", " ", value.lower())).strip()
+
+
+@lru_cache(maxsize=1)
+def _get_semantic_topic_aliases() -> dict[str, tuple[str, ...]]:
+    return {
+        "project management portal": (
+            "project management portal",
+            "project management",
+            "pm portal",
+            "project portal",
+        ),
+        "learning management system": (
+            "learning management system",
+            "learning management portal",
+            "learning portal",
+            "lms",
+        ),
+        "audit system": (
+            "audit system",
+            "audit portal",
+        ),
+        "organization chart": (
+            "organization chart",
+            "org chart",
+            "organogram",
+        ),
+        "quick links": (
+            "quick links",
+            "quick link",
+            "shortcut links",
+        ),
+        "new joinee": (
+            "new joinee",
+            "new employee",
+            "onboarding profile",
+        ),
+    }
+
+
+def _infer_canonical_topic_from_query(query: str) -> str:
+    normalized_query = _normalize_similarity_text(query)
+    if not normalized_query:
+        return ""
+
+    query_terms = {token for token in normalized_query.split() if len(token) >= 3}
+    if not query_terms:
+        return ""
+
+    best_topic = ""
+    best_score = 0
+    query_term_list = list(query_terms)
+
+    for topic, aliases in _get_semantic_topic_aliases().items():
+        topic_score = 0
+        for alias in aliases:
+            alias_norm = _normalize_similarity_text(alias)
+            if not alias_norm:
+                continue
+
+            alias_terms = [token for token in alias_norm.split() if len(token) >= 3]
+            exact_overlap = len(set(alias_terms).intersection(query_terms))
+
+            fuzzy_overlap = 0
+            for term in alias_terms:
+                if term in query_terms:
+                    continue
+                if get_close_matches(term, query_term_list, n=1, cutoff=0.83):
+                    fuzzy_overlap += 1
+
+            phrase_bonus = 4 if alias_norm in normalized_query else 0
+            alias_score = (exact_overlap * 4) + (fuzzy_overlap * 2) + phrase_bonus
+            topic_score = max(topic_score, alias_score)
+
+        if topic_score > best_score:
+            best_score = topic_score
+            best_topic = topic
+
+    if best_score < 6:
+        return ""
+    return best_topic
 
 
 def _normalize_user_query(query: str) -> str:
@@ -552,6 +657,11 @@ def _normalize_user_query(query: str) -> str:
         "oragnization": "organization",
         "organziation": "organization",
         "organiztion": "organization",
+        "poratl": "portal",
+        "portel": "portal",
+        "mangement": "management",
+        "managment": "management",
+        "eproject": "project",
         "char": "chart",
         "chatr": "chart",
         "porject": "project",
@@ -569,6 +679,13 @@ def _normalize_user_query(query: str) -> str:
         "compnay": "company",
         "qhat": "what",
         "wht": "what",
+        "leaning": "learning",
+        "learing": "learning",
+        "learnig": "learning",
+        "managment": "management",
+        "managemnt": "management",
+        "manageent": "management",
+        "mangment": "management",
         "u": "you",
     }
 
@@ -607,6 +724,13 @@ def _normalize_user_query(query: str) -> str:
     )
     if asks_ai_catalog_intent:
         transformed = "what ai solutions has desire infoweb delivered"
+
+    inferred_topic = _infer_canonical_topic_from_query(transformed)
+    if inferred_topic:
+        normalized_topic = _normalize_similarity_text(inferred_topic)
+        normalized_transformed = _normalize_similarity_text(transformed)
+        if normalized_topic not in normalized_transformed:
+            transformed = f"{transformed} {inferred_topic}"
 
     transformed = re.sub(r"\s+", " ", transformed).strip()
     return transformed
@@ -2007,30 +2131,59 @@ def _looks_like_url(value: str) -> bool:
     return lowered.startswith("http://") or lowered.startswith("https://")
 
 
+def _repair_malformed_document_url(url: str) -> str:
+    normalized = (url or "").strip()
+    if not normalized:
+        return ""
+
+    try:
+        parsed = urlparse(normalized)
+    except Exception:
+        parsed = None
+
+    if parsed:
+        repaired_path = re.sub(
+            r"(\.(?:pdf|doc|docx|txt|md|csv|xls|xlsx|ppt|pptx|html|htm|json))\d+$",
+            r"\1",
+            parsed.path or "",
+            flags=re.IGNORECASE,
+        )
+        if repaired_path != (parsed.path or ""):
+            return parsed._replace(path=repaired_path).geturl()
+        return normalized
+
+    return re.sub(
+        r"(\.(?:pdf|doc|docx|txt|md|csv|xls|xlsx|ppt|pptx|html|htm|json))\d+$",
+        r"\1",
+        normalized,
+        flags=re.IGNORECASE,
+    )
+
+
 def _normalize_citation_url(value: str) -> str:
     raw = (value or "").strip().strip('"').strip("'")
     if not raw:
         return ""
 
     if _looks_like_url(raw):
-        return raw.replace(" ", "%20")
+        return _repair_malformed_document_url(raw.replace(" ", "%20"))
 
     decoded = unquote(raw).strip()
     if _looks_like_url(decoded):
-        return decoded.replace(" ", "%20")
+        return _repair_malformed_document_url(decoded.replace(" ", "%20"))
 
     if raw.lower().startswith("www."):
-        return f"https://{raw}".replace(" ", "%20")
+        return _repair_malformed_document_url(f"https://{raw}".replace(" ", "%20"))
 
     if decoded.lower().startswith("www."):
-        return f"https://{decoded}".replace(" ", "%20")
+        return _repair_malformed_document_url(f"https://{decoded}".replace(" ", "%20"))
 
     # Handle raw host/path values such as desirechatbotweb.blob.core.windows.net/container/file.pdf
     if re.match(r"^[a-z0-9.-]+\.[a-z]{2,}/", raw, flags=re.IGNORECASE):
-        return f"https://{raw}".replace(" ", "%20")
+        return _repair_malformed_document_url(f"https://{raw}".replace(" ", "%20"))
 
     if re.match(r"^[a-z0-9.-]+\.[a-z]{2,}/", decoded, flags=re.IGNORECASE):
-        return f"https://{decoded}".replace(" ", "%20")
+        return _repair_malformed_document_url(f"https://{decoded}".replace(" ", "%20"))
 
     return ""
 
@@ -2211,6 +2364,207 @@ def _tokenize_video_match_terms(value: str) -> set[str]:
     }
 
 
+def _tokenize_source_match_terms(value: str) -> list[str]:
+    if not value:
+        return []
+
+    ordered_terms: list[str] = []
+    seen: set[str] = set()
+    for token in re.findall(r"[a-z0-9]{3,}", value.lower()):
+        if token in SOURCE_MATCH_STOPWORDS or token in seen:
+            continue
+        seen.add(token)
+        ordered_terms.append(token)
+    return ordered_terms
+
+
+def _score_query_source_alignment(query_text: str, candidate_text: str) -> int:
+    query_terms = _tokenize_source_match_terms(query_text)
+    if not query_terms:
+        return 0
+
+    candidate_terms = set(_tokenize_source_match_terms(candidate_text))
+    if not candidate_terms:
+        return 0
+
+    overlap_count = len(candidate_terms.intersection(query_terms))
+    normalized_candidate = re.sub(r"[^a-z0-9]+", " ", candidate_text.lower()).strip()
+
+    bigram_hits = 0
+    for index in range(len(query_terms) - 1):
+        bigram = f"{query_terms[index]} {query_terms[index + 1]}"
+        if bigram and bigram in normalized_candidate:
+            bigram_hits += 1
+
+    first_term_bonus = 2 if query_terms and query_terms[0] in candidate_terms else 0
+
+    score = (overlap_count * 5) + (bigram_hits * 6) + first_term_bonus
+
+    if len(query_terms) >= 3 and overlap_count <= 1 and bigram_hits == 0:
+        score -= 4
+
+    return score
+
+
+def _is_company_profile_query(query_text: str) -> bool:
+    lowered = re.sub(r"\s+", " ", (query_text or "").lower()).strip()
+    if not lowered:
+        return False
+
+    mentions_company = (
+        "desire infoweb" in lowered
+        or "desireinfoweb" in lowered
+        or "company" in lowered
+    )
+    if not mentions_company:
+        return False
+
+    profile_terms = [
+        "vision",
+        "mission",
+        "about",
+        "overview",
+        "profile",
+        "corporate",
+        "who is",
+        "what is",
+    ]
+    return any(term in lowered for term in profile_terms)
+
+
+def _score_citation_preference(
+    citation: dict[str, Any],
+    *,
+    normalized_query: str,
+    answer_text: str,
+) -> int:
+    title_value = str(citation.get("title") or "").strip()
+    url_value = str(citation.get("url") or "").strip()
+    snippet_value = str(citation.get("context_snippet") or "").strip()
+    match_text = f"{title_value} {url_value} {snippet_value}".strip()
+
+    query_alignment = _score_query_source_alignment(normalized_query, match_text) if normalized_query else 0
+    answer_alignment = _score_query_source_alignment(answer_text, match_text) if answer_text else 0
+    score = max(query_alignment, answer_alignment)
+
+    if _is_company_profile_query(normalized_query):
+        lowered_match = match_text.lower()
+        if any(token in lowered_match for token in ["corporate profile", "company profile", "about-us", "about desire", "about our company"]):
+            score += 14
+        if "calendar" in lowered_match and "calendar" not in normalized_query.lower():
+            score -= 10
+
+    return score
+
+
+def _fetch_company_profile_citation_hint(normalized_query: str) -> list[dict[str, Any]]:
+    if not _is_company_profile_query(normalized_query):
+        return []
+
+    focused_query = f"{normalized_query} desire infoweb corporate profile about us mission vision"
+    focused_top_k = max(3, min(_get_azure_search_top_k(), 8))
+    focused_scan_top = _get_retrieval_priority_scan_top(focused_top_k)
+
+    hinted_citations: list[dict[str, Any]] = []
+    seen_keys: set[str] = set()
+
+    def _collect(citation_items: list[dict[str, Any]], retrieval_mode: str) -> None:
+        for raw in citation_items:
+            citation = dict(raw or {})
+            normalized_url = _normalize_citation_url(str(citation.get("url") or ""))
+            if normalized_url:
+                citation["url"] = normalized_url
+
+            path_name = ""
+            if normalized_url:
+                parsed = urlparse(normalized_url)
+                path_name = unquote((parsed.path or "").strip("/")).rsplit("/", 1)[-1].strip().lower()
+
+            key = (
+                str(citation.get("url") or "").strip().lower()
+                or path_name
+                or str(citation.get("id") or "").strip().lower()
+                or str(citation.get("title") or "").strip().lower()
+            )
+            if not key or key in seen_keys:
+                continue
+
+            match_text = (
+                f"{str(citation.get('title') or '')} {str(citation.get('url') or '')} "
+                f"{str(citation.get('context_snippet') or '')}"
+            ).lower()
+            if not any(token in match_text for token in ["corporate", "profile", "about-us", "about desire", "company"]):
+                continue
+
+            seen_keys.add(key)
+            citation.setdefault("retrieval_mode", retrieval_mode)
+            citation.setdefault("entry_rank", 0.0)
+            hinted_citations.append(citation)
+
+    try:
+        _, _, text_citations = _search_text_context(
+            focused_query,
+            focused_top_k,
+            scan_top=focused_scan_top,
+        )
+        _collect(text_citations, "text")
+    except Exception as error:
+        _trace_step("citations.company_profile_hint.text_error", error=str(error))
+
+    try:
+        _, _, vector_citations = _search_vector_context(
+            focused_query,
+            focused_top_k,
+            scan_top=focused_scan_top,
+        )
+        _collect(vector_citations, "vector")
+    except Exception as error:
+        _trace_step("citations.company_profile_hint.vector_error", error=str(error))
+
+    return hinted_citations
+
+
+def _select_best_url_from_context_for_query(query_text: str, context_text: str) -> str:
+    if not context_text:
+        return ""
+
+    matches = list(re.finditer(r"https?://[^\s<>'\"]+", context_text, flags=re.IGNORECASE))
+    if not matches:
+        return ""
+
+    candidates: list[tuple[int, int, int, str]] = []
+    seen_urls: set[str] = set()
+    for index, match in enumerate(matches):
+        raw_url = match.group(0).strip().rstrip(".,;:!?)]}'\"")
+        normalized_url = _normalize_citation_url(raw_url)
+        if not normalized_url:
+            continue
+
+        url_key = normalized_url.lower()
+        if url_key in seen_urls:
+            continue
+        seen_urls.add(url_key)
+
+        window_start = max(0, match.start() - 180)
+        window_end = min(len(context_text), match.end() + 20)
+        local_window = context_text[window_start:window_end]
+
+        alignment_score = _score_query_source_alignment(query_text, f"{normalized_url} {local_window}")
+        product_bonus = 1 if "/products/" in url_key else 0
+
+        candidates.append((alignment_score, product_bonus, -index, normalized_url))
+
+    if not candidates:
+        return ""
+
+    candidates.sort(key=lambda item: (item[0], item[1], item[2]), reverse=True)
+    best_score, _, _, best_url = candidates[0]
+    if best_score <= 0:
+        # Fall back to the first valid URL if query alignment is weak.
+        return sorted(candidates, key=lambda item: item[2], reverse=True)[0][3]
+    return best_url
+
+
 def _guess_video_title_from_context(context_text: str, raw_url: str, normalized_url: str) -> str:
     lines = [line.strip() for line in context_text.splitlines() if line.strip()]
     url_variants = {
@@ -2253,8 +2607,10 @@ def _extract_video_sources_from_context(context_text: str, query_text: str, limi
     query_tokens = _tokenize_video_match_terms(query_text)
     seen_embed_urls: set[str] = set()
     scored_videos: list[tuple[int, int, dict[str, str]]] = []
+    url_matches = list(re.finditer(r"https?://[^\s<>'\"]+", context_text, flags=re.IGNORECASE))
 
-    for position, raw_url in enumerate(_extract_urls_from_text(context_text)):
+    for position, match in enumerate(url_matches):
+        raw_url = match.group(0).strip().rstrip(".,;:!?)]}'\"")
         normalized_url = _normalize_citation_url(raw_url)
         if not normalized_url or not _is_video_candidate_url(normalized_url):
             continue
@@ -2269,14 +2625,18 @@ def _extract_video_sources_from_context(context_text: str, query_text: str, limi
         seen_embed_urls.add(embed_key)
 
         title = _guess_video_title_from_context(context_text, raw_url, normalized_url)
-        text_for_match = f"{title} {normalized_url}"
+        local_start = max(0, match.start() - 140)
+        local_pre_context = context_text[local_start:match.start()]
+        local_pre_context = re.sub(r"https?://[^\s<>'\"]+", " ", local_pre_context, flags=re.IGNORECASE)
+        local_pre_context = re.sub(r"\s+", " ", local_pre_context).strip()
+        local_pre_context = local_pre_context[-90:]
+        text_for_match = f"{normalized_url} {local_pre_context}"
         match_score = 1
         if query_tokens:
-            candidate_tokens = _tokenize_video_match_terms(text_for_match)
-            overlap = query_tokens.intersection(candidate_tokens)
-            if not overlap:
+            match_score = _score_query_source_alignment(query_text, text_for_match)
+            min_required_score = 7 if len(query_tokens) >= 2 else 1
+            if match_score < min_required_score:
                 continue
-            match_score = len(overlap)
 
         scored_videos.append(
             (
@@ -2365,7 +2725,12 @@ def _decode_source_token_from_document_id(value: str) -> str:
     return decoded.replace("\\", "/")
 
 
-def _extract_citation_from_payload(payload: dict) -> dict[str, Any]:
+def _extract_citation_from_payload(
+    payload: dict,
+    *,
+    query_text: str = "",
+    content_hint: str = "",
+) -> dict[str, Any]:
     source_value = str(payload.get("source") or "").strip()
     if not source_value:
         source_value = _extract_source_name_from_payload(payload)
@@ -2402,8 +2767,29 @@ def _extract_citation_from_payload(payload: dict) -> dict[str, Any]:
             link = decoded
             break
 
+    content_text = content_hint or _extract_content_from_payload(payload)
+
+    if query_text and content_text:
+        query_matched_url = _select_best_url_from_context_for_query(query_text, content_text)
+        if query_matched_url:
+            if not link:
+                link = query_matched_url
+            else:
+                parsed_link = urlparse(link)
+                parsed_query_link = urlparse(query_matched_url)
+                current_is_document_source = _is_blob_source_url(link) or _looks_like_document_file_name(parsed_link.path or "")
+                query_match_is_document_source = _is_blob_source_url(query_matched_url) or _looks_like_document_file_name(parsed_query_link.path or "")
+
+                current_alignment = _score_query_source_alignment(query_text, f"{title} {link}")
+                matched_alignment = _score_query_source_alignment(query_text, f"{title} {query_matched_url}")
+
+                # Keep reliable source metadata links (blob/doc URLs) unless the context URL is clearly better aligned.
+                if not current_is_document_source and matched_alignment >= current_alignment:
+                    link = query_matched_url
+                elif query_match_is_document_source and matched_alignment > current_alignment:
+                    link = query_matched_url
+
     if not link:
-        content_text = _extract_content_from_payload(payload)
         candidate_urls = _extract_urls_from_text(content_text)
         for item in candidate_urls:
             normalized = _normalize_citation_url(item)
@@ -2573,7 +2959,11 @@ def _extract_context_from_results(
         if not page_content:
             continue
 
-        citation = _extract_citation_from_payload(payload)
+        citation = _extract_citation_from_payload(
+            payload,
+            query_text=query,
+            content_hint=page_content,
+        )
         overlap_ratio, overlap_count, query_term_count = _compute_query_overlap(query, page_content)
         normalized_score = _normalize_retrieval_score(score_value, retrieval_mode)
 
@@ -2582,6 +2972,13 @@ def _extract_context_from_results(
             rank -= 0.22
         if query_term_count >= 2 and overlap_count < 2:
             rank -= 0.08
+
+        citation = dict(citation or {})
+        citation["context_snippet"] = re.sub(r"\s+", " ", page_content).strip()[:1800]
+        citation["overlap_count"] = overlap_count
+        citation["overlap_ratio"] = round(overlap_ratio, 6)
+        citation["entry_rank"] = round(rank, 6)
+        citation["retrieval_mode"] = retrieval_mode
 
         scored_entries.append(
             {
@@ -2616,8 +3013,18 @@ def _extract_context_from_results(
     seen_citations: set[str] = set()
     for item in selected_entries:
         citation = dict(item.get("citation") or {})
+        citation_url = _normalize_citation_url(str(citation.get("url") or ""))
+        if citation_url:
+            citation["url"] = citation_url
+
+        path_name = ""
+        if citation_url:
+            parsed_url = urlparse(citation_url)
+            path_name = unquote((parsed_url.path or "").strip("/")).rsplit("/", 1)[-1].strip().lower()
+
         key = (
             str(citation.get("url") or "").strip().lower()
+            or path_name
             or str(citation.get("id") or "").strip().lower()
             or str(citation.get("title") or "").strip().lower()
         )
@@ -2625,8 +3032,6 @@ def _extract_context_from_results(
             continue
         seen_citations.add(key)
         citations.append(citation)
-        if len(citations) >= 5:
-            break
 
     return "\n\n".join(context_chunks), top_score, citations
 
@@ -2736,10 +3141,14 @@ def _build_retrieval_candidate(
         meets_overlap = True
     else:
         required_overlap_terms = min(_get_query_min_overlap_terms(), query_term_count)
-        if query_term_count >= 2:
+        strong_match = normalized_score >= strong_match_threshold
+        # For strong semantic hits, allow single-term lexical overlap.
+        # This avoids false negatives on natural phrasing like
+        # "give me detail about fluentify ai" where only the topic token overlaps.
+        if query_term_count >= 2 and not strong_match:
             required_overlap_terms = max(required_overlap_terms, 2)
         meets_overlap = overlap_count >= required_overlap_terms and (
-            overlap_ratio >= overlap_threshold or normalized_score >= strong_match_threshold
+            overlap_ratio >= overlap_threshold or strong_match
         )
 
     meets_score = normalized_score >= score_threshold
@@ -2826,6 +3235,59 @@ def _build_candidate_log_payload(candidate: dict[str, Any] | None, *, source_sco
         "citations_count": len(citations),
         "citation": citations[0] if citations else None,
     }
+
+
+def _collect_candidate_citations(
+    candidates: list[dict[str, Any]],
+    selected_candidate: dict[str, Any] | None,
+    *,
+    max_items: int = 40,
+) -> list[dict[str, Any]]:
+    ordered_candidates: list[dict[str, Any]] = []
+    if selected_candidate:
+        ordered_candidates.append(selected_candidate)
+    ordered_candidates.extend(
+        candidate
+        for candidate in candidates
+        if selected_candidate is None or candidate is not selected_candidate
+    )
+
+    merged: list[dict[str, Any]] = []
+    seen_keys: set[str] = set()
+    for candidate in ordered_candidates:
+        candidate_rank = float(candidate.get("rank") or 0.0)
+        candidate_scope = str(candidate.get("source_scope") or "")
+        candidate_mode = str(candidate.get("retrieval_mode") or "")
+
+        for raw_citation in list(candidate.get("citations") or []):
+            citation = dict(raw_citation or {})
+            normalized_url = _normalize_citation_url(str(citation.get("url") or ""))
+            if normalized_url:
+                citation["url"] = normalized_url
+
+            path_name = ""
+            if normalized_url:
+                parsed_url = urlparse(normalized_url)
+                path_name = unquote((parsed_url.path or "").strip("/")).rsplit("/", 1)[-1].strip().lower()
+
+            identity_key = (
+                str(citation.get("url") or "").strip().lower()
+                or path_name
+                or str(citation.get("id") or "").strip().lower()
+                or str(citation.get("title") or "").strip().lower()
+            )
+            if not identity_key or identity_key in seen_keys:
+                continue
+
+            seen_keys.add(identity_key)
+            citation.setdefault("entry_rank", round(candidate_rank, 6))
+            citation.setdefault("source_scope", candidate_scope)
+            citation.setdefault("retrieval_mode", candidate_mode)
+            merged.append(citation)
+            if len(merged) >= max_items:
+                return merged
+
+    return merged
 
 
 def _retrieve_context_and_score(query: str) -> tuple[str, float, list[dict[str, Any]]]:
@@ -2979,7 +3441,7 @@ def _retrieve_context_and_score(query: str) -> tuple[str, float, list[dict[str, 
                 for candidate in candidates
             ],
         )
-        selected_citations = list(selected.get("citations") or [])
+        selected_citations = _collect_candidate_citations(candidates, selected)
         _trace_step(
             "retrieval.citations",
             count=len(selected_citations),
@@ -3029,9 +3491,17 @@ def _should_use_embedding_context(normalized_query: str, retrieved_context: str,
     overlap_threshold = _get_query_overlap_threshold()
     min_overlap_terms = _get_query_min_overlap_terms()
     strong_match_score_threshold = _get_strong_match_score_threshold()
+    normalized_top_score = _normalize_retrieval_score(top_score, "text" if top_score > 1.0 else "vector")
+    strong_match = normalized_top_score >= strong_match_score_threshold
 
     logger.info("  - query terms: %d (overlap: %d/%.2f%%)", query_term_count, overlap_count, overlap_ratio * 100)
-    logger.info("  - thresholds: overlap_ratio=%.2f, overlap_terms=%d, strong_match_score=%.4f", overlap_threshold, min_overlap_terms, strong_match_score_threshold)
+    logger.info(
+        "  - thresholds: overlap_ratio=%.2f, overlap_terms=%d, strong_match_score=%.4f (normalized=%.4f)",
+        overlap_threshold,
+        min_overlap_terms,
+        strong_match_score_threshold,
+        normalized_top_score,
+    )
 
     if query_term_count == 0:
         _trace_step(
@@ -3044,7 +3514,7 @@ def _should_use_embedding_context(normalized_query: str, retrieved_context: str,
         return False
 
     required_overlap_terms = min(min_overlap_terms, query_term_count)
-    if query_term_count >= 2:
+    if query_term_count >= 2 and not strong_match:
         required_overlap_terms = max(required_overlap_terms, 2)
     if overlap_count < required_overlap_terms:
         logger.warning("Context rejected: overlap_count (%d) < required_overlap_terms (%d)", overlap_count, required_overlap_terms)
@@ -3055,10 +3525,12 @@ def _should_use_embedding_context(normalized_query: str, retrieved_context: str,
             min_overlap_terms=required_overlap_terms,
             configured_min_overlap_terms=min_overlap_terms,
             query_term_count=query_term_count,
+            normalized_top_score=round(normalized_top_score, 4),
+            strong_match=strong_match,
         )
         return False
 
-    if overlap_ratio < overlap_threshold:
+    if overlap_ratio < overlap_threshold and not strong_match:
         logger.warning("Context rejected: overlap_ratio (%.4f) < threshold (%.4f)", overlap_ratio, overlap_threshold)
         _trace_step(
             "context.rejected",
@@ -3067,6 +3539,8 @@ def _should_use_embedding_context(normalized_query: str, retrieved_context: str,
             overlap_threshold=overlap_threshold,
             overlap_count=overlap_count,
             query_term_count=query_term_count,
+            normalized_top_score=round(normalized_top_score, 4),
+            strong_match=strong_match,
         )
         return False
 
@@ -3080,6 +3554,8 @@ def _should_use_embedding_context(normalized_query: str, retrieved_context: str,
         overlap_count=overlap_count,
         min_overlap_terms=required_overlap_terms,
         configured_min_overlap_terms=min_overlap_terms,
+        normalized_top_score=round(normalized_top_score, 4),
+        strong_match=strong_match,
         context_chars=len(retrieved_context),
     )
     return True
@@ -3607,7 +4083,12 @@ def _get_citation_max_items() -> int:
     return max(1, min(value, 5))
 
 
-def _select_response_citations(citations: list[dict[str, Any]], limit: int | None = None) -> list[dict[str, Any]]:
+def _select_response_citations(
+    citations: list[dict[str, Any]],
+    limit: int | None = None,
+    normalized_query: str = "",
+    answer_text: str = "",
+) -> list[dict[str, Any]]:
     if not citations:
         return []
 
@@ -3615,23 +4096,91 @@ def _select_response_citations(citations: list[dict[str, Any]], limit: int | Non
     selected: list[dict[str, Any]] = []
     seen_urls: set[str] = set()
 
-    # Prefer URL-backed citations first so the UI can always show a clickable full source.
-    ordered_citations = sorted(
-        [dict(item or {}) for item in citations],
-        key=lambda item: 1 if str(item.get("url") or "").strip() else 0,
-        reverse=True,
-    )
+    normalized_answer = re.sub(r"\s+", " ", (answer_text or "")).strip()
+    citations_pool = [dict(item or {}) for item in citations]
+
+    if _is_company_profile_query(normalized_query):
+        hint_citations = _fetch_company_profile_citation_hint(normalized_query)
+        if hint_citations:
+            citations_pool = hint_citations + citations_pool
+            _trace_step(
+                "citations.company_profile_hint",
+                count=len(hint_citations),
+                primary=hint_citations[0] if hint_citations else None,
+            )
+
+    ranked_citations: list[tuple[tuple[Any, ...], dict[str, Any]]] = []
+    for raw_item in citations_pool:
+        citation = dict(raw_item or {})
+
+        normalized_url = _normalize_citation_url(str(citation.get("url") or ""))
+        if normalized_url:
+            citation["url"] = normalized_url
+
+        title_value = str(citation.get("title") or "").strip()
+        snippet_value = str(citation.get("context_snippet") or "").strip()
+        match_text = f"{title_value} {str(citation.get('url') or '')} {snippet_value}".strip()
+
+        query_alignment = _score_query_source_alignment(normalized_query, match_text) if normalized_query else 0
+        answer_alignment = _score_query_source_alignment(normalized_answer, match_text) if normalized_answer else 0
+        intent_alignment = _score_citation_preference(
+            citation,
+            normalized_query=normalized_query,
+            answer_text=normalized_answer,
+        )
+        best_alignment = max(query_alignment, answer_alignment, intent_alignment)
+
+        overlap_count = int(citation.get("overlap_count") or 0)
+        overlap_ratio = float(citation.get("overlap_ratio") or 0.0)
+        entry_rank = float(citation.get("entry_rank") or 0.0)
+        retrieval_score = float(citation.get("score") or 0.0)
+
+        ranked_citations.append(
+            (
+                (
+                    1 if str(citation.get("url") or "").strip() else 0,
+                    best_alignment,
+                    intent_alignment,
+                    query_alignment,
+                    answer_alignment,
+                    overlap_count,
+                    overlap_ratio,
+                    entry_rank,
+                    retrieval_score,
+                ),
+                citation,
+            )
+        )
+
+    ranked_citations.sort(key=lambda item: item[0], reverse=True)
+    ordered_citations = [item[1] for item in ranked_citations]
 
     for citation in ordered_citations:
+        normalized_url = _normalize_citation_url(str(citation.get("url") or ""))
+        if normalized_url:
+            citation["url"] = normalized_url
+
         url_value = str(citation.get("url") or "").strip().lower()
         if url_value:
             if url_value in seen_urls:
                 continue
             seen_urls.add(url_value)
-            # Keep title as the full URL to satisfy source visibility requirement.
-            citation["title"] = str(citation.get("url") or "").strip()
 
-        selected.append(citation)
+        title_value = str(citation.get("title") or "").strip()
+        if (not title_value or _looks_like_url(title_value)) and url_value:
+            parsed_url = urlparse(str(citation.get("url") or ""))
+            path_name = unquote((parsed_url.path or "").strip("/")).rsplit("/", 1)[-1].strip()
+            if path_name:
+                citation["title"] = path_name
+
+        selected.append(
+            {
+                "title": str(citation.get("title") or "").strip(),
+                "url": str(citation.get("url") or "").strip(),
+                "id": str(citation.get("id") or "").strip(),
+                "score": float(citation.get("score") or 0.0),
+            }
+        )
         if len(selected) >= resolved_limit:
             break
 
@@ -3683,7 +4232,46 @@ def _extract_response_videos(normalized_query: str, retrieved_context: str, limi
         return []
 
     merged_context = "\n\n".join(fallback_contexts)
-    return _extract_video_sources_from_context(merged_context, normalized_query, limit=limit)
+    merged_videos = _extract_video_sources_from_context(merged_context, normalized_query, limit=limit)
+    if merged_videos:
+        return merged_videos
+
+    # Final pass: run a video-focused retrieval query to fetch chunks that
+    # explicitly contain demo/watch URLs when regular product retrieval omits them.
+    focused_query = f"{normalized_query} youtube video demo"
+    focused_top_k = max(3, min(8, _get_azure_search_top_k()))
+    focused_scan_top = _get_retrieval_priority_scan_top(focused_top_k)
+    focused_contexts: list[str] = []
+
+    try:
+        focused_text_context, _, _ = _search_text_context(
+            focused_query,
+            focused_top_k,
+            payload_filter=blob_filter,
+            scan_top=focused_scan_top,
+        )
+        if focused_text_context:
+            focused_contexts.append(focused_text_context)
+    except Exception as error:
+        _trace_step("videos.focused_text.error", error=str(error))
+
+    try:
+        focused_vector_context, _, _ = _search_vector_context(
+            focused_query,
+            focused_top_k,
+            payload_filter=blob_filter,
+            scan_top=focused_scan_top,
+        )
+        if focused_vector_context:
+            focused_contexts.append(focused_vector_context)
+    except Exception as error:
+        _trace_step("videos.focused_vector.error", error=str(error))
+
+    if not focused_contexts:
+        return []
+
+    focused_merged_context = "\n\n".join(focused_contexts)
+    return _extract_video_sources_from_context(focused_merged_context, normalized_query, limit=limit)
 
 
 def _build_retrieved_context(query: str) -> str:
@@ -4215,7 +4803,7 @@ async def text_chat(
         )
         _trace_pipeline_stage("ai_openai_response", source="azure_openai", answer_chars=len(answer))
         response_citations = (
-            _select_response_citations(citations)
+            _select_response_citations(citations, normalized_query=normalized_query, answer_text=answer)
             if _should_attach_citations(answer, normalized_query, citations)
             else []
         )
@@ -4443,7 +5031,7 @@ async def text_chat_stream(
                     yield _sse_event("token", {"token": final_answer})
 
             response_citations = (
-                _select_response_citations(citations)
+                _select_response_citations(citations, normalized_query=normalized_query, answer_text=final_answer)
                 if _should_attach_citations(final_answer, normalized_query, citations)
                 else []
             )

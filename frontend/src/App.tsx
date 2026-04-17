@@ -94,6 +94,22 @@ const decodeHeaderValue = (value: string | null): string => {
   }
 };
 
+const repairMalformedDocumentUrl = (value: string): string => {
+  if (!value) {
+    return value;
+  }
+
+  const malformedDocPattern = /(\.(?:pdf|doc|docx|txt|md|csv|xls|xlsx|ppt|pptx|html|htm|json))\d+$/i;
+
+  try {
+    const parsed = new URL(value);
+    parsed.pathname = parsed.pathname.replace(malformedDocPattern, '$1');
+    return parsed.toString();
+  } catch {
+    return value.replace(malformedDocPattern, '$1');
+  }
+};
+
 const normalizeCitationUrl = (value: unknown): string | undefined => {
   if (typeof value !== 'string') {
     return undefined;
@@ -114,7 +130,32 @@ const normalizeCitationUrl = (value: unknown): string | undefined => {
     }
   }
 
-  return url.replace(/ /g, '%20');
+  return repairMalformedDocumentUrl(url.replace(/ /g, '%20'));
+};
+
+const getCitationLabel = (citation: Citation, citationIndex: number): string => {
+  const title = (citation.title || '').trim();
+  const normalizedUrl = normalizeCitationUrl(citation.url);
+
+  if (normalizedUrl) {
+    try {
+      const parsed = new URL(normalizedUrl);
+      const fileName = decodeURIComponent(parsed.pathname.split('/').pop() || '').trim();
+      if (fileName && /\.pdf$/i.test(fileName)) {
+        return fileName;
+      }
+    } catch {
+      // Ignore parse errors and fall through to URL display.
+    }
+
+    return normalizedUrl;
+  }
+
+  if (title && !/^https?:\/\//i.test(title)) {
+    return title;
+  }
+
+  return title || `Source ${citationIndex + 1}`;
 };
 
 const buildVideoEmbedUrl = (value: unknown): string | undefined => {
@@ -263,6 +304,8 @@ function App() {
   const [showSuggestedQuestions, setShowSuggestedQuestions] = useState(true);
 
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
+  const speechRecognitionRef = useRef<any>(null);
+  const voiceDraftTranscriptRef = useRef('');
   const audioChunksRef = useRef<Blob[]>([]);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const streamCharacterQueueRef = useRef('');
@@ -496,6 +539,33 @@ function App() {
         }
       }
       return [...next, { role: 'bot', text }];
+    });
+  };
+
+  const setLatestUserMessageText = (text: string) => {
+    setMessages((prev) => {
+      const next = [...prev];
+      for (let index = next.length - 1; index >= 0; index -= 1) {
+        if (next[index].role === 'user') {
+          next[index] = { ...next[index], text, isAudio: true };
+          return next;
+        }
+      }
+      return [...next, { role: 'user', text, isAudio: true }];
+    });
+  };
+
+  const insertUserMessageBeforeLatestVoiceBot = (text: string) => {
+    setMessages((prev) => {
+      const next = [...prev];
+      for (let index = next.length - 1; index >= 0; index -= 1) {
+        const message = next[index];
+        if (message.role === 'bot' && message.isAudio && message.text.trim().length === 0) {
+          next.splice(index, 0, { role: 'user', text, isAudio: true });
+          return next;
+        }
+      }
+      return [...next, { role: 'user', text, isAudio: true }];
     });
   };
 
@@ -904,10 +974,48 @@ function App() {
     }
 
     try {
+      voiceDraftTranscriptRef.current = '';
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
       const mediaRecorder = new MediaRecorder(stream);
       mediaRecorderRef.current = mediaRecorder;
       audioChunksRef.current = [];
+
+      const speechRecognitionFactory = (
+        window as Window & {
+          SpeechRecognition?: new () => any;
+          webkitSpeechRecognition?: new () => any;
+        }
+      );
+      const SpeechRecognitionCtor = speechRecognitionFactory.SpeechRecognition || speechRecognitionFactory.webkitSpeechRecognition;
+      if (SpeechRecognitionCtor) {
+        const recognition = new SpeechRecognitionCtor();
+        recognition.lang = 'en-US';
+        recognition.interimResults = true;
+        recognition.continuous = true;
+        recognition.onresult = (event: any) => {
+          const capturedParts: string[] = [];
+          const results = event?.results;
+          if (!results) {
+            return;
+          }
+          for (let index = 0; index < results.length; index += 1) {
+            const transcriptPart = results[index]?.[0]?.transcript;
+            if (typeof transcriptPart === 'string' && transcriptPart.trim()) {
+              capturedParts.push(transcriptPart.trim());
+            }
+          }
+          if (capturedParts.length > 0) {
+            voiceDraftTranscriptRef.current = capturedParts.join(' ').replace(/\s+/g, ' ').trim();
+          }
+        };
+        recognition.onerror = () => {
+          // Ignore browser speech recognition errors; backend transcription remains the source of truth.
+        };
+        speechRecognitionRef.current = recognition;
+        recognition.start();
+      } else {
+        speechRecognitionRef.current = null;
+      }
 
       mediaRecorder.ondataavailable = (event: BlobEvent) => {
         if (event.data.size > 0) {
@@ -925,6 +1033,13 @@ function App() {
 
   const stopRecording = () => {
     if (mediaRecorderRef.current && isRecording) {
+      if (speechRecognitionRef.current) {
+        try {
+          speechRecognitionRef.current.stop();
+        } catch {
+          // Ignore browser speech recognition stop errors.
+        }
+      }
       mediaRecorderRef.current.stop();
       setIsRecording(false);
       mediaRecorderRef.current.stream.getTracks().forEach((track) => track.stop());
@@ -932,7 +1047,22 @@ function App() {
   };
 
   const handleAudioStop = async () => {
+    const optimisticVoiceQuery = voiceDraftTranscriptRef.current.trim();
+    const insertedOptimisticUser = Boolean(optimisticVoiceQuery);
+
     setIsLoading(true);
+    setIsStreamingResponse(true);
+    setIsWaitingForFirstToken(true);
+    setHasStartedChat(true);
+    setMessages((prev) => {
+      const next = [...prev];
+      if (insertedOptimisticUser) {
+        next.push({ role: 'user', text: optimisticVoiceQuery, isAudio: true });
+      }
+      next.push({ role: 'bot', text: '', isAudio: true });
+      return next;
+    });
+
     const audioBlob = new Blob(audioChunksRef.current, { type: 'audio/webm' });
     const audioFile = new File([audioBlob], 'recording.webm', { type: 'audio/webm' });
 
@@ -971,12 +1101,13 @@ function App() {
         // Keep header-based fallbacks when last-turn lookup is unavailable.
       }
 
-      setMessages((prev) => [
-        ...prev,
-        { role: 'user', text: userQuery, isAudio: true },
-        { role: 'bot', text: botReply, isAudio: true },
-      ]);
-      setHasStartedChat(true);
+      setIsWaitingForFirstToken(false);
+      if (insertedOptimisticUser) {
+        setLatestUserMessageText(userQuery);
+      } else {
+        insertUserMessageBeforeLatestVoiceBot(userQuery);
+      }
+      setLatestBotMessageText(botReply);
       void refreshSuggestedQuestions(sessionId, userQuery);
 
       const audioResponseBlob = await response.blob();
@@ -985,8 +1116,12 @@ function App() {
       await audio.play();
       audio.onended = () => URL.revokeObjectURL(audioUrl);
     } catch {
-      setMessages((prev) => [...prev, { role: 'bot', text: 'Sorry, failed to process audio.' }]);
+      setIsWaitingForFirstToken(false);
+      setLatestBotMessageText('Sorry, failed to process audio.');
     } finally {
+      voiceDraftTranscriptRef.current = '';
+      setIsWaitingForFirstToken(false);
+      setIsStreamingResponse(false);
       setIsLoading(false);
     }
   };
@@ -1059,18 +1194,18 @@ function App() {
                       <div className="text-xs font-semibold text-[var(--vtl-muted)] mb-1">Sources</div>
                       <ul className="space-y-1 text-xs">
                         {msg.citations.map((citation: Citation, citationIndex: number) => {
-                          const label = citation.title || `Source ${citationIndex + 1}`;
+                          const label = getCitationLabel(citation, citationIndex);
                           if (citation.url) {
-                            const displayUrl = citation.url;
                             return (
                               <li key={`${label}-${citationIndex}`}>
                                 <a
                                   href={citation.url}
                                   target="_blank"
                                   rel="noopener noreferrer"
-                                  className="text-[var(--vtl-primary)] underline break-all"
+                                  className="text-[var(--vtl-primary)] underline break-words"
+                                  title={citation.url}
                                 >
-                                  {displayUrl}
+                                  {label}
                                 </a>
                               </li>
                             );
