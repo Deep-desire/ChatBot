@@ -7,6 +7,7 @@ import json
 import base64
 import warnings
 from difflib import get_close_matches
+from enum import Enum
 from contextvars import ContextVar, Token
 from datetime import datetime, timezone
 from collections import deque
@@ -62,6 +63,17 @@ app.add_middleware(
 )
 
 SUPPORTED_INGEST_EXTENSIONS = {".pdf", ".txt", ".md", ".csv", ".log"}
+
+
+class IntentCategory(str, Enum):
+    GREETING = "greeting"
+    COMPANY_INFO = "company_info"
+    SERVICES = "services"
+    PROJECTS = "projects"
+    PRICING = "pricing"
+    LEAD_CAPTURE = "lead_capture"
+    RAG_GENERAL = "rag_general"
+    OUT_OF_SCOPE = "out_of_scope"
 
 SERVICE_SUMMARY = (
     "Desire Infoweb provides Microsoft-focused IT services including SharePoint, "
@@ -1338,178 +1350,98 @@ async def _sync_sharepoint_lead_safely(session_id: str) -> None:
         logger.warning("SharePoint sync skipped/failed for session %s: %s", session_id, error)
 
 
-def _direct_company_answer(query: str) -> str | None:
-    if not _use_direct_faq_answers():
-        return None
+def _get_intent_based_response(query: str, session_id: str | None = None) -> tuple[IntentCategory, str | None]:
+    """Identifies user intent and returns a direct response if applicable."""
+    intent = _classify_intent(query, session_id)
+    logger.info("Identified intent for query '%s': %s", query, intent)
 
-    q = query.lower().strip()
-    compact = re.sub(r"\s+", " ", re.sub(r"[^a-z0-9\s]", " ", q)).strip()
-    compact_no_space = compact.replace(" ", "")
-    logger.debug("Direct answer check: query='%s', compact='%s'", q, compact)
-
-    asks_voice_catalog = (
-        ("voice based projects" in compact)
-        or ("voice based project" in compact and any(token in compact for token in ["all", "list"]))
-        or (
-            "voice" in compact
-            and "projects" in compact
-            and any(token in compact for token in ["all", "list", "complete", "full"])
-        )
-    )
-
-    if asks_voice_catalog:
-        logger.debug("Direct answer matched: voice projects catalog")
-        return (
-            "## Voice-Based Projects by Desire Infoweb\n\n"
-            "### 1. AI Interviewer Pro - Voice-Based Candidate Screening\n"
-            "- **Challenge**: Manual first-round candidate screening is slow and inconsistent.\n"
-            "- **Solution**: AI-driven voice interviews with dynamic question generation and contextual response analysis.\n"
-            "- **Impact**: Faster shortlisting, better screening consistency, and reduced time-to-hire.\n"
-            "- **Technologies**: Gemini/GPT models, Speech-to-Text, TypeScript, React, cloud-native backend.\n\n"
-            "### 2. Fluentify AI - Voice Communication Assessment\n"
-            "- **Challenge**: Teams need objective spoken communication improvement at scale.\n"
-            "- **Solution**: Voice and pronunciation assessment integrated with Microsoft Teams, with detailed feedback on fluency, grammar, and vocabulary.\n"
-            "- **Impact**: Measurable improvement in communication quality with personalized recommendations.\n"
-            "- **Technologies**: Azure Pronunciation Assessment, Azure OpenAI, Microsoft Teams integration, SharePoint/Azure storage.\n\n"
-            "### 3. Voice Workflow Assistant\n"
-            "- **Challenge**: Repetitive workflow actions reduce productivity.\n"
-            "- **Solution**: Voice-triggered workflow assistant for task routing, reminders, and action execution.\n"
-            "- **Impact**: Lower operational overhead and faster day-to-day execution.\n"
-            "- **Technologies**: NLP pipelines, workflow orchestration, cloud APIs, secure enterprise integrations.\n\n"
-            "### 4. Voice-Enabled Compliance Monitoring\n"
-            "- **Challenge**: Real-time compliance enforcement in operations is difficult with manual monitoring alone.\n"
-            "- **Solution**: AI-assisted voice-enabled monitoring and alerts for policy/safety adherence.\n"
-            "- **Impact**: Better compliance visibility and faster corrective actions.\n"
-            "- **Technologies**: AI monitoring stack, real-time processing services, analytics dashboards.\n\n"
-            "If you want, I can give a deep technical breakdown project-by-project (architecture, deployment, and implementation flow)."
-        )
-
-    asks_ai_project_catalog = (
-        compact in {"ai projects", "ai project", "all ai projects", "all ai solutions"}
-        or (
-            any(phrase in compact for phrase in ["ai project", "ai projects", "ai solution", "ai solutions"])
-            and any(token in compact for token in ["all", "list", "show", "examples", "example", "portfolio", "delivered", "completed"])
-        )
-    )
-
-    if asks_ai_project_catalog:
-        logger.debug("Direct answer matched: AI project catalog")
-        return (
-            "Desire Infoweb has delivered multiple AI solutions across enterprise use cases:\n\n"
-            "1. Fluentify AI for voice communication assessment with pronunciation scoring and coaching feedback.\n"
-            "2. AI Interviewer Pro for voice-based candidate screening with automated evaluation support.\n"
-            "3. Teams AI assistants integrated with business workflows for employee support and knowledge lookup.\n"
-            "4. Document-grounded chatbots using SharePoint/Azure storage to answer from company documents.\n\n"
-            "If you want, I can provide detailed architecture, technology stack, and outcomes for each project."
-        )
-
-    if re.match(r"^(hi+|hello+|hey+|good morning|good afternoon|good evening)\b", compact) and len(compact.split()) <= 4:
-        logger.debug("Direct answer matched: greeting")
-        return (
+    if intent == IntentCategory.GREETING:
+        return intent, (
             "Hello! Welcome to Desire Infoweb. "
             f"{SERVICE_SUMMARY} "
             "Tell me your requirement and I can suggest the best service approach."
         )
 
-    if any(
-        phrase in compact
-        for phrase in [
-            "what ai solutions has desire infoweb delivered",
-            "what type of ai projects has desire infoweb completed",
-            "ai projects delivered",
-            "ai solutions delivered",
-        ]
-    ):
-        logger.debug("Direct answer matched: delivered AI solutions query")
-        return (
-            "Desire Infoweb has delivered multiple AI solutions across enterprise use cases:\n\n"
-            "1. Fluentify AI for voice communication assessment with pronunciation scoring and coaching feedback.\n"
-            "2. AI Interviewer Pro for voice-based candidate screening with automated evaluation support.\n"
-            "3. Teams AI assistants integrated with business workflows for employee support and knowledge lookup.\n"
-            "4. Document-grounded chatbots using SharePoint/Azure storage to answer from company documents.\n\n"
-            "If you want, I can provide a project-wise deep dive with architecture, tech stack, and outcomes."
-        )
-
-    if any(keyword in compact for keyword in ["what service", "services", "what do you do", "what you do", "what do you provide", "offer"]):
-        logger.debug("Direct answer matched: services query")
-        return (
+    if intent == IntentCategory.SERVICES:
+        return intent, (
             "We provide end-to-end Microsoft technology services: "
             "SharePoint and intranet solutions, Power Platform (Power Apps/Automate), "
             "Power BI analytics, Office 365 and Teams implementation, Dynamics 365, Azure, .NET development, "
             "migration, governance, and AI/chatbot solutions."
         )
 
-    if any(
-        phrase in compact
-        for phrase in [
-            "what is desire infoweb",
-            "who is desire infoweb",
-            "about desire infoweb",
-            "tell me about desire infoweb",
-        ]
-    ) or (
-        ("desire infoweb" in compact or "desireinfoweb" in compact_no_space)
-        and re.search(r"\b(details?|about|information|profile|overview)\b", compact)
-    ):
-        logger.debug("Direct answer matched: company info query")
-        return (
+    if intent == IntentCategory.PRICING:
+        return intent, BUDGET_SUMMARY
+
+    if intent == IntentCategory.COMPANY_INFO:
+        return intent, (
             "Desire Infoweb is an IT services company focused on Microsoft technologies and business automation. "
             f"{SERVICE_SUMMARY}"
         )
 
-    if any(keyword in compact for keyword in ["budget", "cost", "pricing", "price", "estimate", "quotation", "quote"]):
-        logger.debug("Direct answer matched: budget query")
-        return BUDGET_SUMMARY
+    # For other intents like PROJECTS or RAG_GENERAL, we return None to trigger the RAG pipeline
+    return intent, None
 
-    if any(keyword in compact for keyword in ["build ai chatbot", "want to build ai chatbot", "ai chatbot project", "chatbot project"]):
-        logger.debug("Direct answer matched: chatbot build query")
-        return (
-            "Great choice. We can build an AI chatbot for your website or Microsoft Teams with your business data as context. "
-            "Typical scope includes discovery, data ingestion (PDF/web/SharePoint), prompt tuning, voice/text support, testing, and deployment. "
-            "If you share your goal and preferred channel, I can suggest the best implementation approach."
+
+def _classify_intent(query: str, session_id: str | None = None) -> IntentCategory:
+    """Uses LLM to classify user intent for better response branching."""
+    normalized_query = query.lower().strip()
+    compact = re.sub(r"\s+", " ", re.sub(r"[^a-z0-9\s]", " ", normalized_query)).strip()
+
+    # Fast-path for simple greetings
+    if re.match(r"^(hi+|hello+|hey+|good morning|good afternoon|good evening)\b", compact) and len(compact.split()) <= 4:
+        return IntentCategory.GREETING
+
+    # LLM classification for more complex intents
+    history_text = ""
+    if session_id:
+        with _conversation_lock:
+            history = list(_conversation_store.get(session_id, []))
+            for user, bot in history[-2:]:
+                history_text += f"User: {user}\nBot: {bot}\n"
+
+    prompt = f"""Identify the user intent for the following query at Desire Infoweb (an IT services company).
+Categories:
+- GREETING: Casual hellos, pleasantries.
+- COMPANY_INFO: General questions about the company identity, mission, or overview.
+- SERVICES: Questions about specific services offered (SharePoint, AI, .NET, Power Platform, etc).
+- PROJECTS: Requests for portfolio, case studies, or examples of delivered AI/IT solutions.
+- PRICING: Questions about budget, costs, estimates, or quotation process.
+- LEAD_CAPTURE: User explicitly wants to start a project, hire the company, or provide contact details for business.
+- RAG_GENERAL: Specific technical questions or company-specific details that require searching indexed documents.
+- OUT_OF_SCOPE: Topics not related to Desire Infoweb or IT services.
+
+Recent Conversation History:
+{history_text}
+
+User Query: {query}
+
+Return ONLY the category name as a single word from the list above (e.g. 'services')."""
+
+    try:
+        completion = get_azure_openai_client().chat.completions.create(
+            model=_get_chat_model(),
+            messages=[
+                {"role": "system", "content": "You are an expert intent classifier for an IT services company. You always return exactly one word from the allowed categories."},
+                {"role": "user", "content": prompt}
+            ],
+            temperature=0,
+            max_tokens=20
         )
+        intent_str = completion.choices[0].message.content.strip().lower()
+        
+        # Clean up any extra words if the LLM didn't follow instructions perfectly
+        intent_str = intent_str.split()[0].rstrip(".:")
+        
+        try:
+            return IntentCategory(intent_str)
+        except ValueError:
+            logger.warning("LLM returned unrecognized intent: %s. Falling back to RAG_GENERAL.", intent_str)
+            return IntentCategory.RAG_GENERAL
+    except Exception as e:
+        logger.error("Intent classification failed: %s. Falling back to RAG_GENERAL.", e)
+        return IntentCategory.RAG_GENERAL
 
-    if any(keyword in compact for keyword in ["normal chatbot", "just chatbot", "simple chatbot", "basic chatbot"]):
-        logger.debug("Direct answer matched: basic chatbot query")
-        return CHATBOT_IMPLEMENTATION_SUMMARY
-
-    if any(
-        keyword in compact
-        for keyword in [
-            "sharepoint",
-            "data source",
-            "where data came",
-            "data came from",
-            "chatbot where data",
-            "data from sharepoint",
-        ]
-    ) and "chatbot" in compact:
-        logger.debug("Direct answer matched: chatbot data source query")
-        return CHATBOT_DATA_SOURCE_SUMMARY
-
-    if any(keyword in compact for keyword in [".net", "dotnet", "net service", "what about net"]):
-        logger.debug("Direct answer matched: .NET query")
-        return DOTNET_SUMMARY
-
-    if any(keyword in compact for keyword in ["industry", "industries", "domain", "sector"]):
-        logger.debug("Direct answer matched: industry query")
-        return INDUSTRY_SUMMARY
-
-    if compact in {
-        "ai",
-        "ai services",
-        "ai solutions",
-        "what is ai",
-        "what ai services",
-        "what ai solutions",
-        "tell me about ai services",
-        "tell me about ai solutions",
-    }:
-        logger.debug("Direct answer matched: generic AI query")
-        return AI_SUMMARY
-
-    logger.debug("No direct answer match, will use RAG retrieval")
-    return None
 
 
 def _get_embedding_model() -> str:
@@ -1921,7 +1853,7 @@ def _get_strong_match_score_threshold() -> float:
 def _tokenize_terms(value: str) -> set[str]:
     return {
         token
-        for token in re.findall(r"[a-z0-9]{3,}", value.lower())
+        for token in re.findall(r"[a-z0-9]{2,}", value.lower())
         if token not in OVERLAP_STOPWORDS
     }
 
@@ -2359,7 +2291,7 @@ def _tokenize_video_match_terms(value: str) -> set[str]:
         return set()
     return {
         token
-        for token in re.findall(r"[a-z0-9]{3,}", value.lower())
+        for token in re.findall(r"[a-z0-9]{2,}", value.lower())
         if token and token not in VIDEO_MATCH_STOPWORDS
     }
 
@@ -2370,7 +2302,7 @@ def _tokenize_source_match_terms(value: str) -> list[str]:
 
     ordered_terms: list[str] = []
     seen: set[str] = set()
-    for token in re.findall(r"[a-z0-9]{3,}", value.lower()):
+    for token in re.findall(r"[a-z0-9]{2,}", value.lower()):
         if token in SOURCE_MATCH_STOPWORDS or token in seen:
             continue
         seen.add(token)
@@ -4735,9 +4667,9 @@ async def text_chat(
             has_name=bool(current_lead_name),
         )
 
-        direct_answer = _direct_company_answer(normalized_query)
+        intent, direct_answer = _get_intent_based_response(normalized_query, effective_session_id)
         if direct_answer:
-            _trace_pipeline_stage("ai_request", mode="direct_answer", model_input_chars=0)
+            _trace_pipeline_stage("ai_request", mode="direct_answer", model_input_chars=0, intent=intent)
             _trace_pipeline_stage(
                 "ai_search_response",
                 source="direct_answer",
@@ -4752,6 +4684,7 @@ async def text_chat(
             response_payload = {
                 "reply": direct_answer,
                 "session_id": effective_session_id,
+                "intent": intent,
                 "lead": {
                     "email": current_lead_email,
                     "name": current_lead_name,
@@ -4783,6 +4716,7 @@ async def text_chat(
             mode="rag",
             model=_get_chat_model(),
             model_input_chars=len(model_input),
+            intent=intent,
         )
         retrieved_context, top_score, citations = _retrieve_context_and_score(normalized_query)
         response_videos = _extract_response_videos(normalized_query, retrieved_context, limit=1)
@@ -4904,11 +4838,11 @@ async def text_chat_stream(
             has_name=bool(current_lead_name),
         )
 
-        direct_answer = _direct_company_answer(normalized_query)
+        intent, direct_answer = _get_intent_based_response(normalized_query, effective_session_id)
         if direct_answer:
             async def direct_event_generator() -> AsyncGenerator[str, None]:
                 try:
-                    _trace_pipeline_stage("ai_request", mode="direct_answer", model_input_chars=0, stream=True)
+                    _trace_pipeline_stage("ai_request", mode="direct_answer", model_input_chars=0, stream=True, intent=intent)
                     _trace_pipeline_stage(
                         "ai_search_response",
                         source="direct_answer",
@@ -4938,6 +4872,7 @@ async def text_chat_stream(
                             "reply": direct_answer,
                             "session_id": effective_session_id,
                             "trace_id": _get_active_trace_id(),
+                            "intent": intent,
                             "lead": {
                                 "email": current_lead_email,
                                 "name": current_lead_name,
@@ -4976,6 +4911,7 @@ async def text_chat_stream(
             model=_get_chat_model(),
             model_input_chars=len(model_input),
             stream=True,
+            intent=intent,
         )
         trace_id = _get_active_trace_id()
     except HTTPException as error:
