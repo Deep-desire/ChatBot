@@ -316,6 +316,7 @@ function App() {
   const speechRecognitionRef = useRef<any>(null);
   const voiceDraftTranscriptRef = useRef('');
   const audioChunksRef = useRef<Blob[]>([]);
+  const playingAudioRef = useRef<HTMLAudioElement | null>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const streamCharacterQueueRef = useRef('');
   const streamTypeTimerRef = useRef<number | null>(null);
@@ -632,10 +633,20 @@ function App() {
     }
   }, [leadStage, sessionId, hasStartedChat]);
 
+  const stopPlayingAudio = () => {
+    if (playingAudioRef.current) {
+      playingAudioRef.current.pause();
+      playingAudioRef.current.currentTime = 0;
+      playingAudioRef.current = null;
+    }
+  };
+
   const submitUserMessage = async (rawMessage: string) => {
     if (!rawMessage.trim()) {
       return;
     }
+
+    stopPlayingAudio();
 
     const userMsg = rawMessage.trim();
     setMessages((prev) => [...prev, { role: 'user', text: userMsg }]);
@@ -982,6 +993,8 @@ function App() {
       return;
     }
 
+    stopPlayingAudio();
+
     try {
       voiceDraftTranscriptRef.current = '';
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
@@ -1056,6 +1069,11 @@ function App() {
   };
 
   const handleAudioStop = async () => {
+    for (let i = 0; i < 25; i++) {
+      if (voiceDraftTranscriptRef.current.trim()) break;
+      await new Promise((resolve) => setTimeout(resolve, 20));
+    }
+
     const optimisticVoiceQuery = voiceDraftTranscriptRef.current.trim();
     const insertedOptimisticUser = Boolean(optimisticVoiceQuery);
 
@@ -1067,6 +1085,8 @@ function App() {
       const next = [...prev];
       if (insertedOptimisticUser) {
         next.push({ role: 'user', text: optimisticVoiceQuery, isAudio: true });
+      } else {
+        next.push({ role: 'user', text: '...', isAudio: true });
       }
       next.push({ role: 'bot', text: '', isAudio: true });
       return next;
@@ -1111,19 +1131,23 @@ function App() {
       }
 
       setIsWaitingForFirstToken(false);
-      if (insertedOptimisticUser) {
-        setLatestUserMessageText(userQuery);
-      } else {
-        insertUserMessageBeforeLatestVoiceBot(userQuery);
-      }
+      setLatestUserMessageText(userQuery);
       setLatestBotMessageText(botReply);
       void refreshSuggestedQuestions(sessionId, userQuery);
 
       const audioResponseBlob = await response.blob();
       const audioUrl = URL.createObjectURL(audioResponseBlob);
       const audio = new Audio(audioUrl);
+      
+      playingAudioRef.current = audio;
+      
       await audio.play();
-      audio.onended = () => URL.revokeObjectURL(audioUrl);
+      audio.onended = () => {
+        URL.revokeObjectURL(audioUrl);
+        if (playingAudioRef.current === audio) {
+          playingAudioRef.current = null;
+        }
+      };
     } catch {
       setIsWaitingForFirstToken(false);
       setLatestBotMessageText('Sorry, failed to process audio.');
@@ -1146,7 +1170,12 @@ function App() {
   return (
     <>
       <button
-        onClick={() => setIsOpen(!isOpen)}
+        onClick={() => {
+          if (isOpen) {
+            stopPlayingAudio();
+          }
+          setIsOpen(!isOpen);
+        }}
         className={`fixed z-50 transition-transform hover:scale-105 flex items-center justify-center ${
           isOpen ? 'top-3 right-3 sm:top-auto sm:bottom-6 sm:right-6' : 'bottom-4 right-4 sm:bottom-6 sm:right-6'
         } ${
