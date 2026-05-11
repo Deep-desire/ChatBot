@@ -268,7 +268,16 @@ const looksAbruptlyTruncated = (text: string): boolean => {
 
 function MarkdownMessage({ text }: { text: string }) {
   return (
-    <ReactMarkdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeSanitize]} className="vtl-markdown">
+    <ReactMarkdown
+      remarkPlugins={[remarkGfm]}
+      rehypePlugins={[rehypeSanitize]}
+      className="vtl-markdown"
+      components={{
+        a: ({ node, ...props }) => (
+          <a {...props} target="_blank" rel="noopener noreferrer" />
+        ),
+      }}
+    >
       {normalizeMarkdownText(text)}
     </ReactMarkdown>
   );

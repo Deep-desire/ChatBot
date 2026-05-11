@@ -34,7 +34,8 @@ python ingestion.py --blob
 uvicorn main:app --host 0.0.0.0 --port 8000 --reload
 ```
 
-
+# log url
+http://localhost:8000/api/chat/logs/recent?limit=10
 
 
 
