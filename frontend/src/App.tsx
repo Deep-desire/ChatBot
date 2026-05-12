@@ -225,43 +225,43 @@ const normalizeMarkdownText = (text: string): string => {
 
 const looksAbruptlyTruncated = (text: string): boolean => {
   const value = (text || '').trim();
-  
+
   // Empty text is truncated
   if (!value) {
     return true;
   }
-  
+
   // Ends cleanly with punctuation
   if (/[.!?]$/.test(value)) {
     return false;
   }
-  
+
   // Ends with connector words (incomplete sentence)
   if (/\b(and|or|to|for|with|but|nor|yet|by|as|if|is|was|are|been|being)\s*$/.test(value)) {
     return true;
   }
-  
+
   // Check last line pattern
   const lastLine = value.split('\n').pop()?.trim() || '';
   if (!lastLine) {
     return false;
   }
-  
+
   // Last line is just a heading start (incomplete markdown)
   if (/^#{1,6}\s+$/.test(lastLine)) {
     return true;
   }
-  
+
   // Last line is just a list marker (incomplete list item)
   if (/^[-*]\s*$/.test(lastLine)) {
     return true;
   }
-  
+
   // Last line is just a colon or dash (incomplete continuation)
   if (/[:–—-]\s*$/.test(lastLine) && lastLine.length < 5) {
     return true;
   }
-  
+
   // Otherwise, consider it complete (be optimistic about streaming)
   return false;
 };
@@ -1138,9 +1138,9 @@ function App() {
       const audioResponseBlob = await response.blob();
       const audioUrl = URL.createObjectURL(audioResponseBlob);
       const audio = new Audio(audioUrl);
-      
+
       playingAudioRef.current = audio;
-      
+
       await audio.play();
       audio.onended = () => {
         URL.revokeObjectURL(audioUrl);
@@ -1176,13 +1176,11 @@ function App() {
           }
           setIsOpen(!isOpen);
         }}
-        className={`fixed z-50 transition-transform hover:scale-105 flex items-center justify-center ${
-          isOpen ? 'top-3 right-3 sm:top-auto sm:bottom-6 sm:right-6' : 'bottom-4 right-4 sm:bottom-6 sm:right-6'
-        } ${
-          showFloatingImage
+        className={`fixed z-50 transition-transform hover:scale-105 flex items-center justify-center ${isOpen ? 'top-3 right-3 sm:top-auto sm:bottom-6 sm:right-6' : 'bottom-4 right-4 sm:bottom-6 sm:right-6'
+          } ${showFloatingImage
             ? 'w-16 h-16 sm:w-[110px] sm:h-[110px] rounded-full bg-transparent shadow-none overflow-hidden p-0'
             : 'p-3 sm:p-4 vtl-brand-gradient text-white rounded-full shadow-2xl hover:brightness-95'
-        }`}
+          }`}
       >
         {isOpen ? (
           <X className="w-5 h-5 sm:w-6 sm:h-6" />
@@ -1211,9 +1209,8 @@ function App() {
             {messages.map((msg, idx) => (
               <div key={`${msg.role}-${idx}`} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
                 <div
-                  className={`p-3 rounded-2xl text-sm max-w-[94%] sm:max-w-[92%] shadow-sm bg-[var(--vtl-panel)] border border-[var(--vtl-border)] text-[var(--vtl-text)] ${
-                    msg.role === 'user' ? 'rounded-br-none' : 'rounded-bl-none'
-                  }`}
+                  className={`p-3 rounded-2xl text-sm max-w-[94%] sm:max-w-[92%] shadow-sm bg-[var(--vtl-panel)] border border-[var(--vtl-border)] text-[var(--vtl-text)] ${msg.role === 'user' ? 'rounded-br-none' : 'rounded-bl-none'
+                    }`}
                 >
                   {msg.isAudio && <span className="text-xs opacity-75 block mb-1">🎤 Voice</span>}
                   {msg.role === 'bot' && msg.text.trim().length === 0 && isStreamingResponse && isLoading && isWaitingForFirstToken && idx === messages.length - 1 ? (
@@ -1339,47 +1336,46 @@ function App() {
             </div>
 
             <div className="flex items-center gap-2">
-            <button
-              onMouseDown={startRecording}
-              onMouseUp={stopRecording}
-              onMouseLeave={stopRecording}
-              onTouchStart={startRecording}
-              onTouchEnd={stopRecording}
-              title="Hold to record voice message, release to send"
-              className={`p-2 sm:p-2.5 rounded-full flex-shrink-0 ${
-                isRecording
+              <button
+                onMouseDown={startRecording}
+                onMouseUp={stopRecording}
+                onMouseLeave={stopRecording}
+                onTouchStart={startRecording}
+                onTouchEnd={stopRecording}
+                title="Hold to record voice message, release to send"
+                className={`p-2 sm:p-2.5 rounded-full flex-shrink-0 ${isRecording
                   ? 'bg-red-500 text-white animate-pulse'
                   : 'bg-[var(--vtl-chip-bg)] text-[var(--vtl-primary)] hover:bg-[var(--vtl-chip-hover)] disabled:opacity-50 disabled:cursor-not-allowed'
-              }`}
-              disabled={leadStage !== 'chat' || isLoading}
-            >
-              <Mic className="w-4 h-4 sm:w-5 sm:h-5" />
-            </button>
-
-            <form onSubmit={handleTextSubmit} className="flex-1 flex gap-2">
-              <input
-                type="text"
-                value={inputText}
-                onChange={(e) => setInputText(e.target.value)}
-                placeholder={
-                  leadStage === 'email'
-                    ? 'Enter your email address'
-                    : leadStage === 'name'
-                      ? 'Enter your full name'
-                      : 'Message...'
-                }
-                className="flex-1 min-w-0 px-3 sm:px-4 py-2 text-sm rounded-full bg-[var(--vtl-chip-bg)] text-[var(--vtl-text)] border border-transparent focus:bg-white focus:border-[var(--vtl-secondary)] outline-none"
-                disabled={isRecording || isLoading}
-              />
-              <button
-                type="submit"
-                title="Send message"
-                disabled={!inputText.trim() || isRecording || isLoading}
-                className="p-2 sm:p-2.5 vtl-brand-gradient text-white rounded-full hover:brightness-95 disabled:opacity-50"
+                  }`}
+                disabled={leadStage !== 'chat' || isLoading}
               >
-                <Send className="w-4 h-4" />
+                <Mic className="w-4 h-4 sm:w-5 sm:h-5" />
               </button>
-            </form>
+
+              <form onSubmit={handleTextSubmit} className="flex-1 flex gap-2">
+                <input
+                  type="text"
+                  value={inputText}
+                  onChange={(e) => setInputText(e.target.value)}
+                  placeholder={
+                    leadStage === 'email'
+                      ? 'Enter your email address'
+                      : leadStage === 'name'
+                        ? 'Enter your full name'
+                        : 'Message...'
+                  }
+                  className="flex-1 min-w-0 px-3 sm:px-4 py-2 text-sm rounded-full bg-[var(--vtl-chip-bg)] text-[var(--vtl-text)] border border-transparent focus:bg-white focus:border-[var(--vtl-secondary)] outline-none"
+                  disabled={isRecording || isLoading}
+                />
+                <button
+                  type="submit"
+                  title="Send message"
+                  disabled={!inputText.trim() || isRecording || isLoading}
+                  className="p-2 sm:p-2.5 vtl-brand-gradient text-white rounded-full hover:brightness-95 disabled:opacity-50"
+                >
+                  <Send className="w-4 h-4" />
+                </button>
+              </form>
             </div>
           </div>
         </div>

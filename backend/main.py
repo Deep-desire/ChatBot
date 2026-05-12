@@ -143,7 +143,6 @@ NO_CONTEXT_RESPONSE = (
     "For further assistance, please contact our support team:\n"
     "- vijay@desireinfoweb.com\n"
     "- hr@desireinfoweb.in\n"
-    "- info@desireinfoweb.com\n"
     "- India: +91-8780468807\n"
     "- USA: +1 260 560 2128\n\n"
     "We will be happy to assist you further."
