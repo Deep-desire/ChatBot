@@ -698,6 +698,10 @@ def _normalize_user_query(query: str) -> str:
         "manageent": "management",
         "mangment": "management",
         "u": "you",
+        "python": "python",
+        "ptrhon": "python",
+        "python": "python",
+        "coding": "coding",
     }
 
     def _normalize_match(match: re.Match[str]) -> str:
@@ -1354,6 +1358,15 @@ def _get_intent_based_response(query: str, session_id: str | None = None) -> tup
     intent = _classify_intent(query, session_id)
     logger.info("Identified intent for query '%s': %s", query, intent)
 
+    # Hard-coded guard for general coding requests that aren't grounded in company terms
+    lowered_query = query.lower()
+    coding_patterns = [r"write.*code", r"give me.*code", r"python.*code", r"script.*code", r"how to.*code", r"coding.*example"]
+    if any(re.search(p, lowered_query) for p in coding_patterns):
+        # If it doesn't mention company specific products or "project", it's likely out of scope
+        if not any(term in lowered_query for term in ["desire", "infoweb", "sharepoint", "fluentify", "project", "service", "solution", "delivered"]):
+            intent = IntentCategory.OUT_OF_SCOPE
+            logger.info("Overriding intent to OUT_OF_SCOPE due to general coding pattern.")
+
     if intent == IntentCategory.GREETING:
         return intent, (
             "Hello! Welcome to Desire Infoweb. "
@@ -1369,6 +1382,9 @@ def _get_intent_based_response(query: str, session_id: str | None = None) -> tup
             "Desire Infoweb is an IT services company focused on Microsoft technologies and business automation. "
             f"{SERVICE_SUMMARY}"
         )
+
+    if intent == IntentCategory.OUT_OF_SCOPE:
+        return intent, _no_context_response()
 
     # For other intents like PROJECTS or RAG_GENERAL, we return None to trigger the RAG pipeline
     return intent, None
@@ -1400,7 +1416,9 @@ Categories:
 - PRICING: Questions about budget, costs, estimates, or quotation process.
 - LEAD_CAPTURE: User explicitly wants to start a project, hire the company, or provide contact details for business.
 - RAG_GENERAL: Specific technical questions or company-specific details that require searching indexed documents.
-- OUT_OF_SCOPE: Topics not related to Desire Infoweb or IT services.
+- OUT_OF_SCOPE: Topics not related to Desire Infoweb or IT services, such as general coding requests, personal queries, or unrelated technical questions.
+
+CRITICAL: Any request to write general code, scripts, or solve generic programming problems (e.g., "write python code", "how to use loops") MUST be classified as OUT_OF_SCOPE unless the user is asking about a specific Desire Infoweb project implementation.
 
 Recent Conversation History:
 {history_text}
@@ -1975,7 +1993,9 @@ You are the official virtual assistant for **Desire Infoweb Pvt Ltd** — a cert
 
 ## YOUR ROLE
 
-You help website visitors, prospects, and existing clients get clear, confident answers about Desire Infoweb's services, products, projects, processes, and company. You are professional, friendly, and business-focused. You never fabricate information. If you don't know something, you say so and offer to connect the user with the team.
+You help website visitors, prospects, and existing clients get clear, confident answers about Desire Infoweb's services, products, projects, processes, and company. You are professional, friendly, and business-focused. You are strictly grounded in the provided context. 
+
+**CRITICAL CONSTRAINT**: You are a knowledge-based assistant. If the user's question cannot be answered using ONLY the provided context, you MUST use the fallback response. Never provide general programming examples, code snippets, or technical tutorials (like "how to write Python") unless that exact code is part of a Desire Infoweb project description in the context. If you find yourself using internal knowledge to answer a general query, STOP and use the fallback.
 
 ---
 
