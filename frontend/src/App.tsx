@@ -815,7 +815,24 @@ function App() {
 
           if (Array.isArray(data.citations)) {
             streamCitations = data.citations
-              .filter((item): item is Record<string, unknown> => !!item && typeof item === 'object')
+              .filter((item): item is Record<string, unknown> => {
+                if (!item || typeof item !== 'object') {
+                  return false;
+                }
+                const url = typeof item.url === 'string' ? item.url.trim().toLowerCase() : '';
+                const title = typeof item.title === 'string' ? item.title.trim().toLowerCase() : '';
+                const id = typeof item.id === 'string' ? item.id.trim().toLowerCase() : '';
+
+                if (
+                  url.split('?')[0].split('#')[0].endsWith('.json') ||
+                  title.endsWith('.json') ||
+                  id.endsWith('.json') ||
+                  id.includes('.json')
+                ) {
+                  return false;
+                }
+                return true;
+              })
               .map((item) => ({
                 title: typeof item.title === 'string' && item.title.trim()
                   ? item.title.trim()

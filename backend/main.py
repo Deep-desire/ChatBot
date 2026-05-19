@@ -4290,7 +4290,28 @@ def _select_response_citations(
         if normalized_url:
             citation["url"] = normalized_url
 
+        url_value = str(citation.get("url") or "").strip().lower()
         title_value = str(citation.get("title") or "").strip()
+        title_lower = title_value.lower()
+        id_lower = str(citation.get("id") or "").strip().lower()
+
+        # Check if the citation is a JSON file to filter it out
+        is_json = False
+        if url_value:
+            try:
+                parsed_url = urlparse(url_value)
+                path_name = unquote((parsed_url.path or "").strip("/")).rsplit("/", 1)[-1].strip().lower()
+                if path_name.endswith(".json") or url_value.split("?")[0].split("#")[0].endswith(".json"):
+                    is_json = True
+            except Exception:
+                if url_value.split("?")[0].split("#")[0].endswith(".json"):
+                    is_json = True
+        if title_lower.endswith(".json") or id_lower.endswith(".json") or ".json" in id_lower:
+            is_json = True
+
+        if is_json:
+            continue
+
         snippet_value = str(citation.get("context_snippet") or "").strip()
         match_text = f"{title_value} {str(citation.get('url') or '')} {snippet_value}".strip()
 

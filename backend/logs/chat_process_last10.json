@@ -1,1165 +1,1186 @@
 [
   {
-    "trace_id": "1afc9777-301b-4d77-8103-150436143b2e",
-    "started_at": "2026-05-11T08:14:59.693701+00:00",
-    "ended_at": "2026-05-11T08:17:04.898275+00:00",
+    "trace_id": "1263836f-bf2b-4a11-87ea-76e82d95ca0a",
+    "started_at": "2026-05-19T06:38:09.859595+00:00",
+    "ended_at": "2026-05-19T06:38:12.707638+00:00",
     "endpoint": "/api/chat/text/stream",
     "streaming": true,
     "status": "success",
-    "duration_ms": 125204.57,
+    "duration_ms": 2848.04,
     "session_id": "cf5efcf0-7945-4455-a54f-845a9d8c44b6",
-    "user_query": "i want to understand the desireinfoweb expertise in AI implementations??",
+    "user_query": "Give me tech stack and business impact for developer contact?",
     "process": {
       "user_request": {
-        "query": "i want to understand the desireinfoweb expertise in AI implementations??",
+        "query": "Give me tech stack and business impact for developer contact?",
         "endpoint": "/api/chat/text/stream",
         "stream": true,
-        "ts": "2026-05-11T08:14:59.695105+00:00"
+        "ts": "2026-05-19T06:38:09.862591+00:00"
       },
       "ai_request": {
-        "mode": "rag",
-        "model": "gpt-4o",
-        "model_input_chars": 2616,
+        "mode": "direct_answer",
+        "model_input_chars": 0,
         "stream": true,
-        "intent": "services",
-        "ts": "2026-05-11T08:15:01.372435+00:00"
+        "intent": "out_of_scope",
+        "ts": "2026-05-19T06:38:12.009418+00:00"
       },
       "ai_search_response": {
-        "source": "azure_ai_search",
-        "context_chars": 17320,
-        "top_score": 7.5738735,
-        "citations_count": 14,
-        "videos_count": 0,
-        "citation": {
-          "title": "ai",
-          "url": "https://desireinfoweb.com/services/ai",
-          "id": "s_c2VydmljZUNhdGFsb2cudHh0_i_16_u_f7043719542f4ff0b14931d73225dad5",
-          "score": 2.883559,
-          "context_snippet": "[webDevelopmentProjectServicesShowcaseData] Language Learning App Reading, writing and listening learning app The client wanted to extend their current academy platform with advanced learning capabilities and improved user experience. Reading and Writing, Voice API, Multi Stage Learning, User Friendly Design https://desireinfoweb.com/services/web-development [services] AI or artificial intelligence AI refers to the simulation of human intelligence in machines, enabling cognitive tasks. Azure OpenAI combines Microsoft Azure cloud capabilities with OpenAI models for advanced AI solutions. https://desireinfoweb.com/services/ai [services] Web Development Web Development includes building and maintaining websites and web applications across front-end and back-end with responsive design and modern technologies. https://desireinfoweb.com/services/web-development",
-          "overlap_count": 4,
-          "overlap_ratio": 0.571429,
-          "entry_rank": 0.577139,
-          "retrieval_mode": "text",
-          "source_scope": "knowledge"
-        },
+        "source": "direct_answer",
+        "context_chars": 0,
+        "top_score": 0.0,
+        "citations_count": 0,
         "stream": true,
-        "ts": "2026-05-11T08:16:53.254224+00:00"
+        "ts": "2026-05-19T06:38:12.009418+00:00"
       },
-      "ai_search_json_response": {
-        "source_scope": "knowledge",
-        "found": true,
-        "retrieval_mode": "text",
-        "score": 7.573874,
-        "normalized_score": 0.791098,
-        "rank": 0.861909,
-        "overlap_ratio": 0.714286,
-        "overlap_count": 5,
-        "query_term_count": 7,
-        "meets_score": true,
-        "meets_overlap": true,
-        "context_chars": 17320,
-        "context_preview": "[webDevelopmentProjectServicesShowcaseData] Language Learning App Reading, writing and listening learning app The client wanted to extend their current academy platform with advanced learning capabilities and improved user experience. Reading and Writing, Voice API, Multi Stage Learning, User Friendly Design https://desireinfoweb.com/services/web-development [services] AI or artificial intelligence AI refers to the simulation of human intelligence in machines, enabling cognitive tasks. Azure OpenAI combines Microsoft Azure cloud capabilities with OpenAI models for advanced AI solutions. https:",
-        "citations_count": 5,
-        "citation": {
-          "title": "ai",
-          "url": "https://desireinfoweb.com/services/ai",
-          "id": "s_c2VydmljZUNhdGFsb2cudHh0_i_16_u_f7043719542f4ff0b14931d73225dad5",
-          "score": 2.883559,
-          "context_snippet": "[webDevelopmentProjectServicesShowcaseData] Language Learning App Reading, writing and listening learning app The client wanted to extend their current academy platform with advanced learning capabilities and improved user experience. Reading and Writing, Voice API, Multi Stage Learning, User Friendly Design https://desireinfoweb.com/services/web-development [services] AI or artificial intelligence AI refers to the simulation of human intelligence in machines, enabling cognitive tasks. Azure OpenAI combines Microsoft Azure cloud capabilities with OpenAI models for advanced AI solutions. https://desireinfoweb.com/services/ai [services] Web Development Web Development includes building and maintaining websites and web applications across front-end and back-end with responsive design and modern technologies. https://desireinfoweb.com/services/web-development",
-          "overlap_count": 4,
-          "overlap_ratio": 0.571429,
-          "entry_rank": 0.577139,
-          "retrieval_mode": "text"
-        },
-        "ts": "2026-05-11T08:16:09.093099+00:00"
-      },
-      "ai_search_blob_response": {
-        "source_scope": "blob_fallback",
-        "found": true,
-        "retrieval_mode": "text",
-        "score": 9.969578,
-        "normalized_score": 0.83291,
-        "rank": 0.782118,
-        "overlap_ratio": 0.857143,
-        "overlap_count": 6,
-        "query_term_count": 7,
-        "meets_score": true,
-        "meets_overlap": true,
-        "context_chars": 24939,
-        "context_preview": "MICROSOFT 365 SOLUTION Employee Directory Empower your organization with a centralized, secure, and instantly searchable hub for all your workforce connections. THE CHALLENGE Disconnected Workforces? Traditional org charts fail to connect people effectively. Is your team facing these challenges? Wasted Time Hours lost searching for the right expert or contact information. Siloed Knowledge Skills and expertise hidden within isolated departmental pockets. Stale Data Outdated spreadsheets and static org charts that don't reflect reality. THE SOLUTION The Centralized Employee Directory Empower you",
-        "citations_count": 8,
-        "citation": {
-          "title": "Employee Directory.pdf",
-          "url": "https://desirechatbotweb.blob.core.windows.net/desirechatbotweb/Employee%20Directory.pdf",
-          "id": "7894e17f5139_aHR0cHM6Ly9kZXNpcmVjaGF0Ym90d2ViLmJsb2IuY29yZS53aW5kb3dzLm5ldC9kZXNpcmVjaGF0Ym90d2ViL0VtcGxveWVlJTIwRGlyZWN0b3J5LnBkZg2_pages_0",
-          "score": 7.646935,
-          "context_snippet": "MICROSOFT 365 SOLUTION Employee Directory Empower your organization with a centralized, secure, and instantly searchable hub for all your workforce connections. THE CHALLENGE Disconnected Workforces? Traditional org charts fail to connect people effectively. Is your team facing these challenges? Wasted Time Hours lost searching for the right expert or contact information. Siloed Knowledge Skills and expertise hidden within isolated departmental pockets. Stale Data Outdated spreadsheets and static org charts that don't reflect reality. THE SOLUTION The Centralized Employee Directory Empower your workforce with a secure, Microsoft 365- powered hub to connect instantly with the right people. Instant Expert Search Enterprise-Grade Security Visual Org Structure LinkedIn Announcement Post South Africa Traveling. - Ongoing sharepoint.desireinfoweb.com/employees Explore Features CORE FEATURES Everything you need to connect Advanced Search Instantly find colleagues by name, department, skills, or location with powerful filtering. Detailed Profiles View rich employee profiles with photos, designations, contact details, and expertise. Org Structure Visualize the complete company hierarchy and understand team relationships clearly. BUILT FOR ENTERPRISE Security, Skills & Accessibility Secure Access Enterprise-grade security with Azure AD and role-based access control. Skill Tags Identify experts by skills and certifications to build effective project teams. Mobile Friendly Access the directory from any device desktop, tablet, or mobile anytime. PRODUCT SHOWCASE See It In Action Watch the full walkthrough of the Project Management Portal ABOUT US Empowering Digital Transformation Desire Infoweb is a leading IT offshoring company specializing in Microsoft 365, AI, and custom business",
-          "overlap_count": 6,
-          "overlap_ratio": 0.857143,
-          "entry_rank": 0.837804,
-          "retrieval_mode": "text"
-        },
-        "ts": "2026-05-11T08:16:09.094099+00:00"
-      },
-      "ai_selection": {
-        "selected_source_scope": "knowledge",
-        "selected_retrieval_mode": "text",
-        "selected_score": 7.573874,
-        "selected_rank": 0.861909,
-        "selected_overlap_ratio": 0.714286,
-        "candidate_count": 4,
-        "ts": "2026-05-11T08:16:09.094099+00:00"
-      },
+      "ai_search_json_response": {},
+      "ai_search_blob_response": {},
+      "ai_selection": {},
       "ai_openai_response": {
-        "source": "azure_openai",
-        "answer_chars": 2283,
+        "source": "direct_answer",
+        "answer_chars": 314,
         "stream": true,
-        "ts": "2026-05-11T08:17:04.443973+00:00"
+        "ts": "2026-05-19T06:38:12.706638+00:00"
       },
       "display_response": {
         "status_code": 200,
-        "answer_chars": 2283,
-        "citations_count": 1,
+        "answer_chars": 314,
+        "citations_count": 0,
         "stream": true,
-        "ts": "2026-05-11T08:17:04.898275+00:00"
+        "ts": "2026-05-19T06:38:12.706638+00:00"
       },
       "ai_research_response": {
-        "source": "azure_ai_search",
-        "context_chars": 17320,
-        "top_score": 7.5738735,
-        "citations_count": 14,
-        "videos_count": 0,
-        "citation": {
-          "title": "ai",
-          "url": "https://desireinfoweb.com/services/ai",
-          "id": "s_c2VydmljZUNhdGFsb2cudHh0_i_16_u_f7043719542f4ff0b14931d73225dad5",
-          "score": 2.883559,
-          "context_snippet": "[webDevelopmentProjectServicesShowcaseData] Language Learning App Reading, writing and listening learning app The client wanted to extend their current academy platform with advanced learning capabilities and improved user experience. Reading and Writing, Voice API, Multi Stage Learning, User Friendly Design https://desireinfoweb.com/services/web-development [services] AI or artificial intelligence AI refers to the simulation of human intelligence in machines, enabling cognitive tasks. Azure OpenAI combines Microsoft Azure cloud capabilities with OpenAI models for advanced AI solutions. https://desireinfoweb.com/services/ai [services] Web Development Web Development includes building and maintaining websites and web applications across front-end and back-end with responsive design and modern technologies. https://desireinfoweb.com/services/web-development",
-          "overlap_count": 4,
-          "overlap_ratio": 0.571429,
-          "entry_rank": 0.577139,
-          "retrieval_mode": "text",
-          "source_scope": "knowledge"
-        },
+        "source": "direct_answer",
+        "context_chars": 0,
+        "top_score": 0.0,
+        "citations_count": 0,
         "stream": true,
-        "ts": "2026-05-11T08:16:53.254224+00:00"
+        "ts": "2026-05-19T06:38:12.009418+00:00"
       }
     },
     "summary": {
       "status_code": 200,
-      "reply": "### Desire Infoweb's Expertise in AI Implementations\n\nDesire Infoweb excels in delivering **AI-driven solutions** that enhance business processes, decision-making, and user experiences. Leveraging **Azure OpenAI**, **Microsoft 365 Copilot Studio**, and **Google Gemini**, we specialize in creating intelligent, scalable, and secure AI systems.\n\n#### Core AI Capabilities\n- **Microsoft 365 Copilot Studio**: Develop intelligent agents for workflow automation and conversational interfaces.\n- **Generative AI**: Automate document creation (e.g., NDAs, contracts) using predefined templates.\n- **AI-Powered Predictive Analytics**: Extract insights from invoices, contracts, and reports; forecast trends.\n- **Computer Vision**: Enable image recognition, object detection, and defect identification.\n- **AI Chatbots & Retrieval-Augmented Generation (RAG)**: Build 24/7 chatbots integrated with private document repositories for contextual responses.\n- **Intelligent Document Processing (IDP)**: Automate data extraction from unstructured documents like invoices and contracts.\n\n#### Highlighted AI Projects\n1. **Fluentify AI**: Language proficiency assessment using MS Teams, Zoom, and Google Meet recordings.\n2. **Insurance Chatbot**: Reduced policy verification time from 15–20 minutes to seconds with a centralized knowledge base.\n3. **Social Omni**: AI-powered campaign creation tool that reduces hours of manual work to seconds.\n4. **AI-Powered Document Review Specialist**: Built on Google Gemini, it acts as a 24/7 caseworker, catching errors and ensuring compliance.\n5. **Workflow-Driven Document Creation in SharePoint**: Automates email-to-SharePoint storage, data extraction, and document generation.\n\n#### Why Choose Desire Infoweb?\n- **Certified Expertise**: Azure AI Engineers and Microsoft-certified professionals.\n- **Proven Success**: Delivered 500+ cloud applications with a 100% on-time delivery rate.\n- **Tailored Solutions**: Custom AI implementations for industries like healthcare, insurance, education, and more.\n\nFor more information, visit our **AI services page**: [https://desireinfoweb.com/services/ai](https://desireinfoweb.com/services/ai) or book a **free 1-hour consultation**: [https://desireinfoweb.com/contact-us](https://desireinfoweb.com/contact-us).",
+      "reply": "Thank you for your query. At the moment, I'm unable to provide a relevant response as it falls outside my current scope.\n\nFor further assistance, please contact our support team:\n- vijay@desireinfoweb.com\n- hr@desireinfoweb.in\n- India: +91-8780468807\n- USA: +1 260 560 2128\n\nWe will be happy to assist you further.",
       "stream": true
     }
   },
   {
-    "trace_id": "472177ae-d14c-4254-ac8e-9a701eefb5bd",
-    "started_at": "2026-05-11T08:20:53.249483+00:00",
-    "ended_at": "2026-05-11T08:21:40.058755+00:00",
+    "trace_id": "8b1c2806-1b59-48c5-922b-c58902bf45b4",
+    "started_at": "2026-05-19T07:26:58.105391+00:00",
+    "ended_at": "2026-05-19T07:27:18.303504+00:00",
     "endpoint": "/api/chat/text/stream",
     "streaming": true,
     "status": "success",
-    "duration_ms": 46809.27,
+    "duration_ms": 20198.11,
     "session_id": "cf5efcf0-7945-4455-a54f-845a9d8c44b6",
-    "user_query": "i want to understand the desireinfoweb expertise in AI implementations??",
+    "user_query": "Give me tech stack and business impact for developer contact?",
     "process": {
       "user_request": {
-        "query": "i want to understand the desireinfoweb expertise in AI implementations??",
+        "query": "Give me tech stack and business impact for developer contact?",
         "endpoint": "/api/chat/text/stream",
         "stream": true,
-        "ts": "2026-05-11T08:20:53.249483+00:00"
+        "ts": "2026-05-19T07:26:58.108232+00:00"
       },
       "ai_request": {
         "mode": "rag",
         "model": "gpt-4o",
-        "model_input_chars": 243,
+        "model_input_chars": 232,
         "stream": true,
-        "intent": "services",
-        "ts": "2026-05-11T08:20:56.059299+00:00"
+        "intent": "rag_general",
+        "ts": "2026-05-19T07:27:00.506193+00:00"
       },
       "ai_search_response": {
         "source": "azure_ai_search",
-        "context_chars": 10304,
-        "top_score": 7.646935,
+        "context_chars": 10378,
+        "top_score": 6.9939404,
         "citations_count": 9,
         "videos_count": 0,
         "citation": {
-          "title": "Employee Directory.pdf",
-          "url": "https://desirechatbotweb.blob.core.windows.net/desirechatbotweb/Employee%20Directory.pdf",
-          "id": "7894e17f5139_aHR0cHM6Ly9kZXNpcmVjaGF0Ym90d2ViLmJsb2IuY29yZS53aW5kb3dzLm5ldC9kZXNpcmVjaGF0Ym90d2ViL0VtcGxveWVlJTIwRGlyZWN0b3J5LnBkZg2_pages_0",
-          "score": 7.646935,
-          "context_snippet": "MICROSOFT 365 SOLUTION Employee Directory Empower your organization with a centralized, secure, and instantly searchable hub for all your workforce connections. THE CHALLENGE Disconnected Workforces? Traditional org charts fail to connect people effectively. Is your team facing these challenges? Wasted Time Hours lost searching for the right expert or contact information. Siloed Knowledge Skills and expertise hidden within isolated departmental pockets. Stale Data Outdated spreadsheets and static org charts that don't reflect reality. THE SOLUTION The Centralized Employee Directory Empower your workforce with a secure, Microsoft 365- powered hub to connect instantly with the right people. Instant Expert Search Enterprise-Grade Security Visual Org Structure LinkedIn Announcement Post South Africa Traveling. - Ongoing sharepoint.desireinfoweb.com/employees Explore Features CORE FEATURES Everything you need to connect Advanced Search Instantly find colleagues by name, department, skills, or location with powerful filtering. Detailed Profiles View rich employee profiles with photos, designations, contact details, and expertise. Org Structure Visualize the complete company hierarchy and understand team relationships clearly. BUILT FOR ENTERPRISE Security, Skills & Accessibility Secure Access Enterprise-grade security with Azure AD and role-based access control. Skill Tags Identify experts by skills and certifications to build effective project teams. Mobile Friendly Access the directory from any device desktop, tablet, or mobile anytime. PRODUCT SHOWCASE See It In Action Watch the full walkthrough of the Project Management Portal ABOUT US Empowering Digital Transformation Desire Infoweb is a leading IT offshoring company specializing in Microsoft 365, AI, and custom business",
-          "overlap_count": 6,
-          "overlap_ratio": 0.857143,
-          "entry_rank": 0.837804,
+          "title": "serviceCatalog.json",
+          "url": "https://desirechatbotweb.blob.core.windows.net/desirechatbotweb/serviceCatalog.json",
+          "id": "213591c16597_aHR0cHM6Ly9kZXNpcmVjaGF0Ym90d2ViLmJsb2IuY29yZS53aW5kb3dzLm5ldC9kZXNpcmVjaGF0Ym90d2ViL3NlcnZpY2VDYXRhbG9nLmpzb241_pages_15",
+          "score": 6.99394,
+          "context_snippet": "[ { \"slug\": \"ai\", \"name\": \"AI or Artificial Intelligence\", \"eyebrow\": \"AI Delivery\", \"overview\": \"Intelligent assistants, automation experiences, and knowledge-driven solutions built for faster decisions and stronger user support.\", \"themeGradient\": \"linear-gradient(135deg, #0d1b3d 0%, #2d2456 52%, #6320ee 100%)\", \"accent\": \"#8f7cff\", \"stack\": [ \"Azure OpenAI\", \"AI Search\", \"Prompt Design\", \"M365\", \"API Integrations\" ], \"projectsRef\": \"aiProjects\", \"url\": \"https://desireinfoweb.com/services/ai\" }, { \"slug\": \"ms-dynamics\", \"name\": \"Dynamics 365\", \"eyebrow\": \"Business Operations\", \"overview\": \"CRM and business workflow solutions that connect teams, streamline processes, and improve visibility across the customer lifecycle.\", \"themeGradient\": \"linear-gradient(135deg, #10203d 0%, #1a4f7a 54%, #4e388a 100%)\", \"accent\": \"#4ea0ff\", \"stack\": [ \"Dynamics 365\", \"Power Platform\", \"Automation\", \"Reporting\", \"Business Workflows\" ], \"projectsRef\": \"msDynamicsProjects\", \"url\": \"https://desireinfoweb.com/services/ms-dynamics\" }, { \"slug\": \"power-bi\", \"name\": \"Power BI\", \"eyebrow\": \"Data Intelligence\", \"overview\": \"Reporting experiences that convert raw operational data into visual clarity, faster decisions, and stronger executive visibility.\", \"themeGradient\": \"linear-gradient(135deg, #1e183f 0%, #33406d 45%, #6320ee 100%)\", \"accent\": \"#7b8fff\", \"stack\": [ \"Power BI\", \"DAX\", \"Power Query\", \"SQL\", \"Dashboard Design\" ], \"projectsRef\": \"powerBiProjects\", \"url\": \"https://desireinfoweb.com/services/power-bi\" }, { \"slug\": \"power-platform\", \"name\": \"Power Platform\",",
+          "overlap_count": 2,
+          "overlap_ratio": 0.285714,
+          "entry_rank": 0.433288,
           "retrieval_mode": "text",
-          "source_scope": "blob_fallback"
+          "source_scope": "knowledge"
         },
         "stream": true,
-        "ts": "2026-05-11T08:21:07.535540+00:00"
+        "ts": "2026-05-19T07:27:10.185434+00:00"
       },
       "ai_search_json_response": {
         "source_scope": "knowledge",
         "found": true,
         "retrieval_mode": "text",
-        "score": 7.573874,
-        "normalized_score": 0.791098,
-        "rank": 0.753338,
+        "score": 6.99394,
+        "normalized_score": 0.777628,
+        "rank": 0.744987,
         "overlap_ratio": 0.428571,
         "overlap_count": 3,
         "query_term_count": 7,
         "meets_score": true,
         "meets_overlap": true,
-        "context_chars": 833,
-        "context_preview": "[companyProfile] About Desire Infoweb Desire Infoweb is an IT services and consulting company focused on Microsoft technologies, enterprise automation, modern collaboration platforms, analytics, and AI-powered business solutions. Core capabilities include SharePoint, Power Platform, Power BI, Microsoft Teams, Dynamics 365, Azure, .NET development, migration, governance, and custom AI/chatbot implementations. https://desireinfoweb.com/about-us [products] Organization Chart An organizational chart shows the internal structure of an organization or company. The employees and positions are represe",
-        "citations_count": 1,
+        "context_chars": 10378,
+        "context_preview": "[ { \"slug\": \"ai\", \"name\": \"AI or Artificial Intelligence\", \"eyebrow\": \"AI Delivery\", \"overview\": \"Intelligent assistants, automation experiences, and knowledge-driven solutions built for faster decisions and stronger user support.\", \"themeGradient\": \"linear-gradient(135deg, #0d1b3d 0%, #2d2456 52%, #6320ee 100%)\", \"accent\": \"#8f7cff\", \"stack\": [ \"Azure OpenAI\", \"AI Search\", \"Prompt Design\", \"M365\", \"API Integrations\" ], \"projectsRef\": \"aiProjects\", \"url\": \"https://desireinfoweb.com/services/ai\" }, { \"slug\": \"ms-dynamics\", \"name\": \"Dynamics 365\", \"eyebrow\": \"Business Operations\", \"overview\": \"C",
+        "citations_count": 2,
         "citation": {
-          "title": "about-us",
-          "url": "https://desireinfoweb.com/about-us",
-          "id": "s_c2VydmljZUNhdGFsb2cudHh0_i_0_u_c76371ec982743fd978ca381a3778da9",
-          "score": 7.573874,
-          "context_snippet": "[companyProfile] About Desire Infoweb Desire Infoweb is an IT services and consulting company focused on Microsoft technologies, enterprise automation, modern collaboration platforms, analytics, and AI-powered business solutions. Core capabilities include SharePoint, Power Platform, Power BI, Microsoft Teams, Dynamics 365, Azure, .NET development, migration, governance, and custom AI/chatbot implementations. https://desireinfoweb.com/about-us [products] Organization Chart An organizational chart shows the internal structure of an organization or company. The employees and positions are represented by boxes or other shapes, sometimes including photos, contact information, email and page links, icons, and illustrations. Straight or elbowed lines link the levels together. https://desireinfoweb.com/products/organization-chart",
-          "overlap_count": 3,
-          "overlap_ratio": 0.428571,
-          "entry_rank": 0.537329,
+          "title": "serviceCatalog.json",
+          "url": "https://desirechatbotweb.blob.core.windows.net/desirechatbotweb/serviceCatalog.json",
+          "id": "213591c16597_aHR0cHM6Ly9kZXNpcmVjaGF0Ym90d2ViLmJsb2IuY29yZS53aW5kb3dzLm5ldC9kZXNpcmVjaGF0Ym90d2ViL3NlcnZpY2VDYXRhbG9nLmpzb241_pages_15",
+          "score": 6.99394,
+          "context_snippet": "[ { \"slug\": \"ai\", \"name\": \"AI or Artificial Intelligence\", \"eyebrow\": \"AI Delivery\", \"overview\": \"Intelligent assistants, automation experiences, and knowledge-driven solutions built for faster decisions and stronger user support.\", \"themeGradient\": \"linear-gradient(135deg, #0d1b3d 0%, #2d2456 52%, #6320ee 100%)\", \"accent\": \"#8f7cff\", \"stack\": [ \"Azure OpenAI\", \"AI Search\", \"Prompt Design\", \"M365\", \"API Integrations\" ], \"projectsRef\": \"aiProjects\", \"url\": \"https://desireinfoweb.com/services/ai\" }, { \"slug\": \"ms-dynamics\", \"name\": \"Dynamics 365\", \"eyebrow\": \"Business Operations\", \"overview\": \"CRM and business workflow solutions that connect teams, streamline processes, and improve visibility across the customer lifecycle.\", \"themeGradient\": \"linear-gradient(135deg, #10203d 0%, #1a4f7a 54%, #4e388a 100%)\", \"accent\": \"#4ea0ff\", \"stack\": [ \"Dynamics 365\", \"Power Platform\", \"Automation\", \"Reporting\", \"Business Workflows\" ], \"projectsRef\": \"msDynamicsProjects\", \"url\": \"https://desireinfoweb.com/services/ms-dynamics\" }, { \"slug\": \"power-bi\", \"name\": \"Power BI\", \"eyebrow\": \"Data Intelligence\", \"overview\": \"Reporting experiences that convert raw operational data into visual clarity, faster decisions, and stronger executive visibility.\", \"themeGradient\": \"linear-gradient(135deg, #1e183f 0%, #33406d 45%, #6320ee 100%)\", \"accent\": \"#7b8fff\", \"stack\": [ \"Power BI\", \"DAX\", \"Power Query\", \"SQL\", \"Dashboard Design\" ], \"projectsRef\": \"powerBiProjects\", \"url\": \"https://desireinfoweb.com/services/power-bi\" }, { \"slug\": \"power-platform\", \"name\": \"Power Platform\",",
+          "overlap_count": 2,
+          "overlap_ratio": 0.285714,
+          "entry_rank": 0.433288,
           "retrieval_mode": "text"
         },
-        "ts": "2026-05-11T08:21:03.562958+00:00"
+        "ts": "2026-05-19T07:27:06.612446+00:00"
       },
       "ai_search_blob_response": {
         "source_scope": "blob_fallback",
         "found": true,
         "retrieval_mode": "text",
-        "score": 7.646935,
-        "normalized_score": 0.79268,
-        "rank": 0.757176,
-        "overlap_ratio": 0.857143,
-        "overlap_count": 6,
-        "query_term_count": 7,
-        "meets_score": true,
-        "meets_overlap": true,
-        "context_chars": 10304,
-        "context_preview": "MICROSOFT 365 SOLUTION Employee Directory Empower your organization with a centralized, secure, and instantly searchable hub for all your workforce connections. THE CHALLENGE Disconnected Workforces? Traditional org charts fail to connect people effectively. Is your team facing these challenges? Wasted Time Hours lost searching for the right expert or contact information. Siloed Knowledge Skills and expertise hidden within isolated departmental pockets. Stale Data Outdated spreadsheets and static org charts that don't reflect reality. THE SOLUTION The Centralized Employee Directory Empower you",
-        "citations_count": 4,
-        "citation": {
-          "title": "Employee Directory.pdf",
-          "url": "https://desirechatbotweb.blob.core.windows.net/desirechatbotweb/Employee%20Directory.pdf",
-          "id": "7894e17f5139_aHR0cHM6Ly9kZXNpcmVjaGF0Ym90d2ViLmJsb2IuY29yZS53aW5kb3dzLm5ldC9kZXNpcmVjaGF0Ym90d2ViL0VtcGxveWVlJTIwRGlyZWN0b3J5LnBkZg2_pages_0",
-          "score": 7.646935,
-          "context_snippet": "MICROSOFT 365 SOLUTION Employee Directory Empower your organization with a centralized, secure, and instantly searchable hub for all your workforce connections. THE CHALLENGE Disconnected Workforces? Traditional org charts fail to connect people effectively. Is your team facing these challenges? Wasted Time Hours lost searching for the right expert or contact information. Siloed Knowledge Skills and expertise hidden within isolated departmental pockets. Stale Data Outdated spreadsheets and static org charts that don't reflect reality. THE SOLUTION The Centralized Employee Directory Empower your workforce with a secure, Microsoft 365- powered hub to connect instantly with the right people. Instant Expert Search Enterprise-Grade Security Visual Org Structure LinkedIn Announcement Post South Africa Traveling. - Ongoing sharepoint.desireinfoweb.com/employees Explore Features CORE FEATURES Everything you need to connect Advanced Search Instantly find colleagues by name, department, skills, or location with powerful filtering. Detailed Profiles View rich employee profiles with photos, designations, contact details, and expertise. Org Structure Visualize the complete company hierarchy and understand team relationships clearly. BUILT FOR ENTERPRISE Security, Skills & Accessibility Secure Access Enterprise-grade security with Azure AD and role-based access control. Skill Tags Identify experts by skills and certifications to build effective project teams. Mobile Friendly Access the directory from any device desktop, tablet, or mobile anytime. PRODUCT SHOWCASE See It In Action Watch the full walkthrough of the Project Management Portal ABOUT US Empowering Digital Transformation Desire Infoweb is a leading IT offshoring company specializing in Microsoft 365, AI, and custom business",
-          "overlap_count": 6,
-          "overlap_ratio": 0.857143,
-          "entry_rank": 0.837804,
-          "retrieval_mode": "text"
-        },
-        "ts": "2026-05-11T08:21:03.563957+00:00"
-      },
-      "ai_selection": {
-        "selected_source_scope": "blob_fallback",
-        "selected_retrieval_mode": "text",
-        "selected_score": 7.646935,
-        "selected_rank": 0.757176,
-        "selected_overlap_ratio": 0.857143,
-        "candidate_count": 4,
-        "ts": "2026-05-11T08:21:03.563957+00:00"
-      },
-      "ai_openai_response": {
-        "source": "azure_openai",
-        "answer_chars": 2618,
-        "stream": true,
-        "ts": "2026-05-11T08:21:39.367817+00:00"
-      },
-      "display_response": {
-        "status_code": 200,
-        "answer_chars": 2618,
-        "citations_count": 1,
-        "stream": true,
-        "ts": "2026-05-11T08:21:40.057758+00:00"
-      },
-      "ai_research_response": {
-        "source": "azure_ai_search",
-        "context_chars": 10304,
-        "top_score": 7.646935,
-        "citations_count": 9,
-        "videos_count": 0,
-        "citation": {
-          "title": "Employee Directory.pdf",
-          "url": "https://desirechatbotweb.blob.core.windows.net/desirechatbotweb/Employee%20Directory.pdf",
-          "id": "7894e17f5139_aHR0cHM6Ly9kZXNpcmVjaGF0Ym90d2ViLmJsb2IuY29yZS53aW5kb3dzLm5ldC9kZXNpcmVjaGF0Ym90d2ViL0VtcGxveWVlJTIwRGlyZWN0b3J5LnBkZg2_pages_0",
-          "score": 7.646935,
-          "context_snippet": "MICROSOFT 365 SOLUTION Employee Directory Empower your organization with a centralized, secure, and instantly searchable hub for all your workforce connections. THE CHALLENGE Disconnected Workforces? Traditional org charts fail to connect people effectively. Is your team facing these challenges? Wasted Time Hours lost searching for the right expert or contact information. Siloed Knowledge Skills and expertise hidden within isolated departmental pockets. Stale Data Outdated spreadsheets and static org charts that don't reflect reality. THE SOLUTION The Centralized Employee Directory Empower your workforce with a secure, Microsoft 365- powered hub to connect instantly with the right people. Instant Expert Search Enterprise-Grade Security Visual Org Structure LinkedIn Announcement Post South Africa Traveling. - Ongoing sharepoint.desireinfoweb.com/employees Explore Features CORE FEATURES Everything you need to connect Advanced Search Instantly find colleagues by name, department, skills, or location with powerful filtering. Detailed Profiles View rich employee profiles with photos, designations, contact details, and expertise. Org Structure Visualize the complete company hierarchy and understand team relationships clearly. BUILT FOR ENTERPRISE Security, Skills & Accessibility Secure Access Enterprise-grade security with Azure AD and role-based access control. Skill Tags Identify experts by skills and certifications to build effective project teams. Mobile Friendly Access the directory from any device desktop, tablet, or mobile anytime. PRODUCT SHOWCASE See It In Action Watch the full walkthrough of the Project Management Portal ABOUT US Empowering Digital Transformation Desire Infoweb is a leading IT offshoring company specializing in Microsoft 365, AI, and custom business",
-          "overlap_count": 6,
-          "overlap_ratio": 0.857143,
-          "entry_rank": 0.837804,
-          "retrieval_mode": "text",
-          "source_scope": "blob_fallback"
-        },
-        "stream": true,
-        "ts": "2026-05-11T08:21:07.535540+00:00"
-      }
-    },
-    "summary": {
-      "status_code": 200,
-      "reply": "### Desire Infoweb's Expertise in AI Implementations\n\nDesire Infoweb specializes in delivering cutting-edge AI solutions powered by **Azure OpenAI**, **Microsoft 365 Copilot Studio**, and **Azure AI Foundry**. Our AI implementations are tailored to automate workflows, enhance decision-making, and deliver intelligent, secure solutions for businesses.\n\n---\n\n#### **Core AI Capabilities**\n- **Microsoft 365 Copilot Studio**: Build intelligent agents for workflow automation and conversational experiences.\n- **Generative AI**: Automate document creation (e.g., NDAs, agreements) using templates.\n- **Computer Vision**: Image recognition, object detection, and defect identification.\n- **AI-Powered Predictive Analytics**: Extract insights from invoices, contracts, and reports; forecast trends.\n- **AI Customer Support**: 24/7 chatbots for websites and WhatsApp, integrated with private documents for contextual answers.\n- **RAG Systems**: Retrieval-Augmented Generation for accurate, document-referenced responses.\n\n---\n\n#### **Notable AI Projects**\n1. **Fluentify AI**: Language proficiency assessment using MS Teams, Zoom, and Google Meet recordings.\n2. **Insurance Chatbot**: Reduced policy verification time from 15–20 minutes to seconds with document-based AI.\n3. **Social Omni**: AI-driven multi-platform campaign creator, cutting campaign creation time from hours to seconds.\n4. **Smart Learning Chatbot**: Conversational AI integrated with Azure-hosted video resources and knowledge bases.\n5. **AI Document Review Specialist**: Built on Google Gemini, identifies clerical and logical errors in legal documents.\n6. **Workflow-Driven Document Creation**: Automates email-to-SharePoint storage, data extraction, and document generation.\n\n---\n\n#### **Technology Stack**\n- **Azure OpenAI**: Advanced NLP and AI capabilities.\n- **Google Gemini**: High-performance generative AI for document analysis.\n- **Microsoft 365**: Seamless integration with enterprise tools like SharePoint and Teams.\n- **Custom APIs**: For tailored AI integrations.\n\n---\n\n#### **Why Choose Desire Infoweb for AI?**\n- **Certified Expertise**: Azure AI Engineers and Microsoft 365 specialists.\n- **Proven Success**: 500+ cloud applications delivered with a 100% on-time delivery rate.\n- **Global Reach**: Serving clients across Europe, USA, South Africa, and more.\n\n---\n\nFor more details, visit our **AI Services page**: [https://desireinfoweb.com/services/ai](https://desireinfoweb.com/services/ai)  \nOr book a **free 1-hour consultation** to discuss your AI needs: [https://desireinfoweb.com/contact-us](https://desireinfoweb.com/contact-us)",
-      "stream": true
-    }
-  },
-  {
-    "trace_id": "a6e4d7d5-e815-4251-961e-9b0fdeabbc57",
-    "started_at": "2026-05-11T13:21:00.886167+00:00",
-    "ended_at": "2026-05-11T13:21:05.248789+00:00",
-    "endpoint": "/api/chat/text/stream",
-    "streaming": true,
-    "status": "success",
-    "duration_ms": 4362.62,
-    "session_id": "ea621e21-eebd-4727-b16a-f5014d2510f2",
-    "user_query": "hi",
-    "process": {
-      "user_request": {
-        "query": "hi",
-        "endpoint": "/api/chat/text/stream",
-        "stream": true,
-        "ts": "2026-05-11T13:21:00.886167+00:00"
-      },
-      "ai_request": {
-        "mode": "direct_answer",
-        "model_input_chars": 0,
-        "stream": true,
-        "intent": "greeting",
-        "ts": "2026-05-11T13:21:00.899520+00:00"
-      },
-      "ai_search_response": {
-        "source": "direct_answer",
-        "context_chars": 0,
-        "top_score": 0.0,
-        "citations_count": 0,
-        "stream": true,
-        "ts": "2026-05-11T13:21:00.899520+00:00"
-      },
-      "ai_search_json_response": {},
-      "ai_search_blob_response": {},
-      "ai_selection": {},
-      "ai_openai_response": {
-        "source": "direct_answer",
-        "answer_chars": 312,
-        "stream": true,
-        "ts": "2026-05-11T13:21:01.266744+00:00"
-      },
-      "display_response": {
-        "status_code": 200,
-        "answer_chars": 312,
-        "citations_count": 0,
-        "stream": true,
-        "ts": "2026-05-11T13:21:01.266744+00:00"
-      },
-      "ai_research_response": {
-        "source": "direct_answer",
-        "context_chars": 0,
-        "top_score": 0.0,
-        "citations_count": 0,
-        "stream": true,
-        "ts": "2026-05-11T13:21:00.899520+00:00"
-      }
-    },
-    "summary": {
-      "status_code": 200,
-      "reply": "Hello! Welcome to Desire Infoweb. Desire Infoweb provides Microsoft-focused IT services including SharePoint, Power Apps, Power Automate, Power BI, Office 365, Teams, Dynamics 365, Azure, .NET, migration, automation, and AI/chatbot solutions. Tell me your requirement and I can suggest the best service approach.",
-      "stream": true
-    }
-  },
-  {
-    "trace_id": "b914306e-e2fd-42ed-8dfb-95eef74af1e6",
-    "started_at": "2026-05-11T13:35:02.838072+00:00",
-    "ended_at": "2026-05-11T13:35:03.136946+00:00",
-    "endpoint": "/api/chat/text/stream",
-    "streaming": true,
-    "status": "success",
-    "duration_ms": 298.87,
-    "session_id": "cf5efcf0-7945-4455-a54f-845a9d8c44b6",
-    "user_query": "hii",
-    "process": {
-      "user_request": {
-        "query": "hii",
-        "endpoint": "/api/chat/text/stream",
-        "stream": true,
-        "ts": "2026-05-11T13:35:02.838072+00:00"
-      },
-      "ai_request": {
-        "mode": "direct_answer",
-        "model_input_chars": 0,
-        "stream": true,
-        "intent": "greeting",
-        "ts": "2026-05-11T13:35:02.849219+00:00"
-      },
-      "ai_search_response": {
-        "source": "direct_answer",
-        "context_chars": 0,
-        "top_score": 0.0,
-        "citations_count": 0,
-        "stream": true,
-        "ts": "2026-05-11T13:35:02.849219+00:00"
-      },
-      "ai_search_json_response": {},
-      "ai_search_blob_response": {},
-      "ai_selection": {},
-      "ai_openai_response": {
-        "source": "direct_answer",
-        "answer_chars": 312,
-        "stream": true,
-        "ts": "2026-05-11T13:35:03.135843+00:00"
-      },
-      "display_response": {
-        "status_code": 200,
-        "answer_chars": 312,
-        "citations_count": 0,
-        "stream": true,
-        "ts": "2026-05-11T13:35:03.135843+00:00"
-      },
-      "ai_research_response": {
-        "source": "direct_answer",
-        "context_chars": 0,
-        "top_score": 0.0,
-        "citations_count": 0,
-        "stream": true,
-        "ts": "2026-05-11T13:35:02.849219+00:00"
-      }
-    },
-    "summary": {
-      "status_code": 200,
-      "reply": "Hello! Welcome to Desire Infoweb. Desire Infoweb provides Microsoft-focused IT services including SharePoint, Power Apps, Power Automate, Power BI, Office 365, Teams, Dynamics 365, Azure, .NET, migration, automation, and AI/chatbot solutions. Tell me your requirement and I can suggest the best service approach.",
-      "stream": true
-    }
-  },
-  {
-    "trace_id": "ebb5cba5-b429-4ef9-83fe-cbf6960ab1b7",
-    "started_at": "2026-05-11T13:44:29.704630+00:00",
-    "ended_at": "2026-05-11T13:44:47.194942+00:00",
-    "endpoint": "/api/chat/text/stream",
-    "streaming": true,
-    "status": "success",
-    "duration_ms": 17490.31,
-    "session_id": "cf5efcf0-7945-4455-a54f-845a9d8c44b6",
-    "user_query": "What type of services does Desire Infoweb provide?",
-    "process": {
-      "user_request": {
-        "query": "What type of services does Desire Infoweb provide?",
-        "endpoint": "/api/chat/text/stream",
-        "stream": true,
-        "ts": "2026-05-11T13:44:29.707187+00:00"
-      },
-      "ai_request": {
-        "mode": "rag",
-        "model": "gpt-4o",
-        "model_input_chars": 4779,
-        "stream": true,
-        "intent": "services",
-        "ts": "2026-05-11T13:44:31.737902+00:00"
-      },
-      "ai_search_response": {
-        "source": "azure_ai_search",
-        "context_chars": 6794,
-        "top_score": 9.114188,
-        "citations_count": 11,
-        "videos_count": 0,
-        "citation": {
-          "title": "about-us",
-          "url": "https://desireinfoweb.com/about-us",
-          "id": "s_c2VydmljZUNhdGFsb2cudHh0_i_0_u_c76371ec982743fd978ca381a3778da9",
-          "score": 9.114188,
-          "context_snippet": "[companyProfile] About Desire Infoweb Desire Infoweb is an IT services and consulting company focused on Microsoft technologies, enterprise automation, modern collaboration platforms, analytics, and AI-powered business solutions. Core capabilities include SharePoint, Power Platform, Power BI, Microsoft Teams, Dynamics 365, Azure, .NET development, migration, governance, and custom AI/chatbot implementations. https://desireinfoweb.com/about-us [products] Organization Chart An organizational chart shows the internal structure of an organization or company. The employees and positions are represented by boxes or other shapes, sometimes including photos, contact information, email and page links, icons, and illustrations. Straight or elbowed lines link the levels together. https://desireinfoweb.com/products/organization-chart",
-          "overlap_count": 4,
-          "overlap_ratio": 0.571429,
-          "entry_rank": 0.646015,
-          "retrieval_mode": "text",
-          "source_scope": "knowledge"
-        },
-        "stream": true,
-        "ts": "2026-05-11T13:44:39.084819+00:00"
-      },
-      "ai_search_json_response": {
-        "source_scope": "knowledge",
-        "found": true,
-        "retrieval_mode": "text",
-        "score": 9.114188,
-        "normalized_score": 0.82005,
-        "rank": 0.879859,
+        "score": 7.840372,
+        "normalized_score": 0.796756,
+        "rank": 0.705417,
         "overlap_ratio": 0.714286,
         "overlap_count": 5,
         "query_term_count": 7,
         "meets_score": true,
         "meets_overlap": true,
-        "context_chars": 6794,
-        "context_preview": "[companyProfile] About Desire Infoweb Desire Infoweb is an IT services and consulting company focused on Microsoft technologies, enterprise automation, modern collaboration platforms, analytics, and AI-powered business solutions. Core capabilities include SharePoint, Power Platform, Power BI, Microsoft Teams, Dynamics 365, Azure, .NET development, migration, governance, and custom AI/chatbot implementations. https://desireinfoweb.com/about-us [products] Organization Chart An organizational chart shows the internal structure of an organization or company. The employees and positions are represe",
-        "citations_count": 5,
-        "citation": {
-          "title": "about-us",
-          "url": "https://desireinfoweb.com/about-us",
-          "id": "s_c2VydmljZUNhdGFsb2cudHh0_i_0_u_c76371ec982743fd978ca381a3778da9",
-          "score": 9.114188,
-          "context_snippet": "[companyProfile] About Desire Infoweb Desire Infoweb is an IT services and consulting company focused on Microsoft technologies, enterprise automation, modern collaboration platforms, analytics, and AI-powered business solutions. Core capabilities include SharePoint, Power Platform, Power BI, Microsoft Teams, Dynamics 365, Azure, .NET development, migration, governance, and custom AI/chatbot implementations. https://desireinfoweb.com/about-us [products] Organization Chart An organizational chart shows the internal structure of an organization or company. The employees and positions are represented by boxes or other shapes, sometimes including photos, contact information, email and page links, icons, and illustrations. Straight or elbowed lines link the levels together. https://desireinfoweb.com/products/organization-chart",
-          "overlap_count": 4,
-          "overlap_ratio": 0.571429,
-          "entry_rank": 0.646015,
-          "retrieval_mode": "text"
-        },
-        "ts": "2026-05-11T13:44:36.019942+00:00"
-      },
-      "ai_search_blob_response": {
-        "source_scope": "blob_fallback",
-        "found": true,
-        "retrieval_mode": "text",
-        "score": 9.022432,
-        "normalized_score": 0.818552,
-        "rank": 0.718931,
-        "overlap_ratio": 0.714286,
-        "overlap_count": 5,
-        "query_term_count": 7,
-        "meets_score": true,
-        "meets_overlap": true,
-        "context_chars": 13582,
-        "context_preview": "Empowering Your Vis ion Through S trategic IT Innovation Desire Infoweb Pvt Ltd. — Specialists in AI, Microsoft 365, Azure, SharePoint, Power Platform, Dynamics 365 & more WHO WE ARE Professional AI & Microsoft 365 Consulting We provide professional AI and Microsoft 365 consulting services for businesses in Europe, Australia, USA, South Africa, and Canada. Our team helps organizations improve productivity through customized Microsoft 365 solutions, smooth migration, secure setup, and reliable ongoing support. We focus on aligning Microsoft tools with your business needs to ensure better collab",
+        "context_chars": 13050,
+        "context_preview": "your project stands. Future-Proof Technology We leverage only the latest, most stable tech stacks, ensuring your solutions remain secure, scalable, and ahead of the curve. WHY CHOOSE US The S trategic Advantage Our commitment to quality, reliability, and client success is reflected in every engagement. Here's what sets Desire Infoweb apart from the competition. 24/7 Support Available Round-the-clock support to ensure your business never faces downtime alone. 4.9 Client Rating Consistently rated 4.9 out of 5 by our clients for quality, communication, and delivery. 99% On-Time Delivery Our rigor",
         "citations_count": 4,
         "citation": {
           "title": "Company Presentation New.pdf",
           "url": "https://desirechatbotweb.blob.core.windows.net/desirechatbotweb/Company%20Presentation%20New.pdf",
-          "id": "7894e17f5139_aHR0cHM6Ly9kZXNpcmVjaGF0Ym90d2ViLmJsb2IuY29yZS53aW5kb3dzLm5ldC9kZXNpcmVjaGF0Ym90d2ViL0NvbXBhbnklMjBQcmVzZW50YXRpb24lMjBOZXcucGRm0_pages_0",
-          "score": 8.865636,
-          "context_snippet": "Empowering Your Vis ion Through S trategic IT Innovation Desire Infoweb Pvt Ltd. — Specialists in AI, Microsoft 365, Azure, SharePoint, Power Platform, Dynamics 365 & more WHO WE ARE Professional AI & Microsoft 365 Consulting We provide professional AI and Microsoft 365 consulting services for businesses in Europe, Australia, USA, South Africa, and Canada. Our team helps organizations improve productivity through customized Microsoft 365 solutions, smooth migration, secure setup, and reliable ongoing support. We focus on aligning Microsoft tools with your business needs to ensure better collaboration and long-term growth. Customized Solutions Tailored Microsoft 365 solutions aligned with your unique business objectives and workflows. Smooth Migration Seamless migration, secure setup, and reliable ongoing support for your organization. AI-Powered Services Cutting-edge AI services to help your business stay competitive and future-ready. Long-Term Growth Partnering with you to drive sustainable collaboration, productivity, and business growth. Indus tries We S erve Education & E-learning Retail E-commerce Finance Real Estate Travel On-demand Solutions Healthcare & Fitness Logistics & Distribution OUR TRACK RECORD Global Reach, Proven Track Record With over a decade of experience, Desire Infoweb has established a strong global presence and a consistent record of delivering results for clients across more than 25 countries. 1200+ Projects Delivered Successful IT projects completed across diverse industries and geographies. 200+ Clients Worldwide Trusted by over 200 businesses across Europe, Australia, USA, South Africa, and Canada. 25+ Countries Served Global reach with local understanding across more than 25 countries. 10+ Years of Experience Over 10 years of expertise in I",
-          "overlap_count": 5,
-          "overlap_ratio": 0.714286,
-          "entry_rank": 0.74478,
-          "retrieval_mode": "text"
-        },
-        "ts": "2026-05-11T13:44:36.020941+00:00"
-      },
-      "ai_selection": {
-        "selected_source_scope": "knowledge",
-        "selected_retrieval_mode": "text",
-        "selected_score": 9.114188,
-        "selected_rank": 0.879859,
-        "selected_overlap_ratio": 0.714286,
-        "candidate_count": 4,
-        "ts": "2026-05-11T13:44:36.020941+00:00"
-      },
-      "ai_openai_response": {
-        "source": "azure_openai",
-        "answer_chars": 1387,
-        "stream": true,
-        "ts": "2026-05-11T13:44:46.737527+00:00"
-      },
-      "display_response": {
-        "status_code": 200,
-        "answer_chars": 1387,
-        "citations_count": 1,
-        "stream": true,
-        "ts": "2026-05-11T13:44:47.194942+00:00"
-      },
-      "ai_research_response": {
-        "source": "azure_ai_search",
-        "context_chars": 6794,
-        "top_score": 9.114188,
-        "citations_count": 11,
-        "videos_count": 0,
-        "citation": {
-          "title": "about-us",
-          "url": "https://desireinfoweb.com/about-us",
-          "id": "s_c2VydmljZUNhdGFsb2cudHh0_i_0_u_c76371ec982743fd978ca381a3778da9",
-          "score": 9.114188,
-          "context_snippet": "[companyProfile] About Desire Infoweb Desire Infoweb is an IT services and consulting company focused on Microsoft technologies, enterprise automation, modern collaboration platforms, analytics, and AI-powered business solutions. Core capabilities include SharePoint, Power Platform, Power BI, Microsoft Teams, Dynamics 365, Azure, .NET development, migration, governance, and custom AI/chatbot implementations. https://desireinfoweb.com/about-us [products] Organization Chart An organizational chart shows the internal structure of an organization or company. The employees and positions are represented by boxes or other shapes, sometimes including photos, contact information, email and page links, icons, and illustrations. Straight or elbowed lines link the levels together. https://desireinfoweb.com/products/organization-chart",
+          "id": "7894e17f5139_aHR0cHM6Ly9kZXNpcmVjaGF0Ym90d2ViLmJsb2IuY29yZS53aW5kb3dzLm5ldC9kZXNpcmVjaGF0Ym90d2ViL0NvbXBhbnklMjBQcmVzZW50YXRpb24lMjBOZXcucGRm0_pages_3",
+          "score": 7.840372,
+          "context_snippet": "your project stands. Future-Proof Technology We leverage only the latest, most stable tech stacks, ensuring your solutions remain secure, scalable, and ahead of the curve. WHY CHOOSE US The S trategic Advantage Our commitment to quality, reliability, and client success is reflected in every engagement. Here's what sets Desire Infoweb apart from the competition. 24/7 Support Available Round-the-clock support to ensure your business never faces downtime alone. 4.9 Client Rating Consistently rated 4.9 out of 5 by our clients for quality, communication, and delivery. 99% On-Time Delivery Our rigorous project management ensures 99% of projects are delivered on schedule. 100% Succes s Rate We only engage when we're the right fit guaranteeing measurable success every time. ENGAGEMENT MODELS Flexible Engagement Models for Every Project We understand that every project is different. That's why we offer three flexible engagement models designed to match your budget, timeline, and team requirements. Fixed Cos t Project Model Ideal for well-defined projects with clear scope. Agree on a price upfront and we deliver no surprises, no overruns. Dedicated Developer Model Get a dedicated in-house resource working exclusively on your project like having your own extended team. Time & Material Based Model Perfect for evolving projects. Pay only for the time and resources used, with full flexibility to adapt as requirements change. Our Global Presence Remotely Trus ted Delivering excellence from offshore, trusted by global clients Strong Clientele A robust, loyal client base across 25+ countries Steady E ngagement Long-term, consistent partnerships built on trust and results OUR CLIENTS Trusted by Industry Leaders Worldwide We are proud to partner with globally recognized organizations, del",
           "overlap_count": 4,
           "overlap_ratio": 0.571429,
-          "entry_rank": 0.646015,
-          "retrieval_mode": "text",
-          "source_scope": "knowledge"
-        },
-        "stream": true,
-        "ts": "2026-05-11T13:44:39.084819+00:00"
-      }
-    },
-    "summary": {
-      "status_code": 200,
-      "reply": "Desire Infoweb provides the following services:\n\n1. **AI / Artificial Intelligence**: Chatbots, predictive analytics, document automation, and Azure OpenAI solutions. [Details](https://desireinfoweb.com/services/ai)  \n2. **SharePoint**: Intranet portals, team sites, document management, and custom web parts. [Details](https://desireinfoweb.com/services/sharepoint)  \n3. **Power BI**: Interactive dashboards, data visualization, and trend analysis. [Details](https://desireinfoweb.com/services/power-bi)  \n4. **Power Platform**: Low-code apps, workflows, and process automation. [Details](https://desireinfoweb.com/services/power-platform)  \n5. **Dynamics 365**: CRM, ERP, field service management, and reporting. [Details](https://desireinfoweb.com/services/ms-dynamics)  \n6. **Azure**: Cloud computing, scalable applications, and enterprise-grade security. [Details](https://desireinfoweb.com/services/dot-net)  \n7. **Web Development**: Responsive websites, custom apps, and CMS solutions. [Details](https://desireinfoweb.com/services/web-development)  \n8. **SEO Services**: Keyword research, optimization, and organic traffic growth. [Details](https://desireinfoweb.com/services/seo)  \n9. **Mobile Development**: iOS, Android, and cross-platform apps. [Details](https://desireinfoweb.com/services/mobile-development)  \n\nLet me know if you'd like more details on any specific service!",
-      "stream": true
-    }
-  },
-  {
-    "trace_id": "1580c9c1-2e71-4e31-a471-f6e58e0e0a73",
-    "started_at": "2026-05-15T05:10:18.581747+00:00",
-    "ended_at": "2026-05-15T05:10:34.125866+00:00",
-    "endpoint": "/api/chat/text/stream",
-    "streaming": true,
-    "status": "success",
-    "duration_ms": 15544.12,
-    "session_id": "cf5efcf0-7945-4455-a54f-845a9d8c44b6",
-    "user_query": "please write basic ptrhon code??",
-    "process": {
-      "user_request": {
-        "query": "please write basic ptrhon code??",
-        "endpoint": "/api/chat/text/stream",
-        "stream": true,
-        "ts": "2026-05-15T05:10:18.583805+00:00"
-      },
-      "ai_request": {
-        "mode": "rag",
-        "model": "gpt-4o",
-        "model_input_chars": 203,
-        "stream": true,
-        "intent": "out_of_scope",
-        "ts": "2026-05-15T05:10:20.401998+00:00"
-      },
-      "ai_search_response": {
-        "source": "azure_ai_search",
-        "context_chars": 12608,
-        "top_score": 5.8830023,
-        "citations_count": 11,
-        "videos_count": 0,
-        "citation": {
-          "title": "Flutter Case Study - DesireInfoWeb 2.pdf",
-          "url": "https://desirechatbotweb.blob.core.windows.net/desirechatbotweb/Flutter%20Case%20Study%20-%20DesireInfoWeb%202.pdf",
-          "id": "87ba13f8d90b_aHR0cHM6Ly9kZXNpcmVjaGF0Ym90d2ViLmJsb2IuY29yZS53aW5kb3dzLm5ldC9kZXNpcmVjaGF0Ym90d2ViL0ZsdXR0ZXIlMjBDYXNlJTIwU3R1ZHklMjAtJTIwRGVzaXJlSW5mb1dlYiUyMDIucGRm0_pages_0",
-          "score": 5.883002,
-          "context_snippet": "FLUTTER CASE STUDY Transforming Ideas into Cross-Platform Excellence vijay@desireinfoweb.com www.desireinfoweb.com OUR SERVICES SharePoint Microsoft SharePoint Solutions PowerApps Microsoft PowerApps Development Power Automate Workflow Automation Power BI Business Intelligence .NET Core Software Development Azure Services Admin & Migration Services AI Services Artificial Intelligence Azure DevOps DevOps Services QA Automation Quality Assurance Dynamics365 CRM, BC, NAV Flutter Development Cross-Platform Apps Customization SharePoint Branding What is Flutter? Google's open-source UI software development kit (SDK) for building natively compiled applications for mobile, web, desktop, and embedded devices from a single codebase. Core Features Single Codebase Write once, deploy everywhere Hot Reload Instant code changes Widget-Based UI Rich customizable widgets Native Performance Compiles to machine code Common Use Cases E-commerce & Retail Build feature-rich shopping experiences with smooth UI and fast performance Fintech & Banking Secure financial applications with real- time transactions and data visualization Internal Business Tools Streamlined enterprise applications for workforce management and operations Football Sherpa Gamified Training Platform for Youth Athletes Challenge  Develop modern, mobile-first platform for players aged 12-18  Build scalable, compliant foundation supporting high-volume usage  Enable parental visibility and COPPA/GDPR compliance Solution Overview Training & Validation 40 core challenges Team System Weekly reshuffles Leaderboards Global Hall of Fame Social Features Friends & chat Performance & AI Analytics Dashboard Badge points, rank, streak tracking AI Coach Chat Real-time tips & drill suggestions AI Insights Rule-based recommendations Imp",
-          "overlap_count": 2,
-          "overlap_ratio": 0.5,
-          "entry_rank": 0.573887,
-          "retrieval_mode": "text",
-          "source_scope": "blob_fallback"
-        },
-        "stream": true,
-        "ts": "2026-05-15T05:10:28.042374+00:00"
-      },
-      "ai_search_json_response": {
-        "source_scope": "knowledge",
-        "found": true,
-        "retrieval_mode": "text",
-        "score": 2.452964,
-        "normalized_score": 0.550861,
-        "rank": 0.416534,
-        "overlap_ratio": 0.25,
-        "overlap_count": 1,
-        "query_term_count": 4,
-        "meets_score": true,
-        "meets_overlap": true,
-        "context_chars": 7215,
-        "context_preview": "[serviceCatalogFromCode] Dynamics 365 CRM and business workflow solutions that connect teams, streamline processes, and improve visibility across the customer lifecycle. https://desireinfoweb.com/services/ms-dynamics [serviceCatalogFromCode] Power BI Reporting experiences that convert raw operational data into visual clarity, faster decisions, and stronger executive visibility. https://desireinfoweb.com/services/power-bi [serviceCatalogFromCode] Power Platform Low-code solutions that simplify approvals, internal workflows, and operational handoffs without sacrificing user experience. https://d",
-        "citations_count": 3,
-        "citation": {
-          "title": "power-platform",
-          "url": "https://desireinfoweb.com/services/power-platform",
-          "id": "s_c2VydmljZUNhdGFsb2cudHh0_i_19_u_a77de29e12514f868245c3e1208a61bf",
-          "score": 2.452964,
-          "context_snippet": "[serviceCatalogFromCode] Dynamics 365 CRM and business workflow solutions that connect teams, streamline processes, and improve visibility across the customer lifecycle. https://desireinfoweb.com/services/ms-dynamics [serviceCatalogFromCode] Power BI Reporting experiences that convert raw operational data into visual clarity, faster decisions, and stronger executive visibility. https://desireinfoweb.com/services/power-bi [serviceCatalogFromCode] Power Platform Low-code solutions that simplify approvals, internal workflows, and operational handoffs without sacrificing user experience. https://desireinfoweb.com/services/power-platform [serviceCatalogFromCode] SharePoint Intranet and collaboration platforms designed to improve communication, document access, engagement, and organizational alignment. https://desireinfoweb.com/services/sharepoint",
-          "overlap_count": 1,
-          "overlap_ratio": 0.25,
-          "entry_rank": 0.260258,
+          "entry_rank": 0.639027,
           "retrieval_mode": "text"
         },
-        "ts": "2026-05-15T05:10:25.334019+00:00"
-      },
-      "ai_search_blob_response": {
-        "source_scope": "blob_fallback",
-        "found": true,
-        "retrieval_mode": "text",
-        "score": 5.883002,
-        "normalized_score": 0.74629,
-        "rank": 0.5927,
-        "overlap_ratio": 0.5,
-        "overlap_count": 2,
-        "query_term_count": 4,
-        "meets_score": true,
-        "meets_overlap": true,
-        "context_chars": 12608,
-        "context_preview": "FLUTTER CASE STUDY Transforming Ideas into Cross-Platform Excellence vijay@desireinfoweb.com www.desireinfoweb.com OUR SERVICES SharePoint Microsoft SharePoint Solutions PowerApps Microsoft PowerApps Development Power Automate Workflow Automation Power BI Business Intelligence .NET Core Software Development Azure Services Admin & Migration Services AI Services Artificial Intelligence Azure DevOps DevOps Services QA Automation Quality Assurance Dynamics365 CRM, BC, NAV Flutter Development Cross-Platform Apps Customization SharePoint Branding What is Flutter? Google's open-source UI software dev",
-        "citations_count": 6,
-        "citation": {
-          "title": "Flutter Case Study - DesireInfoWeb 2.pdf",
-          "url": "https://desirechatbotweb.blob.core.windows.net/desirechatbotweb/Flutter%20Case%20Study%20-%20DesireInfoWeb%202.pdf",
-          "id": "87ba13f8d90b_aHR0cHM6Ly9kZXNpcmVjaGF0Ym90d2ViLmJsb2IuY29yZS53aW5kb3dzLm5ldC9kZXNpcmVjaGF0Ym90d2ViL0ZsdXR0ZXIlMjBDYXNlJTIwU3R1ZHklMjAtJTIwRGVzaXJlSW5mb1dlYiUyMDIucGRm0_pages_0",
-          "score": 5.883002,
-          "context_snippet": "FLUTTER CASE STUDY Transforming Ideas into Cross-Platform Excellence vijay@desireinfoweb.com www.desireinfoweb.com OUR SERVICES SharePoint Microsoft SharePoint Solutions PowerApps Microsoft PowerApps Development Power Automate Workflow Automation Power BI Business Intelligence .NET Core Software Development Azure Services Admin & Migration Services AI Services Artificial Intelligence Azure DevOps DevOps Services QA Automation Quality Assurance Dynamics365 CRM, BC, NAV Flutter Development Cross-Platform Apps Customization SharePoint Branding What is Flutter? Google's open-source UI software development kit (SDK) for building natively compiled applications for mobile, web, desktop, and embedded devices from a single codebase. Core Features Single Codebase Write once, deploy everywhere Hot Reload Instant code changes Widget-Based UI Rich customizable widgets Native Performance Compiles to machine code Common Use Cases E-commerce & Retail Build feature-rich shopping experiences with smooth UI and fast performance Fintech & Banking Secure financial applications with real- time transactions and data visualization Internal Business Tools Streamlined enterprise applications for workforce management and operations Football Sherpa Gamified Training Platform for Youth Athletes Challenge  Develop modern, mobile-first platform for players aged 12-18  Build scalable, compliant foundation supporting high-volume usage  Enable parental visibility and COPPA/GDPR compliance Solution Overview Training & Validation 40 core challenges Team System Weekly reshuffles Leaderboards Global Hall of Fame Social Features Friends & chat Performance & AI Analytics Dashboard Badge points, rank, streak tracking AI Coach Chat Real-time tips & drill suggestions AI Insights Rule-based recommendations Imp",
-          "overlap_count": 2,
-          "overlap_ratio": 0.5,
-          "entry_rank": 0.573887,
-          "retrieval_mode": "text"
-        },
-        "ts": "2026-05-15T05:10:25.334019+00:00"
-      },
-      "ai_selection": {
-        "selected_source_scope": "blob_fallback",
-        "selected_retrieval_mode": "text",
-        "selected_score": 5.883002,
-        "selected_rank": 0.5927,
-        "selected_overlap_ratio": 0.5,
-        "candidate_count": 3,
-        "ts": "2026-05-15T05:10:25.334019+00:00"
-      },
-      "ai_openai_response": {
-        "source": "azure_openai",
-        "answer_chars": 264,
-        "stream": true,
-        "ts": "2026-05-15T05:10:33.401597+00:00"
-      },
-      "display_response": {
-        "status_code": 200,
-        "answer_chars": 264,
-        "citations_count": 1,
-        "stream": true,
-        "ts": "2026-05-15T05:10:34.125866+00:00"
-      },
-      "ai_research_response": {
-        "source": "azure_ai_search",
-        "context_chars": 12608,
-        "top_score": 5.8830023,
-        "citations_count": 11,
-        "videos_count": 0,
-        "citation": {
-          "title": "Flutter Case Study - DesireInfoWeb 2.pdf",
-          "url": "https://desirechatbotweb.blob.core.windows.net/desirechatbotweb/Flutter%20Case%20Study%20-%20DesireInfoWeb%202.pdf",
-          "id": "87ba13f8d90b_aHR0cHM6Ly9kZXNpcmVjaGF0Ym90d2ViLmJsb2IuY29yZS53aW5kb3dzLm5ldC9kZXNpcmVjaGF0Ym90d2ViL0ZsdXR0ZXIlMjBDYXNlJTIwU3R1ZHklMjAtJTIwRGVzaXJlSW5mb1dlYiUyMDIucGRm0_pages_0",
-          "score": 5.883002,
-          "context_snippet": "FLUTTER CASE STUDY Transforming Ideas into Cross-Platform Excellence vijay@desireinfoweb.com www.desireinfoweb.com OUR SERVICES SharePoint Microsoft SharePoint Solutions PowerApps Microsoft PowerApps Development Power Automate Workflow Automation Power BI Business Intelligence .NET Core Software Development Azure Services Admin & Migration Services AI Services Artificial Intelligence Azure DevOps DevOps Services QA Automation Quality Assurance Dynamics365 CRM, BC, NAV Flutter Development Cross-Platform Apps Customization SharePoint Branding What is Flutter? Google's open-source UI software development kit (SDK) for building natively compiled applications for mobile, web, desktop, and embedded devices from a single codebase. Core Features Single Codebase Write once, deploy everywhere Hot Reload Instant code changes Widget-Based UI Rich customizable widgets Native Performance Compiles to machine code Common Use Cases E-commerce & Retail Build feature-rich shopping experiences with smooth UI and fast performance Fintech & Banking Secure financial applications with real- time transactions and data visualization Internal Business Tools Streamlined enterprise applications for workforce management and operations Football Sherpa Gamified Training Platform for Youth Athletes Challenge  Develop modern, mobile-first platform for players aged 12-18  Build scalable, compliant foundation supporting high-volume usage  Enable parental visibility and COPPA/GDPR compliance Solution Overview Training & Validation 40 core challenges Team System Weekly reshuffles Leaderboards Global Hall of Fame Social Features Friends & chat Performance & AI Analytics Dashboard Badge points, rank, streak tracking AI Coach Chat Real-time tips & drill suggestions AI Insights Rule-based recommendations Imp",
-          "overlap_count": 2,
-          "overlap_ratio": 0.5,
-          "entry_rank": 0.573887,
-          "retrieval_mode": "text",
-          "source_scope": "blob_fallback"
-        },
-        "stream": true,
-        "ts": "2026-05-15T05:10:28.042374+00:00"
-      }
-    },
-    "summary": {
-      "status_code": 200,
-      "reply": "Here’s a simple Python example that prints \"Hello, World!\" and adds two numbers:\n\n```python\n# Print a message\nprint(\"Hello, World!\")\n\n# Add two numbers\na = 5\nb = 3\nsum = a + b\nprint(\"The sum is:\", sum)\n```\n\nLet me know if you need help with a specific Python task!",
-      "stream": true
-    }
-  },
-  {
-    "trace_id": "5591cbbf-c39b-44ef-ab2d-01785f50d3a7",
-    "started_at": "2026-05-15T05:18:23.644766+00:00",
-    "ended_at": "2026-05-15T05:18:46.515533+00:00",
-    "endpoint": "/api/chat/text/stream",
-    "streaming": true,
-    "status": "success",
-    "duration_ms": 22870.77,
-    "session_id": "cf5efcf0-7945-4455-a54f-845a9d8c44b6",
-    "user_query": "what is desireinfoweb project in the sharepoints.??",
-    "process": {
-      "user_request": {
-        "query": "what is desireinfoweb project in the sharepoint.??",
-        "endpoint": "/api/chat/text/stream",
-        "stream": true,
-        "ts": "2026-05-15T05:18:23.645765+00:00"
-      },
-      "ai_request": {
-        "mode": "rag",
-        "model": "gpt-4o",
-        "model_input_chars": 559,
-        "stream": true,
-        "intent": "rag_general",
-        "ts": "2026-05-15T05:18:25.781838+00:00"
-      },
-      "ai_search_response": {
-        "source": "azure_ai_search",
-        "context_chars": 5043,
-        "top_score": 5.3341885,
-        "citations_count": 8,
-        "videos_count": 0,
-        "citation": {
-          "title": "project-management-portal",
-          "url": "https://desireinfoweb.com/products/project-management-portal",
-          "id": "s_c2VydmljZUNhdGFsb2cudHh0_i_2_u_7ecec9d85b1e405a993d4e0f8080aba6",
-          "score": 5.334188,
-          "context_snippet": "[products] Project Management Portal Transform the way your organization plans, tracks, and delivers projects. A SharePoint-based Project Management Portal centralizes your PMO and gives every stakeholder visibility from task boards to executive dashboards. https://desireinfoweb.com/products/project-management-portal [products] Learning Management System A Learning Management System helps organizations provide online training, courses, and learning materials to employees, students, or customers in a centralized system. https://desireinfoweb.com/products/learning-management-system [products] Audit System The Audit System project in SharePoint Online is a centralized solution for managing audits and compliance. It streamlines record tracking, monitoring, and evaluation to improve transparency and accountability. https://desireinfoweb.com/products/audit-system",
-          "overlap_count": 5,
-          "overlap_ratio": 1.0,
-          "entry_rank": 0.918191,
-          "retrieval_mode": "text",
-          "source_scope": "knowledge"
-        },
-        "stream": true,
-        "ts": "2026-05-15T05:18:39.226102+00:00"
-      },
-      "ai_search_json_response": {
-        "source_scope": "knowledge",
-        "found": true,
-        "retrieval_mode": "text",
-        "score": 5.334188,
-        "normalized_score": 0.727305,
-        "rank": 0.930929,
-        "overlap_ratio": 1.0,
-        "overlap_count": 5,
-        "query_term_count": 5,
-        "meets_score": true,
-        "meets_overlap": true,
-        "context_chars": 5043,
-        "context_preview": "[products] Project Management Portal Transform the way your organization plans, tracks, and delivers projects. A SharePoint-based Project Management Portal centralizes your PMO and gives every stakeholder visibility from task boards to executive dashboards. https://desireinfoweb.com/products/project-management-portal [products] Learning Management System A Learning Management System helps organizations provide online training, courses, and learning materials to employees, students, or customers in a centralized system. https://desireinfoweb.com/products/learning-management-system [products] Au",
-        "citations_count": 3,
-        "citation": {
-          "title": "project-management-portal",
-          "url": "https://desireinfoweb.com/products/project-management-portal",
-          "id": "s_c2VydmljZUNhdGFsb2cudHh0_i_2_u_7ecec9d85b1e405a993d4e0f8080aba6",
-          "score": 5.334188,
-          "context_snippet": "[products] Project Management Portal Transform the way your organization plans, tracks, and delivers projects. A SharePoint-based Project Management Portal centralizes your PMO and gives every stakeholder visibility from task boards to executive dashboards. https://desireinfoweb.com/products/project-management-portal [products] Learning Management System A Learning Management System helps organizations provide online training, courses, and learning materials to employees, students, or customers in a centralized system. https://desireinfoweb.com/products/learning-management-system [products] Audit System The Audit System project in SharePoint Online is a centralized solution for managing audits and compliance. It streamlines record tracking, monitoring, and evaluation to improve transparency and accountability. https://desireinfoweb.com/products/audit-system",
-          "overlap_count": 5,
-          "overlap_ratio": 1.0,
-          "entry_rank": 0.918191,
-          "retrieval_mode": "text"
-        },
-        "ts": "2026-05-15T05:18:36.336368+00:00"
-      },
-      "ai_search_blob_response": {
-        "source_scope": "blob_fallback",
-        "found": true,
-        "retrieval_mode": "text",
-        "score": 7.087295,
-        "normalized_score": 0.779912,
-        "rank": 0.803546,
-        "overlap_ratio": 1.0,
-        "overlap_count": 5,
-        "query_term_count": 5,
-        "meets_score": true,
-        "meets_overlap": true,
-        "context_chars": 12775,
-        "context_preview": "SHAREPOINT-BASED SOLUTION Project Management Portal Transform the way your organization plans, tracks, and delivers projects. Centralize your PMO with complete visibility from task boards to executive dashboards. 200+ Clients 24/7 Support 100+ Features Request Demo → THE CHALLENGE Is Your Team Struggling With This? Scattered Data Projects live in emails, spreadsheets, and chat threads with no single source of truth. Zero Visibility Leadership has no real-time view into project health, risks, or resource utilization. Missed Deadlines Tasks fall through the cracks without clear ownership, milest",
-        "citations_count": 3,
-        "citation": {
-          "title": "PMP.pdf",
-          "url": "https://desirechatbotweb.blob.core.windows.net/desirechatbotweb/PMP.pdf",
-          "id": "7894e17f5139_aHR0cHM6Ly9kZXNpcmVjaGF0Ym90d2ViLmJsb2IuY29yZS53aW5kb3dzLm5ldC9kZXNpcmVjaGF0Ym90d2ViL1BNUC5wZGY1_pages_0",
-          "score": 4.25329,
-          "context_snippet": "SHAREPOINT-BASED SOLUTION Project Management Portal Transform the way your organization plans, tracks, and delivers projects. Centralize your PMO with complete visibility from task boards to executive dashboards. 200+ Clients 24/7 Support 100+ Features Request Demo → THE CHALLENGE Is Your Team Struggling With This? Scattered Data Projects live in emails, spreadsheets, and chat threads with no single source of truth. Zero Visibility Leadership has no real-time view into project health, risks, or resource utilization. Missed Deadlines Tasks fall through the cracks without clear ownership, milestones, or escalation workflows. Security Gaps Sensitive project data shared without role-based controls or audit trails. www.desireinfoweb.com THE SOLUTION One Portal. Complete Control. Our SharePoint-based Project Management Portal centralizes your entire PMO giving every stakeholder complete visibility, from task boards to executive dashboards.  Built on Microsoft SharePoint secure, scalable & compliant  Real-time dashboards with KPIs, milestones & project health  Kanban boards, Gantt charts, and smart task assignment  Integrates with Microsoft 365, Teams, and Azure AD www.desireinfoweb.com POWERFUL FEATURES Everything You Need to Deliver Projects PMO Dashboard Live dashboard with active vs. completed projects, KPIs, milestones and real-time project health across your entire organization. Task & Milestone Tracking Assign tasks, set deadlines, define milestones, and visualize workloads with Kanban boards, Gantt charts, and list views. Document Management Centralized libraries with version control, co-authoring, and permission-based access so teams always use the latest files. Risk & Issue Register Track risks, issues, and change requests with custom fields for probability, impa",
-          "overlap_count": 5,
-          "overlap_ratio": 1.0,
-          "entry_rank": 0.904051,
-          "retrieval_mode": "text"
-        },
-        "ts": "2026-05-15T05:18:36.338461+00:00"
+        "ts": "2026-05-19T07:27:06.613447+00:00"
       },
       "ai_selection": {
         "selected_source_scope": "knowledge",
         "selected_retrieval_mode": "text",
-        "selected_score": 5.334188,
-        "selected_rank": 0.930929,
-        "selected_overlap_ratio": 1.0,
-        "candidate_count": 4,
-        "ts": "2026-05-15T05:18:36.338461+00:00"
+        "selected_score": 6.99394,
+        "selected_rank": 0.744987,
+        "selected_overlap_ratio": 0.428571,
+        "candidate_count": 3,
+        "ts": "2026-05-19T07:27:06.613447+00:00"
       },
       "ai_openai_response": {
         "source": "azure_openai",
-        "answer_chars": 648,
+        "answer_chars": 602,
         "stream": true,
-        "ts": "2026-05-15T05:18:46.069911+00:00"
+        "ts": "2026-05-19T07:27:17.478327+00:00"
       },
       "display_response": {
         "status_code": 200,
-        "answer_chars": 648,
+        "answer_chars": 602,
         "citations_count": 1,
         "stream": true,
-        "ts": "2026-05-15T05:18:46.515533+00:00"
+        "ts": "2026-05-19T07:27:18.302505+00:00"
       },
       "ai_research_response": {
         "source": "azure_ai_search",
-        "context_chars": 5043,
-        "top_score": 5.3341885,
-        "citations_count": 8,
+        "context_chars": 10378,
+        "top_score": 6.9939404,
+        "citations_count": 9,
         "videos_count": 0,
         "citation": {
-          "title": "project-management-portal",
-          "url": "https://desireinfoweb.com/products/project-management-portal",
-          "id": "s_c2VydmljZUNhdGFsb2cudHh0_i_2_u_7ecec9d85b1e405a993d4e0f8080aba6",
-          "score": 5.334188,
-          "context_snippet": "[products] Project Management Portal Transform the way your organization plans, tracks, and delivers projects. A SharePoint-based Project Management Portal centralizes your PMO and gives every stakeholder visibility from task boards to executive dashboards. https://desireinfoweb.com/products/project-management-portal [products] Learning Management System A Learning Management System helps organizations provide online training, courses, and learning materials to employees, students, or customers in a centralized system. https://desireinfoweb.com/products/learning-management-system [products] Audit System The Audit System project in SharePoint Online is a centralized solution for managing audits and compliance. It streamlines record tracking, monitoring, and evaluation to improve transparency and accountability. https://desireinfoweb.com/products/audit-system",
-          "overlap_count": 5,
-          "overlap_ratio": 1.0,
-          "entry_rank": 0.918191,
+          "title": "serviceCatalog.json",
+          "url": "https://desirechatbotweb.blob.core.windows.net/desirechatbotweb/serviceCatalog.json",
+          "id": "213591c16597_aHR0cHM6Ly9kZXNpcmVjaGF0Ym90d2ViLmJsb2IuY29yZS53aW5kb3dzLm5ldC9kZXNpcmVjaGF0Ym90d2ViL3NlcnZpY2VDYXRhbG9nLmpzb241_pages_15",
+          "score": 6.99394,
+          "context_snippet": "[ { \"slug\": \"ai\", \"name\": \"AI or Artificial Intelligence\", \"eyebrow\": \"AI Delivery\", \"overview\": \"Intelligent assistants, automation experiences, and knowledge-driven solutions built for faster decisions and stronger user support.\", \"themeGradient\": \"linear-gradient(135deg, #0d1b3d 0%, #2d2456 52%, #6320ee 100%)\", \"accent\": \"#8f7cff\", \"stack\": [ \"Azure OpenAI\", \"AI Search\", \"Prompt Design\", \"M365\", \"API Integrations\" ], \"projectsRef\": \"aiProjects\", \"url\": \"https://desireinfoweb.com/services/ai\" }, { \"slug\": \"ms-dynamics\", \"name\": \"Dynamics 365\", \"eyebrow\": \"Business Operations\", \"overview\": \"CRM and business workflow solutions that connect teams, streamline processes, and improve visibility across the customer lifecycle.\", \"themeGradient\": \"linear-gradient(135deg, #10203d 0%, #1a4f7a 54%, #4e388a 100%)\", \"accent\": \"#4ea0ff\", \"stack\": [ \"Dynamics 365\", \"Power Platform\", \"Automation\", \"Reporting\", \"Business Workflows\" ], \"projectsRef\": \"msDynamicsProjects\", \"url\": \"https://desireinfoweb.com/services/ms-dynamics\" }, { \"slug\": \"power-bi\", \"name\": \"Power BI\", \"eyebrow\": \"Data Intelligence\", \"overview\": \"Reporting experiences that convert raw operational data into visual clarity, faster decisions, and stronger executive visibility.\", \"themeGradient\": \"linear-gradient(135deg, #1e183f 0%, #33406d 45%, #6320ee 100%)\", \"accent\": \"#7b8fff\", \"stack\": [ \"Power BI\", \"DAX\", \"Power Query\", \"SQL\", \"Dashboard Design\" ], \"projectsRef\": \"powerBiProjects\", \"url\": \"https://desireinfoweb.com/services/power-bi\" }, { \"slug\": \"power-platform\", \"name\": \"Power Platform\",",
+          "overlap_count": 2,
+          "overlap_ratio": 0.285714,
+          "entry_rank": 0.433288,
           "retrieval_mode": "text",
           "source_scope": "knowledge"
         },
         "stream": true,
-        "ts": "2026-05-15T05:18:39.226102+00:00"
+        "ts": "2026-05-19T07:27:10.185434+00:00"
       }
     },
     "summary": {
       "status_code": 200,
-      "reply": "Desire Infoweb specializes in SharePoint projects, delivering solutions like intranet portals, document management systems, custom web parts, and hybrid intranets. Key projects include:\n\n- **Riyadh Airport Intranet**: Multilingual portal with custom web parts and social media integration.\n- **NBAD Intranet**: Responsive, branded intranet with templates and themes.\n- **Healthcare Intranet**: Collaboration hub with real-time co-editing and task management.\n- **Mortgage Refinancing Portal**: Hybrid intranet combining SharePoint OOTB and custom SPFx features.\n\nExplore more at [SharePoint Services](https://desireinfoweb.com/services/sharepoint).",
+      "reply": "For developer contact, here’s the relevant information:\n\n- **Tech Stack:** SharePoint, Power Platform (Power Apps, Power Automate), Azure, Dynamics 365, AI (Azure OpenAI, Copilot Studio), Power BI, .NET, and mobile app development (iOS/Android).\n- **Business Impact:** Desire Infoweb delivers scalable, secure, and user-friendly solutions that improve collaboration, automate workflows, enhance decision-making, and streamline business operations. Proven 100% on-time delivery and 4.9/5 client satisfaction.\n\nFor direct developer inquiries, email **vijay@desireinfoweb.com** or call **+91-8780468807**.",
       "stream": true
     }
   },
   {
-    "trace_id": "f851186c-5359-4cf9-8330-f69765c6f3fa",
-    "started_at": "2026-05-15T05:19:12.238076+00:00",
-    "ended_at": "2026-05-15T05:19:25.668578+00:00",
+    "trace_id": "0a9864c5-b87a-4a5b-b88a-2e1b73f223f5",
+    "started_at": "2026-05-19T09:43:19.987726+00:00",
+    "ended_at": "2026-05-19T09:43:36.323016+00:00",
     "endpoint": "/api/chat/text/stream",
     "streaming": true,
     "status": "success",
-    "duration_ms": 13430.5,
+    "duration_ms": 16335.29,
     "session_id": "cf5efcf0-7945-4455-a54f-845a9d8c44b6",
-    "user_query": "please write basic ptrhon code??",
+    "user_query": "give me the detail about the Fluentify AI?",
     "process": {
       "user_request": {
-        "query": "please write basic ptrhon code??",
+        "query": "give me the detail about the Fluentify AI?",
         "endpoint": "/api/chat/text/stream",
         "stream": true,
-        "ts": "2026-05-15T05:19:12.240074+00:00"
+        "ts": "2026-05-19T09:43:19.987726+00:00"
       },
       "ai_request": {
         "mode": "rag",
         "model": "gpt-4o",
-        "model_input_chars": 1258,
+        "model_input_chars": 918,
         "stream": true,
-        "intent": "out_of_scope",
-        "ts": "2026-05-15T05:19:14.538333+00:00"
+        "intent": "projects",
+        "ts": "2026-05-19T09:43:22.501285+00:00"
       },
       "ai_search_response": {
         "source": "azure_ai_search",
-        "context_chars": 12608,
-        "top_score": 5.8830023,
-        "citations_count": 11,
+        "context_chars": 7201,
+        "top_score": 6.7847877,
+        "citations_count": 8,
         "videos_count": 0,
         "citation": {
-          "title": "Flutter Case Study - DesireInfoWeb 2.pdf",
-          "url": "https://desirechatbotweb.blob.core.windows.net/desirechatbotweb/Flutter%20Case%20Study%20-%20DesireInfoWeb%202.pdf",
-          "id": "87ba13f8d90b_aHR0cHM6Ly9kZXNpcmVjaGF0Ym90d2ViLmJsb2IuY29yZS53aW5kb3dzLm5ldC9kZXNpcmVjaGF0Ym90d2ViL0ZsdXR0ZXIlMjBDYXNlJTIwU3R1ZHklMjAtJTIwRGVzaXJlSW5mb1dlYiUyMDIucGRm0_pages_0",
-          "score": 5.883002,
-          "context_snippet": "FLUTTER CASE STUDY Transforming Ideas into Cross-Platform Excellence vijay@desireinfoweb.com www.desireinfoweb.com OUR SERVICES SharePoint Microsoft SharePoint Solutions PowerApps Microsoft PowerApps Development Power Automate Workflow Automation Power BI Business Intelligence .NET Core Software Development Azure Services Admin & Migration Services AI Services Artificial Intelligence Azure DevOps DevOps Services QA Automation Quality Assurance Dynamics365 CRM, BC, NAV Flutter Development Cross-Platform Apps Customization SharePoint Branding What is Flutter? Google's open-source UI software development kit (SDK) for building natively compiled applications for mobile, web, desktop, and embedded devices from a single codebase. Core Features Single Codebase Write once, deploy everywhere Hot Reload Instant code changes Widget-Based UI Rich customizable widgets Native Performance Compiles to machine code Common Use Cases E-commerce & Retail Build feature-rich shopping experiences with smooth UI and fast performance Fintech & Banking Secure financial applications with real- time transactions and data visualization Internal Business Tools Streamlined enterprise applications for workforce management and operations Football Sherpa Gamified Training Platform for Youth Athletes Challenge  Develop modern, mobile-first platform for players aged 12-18  Build scalable, compliant foundation supporting high-volume usage  Enable parental visibility and COPPA/GDPR compliance Solution Overview Training & Validation 40 core challenges Team System Weekly reshuffles Leaderboards Global Hall of Fame Social Features Friends & chat Performance & AI Analytics Dashboard Badge points, rank, streak tracking AI Coach Chat Real-time tips & drill suggestions AI Insights Rule-based recommendations Imp",
+          "title": "ai",
+          "url": "https://desireinfoweb.com/services/ai",
+          "id": "s_c2VydmljZUNhdGFsb2cudHh0_i_3_u_8fde875bd12b4142981e16d71c3d2e73",
+          "score": 6.275428,
+          "context_snippet": "[aiProjectServicesShowcaseData] Fluentify AI Fluentify AI offers a comprehensive solution for enhancing language proficiency through data-driven insights and AI-powered assessments. It helps users improve spoken communication effectively for professionals, educators, and organizations. Features: AI-Powered Language Assessment, Process MS Team, Zoom and Google Meet recording, Collaborate and Share Feedback, Optimize Communication Skills https://desireinfoweb.com/services/ai [aiProjectServicesShowcaseData] Insurance Chatbot Insurance Chatbot reduced policy coverage verification time from 15-20 minutes to seconds. It acts as a single source of truth with direct references to official documentation. Features: Accelerate Policy Verification, Centralized Source of Truth, Improve Accuracy and Compliance, Enhance Operational Efficiency https://desireinfoweb.com/services/ai",
           "overlap_count": 2,
           "overlap_ratio": 0.5,
-          "entry_rank": 0.573887,
+          "entry_rank": 0.577496,
           "retrieval_mode": "text",
-          "source_scope": "blob_fallback"
+          "source_scope": "knowledge"
         },
         "stream": true,
-        "ts": "2026-05-15T05:19:21.341634+00:00"
+        "ts": "2026-05-19T09:43:31.485394+00:00"
       },
       "ai_search_json_response": {
         "source_scope": "knowledge",
         "found": true,
         "retrieval_mode": "text",
-        "score": 2.452964,
-        "normalized_score": 0.550861,
-        "rank": 0.416534,
-        "overlap_ratio": 0.25,
-        "overlap_count": 1,
-        "query_term_count": 4,
-        "meets_score": true,
-        "meets_overlap": true,
-        "context_chars": 7215,
-        "context_preview": "[serviceCatalogFromCode] Dynamics 365 CRM and business workflow solutions that connect teams, streamline processes, and improve visibility across the customer lifecycle. https://desireinfoweb.com/services/ms-dynamics [serviceCatalogFromCode] Power BI Reporting experiences that convert raw operational data into visual clarity, faster decisions, and stronger executive visibility. https://desireinfoweb.com/services/power-bi [serviceCatalogFromCode] Power Platform Low-code solutions that simplify approvals, internal workflows, and operational handoffs without sacrificing user experience. https://d",
-        "citations_count": 3,
-        "citation": {
-          "title": "power-platform",
-          "url": "https://desireinfoweb.com/services/power-platform",
-          "id": "s_c2VydmljZUNhdGFsb2cudHh0_i_19_u_a77de29e12514f868245c3e1208a61bf",
-          "score": 2.452964,
-          "context_snippet": "[serviceCatalogFromCode] Dynamics 365 CRM and business workflow solutions that connect teams, streamline processes, and improve visibility across the customer lifecycle. https://desireinfoweb.com/services/ms-dynamics [serviceCatalogFromCode] Power BI Reporting experiences that convert raw operational data into visual clarity, faster decisions, and stronger executive visibility. https://desireinfoweb.com/services/power-bi [serviceCatalogFromCode] Power Platform Low-code solutions that simplify approvals, internal workflows, and operational handoffs without sacrificing user experience. https://desireinfoweb.com/services/power-platform [serviceCatalogFromCode] SharePoint Intranet and collaboration platforms designed to improve communication, document access, engagement, and organizational alignment. https://desireinfoweb.com/services/sharepoint",
-          "overlap_count": 1,
-          "overlap_ratio": 0.25,
-          "entry_rank": 0.260258,
-          "retrieval_mode": "text"
-        },
-        "ts": "2026-05-15T05:19:18.313610+00:00"
-      },
-      "ai_search_blob_response": {
-        "source_scope": "blob_fallback",
-        "found": true,
-        "retrieval_mode": "text",
-        "score": 5.883002,
-        "normalized_score": 0.74629,
-        "rank": 0.5927,
+        "score": 6.784788,
+        "normalized_score": 0.772334,
+        "rank": 0.768847,
         "overlap_ratio": 0.5,
         "overlap_count": 2,
         "query_term_count": 4,
         "meets_score": true,
         "meets_overlap": true,
-        "context_chars": 12608,
-        "context_preview": "FLUTTER CASE STUDY Transforming Ideas into Cross-Platform Excellence vijay@desireinfoweb.com www.desireinfoweb.com OUR SERVICES SharePoint Microsoft SharePoint Solutions PowerApps Microsoft PowerApps Development Power Automate Workflow Automation Power BI Business Intelligence .NET Core Software Development Azure Services Admin & Migration Services AI Services Artificial Intelligence Azure DevOps DevOps Services QA Automation Quality Assurance Dynamics365 CRM, BC, NAV Flutter Development Cross-Platform Apps Customization SharePoint Branding What is Flutter? Google's open-source UI software dev",
-        "citations_count": 6,
+        "context_chars": 7201,
+        "context_preview": "[aiProjectServicesShowcaseData] Fluentify AI Fluentify AI offers a comprehensive solution for enhancing language proficiency through data-driven insights and AI-powered assessments. It helps users improve spoken communication effectively for professionals, educators, and organizations. Features: AI-Powered Language Assessment, Process MS Team, Zoom and Google Meet recording, Collaborate and Share Feedback, Optimize Communication Skills https://desireinfoweb.com/services/ai [aiProjectServicesShowcaseData] Insurance Chatbot Insurance Chatbot reduced policy coverage verification time from 15-20 m",
+        "citations_count": 4,
         "citation": {
-          "title": "Flutter Case Study - DesireInfoWeb 2.pdf",
-          "url": "https://desirechatbotweb.blob.core.windows.net/desirechatbotweb/Flutter%20Case%20Study%20-%20DesireInfoWeb%202.pdf",
-          "id": "87ba13f8d90b_aHR0cHM6Ly9kZXNpcmVjaGF0Ym90d2ViLmJsb2IuY29yZS53aW5kb3dzLm5ldC9kZXNpcmVjaGF0Ym90d2ViL0ZsdXR0ZXIlMjBDYXNlJTIwU3R1ZHklMjAtJTIwRGVzaXJlSW5mb1dlYiUyMDIucGRm0_pages_0",
-          "score": 5.883002,
-          "context_snippet": "FLUTTER CASE STUDY Transforming Ideas into Cross-Platform Excellence vijay@desireinfoweb.com www.desireinfoweb.com OUR SERVICES SharePoint Microsoft SharePoint Solutions PowerApps Microsoft PowerApps Development Power Automate Workflow Automation Power BI Business Intelligence .NET Core Software Development Azure Services Admin & Migration Services AI Services Artificial Intelligence Azure DevOps DevOps Services QA Automation Quality Assurance Dynamics365 CRM, BC, NAV Flutter Development Cross-Platform Apps Customization SharePoint Branding What is Flutter? Google's open-source UI software development kit (SDK) for building natively compiled applications for mobile, web, desktop, and embedded devices from a single codebase. Core Features Single Codebase Write once, deploy everywhere Hot Reload Instant code changes Widget-Based UI Rich customizable widgets Native Performance Compiles to machine code Common Use Cases E-commerce & Retail Build feature-rich shopping experiences with smooth UI and fast performance Fintech & Banking Secure financial applications with real- time transactions and data visualization Internal Business Tools Streamlined enterprise applications for workforce management and operations Football Sherpa Gamified Training Platform for Youth Athletes Challenge  Develop modern, mobile-first platform for players aged 12-18  Build scalable, compliant foundation supporting high-volume usage  Enable parental visibility and COPPA/GDPR compliance Solution Overview Training & Validation 40 core challenges Team System Weekly reshuffles Leaderboards Global Hall of Fame Social Features Friends & chat Performance & AI Analytics Dashboard Badge points, rank, streak tracking AI Coach Chat Real-time tips & drill suggestions AI Insights Rule-based recommendations Imp",
+          "title": "ai",
+          "url": "https://desireinfoweb.com/services/ai",
+          "id": "s_c2VydmljZUNhdGFsb2cudHh0_i_3_u_8fde875bd12b4142981e16d71c3d2e73",
+          "score": 6.275428,
+          "context_snippet": "[aiProjectServicesShowcaseData] Fluentify AI Fluentify AI offers a comprehensive solution for enhancing language proficiency through data-driven insights and AI-powered assessments. It helps users improve spoken communication effectively for professionals, educators, and organizations. Features: AI-Powered Language Assessment, Process MS Team, Zoom and Google Meet recording, Collaborate and Share Feedback, Optimize Communication Skills https://desireinfoweb.com/services/ai [aiProjectServicesShowcaseData] Insurance Chatbot Insurance Chatbot reduced policy coverage verification time from 15-20 minutes to seconds. It acts as a single source of truth with direct references to official documentation. Features: Accelerate Policy Verification, Centralized Source of Truth, Improve Accuracy and Compliance, Enhance Operational Efficiency https://desireinfoweb.com/services/ai",
           "overlap_count": 2,
           "overlap_ratio": 0.5,
-          "entry_rank": 0.573887,
+          "entry_rank": 0.577496,
           "retrieval_mode": "text"
         },
-        "ts": "2026-05-15T05:19:18.314616+00:00"
+        "ts": "2026-05-19T09:43:28.152496+00:00"
+      },
+      "ai_search_blob_response": {
+        "source_scope": "blob_fallback",
+        "found": true,
+        "retrieval_mode": "text",
+        "score": 9.257038,
+        "normalized_score": 0.822333,
+        "rank": 0.639847,
+        "overlap_ratio": 0.5,
+        "overlap_count": 2,
+        "query_term_count": 4,
+        "meets_score": true,
+        "meets_overlap": true,
+        "context_chars": 13395,
+        "context_preview": "to leveraging cutting-edge tools to enhance operations and improve service delivery. Technologies Used: Software & Frameworks: Azure OpenAI, SharePoint Online, MS Teams, Typescript , React , Azure Blob storage , Semantic search , Vectorization Databases: SharePoint Deployment: Azure Cloud Service 25 26 Project 13: Fluentify AI - Enhancing Language Proficiency with AI Client: Internal Project Industry: Education & Technology Focus Area: AI-Driven Language Assessment Department: IT & Education Challenge: The challenge was to develop an AI-powered language assessment tool that integrates with Mic",
+        "citations_count": 3,
+        "citation": {
+          "title": "AI Projects  (2).pdf",
+          "url": "https://desirechatbotweb.blob.core.windows.net/desirechatbotweb/AI%20Projects%20%20(2).pdf",
+          "id": "42c7ea830793_aHR0cHM6Ly9kZXNpcmVjaGF0Ym90d2ViLmJsb2IuY29yZS53aW5kb3dzLm5ldC9kZXNpcmVjaGF0Ym90d2ViL0FJJTIwUHJvamVjdHMlMjAlMjAoMikucGRm0_pages_13",
+          "score": 9.257038,
+          "context_snippet": "to leveraging cutting-edge tools to enhance operations and improve service delivery. Technologies Used: Software & Frameworks: Azure OpenAI, SharePoint Online, MS Teams, Typescript , React , Azure Blob storage , Semantic search , Vectorization Databases: SharePoint Deployment: Azure Cloud Service 25 26 Project 13: Fluentify AI - Enhancing Language Proficiency with AI Client: Internal Project Industry: Education & Technology Focus Area: AI-Driven Language Assessment Department: IT & Education Challenge: The challenge was to develop an AI-powered language assessment tool that integrates with Microsoft Teams to help professionals, educators, and organizations enhance their spoken communication skills. The goal was to provide detailed feedback and scores on key aspects of spoken language, such as pronunciation, grammar, vocabulary, and fluency. Our Solution: We developed Fluentify AI, an AI-powered language assessment tool designed to seamlessly integrate with Microsoft Teams. This innovative tool retrieves meeting recordings, allowing users to select and process them for comprehensive analysis. 27 Utilizing the Azure Pronunciation Assessment Service, Fluentify AI evaluates key aspects of spoken language, including pronunciation, grammar, and vocabulary. The system provides detailed feedback, scores, corrections, and in-depth analysis. Additionally, it offers practice exercises tailored to help users improve their spoken communication skills effectively. Impact: Fluentify AI offers a comprehensive solution for enhancing language proficiency through data-driven insights and AI-powered assessments. It helps users improve their spoken",
+          "overlap_count": 2,
+          "overlap_ratio": 0.5,
+          "entry_rank": 0.5967,
+          "retrieval_mode": "text"
+        },
+        "ts": "2026-05-19T09:43:28.152496+00:00"
       },
       "ai_selection": {
-        "selected_source_scope": "blob_fallback",
+        "selected_source_scope": "knowledge",
         "selected_retrieval_mode": "text",
-        "selected_score": 5.883002,
-        "selected_rank": 0.5927,
+        "selected_score": 6.784788,
+        "selected_rank": 0.768847,
         "selected_overlap_ratio": 0.5,
-        "candidate_count": 3,
-        "ts": "2026-05-15T05:19:18.314616+00:00"
+        "candidate_count": 4,
+        "ts": "2026-05-19T09:43:28.152496+00:00"
       },
       "ai_openai_response": {
         "source": "azure_openai",
-        "answer_chars": 343,
+        "answer_chars": 487,
         "stream": true,
-        "ts": "2026-05-15T05:19:25.296663+00:00"
+        "ts": "2026-05-19T09:43:35.544271+00:00"
       },
       "display_response": {
         "status_code": 200,
-        "answer_chars": 343,
+        "answer_chars": 487,
         "citations_count": 1,
         "stream": true,
-        "ts": "2026-05-15T05:19:25.668578+00:00"
+        "ts": "2026-05-19T09:43:36.323016+00:00"
       },
       "ai_research_response": {
         "source": "azure_ai_search",
-        "context_chars": 12608,
-        "top_score": 5.8830023,
-        "citations_count": 11,
+        "context_chars": 7201,
+        "top_score": 6.7847877,
+        "citations_count": 8,
         "videos_count": 0,
         "citation": {
-          "title": "Flutter Case Study - DesireInfoWeb 2.pdf",
-          "url": "https://desirechatbotweb.blob.core.windows.net/desirechatbotweb/Flutter%20Case%20Study%20-%20DesireInfoWeb%202.pdf",
-          "id": "87ba13f8d90b_aHR0cHM6Ly9kZXNpcmVjaGF0Ym90d2ViLmJsb2IuY29yZS53aW5kb3dzLm5ldC9kZXNpcmVjaGF0Ym90d2ViL0ZsdXR0ZXIlMjBDYXNlJTIwU3R1ZHklMjAtJTIwRGVzaXJlSW5mb1dlYiUyMDIucGRm0_pages_0",
-          "score": 5.883002,
-          "context_snippet": "FLUTTER CASE STUDY Transforming Ideas into Cross-Platform Excellence vijay@desireinfoweb.com www.desireinfoweb.com OUR SERVICES SharePoint Microsoft SharePoint Solutions PowerApps Microsoft PowerApps Development Power Automate Workflow Automation Power BI Business Intelligence .NET Core Software Development Azure Services Admin & Migration Services AI Services Artificial Intelligence Azure DevOps DevOps Services QA Automation Quality Assurance Dynamics365 CRM, BC, NAV Flutter Development Cross-Platform Apps Customization SharePoint Branding What is Flutter? Google's open-source UI software development kit (SDK) for building natively compiled applications for mobile, web, desktop, and embedded devices from a single codebase. Core Features Single Codebase Write once, deploy everywhere Hot Reload Instant code changes Widget-Based UI Rich customizable widgets Native Performance Compiles to machine code Common Use Cases E-commerce & Retail Build feature-rich shopping experiences with smooth UI and fast performance Fintech & Banking Secure financial applications with real- time transactions and data visualization Internal Business Tools Streamlined enterprise applications for workforce management and operations Football Sherpa Gamified Training Platform for Youth Athletes Challenge  Develop modern, mobile-first platform for players aged 12-18  Build scalable, compliant foundation supporting high-volume usage  Enable parental visibility and COPPA/GDPR compliance Solution Overview Training & Validation 40 core challenges Team System Weekly reshuffles Leaderboards Global Hall of Fame Social Features Friends & chat Performance & AI Analytics Dashboard Badge points, rank, streak tracking AI Coach Chat Real-time tips & drill suggestions AI Insights Rule-based recommendations Imp",
+          "title": "ai",
+          "url": "https://desireinfoweb.com/services/ai",
+          "id": "s_c2VydmljZUNhdGFsb2cudHh0_i_3_u_8fde875bd12b4142981e16d71c3d2e73",
+          "score": 6.275428,
+          "context_snippet": "[aiProjectServicesShowcaseData] Fluentify AI Fluentify AI offers a comprehensive solution for enhancing language proficiency through data-driven insights and AI-powered assessments. It helps users improve spoken communication effectively for professionals, educators, and organizations. Features: AI-Powered Language Assessment, Process MS Team, Zoom and Google Meet recording, Collaborate and Share Feedback, Optimize Communication Skills https://desireinfoweb.com/services/ai [aiProjectServicesShowcaseData] Insurance Chatbot Insurance Chatbot reduced policy coverage verification time from 15-20 minutes to seconds. It acts as a single source of truth with direct references to official documentation. Features: Accelerate Policy Verification, Centralized Source of Truth, Improve Accuracy and Compliance, Enhance Operational Efficiency https://desireinfoweb.com/services/ai",
           "overlap_count": 2,
           "overlap_ratio": 0.5,
-          "entry_rank": 0.573887,
+          "entry_rank": 0.577496,
           "retrieval_mode": "text",
-          "source_scope": "blob_fallback"
+          "source_scope": "knowledge"
         },
         "stream": true,
-        "ts": "2026-05-15T05:19:21.341634+00:00"
+        "ts": "2026-05-19T09:43:31.485394+00:00"
       }
     },
     "summary": {
       "status_code": 200,
-      "reply": "Here’s another simple Python example that calculates the area of a rectangle:\n\n```python\n# Input dimensions\nlength = float(input(\"Enter the length: \"))\nwidth = float(input(\"Enter the width: \"))\n\n# Calculate area\narea = length * width\nprint(\"The area of the rectangle is:\", area)\n```\n\nLet me know if you'd like help with a specific Python task!",
+      "reply": "**Fluentify AI** is an AI-powered solution designed to enhance language proficiency through data-driven insights and assessments. It is ideal for professionals, educators, and organizations aiming to improve spoken communication.\n\n### Key Features:\n- AI-Powered Language Assessment\n- Processes MS Teams, Zoom, and Google Meet recordings\n- Collaboration and feedback sharing\n- Optimizes communication skills\n\nFor more details, visit: [Fluentify AI](https://desireinfoweb.com/services/ai).",
       "stream": true
     }
   },
   {
-    "trace_id": "e49d3967-04fc-417a-95cc-18196c61fe8a",
-    "started_at": "2026-05-15T05:25:08.465488+00:00",
-    "ended_at": "2026-05-15T05:25:11.410344+00:00",
-    "endpoint": "/api/chat/text/stream",
-    "streaming": true,
+    "trace_id": "b30dc237-df9c-456b-848d-51c8e9a118d4",
+    "started_at": "2026-05-19T09:46:27.608658+00:00",
+    "ended_at": "2026-05-19T09:46:29.758456+00:00",
+    "endpoint": "/api/chat/text",
+    "streaming": false,
     "status": "success",
-    "duration_ms": 2944.86,
-    "session_id": "cf5efcf0-7945-4455-a54f-845a9d8c44b6",
-    "user_query": "please write basic ptrhon code??",
+    "duration_ms": 2149.8,
+    "session_id": "qa-direct",
+    "user_query": "what is desire infoweb",
     "process": {
       "user_request": {
-        "query": "please write basic python code??",
-        "endpoint": "/api/chat/text/stream",
-        "stream": true,
-        "ts": "2026-05-15T05:25:08.467514+00:00"
+        "query": "what is desire infoweb",
+        "endpoint": "/api/chat/text",
+        "stream": false,
+        "ts": "2026-05-19T09:46:27.608658+00:00"
       },
       "ai_request": {
         "mode": "direct_answer",
         "model_input_chars": 0,
-        "stream": true,
-        "intent": "out_of_scope",
-        "ts": "2026-05-15T05:25:10.541610+00:00"
+        "intent": "company_info",
+        "ts": "2026-05-19T09:46:29.758456+00:00"
       },
       "ai_search_response": {
         "source": "direct_answer",
         "context_chars": 0,
         "top_score": 0.0,
         "citations_count": 0,
-        "stream": true,
-        "ts": "2026-05-15T05:25:10.541610+00:00"
+        "ts": "2026-05-19T09:46:29.758456+00:00"
       },
       "ai_search_json_response": {},
       "ai_search_blob_response": {},
       "ai_selection": {},
       "ai_openai_response": {
         "source": "direct_answer",
-        "answer_chars": 339,
-        "stream": true,
-        "ts": "2026-05-15T05:25:11.410344+00:00"
+        "answer_chars": 308,
+        "ts": "2026-05-19T09:46:29.758456+00:00"
       },
       "display_response": {
         "status_code": 200,
-        "answer_chars": 339,
+        "answer_chars": 308,
         "citations_count": 0,
-        "stream": true,
-        "ts": "2026-05-15T05:25:11.410344+00:00"
+        "stream": false,
+        "ts": "2026-05-19T09:46:29.758456+00:00"
       },
       "ai_research_response": {
         "source": "direct_answer",
         "context_chars": 0,
         "top_score": 0.0,
         "citations_count": 0,
-        "stream": true,
-        "ts": "2026-05-15T05:25:10.541610+00:00"
+        "ts": "2026-05-19T09:46:29.758456+00:00"
       }
     },
     "summary": {
       "status_code": 200,
-      "reply": "Thank you for your query. At the moment, I'm unable to provide a relevant response as it falls outside my current scope.\n\nFor further assistance, please contact our support team:\n- vijay@desireinfoweb.com\n- hr@desireinfoweb.in\n- info@desireinfoweb.com\n- India: +91-8780468807\n- USA: +1 260 560 2128\n\nWe will be happy to assist you further.",
+      "reply": "Desire Infoweb is an IT services company focused on Microsoft technologies and business automation. Desire Infoweb provides Microsoft-focused IT services including SharePoint, Power Apps, Power Automate, Power BI, Office 365, Teams, Dynamics 365, Azure, .NET, migration, automation, and AI/chatbot solutions."
+    }
+  },
+  {
+    "trace_id": "55873c01-7a82-4526-96b6-127afcb1d617",
+    "started_at": "2026-05-19T09:46:29.778984+00:00",
+    "ended_at": "2026-05-19T09:46:37.037544+00:00",
+    "endpoint": "/api/chat/text",
+    "streaming": false,
+    "status": "success",
+    "duration_ms": 7258.56,
+    "session_id": "qa-cite",
+    "user_query": "give me detail about the fluentify ai project",
+    "process": {
+      "user_request": {
+        "query": "give me detail about the fluentify ai project",
+        "endpoint": "/api/chat/text",
+        "stream": false,
+        "ts": "2026-05-19T09:46:29.778984+00:00"
+      },
+      "ai_request": {
+        "mode": "rag",
+        "model": "gpt-4o",
+        "model_input_chars": 216,
+        "intent": "projects",
+        "ts": "2026-05-19T09:46:31.432981+00:00"
+      },
+      "ai_search_response": {
+        "source": "azure_ai_search",
+        "context_chars": 17,
+        "top_score": 0.91,
+        "citations_count": 1,
+        "videos_count": 0,
+        "citation": {
+          "title": "Fluentify Source",
+          "url": "https://example.com/fluentify.pdf",
+          "id": "1",
+          "score": 0.91
+        },
+        "ts": "2026-05-19T09:46:37.037544+00:00"
+      },
+      "ai_search_json_response": {},
+      "ai_search_blob_response": {},
+      "ai_selection": {},
+      "ai_openai_response": {
+        "source": "azure_openai",
+        "answer_chars": 25,
+        "ts": "2026-05-19T09:46:37.037544+00:00"
+      },
+      "display_response": {
+        "status_code": 200,
+        "answer_chars": 25,
+        "citations_count": 1,
+        "videos_count": 0,
+        "stream": false,
+        "ts": "2026-05-19T09:46:37.037544+00:00"
+      },
+      "ai_research_response": {
+        "source": "azure_ai_search",
+        "context_chars": 17,
+        "top_score": 0.91,
+        "citations_count": 1,
+        "videos_count": 0,
+        "citation": {
+          "title": "Fluentify Source",
+          "url": "https://example.com/fluentify.pdf",
+          "id": "1",
+          "score": 0.91
+        },
+        "ts": "2026-05-19T09:46:37.037544+00:00"
+      }
+    },
+    "summary": {
+      "status_code": 200,
+      "reply": "Fluentify detailed answer"
+    }
+  },
+  {
+    "trace_id": "dd654cd0-13c9-4814-b6c7-b7a7234f96d0",
+    "started_at": "2026-05-19T09:46:37.062167+00:00",
+    "ended_at": "2026-05-19T09:46:42.155736+00:00",
+    "endpoint": "/api/chat/text/stream",
+    "streaming": true,
+    "status": "success",
+    "duration_ms": 5093.57,
+    "session_id": "qa-cite",
+    "user_query": "give me detail about the fluentify ai project",
+    "process": {
+      "user_request": {
+        "query": "give me detail about the fluentify ai project",
+        "endpoint": "/api/chat/text/stream",
+        "stream": true,
+        "ts": "2026-05-19T09:46:37.063265+00:00"
+      },
+      "ai_request": {
+        "mode": "rag",
+        "model": "gpt-4o",
+        "model_input_chars": 328,
+        "stream": true,
+        "intent": "projects",
+        "ts": "2026-05-19T09:46:38.868483+00:00"
+      },
+      "ai_search_response": {
+        "source": "azure_ai_search",
+        "context_chars": 17,
+        "top_score": 0.91,
+        "citations_count": 1,
+        "videos_count": 0,
+        "citation": {
+          "title": "Fluentify Source",
+          "url": "https://example.com/fluentify.pdf",
+          "id": "1",
+          "score": 0.91
+        },
+        "stream": true,
+        "ts": "2026-05-19T09:46:42.154217+00:00"
+      },
+      "ai_search_json_response": {},
+      "ai_search_blob_response": {},
+      "ai_selection": {},
+      "ai_openai_response": {
+        "source": "azure_openai",
+        "answer_chars": 25,
+        "stream": true,
+        "ts": "2026-05-19T09:46:42.154217+00:00"
+      },
+      "display_response": {
+        "status_code": 200,
+        "answer_chars": 25,
+        "citations_count": 1,
+        "stream": true,
+        "ts": "2026-05-19T09:46:42.154217+00:00"
+      },
+      "ai_research_response": {
+        "source": "azure_ai_search",
+        "context_chars": 17,
+        "top_score": 0.91,
+        "citations_count": 1,
+        "videos_count": 0,
+        "citation": {
+          "title": "Fluentify Source",
+          "url": "https://example.com/fluentify.pdf",
+          "id": "1",
+          "score": 0.91
+        },
+        "stream": true,
+        "ts": "2026-05-19T09:46:42.154217+00:00"
+      }
+    },
+    "summary": {
+      "status_code": 200,
+      "reply": "Fluentify detailed answer",
       "stream": true
     }
   },
   {
-    "trace_id": "40a303e1-0c47-4587-a1da-8eb7b6ddab1a",
-    "started_at": "2026-05-15T05:25:31.033836+00:00",
-    "ended_at": "2026-05-15T05:25:33.446731+00:00",
+    "trace_id": "b73834d0-579b-41cc-88b3-ad3f7f4eecf8",
+    "started_at": "2026-05-19T09:47:34.737486+00:00",
+    "ended_at": "2026-05-19T09:47:51.737075+00:00",
     "endpoint": "/api/chat/text/stream",
     "streaming": true,
     "status": "success",
-    "duration_ms": 2412.9,
+    "duration_ms": 16999.59,
     "session_id": "cf5efcf0-7945-4455-a54f-845a9d8c44b6",
-    "user_query": "what is the python??",
+    "user_query": "give me the detail about the Fluentify AI?",
     "process": {
       "user_request": {
-        "query": "what is the python??",
+        "query": "give me the detail about the Fluentify AI?",
         "endpoint": "/api/chat/text/stream",
         "stream": true,
-        "ts": "2026-05-15T05:25:31.033836+00:00"
+        "ts": "2026-05-19T09:47:34.737486+00:00"
       },
       "ai_request": {
-        "mode": "direct_answer",
-        "model_input_chars": 0,
+        "mode": "rag",
+        "model": "gpt-4o",
+        "model_input_chars": 213,
         "stream": true,
-        "intent": "out_of_scope",
-        "ts": "2026-05-15T05:25:33.098602+00:00"
+        "intent": "projects",
+        "ts": "2026-05-19T09:47:37.066380+00:00"
       },
       "ai_search_response": {
-        "source": "direct_answer",
-        "context_chars": 0,
-        "top_score": 0.0,
-        "citations_count": 0,
+        "source": "azure_ai_search",
+        "context_chars": 7201,
+        "top_score": 6.7847877,
+        "citations_count": 8,
+        "videos_count": 0,
+        "citation": {
+          "title": "ai",
+          "url": "https://desireinfoweb.com/services/ai",
+          "id": "s_c2VydmljZUNhdGFsb2cudHh0_i_3_u_8fde875bd12b4142981e16d71c3d2e73",
+          "score": 6.275428,
+          "context_snippet": "[aiProjectServicesShowcaseData] Fluentify AI Fluentify AI offers a comprehensive solution for enhancing language proficiency through data-driven insights and AI-powered assessments. It helps users improve spoken communication effectively for professionals, educators, and organizations. Features: AI-Powered Language Assessment, Process MS Team, Zoom and Google Meet recording, Collaborate and Share Feedback, Optimize Communication Skills https://desireinfoweb.com/services/ai [aiProjectServicesShowcaseData] Insurance Chatbot Insurance Chatbot reduced policy coverage verification time from 15-20 minutes to seconds. It acts as a single source of truth with direct references to official documentation. Features: Accelerate Policy Verification, Centralized Source of Truth, Improve Accuracy and Compliance, Enhance Operational Efficiency https://desireinfoweb.com/services/ai",
+          "overlap_count": 2,
+          "overlap_ratio": 0.5,
+          "entry_rank": 0.577496,
+          "retrieval_mode": "text",
+          "source_scope": "knowledge"
+        },
         "stream": true,
-        "ts": "2026-05-15T05:25:33.098602+00:00"
+        "ts": "2026-05-19T09:47:46.125059+00:00"
       },
-      "ai_search_json_response": {},
-      "ai_search_blob_response": {},
-      "ai_selection": {},
+      "ai_search_json_response": {
+        "source_scope": "knowledge",
+        "found": true,
+        "retrieval_mode": "text",
+        "score": 6.784788,
+        "normalized_score": 0.772334,
+        "rank": 0.768847,
+        "overlap_ratio": 0.5,
+        "overlap_count": 2,
+        "query_term_count": 4,
+        "meets_score": true,
+        "meets_overlap": true,
+        "context_chars": 7201,
+        "context_preview": "[aiProjectServicesShowcaseData] Fluentify AI Fluentify AI offers a comprehensive solution for enhancing language proficiency through data-driven insights and AI-powered assessments. It helps users improve spoken communication effectively for professionals, educators, and organizations. Features: AI-Powered Language Assessment, Process MS Team, Zoom and Google Meet recording, Collaborate and Share Feedback, Optimize Communication Skills https://desireinfoweb.com/services/ai [aiProjectServicesShowcaseData] Insurance Chatbot Insurance Chatbot reduced policy coverage verification time from 15-20 m",
+        "citations_count": 4,
+        "citation": {
+          "title": "ai",
+          "url": "https://desireinfoweb.com/services/ai",
+          "id": "s_c2VydmljZUNhdGFsb2cudHh0_i_3_u_8fde875bd12b4142981e16d71c3d2e73",
+          "score": 6.275428,
+          "context_snippet": "[aiProjectServicesShowcaseData] Fluentify AI Fluentify AI offers a comprehensive solution for enhancing language proficiency through data-driven insights and AI-powered assessments. It helps users improve spoken communication effectively for professionals, educators, and organizations. Features: AI-Powered Language Assessment, Process MS Team, Zoom and Google Meet recording, Collaborate and Share Feedback, Optimize Communication Skills https://desireinfoweb.com/services/ai [aiProjectServicesShowcaseData] Insurance Chatbot Insurance Chatbot reduced policy coverage verification time from 15-20 minutes to seconds. It acts as a single source of truth with direct references to official documentation. Features: Accelerate Policy Verification, Centralized Source of Truth, Improve Accuracy and Compliance, Enhance Operational Efficiency https://desireinfoweb.com/services/ai",
+          "overlap_count": 2,
+          "overlap_ratio": 0.5,
+          "entry_rank": 0.577496,
+          "retrieval_mode": "text"
+        },
+        "ts": "2026-05-19T09:47:42.759970+00:00"
+      },
+      "ai_search_blob_response": {
+        "source_scope": "blob_fallback",
+        "found": true,
+        "retrieval_mode": "text",
+        "score": 9.257038,
+        "normalized_score": 0.822333,
+        "rank": 0.639847,
+        "overlap_ratio": 0.5,
+        "overlap_count": 2,
+        "query_term_count": 4,
+        "meets_score": true,
+        "meets_overlap": true,
+        "context_chars": 13395,
+        "context_preview": "to leveraging cutting-edge tools to enhance operations and improve service delivery. Technologies Used: Software & Frameworks: Azure OpenAI, SharePoint Online, MS Teams, Typescript , React , Azure Blob storage , Semantic search , Vectorization Databases: SharePoint Deployment: Azure Cloud Service 25 26 Project 13: Fluentify AI - Enhancing Language Proficiency with AI Client: Internal Project Industry: Education & Technology Focus Area: AI-Driven Language Assessment Department: IT & Education Challenge: The challenge was to develop an AI-powered language assessment tool that integrates with Mic",
+        "citations_count": 3,
+        "citation": {
+          "title": "AI Projects  (2).pdf",
+          "url": "https://desirechatbotweb.blob.core.windows.net/desirechatbotweb/AI%20Projects%20%20(2).pdf",
+          "id": "42c7ea830793_aHR0cHM6Ly9kZXNpcmVjaGF0Ym90d2ViLmJsb2IuY29yZS53aW5kb3dzLm5ldC9kZXNpcmVjaGF0Ym90d2ViL0FJJTIwUHJvamVjdHMlMjAlMjAoMikucGRm0_pages_13",
+          "score": 9.257038,
+          "context_snippet": "to leveraging cutting-edge tools to enhance operations and improve service delivery. Technologies Used: Software & Frameworks: Azure OpenAI, SharePoint Online, MS Teams, Typescript , React , Azure Blob storage , Semantic search , Vectorization Databases: SharePoint Deployment: Azure Cloud Service 25 26 Project 13: Fluentify AI - Enhancing Language Proficiency with AI Client: Internal Project Industry: Education & Technology Focus Area: AI-Driven Language Assessment Department: IT & Education Challenge: The challenge was to develop an AI-powered language assessment tool that integrates with Microsoft Teams to help professionals, educators, and organizations enhance their spoken communication skills. The goal was to provide detailed feedback and scores on key aspects of spoken language, such as pronunciation, grammar, vocabulary, and fluency. Our Solution: We developed Fluentify AI, an AI-powered language assessment tool designed to seamlessly integrate with Microsoft Teams. This innovative tool retrieves meeting recordings, allowing users to select and process them for comprehensive analysis. 27 Utilizing the Azure Pronunciation Assessment Service, Fluentify AI evaluates key aspects of spoken language, including pronunciation, grammar, and vocabulary. The system provides detailed feedback, scores, corrections, and in-depth analysis. Additionally, it offers practice exercises tailored to help users improve their spoken communication skills effectively. Impact: Fluentify AI offers a comprehensive solution for enhancing language proficiency through data-driven insights and AI-powered assessments. It helps users improve their spoken",
+          "overlap_count": 2,
+          "overlap_ratio": 0.5,
+          "entry_rank": 0.5967,
+          "retrieval_mode": "text"
+        },
+        "ts": "2026-05-19T09:47:42.762555+00:00"
+      },
+      "ai_selection": {
+        "selected_source_scope": "knowledge",
+        "selected_retrieval_mode": "text",
+        "selected_score": 6.784788,
+        "selected_rank": 0.768847,
+        "selected_overlap_ratio": 0.5,
+        "candidate_count": 4,
+        "ts": "2026-05-19T09:47:42.762555+00:00"
+      },
       "ai_openai_response": {
-        "source": "direct_answer",
-        "answer_chars": 339,
+        "source": "azure_openai",
+        "answer_chars": 471,
         "stream": true,
-        "ts": "2026-05-15T05:25:33.446731+00:00"
+        "ts": "2026-05-19T09:47:50.959569+00:00"
       },
       "display_response": {
         "status_code": 200,
-        "answer_chars": 339,
-        "citations_count": 0,
+        "answer_chars": 471,
+        "citations_count": 1,
         "stream": true,
-        "ts": "2026-05-15T05:25:33.446731+00:00"
+        "ts": "2026-05-19T09:47:51.736027+00:00"
       },
       "ai_research_response": {
-        "source": "direct_answer",
-        "context_chars": 0,
-        "top_score": 0.0,
-        "citations_count": 0,
+        "source": "azure_ai_search",
+        "context_chars": 7201,
+        "top_score": 6.7847877,
+        "citations_count": 8,
+        "videos_count": 0,
+        "citation": {
+          "title": "ai",
+          "url": "https://desireinfoweb.com/services/ai",
+          "id": "s_c2VydmljZUNhdGFsb2cudHh0_i_3_u_8fde875bd12b4142981e16d71c3d2e73",
+          "score": 6.275428,
+          "context_snippet": "[aiProjectServicesShowcaseData] Fluentify AI Fluentify AI offers a comprehensive solution for enhancing language proficiency through data-driven insights and AI-powered assessments. It helps users improve spoken communication effectively for professionals, educators, and organizations. Features: AI-Powered Language Assessment, Process MS Team, Zoom and Google Meet recording, Collaborate and Share Feedback, Optimize Communication Skills https://desireinfoweb.com/services/ai [aiProjectServicesShowcaseData] Insurance Chatbot Insurance Chatbot reduced policy coverage verification time from 15-20 minutes to seconds. It acts as a single source of truth with direct references to official documentation. Features: Accelerate Policy Verification, Centralized Source of Truth, Improve Accuracy and Compliance, Enhance Operational Efficiency https://desireinfoweb.com/services/ai",
+          "overlap_count": 2,
+          "overlap_ratio": 0.5,
+          "entry_rank": 0.577496,
+          "retrieval_mode": "text",
+          "source_scope": "knowledge"
+        },
         "stream": true,
-        "ts": "2026-05-15T05:25:33.098602+00:00"
+        "ts": "2026-05-19T09:47:46.125059+00:00"
       }
     },
     "summary": {
       "status_code": 200,
-      "reply": "Thank you for your query. At the moment, I'm unable to provide a relevant response as it falls outside my current scope.\n\nFor further assistance, please contact our support team:\n- vijay@desireinfoweb.com\n- hr@desireinfoweb.in\n- info@desireinfoweb.com\n- India: +91-8780468807\n- USA: +1 260 560 2128\n\nWe will be happy to assist you further.",
+      "reply": "**Fluentify AI** is an AI-powered solution designed to enhance language proficiency through data-driven insights and assessments. It helps professionals, educators, and organizations improve spoken communication effectively.\n\n**Key Features:**\n- AI-Powered Language Assessment\n- Processes MS Teams, Zoom, and Google Meet recordings\n- Collaboration and feedback sharing\n- Optimizes communication skills\n\nLearn more at [Fluentify AI](https://desireinfoweb.com/services/ai).",
+      "stream": true
+    }
+  },
+  {
+    "trace_id": "bdd321ed-4fe0-45be-924e-480ad6e67f14",
+    "started_at": "2026-05-19T09:48:36.349053+00:00",
+    "ended_at": "2026-05-19T09:48:54.899010+00:00",
+    "endpoint": "/api/chat/text/stream",
+    "streaming": true,
+    "status": "success",
+    "duration_ms": 18549.96,
+    "session_id": "cf5efcf0-7945-4455-a54f-845a9d8c44b6",
+    "user_query": "what are the services provided by desire ingoweb?",
+    "process": {
+      "user_request": {
+        "query": "what are the services provide by desire ingoweb?",
+        "endpoint": "/api/chat/text/stream",
+        "stream": true,
+        "ts": "2026-05-19T09:48:36.351617+00:00"
+      },
+      "ai_request": {
+        "mode": "rag",
+        "model": "gpt-4o",
+        "model_input_chars": 774,
+        "stream": true,
+        "intent": "services",
+        "ts": "2026-05-19T09:48:38.458807+00:00"
+      },
+      "ai_search_response": {
+        "source": "azure_ai_search",
+        "context_chars": 6994,
+        "top_score": 9.629646,
+        "citations_count": 9,
+        "videos_count": 0,
+        "citation": {
+          "title": "organization-chart",
+          "url": "https://desireinfoweb.com/products/organization-chart",
+          "id": "s_c2VydmljZUNhdGFsb2cudHh0_i_0_u_c76371ec982743fd978ca381a3778da9",
+          "score": 9.629646,
+          "context_snippet": "[companyProfile] About Desire Infoweb Desire Infoweb is an IT services and consulting company focused on Microsoft technologies, enterprise automation, modern collaboration platforms, analytics, and AI-powered business solutions. Core capabilities include SharePoint, Power Platform, Power BI, Microsoft Teams, Dynamics 365, Azure, .NET development, migration, governance, and custom AI/chatbot implementations. https://desireinfoweb.com/about-us [products] Organization Chart An organizational chart shows the internal structure of an organization or company. The employees and positions are represented by boxes or other shapes, sometimes including photos, contact information, email and page links, icons, and illustrations. Straight or elbowed lines link the levels together. https://desireinfoweb.com/products/organization-chart",
+          "overlap_count": 3,
+          "overlap_ratio": 0.6,
+          "entry_rank": 0.668408,
+          "retrieval_mode": "text",
+          "source_scope": "knowledge"
+        },
+        "stream": true,
+        "ts": "2026-05-19T09:48:47.216839+00:00"
+      },
+      "ai_search_json_response": {
+        "source_scope": "knowledge",
+        "found": true,
+        "retrieval_mode": "text",
+        "score": 9.629646,
+        "normalized_score": 0.828026,
+        "rank": 0.917376,
+        "overlap_ratio": 0.8,
+        "overlap_count": 4,
+        "query_term_count": 5,
+        "meets_score": true,
+        "meets_overlap": true,
+        "context_chars": 6994,
+        "context_preview": "[companyProfile] About Desire Infoweb Desire Infoweb is an IT services and consulting company focused on Microsoft technologies, enterprise automation, modern collaboration platforms, analytics, and AI-powered business solutions. Core capabilities include SharePoint, Power Platform, Power BI, Microsoft Teams, Dynamics 365, Azure, .NET development, migration, governance, and custom AI/chatbot implementations. https://desireinfoweb.com/about-us [products] Organization Chart An organizational chart shows the internal structure of an organization or company. The employees and positions are represe",
+        "citations_count": 4,
+        "citation": {
+          "title": "organization-chart",
+          "url": "https://desireinfoweb.com/products/organization-chart",
+          "id": "s_c2VydmljZUNhdGFsb2cudHh0_i_0_u_c76371ec982743fd978ca381a3778da9",
+          "score": 9.629646,
+          "context_snippet": "[companyProfile] About Desire Infoweb Desire Infoweb is an IT services and consulting company focused on Microsoft technologies, enterprise automation, modern collaboration platforms, analytics, and AI-powered business solutions. Core capabilities include SharePoint, Power Platform, Power BI, Microsoft Teams, Dynamics 365, Azure, .NET development, migration, governance, and custom AI/chatbot implementations. https://desireinfoweb.com/about-us [products] Organization Chart An organizational chart shows the internal structure of an organization or company. The employees and positions are represented by boxes or other shapes, sometimes including photos, contact information, email and page links, icons, and illustrations. Straight or elbowed lines link the levels together. https://desireinfoweb.com/products/organization-chart",
+          "overlap_count": 3,
+          "overlap_ratio": 0.6,
+          "entry_rank": 0.668408,
+          "retrieval_mode": "text"
+        },
+        "ts": "2026-05-19T09:48:42.903712+00:00"
+      },
+      "ai_search_blob_response": {
+        "source_scope": "blob_fallback",
+        "found": true,
+        "retrieval_mode": "text",
+        "score": 9.046783,
+        "normalized_score": 0.818952,
+        "rank": 0.75175,
+        "overlap_ratio": 0.8,
+        "overlap_count": 4,
+        "query_term_count": 5,
+        "meets_score": true,
+        "meets_overlap": true,
+        "context_chars": 13739,
+        "context_preview": "Empowering Your Vis ion Through S trategic IT Innovation Desire Infoweb Pvt Ltd. — Specialists in AI, Microsoft 365, Azure, SharePoint, Power Platform, Dynamics 365 & more WHO WE ARE Professional AI & Microsoft 365 Consulting We provide professional AI and Microsoft 365 consulting services for businesses in Europe, Australia, USA, South Africa, and Canada. Our team helps organizations improve productivity through customized Microsoft 365 solutions, smooth migration, secure setup, and reliable ongoing support. We focus on aligning Microsoft tools with your business needs to ensure better collab",
+        "citations_count": 3,
+        "citation": {
+          "title": "Company Presentation New.pdf",
+          "url": "https://desirechatbotweb.blob.core.windows.net/desirechatbotweb/Company%20Presentation%20New.pdf",
+          "id": "42c7ea830793_aHR0cHM6Ly9kZXNpcmVjaGF0Ym90d2ViLmJsb2IuY29yZS53aW5kb3dzLm5ldC9kZXNpcmVjaGF0Ym90d2ViL0NvbXBhbnklMjBQcmVzZW50YXRpb24lMjBOZXcucGRm0_pages_0",
+          "score": 7.796515,
+          "context_snippet": "Empowering Your Vis ion Through S trategic IT Innovation Desire Infoweb Pvt Ltd. — Specialists in AI, Microsoft 365, Azure, SharePoint, Power Platform, Dynamics 365 & more WHO WE ARE Professional AI & Microsoft 365 Consulting We provide professional AI and Microsoft 365 consulting services for businesses in Europe, Australia, USA, South Africa, and Canada. Our team helps organizations improve productivity through customized Microsoft 365 solutions, smooth migration, secure setup, and reliable ongoing support. We focus on aligning Microsoft tools with your business needs to ensure better collaboration and long-term growth. Customized Solutions Tailored Microsoft 365 solutions aligned with your unique business objectives and workflows. Smooth Migration Seamless migration, secure setup, and reliable ongoing support for your organization. AI-Powered Services Cutting-edge AI services to help your business stay competitive and future-ready. Long-Term Growth Partnering with you to drive sustainable collaboration, productivity, and business growth. Indus tries We S erve Education & E-learning Retail E-commerce Finance Real Estate Travel On-demand Solutions Healthcare & Fitness Logistics & Distribution OUR TRACK RECORD Global Reach, Proven Track Record With over a decade of experience, Desire Infoweb has established a strong global presence and a consistent record of delivering results for clients across more than 25 countries. 1200+ Projects Delivered Successful IT projects completed across diverse industries and geographies. 200+ Clients Worldwide Trusted by over 200 businesses across Europe, Australia, USA, South Africa, and Canada. 25+ Countries Served Global reach with local understanding across more than 25 countries. 10+ Years of Experience Over 10 years of expertise in I",
+          "overlap_count": 4,
+          "overlap_ratio": 0.8,
+          "entry_rank": 0.798754,
+          "retrieval_mode": "text"
+        },
+        "ts": "2026-05-19T09:48:42.904712+00:00"
+      },
+      "ai_selection": {
+        "selected_source_scope": "knowledge",
+        "selected_retrieval_mode": "text",
+        "selected_score": 9.629646,
+        "selected_rank": 0.917376,
+        "selected_overlap_ratio": 0.8,
+        "candidate_count": 4,
+        "ts": "2026-05-19T09:48:42.904712+00:00"
+      },
+      "ai_openai_response": {
+        "source": "azure_openai",
+        "answer_chars": 1291,
+        "stream": true,
+        "ts": "2026-05-19T09:48:54.534746+00:00"
+      },
+      "display_response": {
+        "status_code": 200,
+        "answer_chars": 1291,
+        "citations_count": 1,
+        "stream": true,
+        "ts": "2026-05-19T09:48:54.899010+00:00"
+      },
+      "ai_research_response": {
+        "source": "azure_ai_search",
+        "context_chars": 6994,
+        "top_score": 9.629646,
+        "citations_count": 9,
+        "videos_count": 0,
+        "citation": {
+          "title": "organization-chart",
+          "url": "https://desireinfoweb.com/products/organization-chart",
+          "id": "s_c2VydmljZUNhdGFsb2cudHh0_i_0_u_c76371ec982743fd978ca381a3778da9",
+          "score": 9.629646,
+          "context_snippet": "[companyProfile] About Desire Infoweb Desire Infoweb is an IT services and consulting company focused on Microsoft technologies, enterprise automation, modern collaboration platforms, analytics, and AI-powered business solutions. Core capabilities include SharePoint, Power Platform, Power BI, Microsoft Teams, Dynamics 365, Azure, .NET development, migration, governance, and custom AI/chatbot implementations. https://desireinfoweb.com/about-us [products] Organization Chart An organizational chart shows the internal structure of an organization or company. The employees and positions are represented by boxes or other shapes, sometimes including photos, contact information, email and page links, icons, and illustrations. Straight or elbowed lines link the levels together. https://desireinfoweb.com/products/organization-chart",
+          "overlap_count": 3,
+          "overlap_ratio": 0.6,
+          "entry_rank": 0.668408,
+          "retrieval_mode": "text",
+          "source_scope": "knowledge"
+        },
+        "stream": true,
+        "ts": "2026-05-19T09:48:47.216839+00:00"
+      }
+    },
+    "summary": {
+      "status_code": 200,
+      "reply": "Desire Infoweb offers 9 core services:\n\n1. **AI / Artificial Intelligence** — Chatbots, document automation, predictive analytics, and more ([Details](https://desireinfoweb.com/services/ai)).\n2. **SharePoint** — Intranet portals, document management, custom web parts ([Details](https://desireinfoweb.com/services/sharepoint)).\n3. **Power BI** — Dashboards, data visualization, sales forecasting ([Details](https://desireinfoweb.com/services/power-bi)).\n4. **Power Platform** — Low-code apps, workflows, process automation ([Details](https://desireinfoweb.com/services/power-platform)).\n5. **Dynamics 365** — CRM/ERP solutions, field service management ([Details](https://desireinfoweb.com/services/ms-dynamics)).\n6. **Azure** — Cloud computing, scalable app deployment, analytics ([Details](https://desireinfoweb.com/services/dot-net)).\n7. **Web Development** — Custom web apps, responsive design, CMS ([Details](https://desireinfoweb.com/services/web-development)).\n8. **SEO Services** — Keyword research, on-page optimization, traffic growth ([Details](https://desireinfoweb.com/services/seo)).\n9. **Mobile Development** — iOS, Android, and cross-platform apps ([Details](https://desireinfoweb.com/services/mobile-development)).\n\nLet me know if you'd like details on any specific service!",
+      "stream": true
+    }
+  },
+  {
+    "trace_id": "cb9e3a0a-c9e9-41a0-88c6-52ab6be27ce8",
+    "started_at": "2026-05-19T09:50:23.334828+00:00",
+    "ended_at": "2026-05-19T09:50:39.601343+00:00",
+    "endpoint": "/api/chat/text/stream",
+    "streaming": true,
+    "status": "success",
+    "duration_ms": 16266.51,
+    "session_id": "cf5efcf0-7945-4455-a54f-845a9d8c44b6",
+    "user_query": "services?",
+    "process": {
+      "user_request": {
+        "query": "services?",
+        "endpoint": "/api/chat/text/stream",
+        "stream": true,
+        "ts": "2026-05-19T09:50:23.334828+00:00"
+      },
+      "ai_request": {
+        "mode": "rag",
+        "model": "gpt-4o",
+        "model_input_chars": 2093,
+        "stream": true,
+        "intent": "services",
+        "ts": "2026-05-19T09:50:25.707040+00:00"
+      },
+      "ai_search_response": {
+        "source": "azure_ai_search",
+        "context_chars": 5499,
+        "top_score": 0.65941083,
+        "citations_count": 12,
+        "videos_count": 0,
+        "citation": {
+          "title": "sharepoint",
+          "url": "https://desireinfoweb.com/services/sharepoint",
+          "id": "s_c2VydmljZUNhdGFsb2cudHh0_i_18_u_3018b1907aea468cafbae1ca17d88a4f",
+          "score": 0.659411,
+          "context_snippet": "[services] SharePoint Microsoft SharePoint enables document management, content sharing, and collaboration through centralized platforms that enhance team productivity. https://desireinfoweb.com/services/sharepoint [services] SEO Services SEO services improve search rankings, organic traffic, and online visibility using keyword research, on-page optimization, technical SEO, and content strategies. https://desireinfoweb.com/services/seo [services] Mobile Development Mobile development services include iOS, Android, and cross-platform apps covering strategy, design, development, launch, and ongoing support. https://desireinfoweb.com/services/mobile-development [serviceCatalogFromCode] AI or Artificial Intelligence Intelligent assistants, automation experiences, and knowledge-driven solutions built for faster decisions and stronger user support. https://desireinfoweb.com/services/ai",
+          "overlap_count": 1,
+          "overlap_ratio": 1.0,
+          "entry_rank": 0.897823,
+          "retrieval_mode": "vector",
+          "source_scope": "knowledge"
+        },
+        "stream": true,
+        "ts": "2026-05-19T09:50:33.368867+00:00"
+      },
+      "ai_search_json_response": {
+        "source_scope": "knowledge",
+        "found": true,
+        "retrieval_mode": "vector",
+        "score": 0.659411,
+        "normalized_score": 0.659411,
+        "rank": 0.888835,
+        "overlap_ratio": 1.0,
+        "overlap_count": 1,
+        "query_term_count": 1,
+        "meets_score": true,
+        "meets_overlap": true,
+        "context_chars": 5499,
+        "context_preview": "[services] SharePoint Microsoft SharePoint enables document management, content sharing, and collaboration through centralized platforms that enhance team productivity. https://desireinfoweb.com/services/sharepoint [services] SEO Services SEO services improve search rankings, organic traffic, and online visibility using keyword research, on-page optimization, technical SEO, and content strategies. https://desireinfoweb.com/services/seo [services] Mobile Development Mobile development services include iOS, Android, and cross-platform apps covering strategy, design, development, launch, and ongo",
+        "citations_count": 5,
+        "citation": {
+          "title": "sharepoint",
+          "url": "https://desireinfoweb.com/services/sharepoint",
+          "id": "s_c2VydmljZUNhdGFsb2cudHh0_i_18_u_3018b1907aea468cafbae1ca17d88a4f",
+          "score": 0.659411,
+          "context_snippet": "[services] SharePoint Microsoft SharePoint enables document management, content sharing, and collaboration through centralized platforms that enhance team productivity. https://desireinfoweb.com/services/sharepoint [services] SEO Services SEO services improve search rankings, organic traffic, and online visibility using keyword research, on-page optimization, technical SEO, and content strategies. https://desireinfoweb.com/services/seo [services] Mobile Development Mobile development services include iOS, Android, and cross-platform apps covering strategy, design, development, launch, and ongoing support. https://desireinfoweb.com/services/mobile-development [serviceCatalogFromCode] AI or Artificial Intelligence Intelligent assistants, automation experiences, and knowledge-driven solutions built for faster decisions and stronger user support. https://desireinfoweb.com/services/ai",
+          "overlap_count": 1,
+          "overlap_ratio": 1.0,
+          "entry_rank": 0.897823,
+          "retrieval_mode": "vector"
+        },
+        "ts": "2026-05-19T09:50:30.074989+00:00"
+      },
+      "ai_search_blob_response": {
+        "source_scope": "blob_fallback",
+        "found": true,
+        "retrieval_mode": "text",
+        "score": 0.837095,
+        "normalized_score": 0.295054,
+        "rank": 0.502933,
+        "overlap_ratio": 1.0,
+        "overlap_count": 1,
+        "query_term_count": 1,
+        "meets_score": true,
+        "meets_overlap": true,
+        "context_chars": 13874,
+        "context_preview": "expertise  AI & Cloud Technologies Modern, scalable, intelligent solutions  Automation & Integration Enhanced collaboration and decision-making  40+ Experienced Engineers Our Services  Microsoft SharePoint Intranet, Extranet, Governance  Microsoft PowerApps Custom business applications  Power Automate Workflow automation  Microsoft Power BI Advanced data analytics  .Net Core Application development  SharePoint Customization Branding and custom dev  Azure Admin & Migration Cloud services expertise  AI Services Intelligent automation  Azure DevOps CI/CD pipelines  Quality Assurance ",
+        "citations_count": 7,
+        "citation": {
+          "title": "DesireInfoWeb - Corporate Profile (3).pdf",
+          "url": "https://desirechatbotweb.blob.core.windows.net/desirechatbotweb/DesireInfoWeb%20-%20Corporate%20Profile%20(3).pdf",
+          "id": "213591c16597_aHR0cHM6Ly9kZXNpcmVjaGF0Ym90d2ViLmJsb2IuY29yZS53aW5kb3dzLm5ldC9kZXNpcmVjaGF0Ym90d2ViL0Rlc2lyZUluZm9XZWIlMjAtJTIwQ29ycG9yYXRlJTIwUHJvZmlsZSUyMCgzKS5wZGY1_pages_1",
+          "score": 0.837095,
+          "context_snippet": "expertise  AI & Cloud Technologies Modern, scalable, intelligent solutions  Automation & Integration Enhanced collaboration and decision-making  40+ Experienced Engineers Our Services  Microsoft SharePoint Intranet, Extranet, Governance  Microsoft PowerApps Custom business applications  Power Automate Workflow automation  Microsoft Power BI Advanced data analytics  .Net Core Application development  SharePoint Customization Branding and custom dev  Azure Admin & Migration Cloud services expertise  AI Services Intelligent automation  Azure DevOps CI/CD pipelines  Quality Assurance Automated testing  Microsoft Dynamics365 CRM, BC, NAV solutions  Integration Services API integration Microsoft AI Services  AI-Powered Innovation Microsoft AI Services bring generative AI and automation into everyday work, apps, business solutions, and cloud-based development.  Transform Business Operations Intelligent automation, data analytics, and machine learning solutions driving efficiency and innovation  Microsoft Copilot AI-powered assistant for productivity and development  Azure AI Services Comprehensive AI platform for intelligent applications  Azure Machine Learning Build, train, and deploy ML models at scale  Azure AI Foundry End-to-end AI development platform  Microsoft Power Platform Low-code AI-powered business solutions  Responsible AI & Security Ethical AI practices and robust security framework Our Products  Intranet Corporate portal solution  Webpart SharePoint components  Timesheet Time tracking system  LMS Learning Management System  DMS Document Management System  Calendar Event scheduling  New Joinee Employee onboarding  Org Chart Company structure view  Directory Employee directory  Project Mgmt Project tracking tools Why Choose Us Our ",
+          "overlap_count": 1,
+          "overlap_ratio": 1.0,
+          "entry_rank": 0.788516,
+          "retrieval_mode": "text"
+        },
+        "ts": "2026-05-19T09:50:30.077630+00:00"
+      },
+      "ai_selection": {
+        "selected_source_scope": "knowledge",
+        "selected_retrieval_mode": "vector",
+        "selected_score": 0.659411,
+        "selected_rank": 0.888835,
+        "selected_overlap_ratio": 1.0,
+        "candidate_count": 3,
+        "ts": "2026-05-19T09:50:30.077630+00:00"
+      },
+      "ai_openai_response": {
+        "source": "azure_openai",
+        "answer_chars": 1301,
+        "stream": true,
+        "ts": "2026-05-19T09:50:39.189581+00:00"
+      },
+      "display_response": {
+        "status_code": 200,
+        "answer_chars": 1301,
+        "citations_count": 1,
+        "stream": true,
+        "ts": "2026-05-19T09:50:39.601343+00:00"
+      },
+      "ai_research_response": {
+        "source": "azure_ai_search",
+        "context_chars": 5499,
+        "top_score": 0.65941083,
+        "citations_count": 12,
+        "videos_count": 0,
+        "citation": {
+          "title": "sharepoint",
+          "url": "https://desireinfoweb.com/services/sharepoint",
+          "id": "s_c2VydmljZUNhdGFsb2cudHh0_i_18_u_3018b1907aea468cafbae1ca17d88a4f",
+          "score": 0.659411,
+          "context_snippet": "[services] SharePoint Microsoft SharePoint enables document management, content sharing, and collaboration through centralized platforms that enhance team productivity. https://desireinfoweb.com/services/sharepoint [services] SEO Services SEO services improve search rankings, organic traffic, and online visibility using keyword research, on-page optimization, technical SEO, and content strategies. https://desireinfoweb.com/services/seo [services] Mobile Development Mobile development services include iOS, Android, and cross-platform apps covering strategy, design, development, launch, and ongoing support. https://desireinfoweb.com/services/mobile-development [serviceCatalogFromCode] AI or Artificial Intelligence Intelligent assistants, automation experiences, and knowledge-driven solutions built for faster decisions and stronger user support. https://desireinfoweb.com/services/ai",
+          "overlap_count": 1,
+          "overlap_ratio": 1.0,
+          "entry_rank": 0.897823,
+          "retrieval_mode": "vector",
+          "source_scope": "knowledge"
+        },
+        "stream": true,
+        "ts": "2026-05-19T09:50:33.368867+00:00"
+      }
+    },
+    "summary": {
+      "status_code": 200,
+      "reply": "Desire Infoweb provides the following 9 services:\n\n1. **AI / Artificial Intelligence** — Chatbots, document automation, predictive analytics ([Details](https://desireinfoweb.com/services/ai)).\n2. **SharePoint** — Intranet portals, document management, custom web parts ([Details](https://desireinfoweb.com/services/sharepoint)).\n3. **Power BI** — Dashboards, data visualization, sales forecasting ([Details](https://desireinfoweb.com/services/power-bi)).\n4. **Power Platform** — Low-code apps, workflows, process automation ([Details](https://desireinfoweb.com/services/power-platform)).\n5. **Dynamics 365** — CRM/ERP solutions, field service management ([Details](https://desireinfoweb.com/services/ms-dynamics)).\n6. **Azure** — Cloud computing, scalable app deployment, analytics ([Details](https://desireinfoweb.com/services/dot-net)).\n7. **Web Development** — Custom web apps, responsive design, CMS ([Details](https://desireinfoweb.com/services/web-development)).\n8. **SEO Services** — Keyword research, on-page optimization, traffic growth ([Details](https://desireinfoweb.com/services/seo)).\n9. **Mobile Development** — iOS, Android, and cross-platform apps ([Details](https://desireinfoweb.com/services/mobile-development)).\n\nLet me know if you'd like more information on any specific service!",
+      "stream": true
+    }
+  },
+  {
+    "trace_id": "4a91f123-999c-431c-8baf-cc46450d53c4",
+    "started_at": "2026-05-19T09:52:15.538897+00:00",
+    "ended_at": "2026-05-19T09:52:36.368505+00:00",
+    "endpoint": "/api/chat/text/stream",
+    "streaming": true,
+    "status": "success",
+    "duration_ms": 20829.61,
+    "session_id": "cf5efcf0-7945-4455-a54f-845a9d8c44b6",
+    "user_query": "Give me tech stack and business impact for services?",
+    "process": {
+      "user_request": {
+        "query": "Give me tech stack and business impact for services?",
+        "endpoint": "/api/chat/text/stream",
+        "stream": true,
+        "ts": "2026-05-19T09:52:15.538897+00:00"
+      },
+      "ai_request": {
+        "mode": "rag",
+        "model": "gpt-4o",
+        "model_input_chars": 3465,
+        "stream": true,
+        "intent": "projects",
+        "ts": "2026-05-19T09:52:17.762449+00:00"
+      },
+      "ai_search_response": {
+        "source": "azure_ai_search",
+        "context_chars": 9406,
+        "top_score": 7.6658173,
+        "citations_count": 8,
+        "videos_count": 0,
+        "citation": {
+          "title": "serviceCatalog.json",
+          "url": "https://desirechatbotweb.blob.core.windows.net/desirechatbotweb/serviceCatalog.json",
+          "id": "213591c16597_aHR0cHM6Ly9kZXNpcmVjaGF0Ym90d2ViLmJsb2IuY29yZS53aW5kb3dzLm5ldC9kZXNpcmVjaGF0Ym90d2ViL3NlcnZpY2VDYXRhbG9nLmpzb241_pages_15",
+          "score": 7.665817,
+          "context_snippet": "[ { \"slug\": \"ai\", \"name\": \"AI or Artificial Intelligence\", \"eyebrow\": \"AI Delivery\", \"overview\": \"Intelligent assistants, automation experiences, and knowledge-driven solutions built for faster decisions and stronger user support.\", \"themeGradient\": \"linear-gradient(135deg, #0d1b3d 0%, #2d2456 52%, #6320ee 100%)\", \"accent\": \"#8f7cff\", \"stack\": [ \"Azure OpenAI\", \"AI Search\", \"Prompt Design\", \"M365\", \"API Integrations\" ], \"projectsRef\": \"aiProjects\", \"url\": \"https://desireinfoweb.com/services/ai\" }, { \"slug\": \"ms-dynamics\", \"name\": \"Dynamics 365\", \"eyebrow\": \"Business Operations\", \"overview\": \"CRM and business workflow solutions that connect teams, streamline processes, and improve visibility across the customer lifecycle.\", \"themeGradient\": \"linear-gradient(135deg, #10203d 0%, #1a4f7a 54%, #4e388a 100%)\", \"accent\": \"#4ea0ff\", \"stack\": [ \"Dynamics 365\", \"Power Platform\", \"Automation\", \"Reporting\", \"Business Workflows\" ], \"projectsRef\": \"msDynamicsProjects\", \"url\": \"https://desireinfoweb.com/services/ms-dynamics\" }, { \"slug\": \"power-bi\", \"name\": \"Power BI\", \"eyebrow\": \"Data Intelligence\", \"overview\": \"Reporting experiences that convert raw operational data into visual clarity, faster decisions, and stronger executive visibility.\", \"themeGradient\": \"linear-gradient(135deg, #1e183f 0%, #33406d 45%, #6320ee 100%)\", \"accent\": \"#7b8fff\", \"stack\": [ \"Power BI\", \"DAX\", \"Power Query\", \"SQL\", \"Dashboard Design\" ], \"projectsRef\": \"powerBiProjects\", \"url\": \"https://desireinfoweb.com/services/power-bi\" }, { \"slug\": \"power-platform\", \"name\": \"Power Platform\",",
+          "overlap_count": 3,
+          "overlap_ratio": 0.5,
+          "entry_rank": 0.587926,
+          "retrieval_mode": "text",
+          "source_scope": "knowledge"
+        },
+        "stream": true,
+        "ts": "2026-05-19T09:52:26.034993+00:00"
+      },
+      "ai_search_json_response": {
+        "source_scope": "knowledge",
+        "found": true,
+        "retrieval_mode": "text",
+        "score": 7.665817,
+        "normalized_score": 0.793085,
+        "rank": 0.781713,
+        "overlap_ratio": 0.5,
+        "overlap_count": 3,
+        "query_term_count": 6,
+        "meets_score": true,
+        "meets_overlap": true,
+        "context_chars": 9406,
+        "context_preview": "[ { \"slug\": \"ai\", \"name\": \"AI or Artificial Intelligence\", \"eyebrow\": \"AI Delivery\", \"overview\": \"Intelligent assistants, automation experiences, and knowledge-driven solutions built for faster decisions and stronger user support.\", \"themeGradient\": \"linear-gradient(135deg, #0d1b3d 0%, #2d2456 52%, #6320ee 100%)\", \"accent\": \"#8f7cff\", \"stack\": [ \"Azure OpenAI\", \"AI Search\", \"Prompt Design\", \"M365\", \"API Integrations\" ], \"projectsRef\": \"aiProjects\", \"url\": \"https://desireinfoweb.com/services/ai\" }, { \"slug\": \"ms-dynamics\", \"name\": \"Dynamics 365\", \"eyebrow\": \"Business Operations\", \"overview\": \"C",
+        "citations_count": 3,
+        "citation": {
+          "title": "serviceCatalog.json",
+          "url": "https://desirechatbotweb.blob.core.windows.net/desirechatbotweb/serviceCatalog.json",
+          "id": "213591c16597_aHR0cHM6Ly9kZXNpcmVjaGF0Ym90d2ViLmJsb2IuY29yZS53aW5kb3dzLm5ldC9kZXNpcmVjaGF0Ym90d2ViL3NlcnZpY2VDYXRhbG9nLmpzb241_pages_15",
+          "score": 7.665817,
+          "context_snippet": "[ { \"slug\": \"ai\", \"name\": \"AI or Artificial Intelligence\", \"eyebrow\": \"AI Delivery\", \"overview\": \"Intelligent assistants, automation experiences, and knowledge-driven solutions built for faster decisions and stronger user support.\", \"themeGradient\": \"linear-gradient(135deg, #0d1b3d 0%, #2d2456 52%, #6320ee 100%)\", \"accent\": \"#8f7cff\", \"stack\": [ \"Azure OpenAI\", \"AI Search\", \"Prompt Design\", \"M365\", \"API Integrations\" ], \"projectsRef\": \"aiProjects\", \"url\": \"https://desireinfoweb.com/services/ai\" }, { \"slug\": \"ms-dynamics\", \"name\": \"Dynamics 365\", \"eyebrow\": \"Business Operations\", \"overview\": \"CRM and business workflow solutions that connect teams, streamline processes, and improve visibility across the customer lifecycle.\", \"themeGradient\": \"linear-gradient(135deg, #10203d 0%, #1a4f7a 54%, #4e388a 100%)\", \"accent\": \"#4ea0ff\", \"stack\": [ \"Dynamics 365\", \"Power Platform\", \"Automation\", \"Reporting\", \"Business Workflows\" ], \"projectsRef\": \"msDynamicsProjects\", \"url\": \"https://desireinfoweb.com/services/ms-dynamics\" }, { \"slug\": \"power-bi\", \"name\": \"Power BI\", \"eyebrow\": \"Data Intelligence\", \"overview\": \"Reporting experiences that convert raw operational data into visual clarity, faster decisions, and stronger executive visibility.\", \"themeGradient\": \"linear-gradient(135deg, #1e183f 0%, #33406d 45%, #6320ee 100%)\", \"accent\": \"#7b8fff\", \"stack\": [ \"Power BI\", \"DAX\", \"Power Query\", \"SQL\", \"Dashboard Design\" ], \"projectsRef\": \"powerBiProjects\", \"url\": \"https://desireinfoweb.com/services/power-bi\" }, { \"slug\": \"power-platform\", \"name\": \"Power Platform\",",
+          "overlap_count": 3,
+          "overlap_ratio": 0.5,
+          "entry_rank": 0.587926,
+          "retrieval_mode": "text"
+        },
+        "ts": "2026-05-19T09:52:22.301324+00:00"
+      },
+      "ai_search_blob_response": {
+        "source_scope": "blob_fallback",
+        "found": true,
+        "retrieval_mode": "text",
+        "score": 7.175,
+        "normalized_score": 0.782016,
+        "rank": 0.678183,
+        "overlap_ratio": 0.666667,
+        "overlap_count": 4,
+        "query_term_count": 6,
+        "meets_score": true,
+        "meets_overlap": true,
+        "context_chars": 13386,
+        "context_preview": "Strategy Assessment  AI-Powered Investment Analysis Categories FinTech / Invest Tech, Startup Ecosystem, Business Consulting Customized M365 Chat buddy RAG System Challenge Develop custom chatbot accessible via SharePoint Online and MS Teams, leveraging Azure OpenAI LLMmodel for M365 guidance with adaptive video player for micro-learning. OurSolution Azure OpenAI Services integration SharePoint &Teams Platform integration Adaptive video player for micro learning Impact Enhanced user support with quick and accurate M365 guidance, improved learning experience, demonstrated commitment to cutting",
+        "citations_count": 5,
+        "citation": {
+          "title": "AI Case Study DesireInfoWeb New.pdf",
+          "url": "https://desirechatbotweb.blob.core.windows.net/desirechatbotweb/AI%20Case%20Study%20DesireInfoWeb%20New.pdf",
+          "id": "42c7ea830793_aHR0cHM6Ly9kZXNpcmVjaGF0Ym90d2ViLmJsb2IuY29yZS53aW5kb3dzLm5ldC9kZXNpcmVjaGF0Ym90d2ViL0FJJTIwQ2FzZSUyMFN0dWR5JTIwRGVzaXJlSW5mb1dlYiUyME5ldy5wZGY1_pages_4",
+          "score": 7.175,
+          "context_snippet": "Strategy Assessment  AI-Powered Investment Analysis Categories FinTech / Invest Tech, Startup Ecosystem, Business Consulting Customized M365 Chat buddy RAG System Challenge Develop custom chatbot accessible via SharePoint Online and MS Teams, leveraging Azure OpenAI LLMmodel for M365 guidance with adaptive video player for micro-learning. OurSolution Azure OpenAI Services integration SharePoint &Teams Platform integration Adaptive video player for micro learning Impact Enhanced user support with quick and accurate M365 guidance, improved learning experience, demonstrated commitment to cutting- edge tools. Keyword  Enterprise chatbot solution  workplace productivity chatbot  Microsoft Teams virtual assistant  AI-based IT support chatbot  micro-learning video delivery Domain Enterprise IT, Employee Training, Workplace Productivity Domain Enterprise Chatbot Solutions, Knowledge Management Systems, Conversational AI Georgian law advisor Challenge Navigating complex legal framework spanning the Criminal Code, Civil Code, and Administrative Offenses Code is time-consuming for citizens and junior lawyers. OurSolution AI Legal Assistant for Georgian language queries Uses RAG to search Legislative Herald of Georgia Supports Georgian legal terminology Explains penalties in simple terms Impact Instant Answers with Citations Democratized legal information access with high accuracy Keyword  AI legal assistant  legal document search AI  AI law chatbot  Conversational AI for legal queries  AI knowledge assistant SharePoint Domain  Legal & Judiciary  Government & Public Services  Compliance & Regulation Category  AI Legal Tech  Conversational AI  Knowledge Retrieval Systems  Document Intelligence AIKnowledgeBaseforInsurance& LegalInquiries RAG System Challenge Navigat",
+          "overlap_count": 4,
+          "overlap_ratio": 0.666667,
+          "entry_rank": 0.701272,
+          "retrieval_mode": "text"
+        },
+        "ts": "2026-05-19T09:52:22.301324+00:00"
+      },
+      "ai_selection": {
+        "selected_source_scope": "knowledge",
+        "selected_retrieval_mode": "text",
+        "selected_score": 7.665817,
+        "selected_rank": 0.781713,
+        "selected_overlap_ratio": 0.5,
+        "candidate_count": 4,
+        "ts": "2026-05-19T09:52:22.301324+00:00"
+      },
+      "ai_openai_response": {
+        "source": "azure_openai",
+        "answer_chars": 2013,
+        "stream": true,
+        "ts": "2026-05-19T09:52:35.688092+00:00"
+      },
+      "display_response": {
+        "status_code": 200,
+        "answer_chars": 2013,
+        "citations_count": 1,
+        "stream": true,
+        "ts": "2026-05-19T09:52:36.368505+00:00"
+      },
+      "ai_research_response": {
+        "source": "azure_ai_search",
+        "context_chars": 9406,
+        "top_score": 7.6658173,
+        "citations_count": 8,
+        "videos_count": 0,
+        "citation": {
+          "title": "serviceCatalog.json",
+          "url": "https://desirechatbotweb.blob.core.windows.net/desirechatbotweb/serviceCatalog.json",
+          "id": "213591c16597_aHR0cHM6Ly9kZXNpcmVjaGF0Ym90d2ViLmJsb2IuY29yZS53aW5kb3dzLm5ldC9kZXNpcmVjaGF0Ym90d2ViL3NlcnZpY2VDYXRhbG9nLmpzb241_pages_15",
+          "score": 7.665817,
+          "context_snippet": "[ { \"slug\": \"ai\", \"name\": \"AI or Artificial Intelligence\", \"eyebrow\": \"AI Delivery\", \"overview\": \"Intelligent assistants, automation experiences, and knowledge-driven solutions built for faster decisions and stronger user support.\", \"themeGradient\": \"linear-gradient(135deg, #0d1b3d 0%, #2d2456 52%, #6320ee 100%)\", \"accent\": \"#8f7cff\", \"stack\": [ \"Azure OpenAI\", \"AI Search\", \"Prompt Design\", \"M365\", \"API Integrations\" ], \"projectsRef\": \"aiProjects\", \"url\": \"https://desireinfoweb.com/services/ai\" }, { \"slug\": \"ms-dynamics\", \"name\": \"Dynamics 365\", \"eyebrow\": \"Business Operations\", \"overview\": \"CRM and business workflow solutions that connect teams, streamline processes, and improve visibility across the customer lifecycle.\", \"themeGradient\": \"linear-gradient(135deg, #10203d 0%, #1a4f7a 54%, #4e388a 100%)\", \"accent\": \"#4ea0ff\", \"stack\": [ \"Dynamics 365\", \"Power Platform\", \"Automation\", \"Reporting\", \"Business Workflows\" ], \"projectsRef\": \"msDynamicsProjects\", \"url\": \"https://desireinfoweb.com/services/ms-dynamics\" }, { \"slug\": \"power-bi\", \"name\": \"Power BI\", \"eyebrow\": \"Data Intelligence\", \"overview\": \"Reporting experiences that convert raw operational data into visual clarity, faster decisions, and stronger executive visibility.\", \"themeGradient\": \"linear-gradient(135deg, #1e183f 0%, #33406d 45%, #6320ee 100%)\", \"accent\": \"#7b8fff\", \"stack\": [ \"Power BI\", \"DAX\", \"Power Query\", \"SQL\", \"Dashboard Design\" ], \"projectsRef\": \"powerBiProjects\", \"url\": \"https://desireinfoweb.com/services/power-bi\" }, { \"slug\": \"power-platform\", \"name\": \"Power Platform\",",
+          "overlap_count": 3,
+          "overlap_ratio": 0.5,
+          "entry_rank": 0.587926,
+          "retrieval_mode": "text",
+          "source_scope": "knowledge"
+        },
+        "stream": true,
+        "ts": "2026-05-19T09:52:26.034993+00:00"
+      }
+    },
+    "summary": {
+      "status_code": 200,
+      "reply": "Here’s the **tech stack** and **business impact** for each service:\n\n1. **AI / Artificial Intelligence**  \n   - **Tech Stack:** Azure OpenAI, AI Search, Prompt Design, M365, API Integrations  \n   - **Business Impact:** Automates workflows, enhances decision-making, and improves customer support with AI-driven solutions.  \n\n2. **SharePoint**  \n   - **Tech Stack:** SharePoint, SPFx, Power Automate, Azure AD  \n   - **Business Impact:** Centralizes collaboration, streamlines document management, and boosts team productivity.  \n\n3. **Power BI**  \n   - **Tech Stack:** Power BI, DAX, Power Query, SQL  \n   - **Business Impact:** Provides actionable insights, improves decision-making, and enhances data visibility.  \n\n4. **Power Platform**  \n   - **Tech Stack:** Power Apps, Power Automate, Dataverse, SharePoint, Teams  \n   - **Business Impact:** Simplifies workflows, reduces manual effort, and accelerates process automation.  \n\n5. **Dynamics 365**  \n   - **Tech Stack:** Dynamics 365, Power Platform, Automation, Reporting  \n   - **Business Impact:** Unifies CRM/ERP processes, improves customer lifecycle management, and streamlines operations.  \n\n6. **Azure**  \n   - **Tech Stack:** Azure Cloud, Analytics, Virtual Computing  \n   - **Business Impact:** Enables scalable, secure applications with enterprise-grade governance.  \n\n7. **Web Development**  \n   - **Tech Stack:** Responsive Design, Frontend UX, CMS, SEO Foundations  \n   - **Business Impact:** Builds engaging, conversion-focused websites and digital products.  \n\n8. **SEO Services**  \n   - **Tech Stack:** Keyword Research, On-Page Optimization, Technical SEO  \n   - **Business Impact:** Increases organic traffic, improves search rankings, and enhances online visibility.  \n\n9. **Mobile Development**  \n   - **Tech Stack:** iOS, Android, Cross-Platform Frameworks  \n   - **Business Impact:** Delivers user-friendly, high-performance mobile apps for diverse business needs.  \n\nLet me know if you'd like deeper insights into any specific service!",
       "stream": true
     }
   }

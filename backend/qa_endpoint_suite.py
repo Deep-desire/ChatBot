@@ -201,6 +201,33 @@ def run_suite() -> list[QAResult]:
 
     results.append(_run_check("Product query returns aligned citation", _check_product_citation_alignment))
 
+    def _check_json_citation_exclusion() -> tuple[bool, str]:
+        citations = [
+            {
+                "title": "serviceCatalog.json",
+                "url": "https://desirechatbotweb.blob.core.windows.net/desirechatbotweb/serviceCatalog.json",
+                "id": "sc-1.json",
+                "score": 0.95,
+            },
+            {
+                "title": "valid-source-doc",
+                "url": "https://desireinfoweb.com/products/project-management-portal.pdf",
+                "id": "pm-1",
+                "score": 0.82,
+            },
+        ]
+
+        selected = main._select_response_citations(
+            citations,
+            limit=5,
+            normalized_query="fluentify ai",
+        )
+
+        ok = len(selected) == 1 and selected[0].get("title") == "valid-source-doc"
+        return ok, f"selected_citations={selected}"
+
+    results.append(_run_check("Exclusion of JSON citations", _check_json_citation_exclusion))
+
     def _check_product_video_alignment() -> tuple[bool, str]:
         context = (
             "Project Management Portal walkthrough https://youtu.be/pmportal123 "
