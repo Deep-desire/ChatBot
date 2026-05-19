@@ -4236,7 +4236,86 @@ def _generate_compact_context_summary(normalized_query: str, retrieved_context: 
         return ""
 
 
+def _load_service_catalog() -> dict:
+    try:
+        catalog_path = Path(__file__).parent / "knowledge" / "serviceCatalog.json"
+        if not catalog_path.exists():
+            return {}
+        with open(catalog_path, "r", encoding="utf-8") as f:
+            return json.load(f)
+    except Exception as e:
+        logger.error(f"Failed to load serviceCatalog.json: {e}")
+        return {}
+
+
+def _find_catalog_citation_match(normalized_query: str) -> dict[str, Any] | None:
+    catalog = _load_service_catalog()
+    if not catalog:
+        return None
+
+    query_lower = normalized_query.lower()
+    candidates = []
+
+    # Process products
+    for product in catalog.get("products", []):
+        title = product.get("title", "")
+        url = product.get("url", "")
+        if title and url:
+            candidates.append({"title": title, "url": url, "type": "product"})
+
+    # Process services
+    for service in catalog.get("services", []):
+        title = service.get("title", "")
+        url = service.get("url", "")
+        if title and url:
+            candidates.append({"title": title, "url": url, "type": "service"})
+
+    matched_candidate = None
+    max_match_len = 0
+
+    for cand in candidates:
+        title_lower = cand["title"].lower()
+        keywords_to_try = [title_lower]
+        if " or " in title_lower:
+            keywords_to_try.extend([part.strip() for part in title_lower.split(" or ") if part.strip()])
+        if "services" in title_lower:
+            keywords_to_try.append(title_lower.replace("services", "").strip())
+
+        for kw in keywords_to_try:
+            if kw in {"ai", "artificial intelligence"} and "fluentify" in query_lower:
+                continue
+            pattern = r"\b" + re.escape(kw) + r"\b"
+            if re.search(pattern, query_lower):
+                if len(kw) > max_match_len:
+                    max_match_len = len(kw)
+                    matched_candidate = cand
+
+    if matched_candidate:
+        return {
+            "title": matched_candidate["title"],
+            "url": matched_candidate["url"],
+            "id": f"catalog-{matched_candidate['type']}-{matched_candidate['title'].lower().replace(' ', '-')}",
+            "score": 1.0,
+        }
+
+    return None
+
+
+def _is_service_query(query: str) -> bool:
+    lowered = (query or "").lower().strip()
+    if not lowered:
+        return False
+    service_keywords = [
+        "service", "services", "serivce", "serivces", "sevrice", "sevrices",
+        "what do you do", "what you do", "what does desire do", "what desire do"
+    ]
+    return any(kw in lowered for kw in service_keywords)
+
+
 def _should_attach_citations(answer: str, normalized_query: str, citations: list[dict[str, Any]]) -> bool:
+    if _is_service_query(normalized_query) or _find_catalog_citation_match(normalized_query) is not None:
+        return True
+
     if not citations:
         return False
 
@@ -4262,6 +4341,22 @@ def _select_response_citations(
     normalized_query: str = "",
     answer_text: str = "",
 ) -> list[dict[str, Any]]:
+    # Tier 1: Check for specific product/service matching in serviceCatalog.json
+    catalog_match = _find_catalog_citation_match(normalized_query)
+    if catalog_match:
+        return [catalog_match]
+
+    # Tier 2: Check for general services query
+    if _is_service_query(normalized_query):
+        return [
+            {
+                "title": "Services",
+                "url": "https://desireinfoweb.com/services",
+                "id": "desire-services",
+                "score": 1.0,
+            }
+        ]
+
     if not citations:
         return []
 

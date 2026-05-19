@@ -228,6 +228,48 @@ def run_suite() -> list[QAResult]:
 
     results.append(_run_check("Exclusion of JSON citations", _check_json_citation_exclusion))
 
+    def _check_service_citation_override() -> tuple[bool, str]:
+        specific_tests = {
+            "tell me about SharePoint": "SharePoint",
+            "what is organization chart?": "Organization Chart",
+            "tell me about your SEO Services": "SEO Services",
+            "Dynamics 365 development": "Dynamics 365"
+        }
+        for query, expected_title in specific_tests.items():
+            selected = main._select_response_citations(
+                citations=[],
+                limit=5,
+                normalized_query=query,
+            )
+            if not selected or len(selected) != 1 or selected[0].get("title") != expected_title:
+                return False, f"failed specific match for query '{query}': expected '{expected_title}', got {selected}"
+
+        general_queries = [
+            "what are the services provided by the desire infoweb",
+            "what service are usein desire",
+            "what do you do"
+        ]
+        for q in general_queries:
+            selected = main._select_response_citations(
+                citations=[],
+                limit=5,
+                normalized_query=q,
+            )
+            if not selected or len(selected) != 1 or selected[0].get("url") != "https://desireinfoweb.com/services":
+                return False, f"failed general match for query '{q}': got {selected}"
+
+        selected_other = main._select_response_citations(
+            citations=[{"title": "Doc", "url": "https://example.com/doc.pdf", "id": "1"}],
+            limit=5,
+            normalized_query="tell me about fluentify",
+        )
+        if not selected_other or selected_other[0].get("url") != "https://example.com/doc.pdf":
+            return False, f"failed for non-service query, got: {selected_other}"
+
+        return True, "Passed services/products catalog citation override checks"
+
+    results.append(_run_check("Services/products catalog citation override logic", _check_service_citation_override))
+
     def _check_product_video_alignment() -> tuple[bool, str]:
         context = (
             "Project Management Portal walkthrough https://youtu.be/pmportal123 "
