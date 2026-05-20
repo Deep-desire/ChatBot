@@ -67,7 +67,7 @@ SUPPORTED_INGEST_EXTENSIONS = {".pdf", ".txt", ".md", ".csv", ".log"}
 
 class IntentCategory(str, Enum):
     GREETING = "greeting"
-    COMPANY_INFO = "company_info"
+    # COMPANY_INFO = "company_info"
     SERVICES = "services"
     PROJECTS = "projects"
     PRICING = "pricing"
@@ -1369,19 +1369,18 @@ def _get_intent_based_response(query: str, session_id: str | None = None) -> tup
 
     if intent == IntentCategory.GREETING:
         return intent, (
-            "Hello! Welcome to Desire Infoweb. "
-            f"{SERVICE_SUMMARY} "
-            "Tell me your requirement and I can suggest the best service approach."
+            "Hello, How can I help you today?"
+        
         )
 
     if intent == IntentCategory.PRICING:
         return intent, BUDGET_SUMMARY
 
-    if intent == IntentCategory.COMPANY_INFO:
-        return intent, (
-            "Desire Infoweb is an IT services company focused on Microsoft technologies and business automation. "
-            f"{SERVICE_SUMMARY}"
-        )
+    # if intent == IntentCategory.COMPANY_INFO:
+    #     return intent, (
+    #         "Desire Infoweb is an IT services company focused on Microsoft technologies and business automation. "
+    #         f"{SERVICE_SUMMARY}"
+    #     )
 
     if intent == IntentCategory.OUT_OF_SCOPE:
         return intent, _no_context_response()
@@ -1410,7 +1409,6 @@ def _classify_intent(query: str, session_id: str | None = None) -> IntentCategor
     prompt = f"""Identify the user intent for the following query at Desire Infoweb (an IT services company).
 Categories:
 - GREETING: Casual hellos, pleasantries.
-- COMPANY_INFO: General questions about the company identity, mission, or overview.
 - SERVICES: Questions about specific services offered (SharePoint, AI, .NET, Power Platform, etc).
 - PROJECTS: Requests for portfolio, case studies, or examples of delivered AI/IT solutions.
 - PRICING: Questions about budget, costs, estimates, or quotation process.
@@ -5634,3 +5632,11 @@ async def get_chat_suggestions(session_id: str, limit: int = 3) -> dict:
         "session_id": effective_session_id,
         "suggestions": suggestions,
     }
+
+
+# Serve static files of the React frontend in production
+_static_dir = Path(__file__).resolve().parent / "static"
+if _static_dir.exists() and _static_dir.is_dir():
+    from fastapi.staticfiles import StaticFiles
+    app.mount("/", StaticFiles(directory=str(_static_dir), html=True), name="static")
+

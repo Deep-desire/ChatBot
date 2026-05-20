@@ -2,6 +2,10 @@
   "baseUrl": "https://desireinfoweb.com",
   "products": [
     {
+      "title": "Products",
+      "url": "https://desireinfoweb.com/products"
+    },
+    {
       "id": 1,
       "title": "Organization Chart",
       "description": "An organizational chart shows the internal structure of an organization or company. The employees and positions are represented by boxes or other shapes, sometimes including photos, contact information, email and page links, icons, and illustrations. Straight or elbowed lines link the levels together.",
@@ -58,7 +62,6 @@
       "url": "https://desireinfoweb.com/products/audit-system"
     }
   ],
-
   "aiProjectServicesShowcaseData": [
     {
       "id": 1,
@@ -151,8 +154,6 @@
       "url": "https://desireinfoweb.com/services/ai"
     }
   ],
-
-  
   "msDynamicsProjectServicesShowcaseData": [
     {
       "id": 1,
@@ -616,8 +617,40 @@
       "projectsRef": "webDevelopmentProjects",
       "url": "https://desireinfoweb.com/services/web-development"
     }
+  ],
+  "locations": [
+    {
+      "country": "India",
+      "address": {
+        "line1": "509,510 - Ganesh Glory",
+        "line2": "Jagatpur Road, Off S.G. Highway, Near Nirma University",
+        "city": "Ahmedabad",
+        "state": "Gujarat",
+        "postalCode": "382470",
+        "country": "India"
+      }
+    },
+    {
+      "country": "Canada",
+      "address": {
+        "line1": "9-4640 Rae Street",
+        "city": "Regina",
+        "state": "SK",
+        "postalCode": "S4S 3B6",
+        "country": "Canada"
+      }
+    },
+    {
+      "country": "USA",
+      "address": {
+        "line1": "1834 Chandolin In",
+        "city": "Elgin",
+        "state": "Illinois",
+        "postalCode": "60124",
+        "country": "USA"
+      },
+      "projectsRef": "location",
+      "url": "https://desireinfoweb.com/contact-us"
+    }
   ]
 }
-
-
-

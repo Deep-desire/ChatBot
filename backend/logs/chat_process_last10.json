@@ -1,1447 +1,987 @@
 [
   {
-    "trace_id": "2653b3be-d2da-46d3-9f3d-4af0cad85f64",
-    "started_at": "2026-05-19T11:20:51.627081+00:00",
-    "ended_at": "2026-05-19T11:20:57.034244+00:00",
+    "trace_id": "7106a65d-f980-4e83-8223-2e3535080ce8",
+    "started_at": "2026-05-20T12:32:54.255135+00:00",
+    "ended_at": "2026-05-20T12:33:13.357835+00:00",
     "endpoint": "/api/chat/text/stream",
     "streaming": true,
     "status": "success",
-    "duration_ms": 5407.16,
-    "session_id": "qa-cite",
-    "user_query": "give me detail about the fluentify ai project",
-    "process": {
-      "user_request": {
-        "query": "give me detail about the fluentify ai project",
-        "endpoint": "/api/chat/text/stream",
-        "stream": true,
-        "ts": "2026-05-19T11:20:51.627081+00:00"
-      },
-      "ai_request": {
-        "mode": "rag",
-        "model": "gpt-4o",
-        "model_input_chars": 328,
-        "stream": true,
-        "intent": "projects",
-        "ts": "2026-05-19T11:20:53.669191+00:00"
-      },
-      "ai_search_response": {
-        "source": "azure_ai_search",
-        "context_chars": 17,
-        "top_score": 0.91,
-        "citations_count": 1,
-        "videos_count": 0,
-        "citation": {
-          "title": "Fluentify Source",
-          "url": "https://example.com/fluentify.pdf",
-          "id": "1",
-          "score": 0.91
-        },
-        "stream": true,
-        "ts": "2026-05-19T11:20:57.033106+00:00"
-      },
-      "ai_search_json_response": {},
-      "ai_search_blob_response": {},
-      "ai_selection": {},
-      "ai_openai_response": {
-        "source": "azure_openai",
-        "answer_chars": 25,
-        "stream": true,
-        "ts": "2026-05-19T11:20:57.034244+00:00"
-      },
-      "display_response": {
-        "status_code": 200,
-        "answer_chars": 25,
-        "citations_count": 1,
-        "stream": true,
-        "ts": "2026-05-19T11:20:57.034244+00:00"
-      },
-      "ai_research_response": {
-        "source": "azure_ai_search",
-        "context_chars": 17,
-        "top_score": 0.91,
-        "citations_count": 1,
-        "videos_count": 0,
-        "citation": {
-          "title": "Fluentify Source",
-          "url": "https://example.com/fluentify.pdf",
-          "id": "1",
-          "score": 0.91
-        },
-        "stream": true,
-        "ts": "2026-05-19T11:20:57.033106+00:00"
-      }
-    },
-    "summary": {
-      "status_code": 200,
-      "reply": "Fluentify detailed answer",
-      "stream": true
-    }
-  },
-  {
-    "trace_id": "d7327e26-3488-439b-a314-3866f9ce3ff9",
-    "started_at": "2026-05-19T11:21:36.651270+00:00",
-    "ended_at": "2026-05-19T11:21:57.694229+00:00",
-    "endpoint": "/api/chat/text/stream",
-    "streaming": true,
-    "status": "success",
-    "duration_ms": 21042.96,
+    "duration_ms": 19102.7,
     "session_id": "cf5efcf0-7945-4455-a54f-845a9d8c44b6",
-    "user_query": "give me the detail about the allservices of the desireinforweb??",
+    "user_query": "what are the products of the desire??",
     "process": {
       "user_request": {
-        "query": "give me the detail about the allservices of the desireinforweb??",
+        "query": "what are the products of the desire??",
         "endpoint": "/api/chat/text/stream",
         "stream": true,
-        "ts": "2026-05-19T11:21:36.651270+00:00"
+        "ts": "2026-05-20T12:32:54.258158+00:00"
       },
       "ai_request": {
         "mode": "rag",
         "model": "gpt-4o",
-        "model_input_chars": 235,
+        "model_input_chars": 7757,
         "stream": true,
-        "intent": "services",
-        "ts": "2026-05-19T11:21:38.834405+00:00"
+        "intent": "rag_general",
+        "ts": "2026-05-20T12:32:56.541215+00:00"
       },
       "ai_search_response": {
         "source": "azure_ai_search",
-        "context_chars": 5841,
-        "top_score": 7.4142523,
-        "citations_count": 12,
+        "context_chars": 7896,
+        "top_score": 12.093151,
+        "citations_count": 13,
         "videos_count": 0,
         "citation": {
-          "title": "about-us",
-          "url": "https://desireinfoweb.com/about-us",
+          "title": "organization-chart",
+          "url": "https://desireinfoweb.com/products/organization-chart",
           "id": "s_c2VydmljZUNhdGFsb2cudHh0_i_0_u_c76371ec982743fd978ca381a3778da9",
-          "score": 7.414252,
+          "score": 12.093151,
           "context_snippet": "[companyProfile] About Desire Infoweb Desire Infoweb is an IT services and consulting company focused on Microsoft technologies, enterprise automation, modern collaboration platforms, analytics, and AI-powered business solutions. Core capabilities include SharePoint, Power Platform, Power BI, Microsoft Teams, Dynamics 365, Azure, .NET development, migration, governance, and custom AI/chatbot implementations. https://desireinfoweb.com/about-us [products] Organization Chart An organizational chart shows the internal structure of an organization or company. The employees and positions are represented by boxes or other shapes, sometimes including photos, contact information, email and page links, icons, and illustrations. Straight or elbowed lines link the levels together. https://desireinfoweb.com/products/organization-chart",
-          "overlap_count": 1,
-          "overlap_ratio": 0.2,
-          "entry_rank": 0.296267,
-          "retrieval_mode": "text",
-          "source_scope": "knowledge"
-        },
-        "stream": true,
-        "ts": "2026-05-19T11:21:48.451225+00:00"
-      },
-      "ai_search_json_response": {
-        "source_scope": "knowledge",
-        "found": true,
-        "retrieval_mode": "text",
-        "score": 7.414252,
-        "normalized_score": 0.787556,
-        "rank": 0.544285,
-        "overlap_ratio": 0.2,
-        "overlap_count": 1,
-        "query_term_count": 5,
-        "meets_score": true,
-        "meets_overlap": true,
-        "context_chars": 5841,
-        "context_preview": "[companyProfile] About Desire Infoweb Desire Infoweb is an IT services and consulting company focused on Microsoft technologies, enterprise automation, modern collaboration platforms, analytics, and AI-powered business solutions. Core capabilities include SharePoint, Power Platform, Power BI, Microsoft Teams, Dynamics 365, Azure, .NET development, migration, governance, and custom AI/chatbot implementations. https://desireinfoweb.com/about-us [products] Organization Chart An organizational chart shows the internal structure of an organization or company. The employees and positions are represe",
-        "citations_count": 4,
-        "citation": {
-          "title": "about-us",
-          "url": "https://desireinfoweb.com/about-us",
-          "id": "s_c2VydmljZUNhdGFsb2cudHh0_i_0_u_c76371ec982743fd978ca381a3778da9",
-          "score": 7.414252,
-          "context_snippet": "[companyProfile] About Desire Infoweb Desire Infoweb is an IT services and consulting company focused on Microsoft technologies, enterprise automation, modern collaboration platforms, analytics, and AI-powered business solutions. Core capabilities include SharePoint, Power Platform, Power BI, Microsoft Teams, Dynamics 365, Azure, .NET development, migration, governance, and custom AI/chatbot implementations. https://desireinfoweb.com/about-us [products] Organization Chart An organizational chart shows the internal structure of an organization or company. The employees and positions are represented by boxes or other shapes, sometimes including photos, contact information, email and page links, icons, and illustrations. Straight or elbowed lines link the levels together. https://desireinfoweb.com/products/organization-chart",
-          "overlap_count": 1,
-          "overlap_ratio": 0.2,
-          "entry_rank": 0.296267,
-          "retrieval_mode": "text"
-        },
-        "ts": "2026-05-19T11:21:44.993722+00:00"
-      },
-      "ai_search_blob_response": {
-        "source_scope": "blob_fallback",
-        "found": true,
-        "retrieval_mode": "text",
-        "score": 6.40636,
-        "normalized_score": 0.762085,
-        "rank": 0.368493,
-        "overlap_ratio": 0.2,
-        "overlap_count": 1,
-        "query_term_count": 5,
-        "meets_score": true,
-        "meets_overlap": true,
-        "context_chars": 13492,
-        "context_preview": "a specialized AI Legal Assistant capable of processing natural language queries in the Georgian language. ● Legal RAG Engine: The system uses Retrieval-Augmented Generation (RAG) to index and search the official Legislative Herald of Georgia. ● Precise Citations: When asked a question (e.g., regarding \"Hit and Run\" laws), the AI retrieves the exact statutes (such as Article 276 of the Criminal Code or Article 125 of the Administrative Code) and explains the potential penalties (fines, imprisonment, license suspension) in simple terms. ● Multilingual Support: The model is fine-tuned to understa",
-        "citations_count": 4,
-        "citation": {
-          "title": "AI Projects  (2).pdf",
-          "url": "https://desirechatbotweb.blob.core.windows.net/desirechatbotweb/AI%20Projects%20%20(2).pdf",
-          "id": "42c7ea830793_aHR0cHM6Ly9kZXNpcmVjaGF0Ym90d2ViLmJsb2IuY29yZS53aW5kb3dzLm5ldC9kZXNpcmVjaGF0Ym90d2ViL0FJJTIwUHJvamVjdHMlMjAlMjAoMikucGRm0_pages_19",
-          "score": 6.40636,
-          "context_snippet": "a specialized AI Legal Assistant capable of processing natural language queries in the Georgian language. ● Legal RAG Engine: The system uses Retrieval-Augmented Generation (RAG) to index and search the official Legislative Herald of Georgia. ● Precise Citations: When asked a question (e.g., regarding \"Hit and Run\" laws), the AI retrieves the exact statutes (such as Article 276 of the Criminal Code or Article 125 of the Administrative Code) and explains the potential penalties (fines, imprisonment, license suspension) in simple terms. ● Multilingual Support: The model is fine-tuned to understand legal terminology in Georgian script. Impact: The tool democratized access to legal information, reducing research time from hours to seconds. It allows users to instantly understand their legal standing and liabilities with high accuracy, backed by direct citations to the law, fostering greater legal literacy and efficiency. Technologies Used: ● Software & Frameworks: Large Language Models (LLM) with Multilingual Support, LangChain (for RAG), Python, React ● Databases: Vector Database (Pinecone/Milvus) for Legal Codes ● Deployment: Cloud-Native Architecture 38 Project 18: Strategic Investor Readiness & Pitch Deck Analyzer Client: Headway Idea Labs 39 Industry: Venture Capital & Startup Consulting Focus Area: Investment Analysis & Strategic Planning Department: Investment Strategy Challenge: Startups often struggle to secure funding because they lack objective feedback on their core business strategy. Most existing tools only analyze the visual design of a pitch deck, failing to assess critical factors like business sustainability, financial logic, and market viability that investors actually care about. Our Solution:",
-          "overlap_count": 1,
-          "overlap_ratio": 0.2,
-          "entry_rank": 0.288625,
-          "retrieval_mode": "text"
-        },
-        "ts": "2026-05-19T11:21:44.993722+00:00"
-      },
-      "ai_selection": {
-        "selected_source_scope": "knowledge",
-        "selected_retrieval_mode": "text",
-        "selected_score": 7.414252,
-        "selected_rank": 0.544285,
-        "selected_overlap_ratio": 0.2,
-        "candidate_count": 4,
-        "ts": "2026-05-19T11:21:44.993722+00:00"
-      },
-      "ai_openai_response": {
-        "source": "azure_openai",
-        "answer_chars": 1469,
-        "stream": true,
-        "ts": "2026-05-19T11:21:56.960383+00:00"
-      },
-      "display_response": {
-        "status_code": 200,
-        "answer_chars": 1469,
-        "citations_count": 1,
-        "stream": true,
-        "ts": "2026-05-19T11:21:57.694229+00:00"
-      },
-      "ai_research_response": {
-        "source": "azure_ai_search",
-        "context_chars": 5841,
-        "top_score": 7.4142523,
-        "citations_count": 12,
-        "videos_count": 0,
-        "citation": {
-          "title": "about-us",
-          "url": "https://desireinfoweb.com/about-us",
-          "id": "s_c2VydmljZUNhdGFsb2cudHh0_i_0_u_c76371ec982743fd978ca381a3778da9",
-          "score": 7.414252,
-          "context_snippet": "[companyProfile] About Desire Infoweb Desire Infoweb is an IT services and consulting company focused on Microsoft technologies, enterprise automation, modern collaboration platforms, analytics, and AI-powered business solutions. Core capabilities include SharePoint, Power Platform, Power BI, Microsoft Teams, Dynamics 365, Azure, .NET development, migration, governance, and custom AI/chatbot implementations. https://desireinfoweb.com/about-us [products] Organization Chart An organizational chart shows the internal structure of an organization or company. The employees and positions are represented by boxes or other shapes, sometimes including photos, contact information, email and page links, icons, and illustrations. Straight or elbowed lines link the levels together. https://desireinfoweb.com/products/organization-chart",
-          "overlap_count": 1,
-          "overlap_ratio": 0.2,
-          "entry_rank": 0.296267,
-          "retrieval_mode": "text",
-          "source_scope": "knowledge"
-        },
-        "stream": true,
-        "ts": "2026-05-19T11:21:48.451225+00:00"
-      }
-    },
-    "summary": {
-      "status_code": 200,
-      "reply": "Desire Infoweb offers the following services:\n\n1. **AI / Artificial Intelligence**: Azure OpenAI, Copilot Studio, chatbots, document automation, predictive analytics. [Details](https://desireinfoweb.com/services/ai)  \n2. **SharePoint**: Intranet portals, document management, custom web parts, multilingual support. [Details](https://desireinfoweb.com/services/sharepoint)  \n3. **Power BI**: Interactive dashboards, data visualization, sales forecasting, geospatial analysis. [Details](https://desireinfoweb.com/services/power-bi)  \n4. **Power Platform**: Low-code apps, process automation, workflows, role-based permissions. [Details](https://desireinfoweb.com/services/power-platform)  \n5. **Dynamics 365**: CRM/ERP solutions, field service management, reporting, automation. [Details](https://desireinfoweb.com/services/ms-dynamics)  \n6. **Azure**: Cloud computing, scalable apps, analytics, enterprise-grade security. [Details](https://desireinfoweb.com/services/dot-net)  \n7. **Web Development**: Custom web apps, responsive design, CMS, SEO foundations. [Details](https://desireinfoweb.com/services/web-development)  \n8. **SEO Services**: Keyword research, on-page optimization, organic traffic growth. [Details](https://desireinfoweb.com/services/seo)  \n9. **Mobile Development**: iOS, Android, and cross-platform app development. [Details](https://desireinfoweb.com/services/mobile-development)  \n\nLet me know if you'd like more details on any specific service!",
-      "stream": true
-    }
-  },
-  {
-    "trace_id": "d6cd959b-4d20-4f86-ad3f-a7d33a75bd50",
-    "started_at": "2026-05-19T11:22:32.067106+00:00",
-    "ended_at": "2026-05-19T11:22:49.218450+00:00",
-    "endpoint": "/api/chat/text/stream",
-    "streaming": true,
-    "status": "success",
-    "duration_ms": 17151.34,
-    "session_id": "cf5efcf0-7945-4455-a54f-845a9d8c44b6",
-    "user_query": "services?",
-    "process": {
-      "user_request": {
-        "query": "services?",
-        "endpoint": "/api/chat/text/stream",
-        "stream": true,
-        "ts": "2026-05-19T11:22:32.067106+00:00"
-      },
-      "ai_request": {
-        "mode": "rag",
-        "model": "gpt-4o",
-        "model_input_chars": 1755,
-        "stream": true,
-        "intent": "services",
-        "ts": "2026-05-19T11:22:34.285912+00:00"
-      },
-      "ai_search_response": {
-        "source": "azure_ai_search",
-        "context_chars": 5499,
-        "top_score": 0.65941083,
-        "citations_count": 12,
-        "videos_count": 0,
-        "citation": {
-          "title": "sharepoint",
-          "url": "https://desireinfoweb.com/services/sharepoint",
-          "id": "s_c2VydmljZUNhdGFsb2cudHh0_i_18_u_3018b1907aea468cafbae1ca17d88a4f",
-          "score": 0.659411,
-          "context_snippet": "[services] SharePoint Microsoft SharePoint enables document management, content sharing, and collaboration through centralized platforms that enhance team productivity. https://desireinfoweb.com/services/sharepoint [services] SEO Services SEO services improve search rankings, organic traffic, and online visibility using keyword research, on-page optimization, technical SEO, and content strategies. https://desireinfoweb.com/services/seo [services] Mobile Development Mobile development services include iOS, Android, and cross-platform apps covering strategy, design, development, launch, and ongoing support. https://desireinfoweb.com/services/mobile-development [serviceCatalogFromCode] AI or Artificial Intelligence Intelligent assistants, automation experiences, and knowledge-driven solutions built for faster decisions and stronger user support. https://desireinfoweb.com/services/ai",
-          "overlap_count": 1,
+          "overlap_count": 3,
           "overlap_ratio": 1.0,
-          "entry_rank": 0.897823,
-          "retrieval_mode": "vector",
+          "entry_rank": 0.957426,
+          "retrieval_mode": "text",
           "source_scope": "knowledge"
         },
         "stream": true,
-        "ts": "2026-05-19T11:22:42.490108+00:00"
+        "ts": "2026-05-20T12:33:03.787625+00:00"
       },
       "ai_search_json_response": {
         "source_scope": "knowledge",
         "found": true,
-        "retrieval_mode": "vector",
-        "score": 0.659411,
-        "normalized_score": 0.659411,
-        "rank": 0.888835,
+        "retrieval_mode": "text",
+        "score": 12.093151,
+        "normalized_score": 0.858087,
+        "rank": 1.012014,
         "overlap_ratio": 1.0,
-        "overlap_count": 1,
-        "query_term_count": 1,
-        "meets_score": true,
-        "meets_overlap": true,
-        "context_chars": 5499,
-        "context_preview": "[services] SharePoint Microsoft SharePoint enables document management, content sharing, and collaboration through centralized platforms that enhance team productivity. https://desireinfoweb.com/services/sharepoint [services] SEO Services SEO services improve search rankings, organic traffic, and online visibility using keyword research, on-page optimization, technical SEO, and content strategies. https://desireinfoweb.com/services/seo [services] Mobile Development Mobile development services include iOS, Android, and cross-platform apps covering strategy, design, development, launch, and ongo",
-        "citations_count": 5,
-        "citation": {
-          "title": "sharepoint",
-          "url": "https://desireinfoweb.com/services/sharepoint",
-          "id": "s_c2VydmljZUNhdGFsb2cudHh0_i_18_u_3018b1907aea468cafbae1ca17d88a4f",
-          "score": 0.659411,
-          "context_snippet": "[services] SharePoint Microsoft SharePoint enables document management, content sharing, and collaboration through centralized platforms that enhance team productivity. https://desireinfoweb.com/services/sharepoint [services] SEO Services SEO services improve search rankings, organic traffic, and online visibility using keyword research, on-page optimization, technical SEO, and content strategies. https://desireinfoweb.com/services/seo [services] Mobile Development Mobile development services include iOS, Android, and cross-platform apps covering strategy, design, development, launch, and ongoing support. https://desireinfoweb.com/services/mobile-development [serviceCatalogFromCode] AI or Artificial Intelligence Intelligent assistants, automation experiences, and knowledge-driven solutions built for faster decisions and stronger user support. https://desireinfoweb.com/services/ai",
-          "overlap_count": 1,
-          "overlap_ratio": 1.0,
-          "entry_rank": 0.897823,
-          "retrieval_mode": "vector"
-        },
-        "ts": "2026-05-19T11:22:39.037769+00:00"
-      },
-      "ai_search_blob_response": {
-        "source_scope": "blob_fallback",
-        "found": true,
-        "retrieval_mode": "text",
-        "score": 0.837095,
-        "normalized_score": 0.295054,
-        "rank": 0.502933,
-        "overlap_ratio": 1.0,
-        "overlap_count": 1,
-        "query_term_count": 1,
-        "meets_score": true,
-        "meets_overlap": true,
-        "context_chars": 13874,
-        "context_preview": "expertise  AI & Cloud Technologies Modern, scalable, intelligent solutions  Automation & Integration Enhanced collaboration and decision-making  40+ Experienced Engineers Our Services  Microsoft SharePoint Intranet, Extranet, Governance  Microsoft PowerApps Custom business applications  Power Automate Workflow automation  Microsoft Power BI Advanced data analytics  .Net Core Application development  SharePoint Customization Branding and custom dev  Azure Admin & Migration Cloud services expertise  AI Services Intelligent automation  Azure DevOps CI/CD pipelines  Quality Assurance ",
-        "citations_count": 7,
-        "citation": {
-          "title": "DesireInfoWeb - Corporate Profile (3).pdf",
-          "url": "https://desirechatbotweb.blob.core.windows.net/desirechatbotweb/DesireInfoWeb%20-%20Corporate%20Profile%20(3).pdf",
-          "id": "213591c16597_aHR0cHM6Ly9kZXNpcmVjaGF0Ym90d2ViLmJsb2IuY29yZS53aW5kb3dzLm5ldC9kZXNpcmVjaGF0Ym90d2ViL0Rlc2lyZUluZm9XZWIlMjAtJTIwQ29ycG9yYXRlJTIwUHJvZmlsZSUyMCgzKS5wZGY1_pages_1",
-          "score": 0.837095,
-          "context_snippet": "expertise  AI & Cloud Technologies Modern, scalable, intelligent solutions  Automation & Integration Enhanced collaboration and decision-making  40+ Experienced Engineers Our Services  Microsoft SharePoint Intranet, Extranet, Governance  Microsoft PowerApps Custom business applications  Power Automate Workflow automation  Microsoft Power BI Advanced data analytics  .Net Core Application development  SharePoint Customization Branding and custom dev  Azure Admin & Migration Cloud services expertise  AI Services Intelligent automation  Azure DevOps CI/CD pipelines  Quality Assurance Automated testing  Microsoft Dynamics365 CRM, BC, NAV solutions  Integration Services API integration Microsoft AI Services  AI-Powered Innovation Microsoft AI Services bring generative AI and automation into everyday work, apps, business solutions, and cloud-based development.  Transform Business Operations Intelligent automation, data analytics, and machine learning solutions driving efficiency and innovation  Microsoft Copilot AI-powered assistant for productivity and development  Azure AI Services Comprehensive AI platform for intelligent applications  Azure Machine Learning Build, train, and deploy ML models at scale  Azure AI Foundry End-to-end AI development platform  Microsoft Power Platform Low-code AI-powered business solutions  Responsible AI & Security Ethical AI practices and robust security framework Our Products  Intranet Corporate portal solution  Webpart SharePoint components  Timesheet Time tracking system  LMS Learning Management System  DMS Document Management System  Calendar Event scheduling  New Joinee Employee onboarding  Org Chart Company structure view  Directory Employee directory  Project Mgmt Project tracking tools Why Choose Us Our ",
-          "overlap_count": 1,
-          "overlap_ratio": 1.0,
-          "entry_rank": 0.788516,
-          "retrieval_mode": "text"
-        },
-        "ts": "2026-05-19T11:22:39.037769+00:00"
-      },
-      "ai_selection": {
-        "selected_source_scope": "knowledge",
-        "selected_retrieval_mode": "vector",
-        "selected_score": 0.659411,
-        "selected_rank": 0.888835,
-        "selected_overlap_ratio": 1.0,
-        "candidate_count": 3,
-        "ts": "2026-05-19T11:22:39.037769+00:00"
-      },
-      "ai_openai_response": {
-        "source": "azure_openai",
-        "answer_chars": 1252,
-        "stream": true,
-        "ts": "2026-05-19T11:22:48.897419+00:00"
-      },
-      "display_response": {
-        "status_code": 200,
-        "answer_chars": 1252,
-        "citations_count": 1,
-        "stream": true,
-        "ts": "2026-05-19T11:22:49.218450+00:00"
-      },
-      "ai_research_response": {
-        "source": "azure_ai_search",
-        "context_chars": 5499,
-        "top_score": 0.65941083,
-        "citations_count": 12,
-        "videos_count": 0,
-        "citation": {
-          "title": "sharepoint",
-          "url": "https://desireinfoweb.com/services/sharepoint",
-          "id": "s_c2VydmljZUNhdGFsb2cudHh0_i_18_u_3018b1907aea468cafbae1ca17d88a4f",
-          "score": 0.659411,
-          "context_snippet": "[services] SharePoint Microsoft SharePoint enables document management, content sharing, and collaboration through centralized platforms that enhance team productivity. https://desireinfoweb.com/services/sharepoint [services] SEO Services SEO services improve search rankings, organic traffic, and online visibility using keyword research, on-page optimization, technical SEO, and content strategies. https://desireinfoweb.com/services/seo [services] Mobile Development Mobile development services include iOS, Android, and cross-platform apps covering strategy, design, development, launch, and ongoing support. https://desireinfoweb.com/services/mobile-development [serviceCatalogFromCode] AI or Artificial Intelligence Intelligent assistants, automation experiences, and knowledge-driven solutions built for faster decisions and stronger user support. https://desireinfoweb.com/services/ai",
-          "overlap_count": 1,
-          "overlap_ratio": 1.0,
-          "entry_rank": 0.897823,
-          "retrieval_mode": "vector",
-          "source_scope": "knowledge"
-        },
-        "stream": true,
-        "ts": "2026-05-19T11:22:42.490108+00:00"
-      }
-    },
-    "summary": {
-      "status_code": 200,
-      "reply": "Desire Infoweb provides these services:\n\n1. **AI / Artificial Intelligence**: Chatbots, document automation, predictive analytics. [Details](https://desireinfoweb.com/services/ai)  \n2. **SharePoint**: Intranet portals, document management, custom web parts. [Details](https://desireinfoweb.com/services/sharepoint)  \n3. **Power BI**: Dashboards, data visualization, sales forecasting. [Details](https://desireinfoweb.com/services/power-bi)  \n4. **Power Platform**: Low-code apps, workflows, process automation. [Details](https://desireinfoweb.com/services/power-platform)  \n5. **Dynamics 365**: CRM/ERP solutions, reporting, automation. [Details](https://desireinfoweb.com/services/ms-dynamics)  \n6. **Azure**: Cloud computing, scalable apps, analytics. [Details](https://desireinfoweb.com/services/dot-net)  \n7. **Web Development**: Custom apps, responsive design, CMS. [Details](https://desireinfoweb.com/services/web-development)  \n8. **SEO Services**: Search rankings, organic traffic, on-page optimization. [Details](https://desireinfoweb.com/services/seo)  \n9. **Mobile Development**: iOS, Android, cross-platform apps. [Details](https://desireinfoweb.com/services/mobile-development)  \n\nLet me know if you'd like to explore any specific service!",
-      "stream": true
-    }
-  },
-  {
-    "trace_id": "e368c3b7-7791-46de-b685-218418b1e3a4",
-    "started_at": "2026-05-19T11:23:21.051792+00:00",
-    "ended_at": "2026-05-19T11:23:37.313198+00:00",
-    "endpoint": "/api/chat/text/stream",
-    "streaming": true,
-    "status": "success",
-    "duration_ms": 16261.41,
-    "session_id": "cf5efcf0-7945-4455-a54f-845a9d8c44b6",
-    "user_query": "does work on the AI field?",
-    "process": {
-      "user_request": {
-        "query": "does work on the AI field?",
-        "endpoint": "/api/chat/text/stream",
-        "stream": true,
-        "ts": "2026-05-19T11:23:21.056372+00:00"
-      },
-      "ai_request": {
-        "mode": "rag",
-        "model": "gpt-4o",
-        "model_input_chars": 3052,
-        "stream": true,
-        "intent": "services",
-        "ts": "2026-05-19T11:23:23.287890+00:00"
-      },
-      "ai_search_response": {
-        "source": "azure_ai_search",
-        "context_chars": 6836,
-        "top_score": 5.2960863,
-        "citations_count": 8,
-        "videos_count": 0,
-        "citation": {
-          "title": "serviceCatalog.json",
-          "url": "https://desirechatbotweb.blob.core.windows.net/desirechatbotweb/serviceCatalog.json",
-          "id": "213591c16597_aHR0cHM6Ly9kZXNpcmVjaGF0Ym90d2ViLmJsb2IuY29yZS53aW5kb3dzLm5ldC9kZXNpcmVjaGF0Ym90d2ViL3NlcnZpY2VDYXRhbG9nLmpzb241_pages_5",
-          "score": 4.883655,
-          "context_snippet": "Document Storage\", \"Key Data Extraction for PowerApps Validation\", \"Seamless Agreement and NDA Generation\", \"Reduced Manual Effort and Improved Accuracy\" ], \"imageSrc\": \"img7\", \"imageAlt\": \"img 7\", \"url\": \"https://desireinfoweb.com/services/ai\" } ], \"msDynamicsProjectServicesShowcaseData\": [ { \"id\": 1, \"title\": \"MS Dynamics CRM\", \"subtitle\": \"Intelligent CRM built for enterprise complexity\", \"description\": \"A fully integrated CRM for a leading enterprise software provider specializing in ERP, CRM, and BI on SAP and Microsoft Dynamics. The platform consolidates procurement, automation, and client operations.\", \"features\": [ \"Strategic Project Planning\", \"Intelligent Resource Management\", \"Agile Task Automation\", \"Predictive Client Management\" ], \"imageSrc\": \"img1\", \"imageAlt\": \"img 1\", \"url\": \"https://desireinfoweb.com/services/ms-dynamics\" }, { \"id\": 2, \"title\": \"Sales Dashboard\", \"subtitle\": \"Business Operations Using Dynamics365\", \"description\": \"Customer Construction Equipment used Dynamics 365 for Field Service to streamline field processes, improve maintenance scheduling, and provide better customer support.\", \"features\": [ \"Collaboration\", \"Reporting and Analytics\", \"Task Automation\", \"Templates\" ], \"imageSrc\": \"img2\", \"imageAlt\": \"img 2\", \"url\": \"https://desireinfoweb.com/services/ms-dynamics\" } ], \"powerBiProjectServicesShowcaseData\": [ { \"id\": 1, \"title\": \"Compare Records\", \"subtitle\": \"Better comparison visualization\", \"description\": \"Comparing records in a Power BI report involves comparing data from multiple sources, tables, or visualizations within the report.\", \"features\": [ \"Quick Insights\",",
-          "overlap_count": 3,
-          "overlap_ratio": 0.6,
-          "entry_rank": 0.632837,
-          "retrieval_mode": "text",
-          "source_scope": "knowledge"
-        },
-        "stream": true,
-        "ts": "2026-05-19T11:23:30.712721+00:00"
-      },
-      "ai_search_json_response": {
-        "source_scope": "knowledge",
-        "found": true,
-        "retrieval_mode": "text",
-        "score": 5.296086,
-        "normalized_score": 0.72588,
-        "rank": 0.854046,
-        "overlap_ratio": 0.8,
-        "overlap_count": 4,
-        "query_term_count": 5,
-        "meets_score": true,
-        "meets_overlap": true,
-        "context_chars": 6836,
-        "context_preview": "Document Storage\", \"Key Data Extraction for PowerApps Validation\", \"Seamless Agreement and NDA Generation\", \"Reduced Manual Effort and Improved Accuracy\" ], \"imageSrc\": \"img7\", \"imageAlt\": \"img 7\", \"url\": \"https://desireinfoweb.com/services/ai\" } ], \"msDynamicsProjectServicesShowcaseData\": [ { \"id\": 1, \"title\": \"MS Dynamics CRM\", \"subtitle\": \"Intelligent CRM built for enterprise complexity\", \"description\": \"A fully integrated CRM for a leading enterprise software provider specializing in ERP, CRM, and BI on SAP and Microsoft Dynamics. The platform consolidates procurement, automation, and clie",
-        "citations_count": 4,
-        "citation": {
-          "title": "serviceCatalog.json",
-          "url": "https://desirechatbotweb.blob.core.windows.net/desirechatbotweb/serviceCatalog.json",
-          "id": "213591c16597_aHR0cHM6Ly9kZXNpcmVjaGF0Ym90d2ViLmJsb2IuY29yZS53aW5kb3dzLm5ldC9kZXNpcmVjaGF0Ym90d2ViL3NlcnZpY2VDYXRhbG9nLmpzb241_pages_5",
-          "score": 4.883655,
-          "context_snippet": "Document Storage\", \"Key Data Extraction for PowerApps Validation\", \"Seamless Agreement and NDA Generation\", \"Reduced Manual Effort and Improved Accuracy\" ], \"imageSrc\": \"img7\", \"imageAlt\": \"img 7\", \"url\": \"https://desireinfoweb.com/services/ai\" } ], \"msDynamicsProjectServicesShowcaseData\": [ { \"id\": 1, \"title\": \"MS Dynamics CRM\", \"subtitle\": \"Intelligent CRM built for enterprise complexity\", \"description\": \"A fully integrated CRM for a leading enterprise software provider specializing in ERP, CRM, and BI on SAP and Microsoft Dynamics. The platform consolidates procurement, automation, and client operations.\", \"features\": [ \"Strategic Project Planning\", \"Intelligent Resource Management\", \"Agile Task Automation\", \"Predictive Client Management\" ], \"imageSrc\": \"img1\", \"imageAlt\": \"img 1\", \"url\": \"https://desireinfoweb.com/services/ms-dynamics\" }, { \"id\": 2, \"title\": \"Sales Dashboard\", \"subtitle\": \"Business Operations Using Dynamics365\", \"description\": \"Customer Construction Equipment used Dynamics 365 for Field Service to streamline field processes, improve maintenance scheduling, and provide better customer support.\", \"features\": [ \"Collaboration\", \"Reporting and Analytics\", \"Task Automation\", \"Templates\" ], \"imageSrc\": \"img2\", \"imageAlt\": \"img 2\", \"url\": \"https://desireinfoweb.com/services/ms-dynamics\" } ], \"powerBiProjectServicesShowcaseData\": [ { \"id\": 1, \"title\": \"Compare Records\", \"subtitle\": \"Better comparison visualization\", \"description\": \"Comparing records in a Power BI report involves comparing data from multiple sources, tables, or visualizations within the report.\", \"features\": [ \"Quick Insights\",",
-          "overlap_count": 3,
-          "overlap_ratio": 0.6,
-          "entry_rank": 0.632837,
-          "retrieval_mode": "text"
-        },
-        "ts": "2026-05-19T11:23:27.525309+00:00"
-      },
-      "ai_search_blob_response": {
-        "source_scope": "blob_fallback",
-        "found": true,
-        "retrieval_mode": "text",
-        "score": 6.153601,
-        "normalized_score": 0.75471,
-        "rank": 0.71192,
-        "overlap_ratio": 0.8,
-        "overlap_count": 4,
-        "query_term_count": 5,
-        "meets_score": true,
-        "meets_overlap": true,
-        "context_chars": 13815,
-        "context_preview": "the need for manual reporting and ensured 100% audit readiness. It transformed informal chat approvals into formal, legally compliant records instantly, saving procurement teams significant time on documentation. Technologies Used: ● Software & Frameworks: React, Node.js, PDF Generation Libraries (e.g., PDFKit), SharePoint Integration (for attachment handling) ● AI: Natural Language Processing (NLP) for summarizing threads ● Databases: SQL / SharePoint Lists ● Deployment: Enterprise Web App 49 50 Project 22: AI-Powered Visa Application & Document Review System Client: Immigration Consultancy /",
-        "citations_count": 2,
-        "citation": {
-          "title": "AI Projects  (2).pdf",
-          "url": "https://desirechatbotweb.blob.core.windows.net/desirechatbotweb/AI%20Projects%20%20(2).pdf",
-          "id": "42c7ea830793_aHR0cHM6Ly9kZXNpcmVjaGF0Ym90d2ViLmJsb2IuY29yZS53aW5kb3dzLm5ldC9kZXNpcmVjaGF0Ym90d2ViL0FJJTIwUHJvamVjdHMlMjAlMjAoMikucGRm0_pages_25",
-          "score": 6.153601,
-          "context_snippet": "the need for manual reporting and ensured 100% audit readiness. It transformed informal chat approvals into formal, legally compliant records instantly, saving procurement teams significant time on documentation. Technologies Used: ● Software & Frameworks: React, Node.js, PDF Generation Libraries (e.g., PDFKit), SharePoint Integration (for attachment handling) ● AI: Natural Language Processing (NLP) for summarizing threads ● Databases: SQL / SharePoint Lists ● Deployment: Enterprise Web App 49 50 Project 22: AI-Powered Visa Application & Document Review System Client: Immigration Consultancy / Legal Tech Firm Industry: Legal Tech & Immigration Services 51 Focus Area: Automated Compliance & Document Verification Department: Casework & Operations Challenge: Visa and permanent residency applications are strictly regulated. A single minor error— such as a name mismatch between a passport and a form, or a job description exceeding a character count—can lead to immediate rejection. Manually cross-referencing dozens of documents (birth certificates, employment letters, educational transcripts) against an application form is tedious and prone to human error. Our Solution: We developed an AI-Powered Document Review Specialist utilizing Google Gemini 2.5 Flash. ● Cross-Verification Engine: The AI reads the application form and compares every field against the supporting evidence (e.g., verifying that the \"Marriage Date\" on the form matches the uploaded \"Marriage Certificate\"). ● Regulatory Compliance: It enforces strict government filing rules, such as",
-          "overlap_count": 3,
-          "overlap_ratio": 0.6,
-          "entry_rank": 0.646413,
-          "retrieval_mode": "text"
-        },
-        "ts": "2026-05-19T11:23:27.525309+00:00"
-      },
-      "ai_selection": {
-        "selected_source_scope": "knowledge",
-        "selected_retrieval_mode": "text",
-        "selected_score": 5.296086,
-        "selected_rank": 0.854046,
-        "selected_overlap_ratio": 0.8,
-        "candidate_count": 4,
-        "ts": "2026-05-19T11:23:27.525309+00:00"
-      },
-      "ai_openai_response": {
-        "source": "azure_openai",
-        "answer_chars": 680,
-        "stream": true,
-        "ts": "2026-05-19T11:23:36.981703+00:00"
-      },
-      "display_response": {
-        "status_code": 200,
-        "answer_chars": 680,
-        "citations_count": 1,
-        "stream": true,
-        "ts": "2026-05-19T11:23:37.312158+00:00"
-      },
-      "ai_research_response": {
-        "source": "azure_ai_search",
-        "context_chars": 6836,
-        "top_score": 5.2960863,
-        "citations_count": 8,
-        "videos_count": 0,
-        "citation": {
-          "title": "serviceCatalog.json",
-          "url": "https://desirechatbotweb.blob.core.windows.net/desirechatbotweb/serviceCatalog.json",
-          "id": "213591c16597_aHR0cHM6Ly9kZXNpcmVjaGF0Ym90d2ViLmJsb2IuY29yZS53aW5kb3dzLm5ldC9kZXNpcmVjaGF0Ym90d2ViL3NlcnZpY2VDYXRhbG9nLmpzb241_pages_5",
-          "score": 4.883655,
-          "context_snippet": "Document Storage\", \"Key Data Extraction for PowerApps Validation\", \"Seamless Agreement and NDA Generation\", \"Reduced Manual Effort and Improved Accuracy\" ], \"imageSrc\": \"img7\", \"imageAlt\": \"img 7\", \"url\": \"https://desireinfoweb.com/services/ai\" } ], \"msDynamicsProjectServicesShowcaseData\": [ { \"id\": 1, \"title\": \"MS Dynamics CRM\", \"subtitle\": \"Intelligent CRM built for enterprise complexity\", \"description\": \"A fully integrated CRM for a leading enterprise software provider specializing in ERP, CRM, and BI on SAP and Microsoft Dynamics. The platform consolidates procurement, automation, and client operations.\", \"features\": [ \"Strategic Project Planning\", \"Intelligent Resource Management\", \"Agile Task Automation\", \"Predictive Client Management\" ], \"imageSrc\": \"img1\", \"imageAlt\": \"img 1\", \"url\": \"https://desireinfoweb.com/services/ms-dynamics\" }, { \"id\": 2, \"title\": \"Sales Dashboard\", \"subtitle\": \"Business Operations Using Dynamics365\", \"description\": \"Customer Construction Equipment used Dynamics 365 for Field Service to streamline field processes, improve maintenance scheduling, and provide better customer support.\", \"features\": [ \"Collaboration\", \"Reporting and Analytics\", \"Task Automation\", \"Templates\" ], \"imageSrc\": \"img2\", \"imageAlt\": \"img 2\", \"url\": \"https://desireinfoweb.com/services/ms-dynamics\" } ], \"powerBiProjectServicesShowcaseData\": [ { \"id\": 1, \"title\": \"Compare Records\", \"subtitle\": \"Better comparison visualization\", \"description\": \"Comparing records in a Power BI report involves comparing data from multiple sources, tables, or visualizations within the report.\", \"features\": [ \"Quick Insights\",",
-          "overlap_count": 3,
-          "overlap_ratio": 0.6,
-          "entry_rank": 0.632837,
-          "retrieval_mode": "text",
-          "source_scope": "knowledge"
-        },
-        "stream": true,
-        "ts": "2026-05-19T11:23:30.712721+00:00"
-      }
-    },
-    "summary": {
-      "status_code": 200,
-      "reply": "Yes, Desire Infoweb specializes in AI services. Key capabilities include:\n\n- **Chatbots & RAG Systems**: AI-powered 24/7 customer support for websites and WhatsApp.\n- **Document Automation**: Extract data from invoices, contracts, and generate NDAs or agreements.\n- **Microsoft 365 Copilot Studio**: Intelligent agents for workflow automation and conversational experiences.\n- **Predictive Analytics**: Forecast trends and analyze data for better decision-making.\n- **Computer Vision**: Image recognition, object detection, and defect identification.\n\nExplore more at [AI Services](https://desireinfoweb.com/services/ai). Let me know if you'd like details on specific AI projects!",
-      "stream": true
-    }
-  },
-  {
-    "trace_id": "00576337-2c32-4c9c-9e0a-ce03eb591263",
-    "started_at": "2026-05-19T11:25:20.368615+00:00",
-    "ended_at": "2026-05-19T11:25:36.538339+00:00",
-    "endpoint": "/api/chat/text/stream",
-    "streaming": true,
-    "status": "success",
-    "duration_ms": 16169.72,
-    "session_id": "cf5efcf0-7945-4455-a54f-845a9d8c44b6",
-    "user_query": "give me the detail about the Fluentify AI?",
-    "process": {
-      "user_request": {
-        "query": "give me the detail about the Fluentify AI?",
-        "endpoint": "/api/chat/text/stream",
-        "stream": true,
-        "ts": "2026-05-19T11:25:20.368615+00:00"
-      },
-      "ai_request": {
-        "mode": "rag",
-        "model": "gpt-4o",
-        "model_input_chars": 3793,
-        "stream": true,
-        "intent": "projects",
-        "ts": "2026-05-19T11:25:22.625017+00:00"
-      },
-      "ai_search_response": {
-        "source": "azure_ai_search",
-        "context_chars": 7201,
-        "top_score": 6.7847877,
-        "citations_count": 8,
-        "videos_count": 0,
-        "citation": {
-          "title": "ai",
-          "url": "https://desireinfoweb.com/services/ai",
-          "id": "s_c2VydmljZUNhdGFsb2cudHh0_i_3_u_8fde875bd12b4142981e16d71c3d2e73",
-          "score": 6.275428,
-          "context_snippet": "[aiProjectServicesShowcaseData] Fluentify AI Fluentify AI offers a comprehensive solution for enhancing language proficiency through data-driven insights and AI-powered assessments. It helps users improve spoken communication effectively for professionals, educators, and organizations. Features: AI-Powered Language Assessment, Process MS Team, Zoom and Google Meet recording, Collaborate and Share Feedback, Optimize Communication Skills https://desireinfoweb.com/services/ai [aiProjectServicesShowcaseData] Insurance Chatbot Insurance Chatbot reduced policy coverage verification time from 15-20 minutes to seconds. It acts as a single source of truth with direct references to official documentation. Features: Accelerate Policy Verification, Centralized Source of Truth, Improve Accuracy and Compliance, Enhance Operational Efficiency https://desireinfoweb.com/services/ai",
-          "overlap_count": 2,
-          "overlap_ratio": 0.5,
-          "entry_rank": 0.577496,
-          "retrieval_mode": "text",
-          "source_scope": "knowledge"
-        },
-        "stream": true,
-        "ts": "2026-05-19T11:25:30.909249+00:00"
-      },
-      "ai_search_json_response": {
-        "source_scope": "knowledge",
-        "found": true,
-        "retrieval_mode": "text",
-        "score": 6.784788,
-        "normalized_score": 0.772334,
-        "rank": 0.768847,
-        "overlap_ratio": 0.5,
-        "overlap_count": 2,
-        "query_term_count": 4,
-        "meets_score": true,
-        "meets_overlap": true,
-        "context_chars": 7201,
-        "context_preview": "[aiProjectServicesShowcaseData] Fluentify AI Fluentify AI offers a comprehensive solution for enhancing language proficiency through data-driven insights and AI-powered assessments. It helps users improve spoken communication effectively for professionals, educators, and organizations. Features: AI-Powered Language Assessment, Process MS Team, Zoom and Google Meet recording, Collaborate and Share Feedback, Optimize Communication Skills https://desireinfoweb.com/services/ai [aiProjectServicesShowcaseData] Insurance Chatbot Insurance Chatbot reduced policy coverage verification time from 15-20 m",
-        "citations_count": 4,
-        "citation": {
-          "title": "ai",
-          "url": "https://desireinfoweb.com/services/ai",
-          "id": "s_c2VydmljZUNhdGFsb2cudHh0_i_3_u_8fde875bd12b4142981e16d71c3d2e73",
-          "score": 6.275428,
-          "context_snippet": "[aiProjectServicesShowcaseData] Fluentify AI Fluentify AI offers a comprehensive solution for enhancing language proficiency through data-driven insights and AI-powered assessments. It helps users improve spoken communication effectively for professionals, educators, and organizations. Features: AI-Powered Language Assessment, Process MS Team, Zoom and Google Meet recording, Collaborate and Share Feedback, Optimize Communication Skills https://desireinfoweb.com/services/ai [aiProjectServicesShowcaseData] Insurance Chatbot Insurance Chatbot reduced policy coverage verification time from 15-20 minutes to seconds. It acts as a single source of truth with direct references to official documentation. Features: Accelerate Policy Verification, Centralized Source of Truth, Improve Accuracy and Compliance, Enhance Operational Efficiency https://desireinfoweb.com/services/ai",
-          "overlap_count": 2,
-          "overlap_ratio": 0.5,
-          "entry_rank": 0.577496,
-          "retrieval_mode": "text"
-        },
-        "ts": "2026-05-19T11:25:27.258648+00:00"
-      },
-      "ai_search_blob_response": {
-        "source_scope": "blob_fallback",
-        "found": true,
-        "retrieval_mode": "text",
-        "score": 9.257038,
-        "normalized_score": 0.822333,
-        "rank": 0.639847,
-        "overlap_ratio": 0.5,
-        "overlap_count": 2,
-        "query_term_count": 4,
-        "meets_score": true,
-        "meets_overlap": true,
-        "context_chars": 13395,
-        "context_preview": "to leveraging cutting-edge tools to enhance operations and improve service delivery. Technologies Used: Software & Frameworks: Azure OpenAI, SharePoint Online, MS Teams, Typescript , React , Azure Blob storage , Semantic search , Vectorization Databases: SharePoint Deployment: Azure Cloud Service 25 26 Project 13: Fluentify AI - Enhancing Language Proficiency with AI Client: Internal Project Industry: Education & Technology Focus Area: AI-Driven Language Assessment Department: IT & Education Challenge: The challenge was to develop an AI-powered language assessment tool that integrates with Mic",
-        "citations_count": 3,
-        "citation": {
-          "title": "AI Projects  (2).pdf",
-          "url": "https://desirechatbotweb.blob.core.windows.net/desirechatbotweb/AI%20Projects%20%20(2).pdf",
-          "id": "42c7ea830793_aHR0cHM6Ly9kZXNpcmVjaGF0Ym90d2ViLmJsb2IuY29yZS53aW5kb3dzLm5ldC9kZXNpcmVjaGF0Ym90d2ViL0FJJTIwUHJvamVjdHMlMjAlMjAoMikucGRm0_pages_13",
-          "score": 9.257038,
-          "context_snippet": "to leveraging cutting-edge tools to enhance operations and improve service delivery. Technologies Used: Software & Frameworks: Azure OpenAI, SharePoint Online, MS Teams, Typescript , React , Azure Blob storage , Semantic search , Vectorization Databases: SharePoint Deployment: Azure Cloud Service 25 26 Project 13: Fluentify AI - Enhancing Language Proficiency with AI Client: Internal Project Industry: Education & Technology Focus Area: AI-Driven Language Assessment Department: IT & Education Challenge: The challenge was to develop an AI-powered language assessment tool that integrates with Microsoft Teams to help professionals, educators, and organizations enhance their spoken communication skills. The goal was to provide detailed feedback and scores on key aspects of spoken language, such as pronunciation, grammar, vocabulary, and fluency. Our Solution: We developed Fluentify AI, an AI-powered language assessment tool designed to seamlessly integrate with Microsoft Teams. This innovative tool retrieves meeting recordings, allowing users to select and process them for comprehensive analysis. 27 Utilizing the Azure Pronunciation Assessment Service, Fluentify AI evaluates key aspects of spoken language, including pronunciation, grammar, and vocabulary. The system provides detailed feedback, scores, corrections, and in-depth analysis. Additionally, it offers practice exercises tailored to help users improve their spoken communication skills effectively. Impact: Fluentify AI offers a comprehensive solution for enhancing language proficiency through data-driven insights and AI-powered assessments. It helps users improve their spoken",
-          "overlap_count": 2,
-          "overlap_ratio": 0.5,
-          "entry_rank": 0.5967,
-          "retrieval_mode": "text"
-        },
-        "ts": "2026-05-19T11:25:27.259646+00:00"
-      },
-      "ai_selection": {
-        "selected_source_scope": "knowledge",
-        "selected_retrieval_mode": "text",
-        "selected_score": 6.784788,
-        "selected_rank": 0.768847,
-        "selected_overlap_ratio": 0.5,
-        "candidate_count": 4,
-        "ts": "2026-05-19T11:25:27.259646+00:00"
-      },
-      "ai_openai_response": {
-        "source": "azure_openai",
-        "answer_chars": 627,
-        "stream": true,
-        "ts": "2026-05-19T11:25:36.144861+00:00"
-      },
-      "display_response": {
-        "status_code": 200,
-        "answer_chars": 627,
-        "citations_count": 1,
-        "stream": true,
-        "ts": "2026-05-19T11:25:36.538339+00:00"
-      },
-      "ai_research_response": {
-        "source": "azure_ai_search",
-        "context_chars": 7201,
-        "top_score": 6.7847877,
-        "citations_count": 8,
-        "videos_count": 0,
-        "citation": {
-          "title": "ai",
-          "url": "https://desireinfoweb.com/services/ai",
-          "id": "s_c2VydmljZUNhdGFsb2cudHh0_i_3_u_8fde875bd12b4142981e16d71c3d2e73",
-          "score": 6.275428,
-          "context_snippet": "[aiProjectServicesShowcaseData] Fluentify AI Fluentify AI offers a comprehensive solution for enhancing language proficiency through data-driven insights and AI-powered assessments. It helps users improve spoken communication effectively for professionals, educators, and organizations. Features: AI-Powered Language Assessment, Process MS Team, Zoom and Google Meet recording, Collaborate and Share Feedback, Optimize Communication Skills https://desireinfoweb.com/services/ai [aiProjectServicesShowcaseData] Insurance Chatbot Insurance Chatbot reduced policy coverage verification time from 15-20 minutes to seconds. It acts as a single source of truth with direct references to official documentation. Features: Accelerate Policy Verification, Centralized Source of Truth, Improve Accuracy and Compliance, Enhance Operational Efficiency https://desireinfoweb.com/services/ai",
-          "overlap_count": 2,
-          "overlap_ratio": 0.5,
-          "entry_rank": 0.577496,
-          "retrieval_mode": "text",
-          "source_scope": "knowledge"
-        },
-        "stream": true,
-        "ts": "2026-05-19T11:25:30.909249+00:00"
-      }
-    },
-    "summary": {
-      "status_code": 200,
-      "reply": "**Fluentify AI** is an AI-powered solution designed to enhance language proficiency through data-driven insights and assessments. It is ideal for professionals, educators, and organizations aiming to improve communication skills.\n\n### Key Features:\n- **AI-Powered Language Assessment**: Evaluate spoken communication effectively.\n- **Recording Integration**: Process MS Teams, Zoom, and Google Meet recordings.\n- **Collaboration Tools**: Share feedback and optimize communication skills.\n\nFor more details, visit [Fluentify AI](https://desireinfoweb.com/services/ai). Let me know if you'd like to explore its use cases further!",
-      "stream": true
-    }
-  },
-  {
-    "trace_id": "50ac446b-f5cc-439e-92c1-3c840f100c34",
-    "started_at": "2026-05-19T11:26:40.462792+00:00",
-    "ended_at": "2026-05-19T11:26:54.655017+00:00",
-    "endpoint": "/api/chat/text/stream",
-    "streaming": true,
-    "status": "success",
-    "duration_ms": 14192.23,
-    "session_id": "cf5efcf0-7945-4455-a54f-845a9d8c44b6",
-    "user_query": "what are thesections desire infoweb served??",
-    "process": {
-      "user_request": {
-        "query": "what are thesections desire infoweb served??",
-        "endpoint": "/api/chat/text/stream",
-        "stream": true,
-        "ts": "2026-05-19T11:26:40.466304+00:00"
-      },
-      "ai_request": {
-        "mode": "rag",
-        "model": "gpt-4o",
-        "model_input_chars": 4483,
-        "stream": true,
-        "intent": "services",
-        "ts": "2026-05-19T11:26:42.472870+00:00"
-      },
-      "ai_search_response": {
-        "source": "azure_ai_search",
-        "context_chars": 5149,
-        "top_score": 10.567855,
-        "citations_count": 11,
-        "videos_count": 0,
-        "citation": {
-          "title": "about-us",
-          "url": "https://desireinfoweb.com/about-us",
-          "id": "s_c2VydmljZUNhdGFsb2cudHh0_i_0_u_c76371ec982743fd978ca381a3778da9",
-          "score": 10.567855,
-          "context_snippet": "[companyProfile] About Desire Infoweb Desire Infoweb is an IT services and consulting company focused on Microsoft technologies, enterprise automation, modern collaboration platforms, analytics, and AI-powered business solutions. Core capabilities include SharePoint, Power Platform, Power BI, Microsoft Teams, Dynamics 365, Azure, .NET development, migration, governance, and custom AI/chatbot implementations. https://desireinfoweb.com/about-us [products] Organization Chart An organizational chart shows the internal structure of an organization or company. The employees and positions are represented by boxes or other shapes, sometimes including photos, contact information, email and page links, icons, and illustrations. Straight or elbowed lines link the levels together. https://desireinfoweb.com/products/organization-chart",
-          "overlap_count": 2,
-          "overlap_ratio": 0.5,
-          "entry_rank": 0.602259,
-          "retrieval_mode": "text",
-          "source_scope": "knowledge"
-        },
-        "stream": true,
-        "ts": "2026-05-19T11:26:49.777050+00:00"
-      },
-      "ai_search_json_response": {
-        "source_scope": "knowledge",
-        "found": true,
-        "retrieval_mode": "text",
-        "score": 10.567855,
-        "normalized_score": 0.840864,
-        "rank": 0.811336,
-        "overlap_ratio": 0.5,
-        "overlap_count": 2,
-        "query_term_count": 4,
-        "meets_score": true,
-        "meets_overlap": true,
-        "context_chars": 5149,
-        "context_preview": "[companyProfile] About Desire Infoweb Desire Infoweb is an IT services and consulting company focused on Microsoft technologies, enterprise automation, modern collaboration platforms, analytics, and AI-powered business solutions. Core capabilities include SharePoint, Power Platform, Power BI, Microsoft Teams, Dynamics 365, Azure, .NET development, migration, governance, and custom AI/chatbot implementations. https://desireinfoweb.com/about-us [products] Organization Chart An organizational chart shows the internal structure of an organization or company. The employees and positions are represe",
-        "citations_count": 4,
-        "citation": {
-          "title": "about-us",
-          "url": "https://desireinfoweb.com/about-us",
-          "id": "s_c2VydmljZUNhdGFsb2cudHh0_i_0_u_c76371ec982743fd978ca381a3778da9",
-          "score": 10.567855,
-          "context_snippet": "[companyProfile] About Desire Infoweb Desire Infoweb is an IT services and consulting company focused on Microsoft technologies, enterprise automation, modern collaboration platforms, analytics, and AI-powered business solutions. Core capabilities include SharePoint, Power Platform, Power BI, Microsoft Teams, Dynamics 365, Azure, .NET development, migration, governance, and custom AI/chatbot implementations. https://desireinfoweb.com/about-us [products] Organization Chart An organizational chart shows the internal structure of an organization or company. The employees and positions are represented by boxes or other shapes, sometimes including photos, contact information, email and page links, icons, and illustrations. Straight or elbowed lines link the levels together. https://desireinfoweb.com/products/organization-chart",
-          "overlap_count": 2,
-          "overlap_ratio": 0.5,
-          "entry_rank": 0.602259,
-          "retrieval_mode": "text"
-        },
-        "ts": "2026-05-19T11:26:46.272094+00:00"
-      },
-      "ai_search_blob_response": {
-        "source_scope": "blob_fallback",
-        "found": true,
-        "retrieval_mode": "text",
-        "score": 13.663195,
-        "normalized_score": 0.872312,
-        "rank": 0.765834,
-        "overlap_ratio": 0.75,
         "overlap_count": 3,
-        "query_term_count": 4,
+        "query_term_count": 3,
         "meets_score": true,
         "meets_overlap": true,
-        "context_chars": 13297,
-        "context_preview": "Empowering Your Vis ion Through S trategic IT Innovation Desire Infoweb Pvt Ltd. — Specialists in AI, Microsoft 365, Azure, SharePoint, Power Platform, Dynamics 365 & more WHO WE ARE Professional AI & Microsoft 365 Consulting We provide professional AI and Microsoft 365 consulting services for businesses in Europe, Australia, USA, South Africa, and Canada. Our team helps organizations improve productivity through customized Microsoft 365 solutions, smooth migration, secure setup, and reliable ongoing support. We focus on aligning Microsoft tools with your business needs to ensure better collab",
+        "context_chars": 7896,
+        "context_preview": "[companyProfile] About Desire Infoweb Desire Infoweb is an IT services and consulting company focused on Microsoft technologies, enterprise automation, modern collaboration platforms, analytics, and AI-powered business solutions. Core capabilities include SharePoint, Power Platform, Power BI, Microsoft Teams, Dynamics 365, Azure, .NET development, migration, governance, and custom AI/chatbot implementations. https://desireinfoweb.com/about-us [products] Organization Chart An organizational chart shows the internal structure of an organization or company. The employees and positions are represe",
+        "citations_count": 4,
+        "citation": {
+          "title": "organization-chart",
+          "url": "https://desireinfoweb.com/products/organization-chart",
+          "id": "s_c2VydmljZUNhdGFsb2cudHh0_i_0_u_c76371ec982743fd978ca381a3778da9",
+          "score": 12.093151,
+          "context_snippet": "[companyProfile] About Desire Infoweb Desire Infoweb is an IT services and consulting company focused on Microsoft technologies, enterprise automation, modern collaboration platforms, analytics, and AI-powered business solutions. Core capabilities include SharePoint, Power Platform, Power BI, Microsoft Teams, Dynamics 365, Azure, .NET development, migration, governance, and custom AI/chatbot implementations. https://desireinfoweb.com/about-us [products] Organization Chart An organizational chart shows the internal structure of an organization or company. The employees and positions are represented by boxes or other shapes, sometimes including photos, contact information, email and page links, icons, and illustrations. Straight or elbowed lines link the levels together. https://desireinfoweb.com/products/organization-chart",
+          "overlap_count": 3,
+          "overlap_ratio": 1.0,
+          "entry_rank": 0.957426,
+          "retrieval_mode": "text"
+        },
+        "ts": "2026-05-20T12:33:00.687929+00:00"
+      },
+      "ai_search_blob_response": {
+        "source_scope": "blob_fallback",
+        "found": true,
+        "retrieval_mode": "text",
+        "score": 10.428436,
+        "normalized_score": 0.839079,
+        "rank": 0.840229,
+        "overlap_ratio": 1.0,
+        "overlap_count": 3,
+        "query_term_count": 3,
+        "meets_score": true,
+        "meets_overlap": true,
+        "context_chars": 13446,
+        "context_preview": "for Real Problems Our flagship Microsoft 365 products are purpose-built tools that solve everyday business challenges ready to deploy and customize for your organization. Organization Chart Visual Hierarchy Dynamic, interactive org charts that keep your team structure transparent and up to date. New Joinee Onboarding Made Easy Streamlined onboarding portals that help new employees get up to speed from day one. Employee Directory People at a Glance A smart, searchable directory so your entire organization can find the right person instantly. Project Management Portal Deliver with Confidence Cen",
         "citations_count": 4,
         "citation": {
           "title": "Company Presentation New.pdf",
           "url": "https://desirechatbotweb.blob.core.windows.net/desirechatbotweb/Company%20Presentation%20New.pdf",
-          "id": "42c7ea830793_aHR0cHM6Ly9kZXNpcmVjaGF0Ym90d2ViLmJsb2IuY29yZS53aW5kb3dzLm5ldC9kZXNpcmVjaGF0Ym90d2ViL0NvbXBhbnklMjBQcmVzZW50YXRpb24lMjBOZXcucGRm0_pages_0",
-          "score": 9.933207,
-          "context_snippet": "Empowering Your Vis ion Through S trategic IT Innovation Desire Infoweb Pvt Ltd. — Specialists in AI, Microsoft 365, Azure, SharePoint, Power Platform, Dynamics 365 & more WHO WE ARE Professional AI & Microsoft 365 Consulting We provide professional AI and Microsoft 365 consulting services for businesses in Europe, Australia, USA, South Africa, and Canada. Our team helps organizations improve productivity through customized Microsoft 365 solutions, smooth migration, secure setup, and reliable ongoing support. We focus on aligning Microsoft tools with your business needs to ensure better collaboration and long-term growth. Customized Solutions Tailored Microsoft 365 solutions aligned with your unique business objectives and workflows. Smooth Migration Seamless migration, secure setup, and reliable ongoing support for your organization. AI-Powered Services Cutting-edge AI services to help your business stay competitive and future-ready. Long-Term Growth Partnering with you to drive sustainable collaboration, productivity, and business growth. Indus tries We S erve Education & E-learning Retail E-commerce Finance Real Estate Travel On-demand Solutions Healthcare & Fitness Logistics & Distribution OUR TRACK RECORD Global Reach, Proven Track Record With over a decade of experience, Desire Infoweb has established a strong global presence and a consistent record of delivering results for clients across more than 25 countries. 1200+ Projects Delivered Successful IT projects completed across diverse industries and geographies. 200+ Clients Worldwide Trusted by over 200 businesses across Europe, Australia, USA, South Africa, and Canada. 25+ Countries Served Global reach with local understanding across more than 25 countries. 10+ Years of Experience Over 10 years of expertise in I",
+          "id": "42c7ea830793_aHR0cHM6Ly9kZXNpcmVjaGF0Ym90d2ViLmJsb2IuY29yZS53aW5kb3dzLm5ldC9kZXNpcmVjaGF0Ym90d2ViL0NvbXBhbnklMjBQcmVzZW50YXRpb24lMjBOZXcucGRm0_pages_2",
+          "score": 10.428436,
+          "context_snippet": "for Real Problems Our flagship Microsoft 365 products are purpose-built tools that solve everyday business challenges ready to deploy and customize for your organization. Organization Chart Visual Hierarchy Dynamic, interactive org charts that keep your team structure transparent and up to date. New Joinee Onboarding Made Easy Streamlined onboarding portals that help new employees get up to speed from day one. Employee Directory People at a Glance A smart, searchable directory so your entire organization can find the right person instantly. Project Management Portal Deliver with Confidence Centralized project tracking, calendars, and collaboration all within your Microsoft 365 environment. VALUE PROPOSITION Innovation Meets Execution Our value proposition is simple: we don't just build we partner. We become an extension of your team, aligning our technical goals with your business objectives. Our agile approach means rapid iteration and transparent communication, so you always know where we stand. We always use the latest, most stable tech stacks, ensuring your solutions are future-proof and secure. We Partner, Not Jus t Build We become an extension of your team, deeply aligning our technical roadmap with your strategic business objectives for true collaborative success. Agile & Trans parent Rapid iteration, open communication, and full visibility into progress so you're never left wondering where your project stands. Future-Proof Technology We leverage only the latest, most stable tech stacks, ensuring your solutions remain secure, scalable, and ahead of the curve. WHY CHOOSE US The S trategic Advantage Our commitment to quality, reliability, and client success is reflected in every engagement. Here's what sets Desire Infoweb apart from the competition. 24/7 Support Av",
           "overlap_count": 3,
-          "overlap_ratio": 0.75,
-          "entry_rank": 0.77472,
+          "overlap_ratio": 1.0,
+          "entry_rank": 0.951724,
           "retrieval_mode": "text"
         },
-        "ts": "2026-05-19T11:26:46.272094+00:00"
+        "ts": "2026-05-20T12:33:00.687929+00:00"
       },
       "ai_selection": {
         "selected_source_scope": "knowledge",
         "selected_retrieval_mode": "text",
-        "selected_score": 10.567855,
-        "selected_rank": 0.811336,
-        "selected_overlap_ratio": 0.5,
+        "selected_score": 12.093151,
+        "selected_rank": 1.012014,
+        "selected_overlap_ratio": 1.0,
         "candidate_count": 4,
-        "ts": "2026-05-19T11:26:46.272094+00:00"
+        "ts": "2026-05-20T12:33:00.687929+00:00"
       },
       "ai_openai_response": {
         "source": "azure_openai",
-        "answer_chars": 632,
+        "answer_chars": 1678,
         "stream": true,
-        "ts": "2026-05-19T11:26:54.282446+00:00"
+        "ts": "2026-05-20T12:33:12.805604+00:00"
       },
       "display_response": {
         "status_code": 200,
-        "answer_chars": 632,
+        "answer_chars": 1678,
         "citations_count": 1,
         "stream": true,
-        "ts": "2026-05-19T11:26:54.654017+00:00"
+        "ts": "2026-05-20T12:33:13.357835+00:00"
       },
       "ai_research_response": {
         "source": "azure_ai_search",
-        "context_chars": 5149,
-        "top_score": 10.567855,
-        "citations_count": 11,
+        "context_chars": 7896,
+        "top_score": 12.093151,
+        "citations_count": 13,
         "videos_count": 0,
         "citation": {
-          "title": "about-us",
-          "url": "https://desireinfoweb.com/about-us",
+          "title": "organization-chart",
+          "url": "https://desireinfoweb.com/products/organization-chart",
           "id": "s_c2VydmljZUNhdGFsb2cudHh0_i_0_u_c76371ec982743fd978ca381a3778da9",
-          "score": 10.567855,
+          "score": 12.093151,
           "context_snippet": "[companyProfile] About Desire Infoweb Desire Infoweb is an IT services and consulting company focused on Microsoft technologies, enterprise automation, modern collaboration platforms, analytics, and AI-powered business solutions. Core capabilities include SharePoint, Power Platform, Power BI, Microsoft Teams, Dynamics 365, Azure, .NET development, migration, governance, and custom AI/chatbot implementations. https://desireinfoweb.com/about-us [products] Organization Chart An organizational chart shows the internal structure of an organization or company. The employees and positions are represented by boxes or other shapes, sometimes including photos, contact information, email and page links, icons, and illustrations. Straight or elbowed lines link the levels together. https://desireinfoweb.com/products/organization-chart",
-          "overlap_count": 2,
-          "overlap_ratio": 0.5,
-          "entry_rank": 0.602259,
+          "overlap_count": 3,
+          "overlap_ratio": 1.0,
+          "entry_rank": 0.957426,
           "retrieval_mode": "text",
           "source_scope": "knowledge"
         },
         "stream": true,
-        "ts": "2026-05-19T11:26:49.777050+00:00"
+        "ts": "2026-05-20T12:33:03.787625+00:00"
       }
     },
     "summary": {
       "status_code": 200,
-      "reply": "Desire Infoweb serves a wide range of industries, including:\n\n- **Education & E-learning**: AI chatbots, learning management systems, and analytics.\n- **Retail & E-commerce**: Custom web apps, SEO, and mobile solutions.\n- **Finance**: Document automation, dashboards, and CRM/ERP systems.\n- **Real Estate**: Workflow automation and data visualization.\n- **Travel**: Scalable web and mobile platforms.\n- **Healthcare & Fitness**: Appointment systems, intranets, and compliance tools.\n- **Logistics & Distribution**: Process automation and Power BI dashboards.\n\nLet me know if you'd like examples of projects in any specific industry!",
+      "reply": "### Products by Desire Infoweb\n\nDesire Infoweb provides **SharePoint and Microsoft 365 web parts** to enhance organizational productivity and collaboration. Here’s the list:\n\n1. **[Organization Chart](https://desireinfoweb.com/products/organization-chart)**  \n   - Visualizes organizational structure with employee details, photos, and links.\n\n2. **[New Joinee](https://desireinfoweb.com/products/new-joinee)**  \n   - Simplifies onboarding by managing profiles and introductions for new employees.\n\n3. **[Employee Directory](https://desireinfoweb.com/products/employee-directory)**  \n   - Centralized directory with employee names, roles, departments, and contact info.\n\n4. **[Calendar](https://desireinfoweb.com/products/calender)**  \n   - Intelligent portal for managing events, meetings, holidays, and deadlines.\n\n5. **[Celebration](https://desireinfoweb.com/products/celebration)**  \n   - Displays upcoming birthdays and anniversaries, enabling direct wishes.\n\n6. **[Project Management Portal](https://desireinfoweb.com/products/project-management-portal)**  \n   - SharePoint-based PMO with task boards, dashboards, and stakeholder visibility.\n\n7. **[Learning Management System (LMS)](https://desireinfoweb.com/products/learning-management-system)**  \n   - Centralized platform for online training, courses, and learning materials.\n\n8. **[Audit System](https://desireinfoweb.com/products/audit-system)**  \n   - SharePoint solution for managing audits and compliance.\n\n9. **[Quick Links](https://desireinfoweb.com/products/quick-links)**  \n   - Portal for quick navigation links within SharePoint intranets.\n\nLet me know if you'd like more details about any specific product!",
       "stream": true
     }
   },
   {
-    "trace_id": "a265027e-3827-40d6-876e-6ab011d3544c",
-    "started_at": "2026-05-19T11:38:56.257459+00:00",
-    "ended_at": "2026-05-19T11:39:13.226469+00:00",
+    "trace_id": "044ea046-4c40-4b9a-9f6d-6e20fbc98988",
+    "started_at": "2026-05-20T12:33:53.633570+00:00",
+    "ended_at": "2026-05-20T12:34:12.844382+00:00",
     "endpoint": "/api/chat/text/stream",
     "streaming": true,
     "status": "success",
-    "duration_ms": 16969.01,
+    "duration_ms": 19210.81,
     "session_id": "cf5efcf0-7945-4455-a54f-845a9d8c44b6",
-    "user_query": "give me the detail information of the Audit Management Portal?",
+    "user_query": "what are the products of the desire infoweb? explain in detail?",
     "process": {
       "user_request": {
-        "query": "give me the detail information of the Audit Management Portal? project management portal",
+        "query": "what are the products of the desire infoweb? explain in detail?",
         "endpoint": "/api/chat/text/stream",
         "stream": true,
-        "ts": "2026-05-19T11:38:56.258465+00:00"
+        "ts": "2026-05-20T12:33:53.634570+00:00"
       },
       "ai_request": {
         "mode": "rag",
         "model": "gpt-4o",
-        "model_input_chars": 5222,
-        "stream": true,
-        "intent": "projects",
-        "ts": "2026-05-19T11:38:58.302839+00:00"
-      },
-      "ai_search_response": {
-        "source": "azure_ai_search",
-        "context_chars": 8984,
-        "top_score": 14.86623,
-        "citations_count": 6,
-        "videos_count": 1,
-        "citation": {
-          "title": "project-management-portal",
-          "url": "https://desireinfoweb.com/products/project-management-portal",
-          "id": "s_c2VydmljZUNhdGFsb2cudHh0_i_2_u_7ecec9d85b1e405a993d4e0f8080aba6",
-          "score": 14.86623,
-          "context_snippet": "[products] Project Management Portal Transform the way your organization plans, tracks, and delivers projects. A SharePoint-based Project Management Portal centralizes your PMO and gives every stakeholder visibility from task boards to executive dashboards. https://desireinfoweb.com/products/project-management-portal [products] Learning Management System A Learning Management System helps organizations provide online training, courses, and learning materials to employees, students, or customers in a centralized system. https://desireinfoweb.com/products/learning-management-system [products] Audit System The Audit System project in SharePoint Online is a centralized solution for managing audits and compliance. It streamlines record tracking, monitoring, and evaluation to improve transparency and accountability. https://desireinfoweb.com/products/audit-system",
-          "overlap_count": 4,
-          "overlap_ratio": 0.5,
-          "entry_rank": 0.614426,
-          "retrieval_mode": "text",
-          "source_scope": "knowledge"
-        },
-        "stream": true,
-        "ts": "2026-05-19T11:39:05.119758+00:00"
-      },
-      "ai_search_json_response": {
-        "source_scope": "knowledge",
-        "found": true,
-        "retrieval_mode": "text",
-        "score": 14.86623,
-        "normalized_score": 0.88142,
-        "rank": 0.93148,
-        "overlap_ratio": 0.75,
-        "overlap_count": 6,
-        "query_term_count": 8,
-        "meets_score": true,
-        "meets_overlap": true,
-        "context_chars": 8984,
-        "context_preview": "[products] Project Management Portal Transform the way your organization plans, tracks, and delivers projects. A SharePoint-based Project Management Portal centralizes your PMO and gives every stakeholder visibility from task boards to executive dashboards. https://desireinfoweb.com/products/project-management-portal [products] Learning Management System A Learning Management System helps organizations provide online training, courses, and learning materials to employees, students, or customers in a centralized system. https://desireinfoweb.com/products/learning-management-system [products] Au",
-        "citations_count": 3,
-        "citation": {
-          "title": "project-management-portal",
-          "url": "https://desireinfoweb.com/products/project-management-portal",
-          "id": "s_c2VydmljZUNhdGFsb2cudHh0_i_2_u_7ecec9d85b1e405a993d4e0f8080aba6",
-          "score": 14.86623,
-          "context_snippet": "[products] Project Management Portal Transform the way your organization plans, tracks, and delivers projects. A SharePoint-based Project Management Portal centralizes your PMO and gives every stakeholder visibility from task boards to executive dashboards. https://desireinfoweb.com/products/project-management-portal [products] Learning Management System A Learning Management System helps organizations provide online training, courses, and learning materials to employees, students, or customers in a centralized system. https://desireinfoweb.com/products/learning-management-system [products] Audit System The Audit System project in SharePoint Online is a centralized solution for managing audits and compliance. It streamlines record tracking, monitoring, and evaluation to improve transparency and accountability. https://desireinfoweb.com/products/audit-system",
-          "overlap_count": 4,
-          "overlap_ratio": 0.5,
-          "entry_rank": 0.614426,
-          "retrieval_mode": "text"
-        },
-        "ts": "2026-05-19T11:39:03.675250+00:00"
-      },
-      "ai_search_blob_response": {
-        "source_scope": "blob_fallback",
-        "found": true,
-        "retrieval_mode": "text",
-        "score": 12.737244,
-        "normalized_score": 0.864289,
-        "rank": 0.760859,
-        "overlap_ratio": 0.75,
-        "overlap_count": 6,
-        "query_term_count": 8,
-        "meets_score": true,
-        "meets_overlap": true,
-        "context_chars": 12533,
-        "context_preview": "50+ Certified Experts 4.9+ Client Rating 100% Success Rate 99% On-Time Delivery www.desireinfoweb.com CORE EXPERTISE Our Technology Pillars SharePoint Intranets & Document Management Power Platform Automations & Custom Apps Azure OpenAI Advanced AI & NLP Solutions Dynamics 365 Operations & Customer Engagement MS Teams Collaboration & Communication .NET Robust Web & Cloud Applications www.desireinfoweb.com PRODUCT ECOSYSTEM Part of a Broader Digital Workplace Suite The Project Management Portal is just one piece of Desire Infoweb's comprehensive intranet ecosystem. Intranet Portal Learning Mana",
-        "citations_count": 3,
-        "citation": {
-          "title": "PMP.pdf",
-          "url": "https://desirechatbotweb.blob.core.windows.net/desirechatbotweb/PMP.pdf",
-          "id": "42c7ea830793_aHR0cHM6Ly9kZXNpcmVjaGF0Ym90d2ViLmJsb2IuY29yZS53aW5kb3dzLm5ldC9kZXNpcmVjaGF0Ym90d2ViL1BNUC5wZGY1_pages_2",
-          "score": 12.737244,
-          "context_snippet": "50+ Certified Experts 4.9+ Client Rating 100% Success Rate 99% On-Time Delivery www.desireinfoweb.com CORE EXPERTISE Our Technology Pillars SharePoint Intranets & Document Management Power Platform Automations & Custom Apps Azure OpenAI Advanced AI & NLP Solutions Dynamics 365 Operations & Customer Engagement MS Teams Collaboration & Communication .NET Robust Web & Cloud Applications www.desireinfoweb.com PRODUCT ECOSYSTEM Part of a Broader Digital Workplace Suite The Project Management Portal is just one piece of Desire Infoweb's comprehensive intranet ecosystem. Intranet Portal Learning Management Employee Directory Power BI Dashboards Organization Chart Audit System Project Management Portal www.desireinfoweb.com GET IN TOUCH Ready to Transform Your Workspace? Let's Talk. INDIA (HQ) 509, 510 – Ganesh Glory, Jagatpur Road, Near Nirma University, Ahmedabad, India. +91-8780468807 hr@desireinfoweb.com vijay@desireinfoweb.com UNITED STATES 1834 Chandolin In, Elgin, Illinois 60124 +1-260-560-2128 vijay@desireinfoweb.com CANADA 9-4640 Rae Street, Regina, SK, Canada – S4S 3B6 +1-639-997-9925 vijay@desireinfoweb.com www.desireinfoweb.com http://www.desireinfoweb.com/",
-          "overlap_count": 5,
-          "overlap_ratio": 0.625,
-          "entry_rank": 0.696787,
-          "retrieval_mode": "text"
-        },
-        "ts": "2026-05-19T11:39:03.675250+00:00"
-      },
-      "ai_selection": {
-        "selected_source_scope": "knowledge",
-        "selected_retrieval_mode": "text",
-        "selected_score": 14.86623,
-        "selected_rank": 0.93148,
-        "selected_overlap_ratio": 0.75,
-        "candidate_count": 4,
-        "ts": "2026-05-19T11:39:03.675250+00:00"
-      },
-      "ai_openai_response": {
-        "source": "azure_openai",
-        "answer_chars": 1290,
-        "stream": true,
-        "ts": "2026-05-19T11:39:12.834045+00:00"
-      },
-      "display_response": {
-        "status_code": 200,
-        "answer_chars": 1290,
-        "citations_count": 1,
-        "stream": true,
-        "ts": "2026-05-19T11:39:13.226469+00:00"
-      },
-      "ai_research_response": {
-        "source": "azure_ai_search",
-        "context_chars": 8984,
-        "top_score": 14.86623,
-        "citations_count": 6,
-        "videos_count": 1,
-        "citation": {
-          "title": "project-management-portal",
-          "url": "https://desireinfoweb.com/products/project-management-portal",
-          "id": "s_c2VydmljZUNhdGFsb2cudHh0_i_2_u_7ecec9d85b1e405a993d4e0f8080aba6",
-          "score": 14.86623,
-          "context_snippet": "[products] Project Management Portal Transform the way your organization plans, tracks, and delivers projects. A SharePoint-based Project Management Portal centralizes your PMO and gives every stakeholder visibility from task boards to executive dashboards. https://desireinfoweb.com/products/project-management-portal [products] Learning Management System A Learning Management System helps organizations provide online training, courses, and learning materials to employees, students, or customers in a centralized system. https://desireinfoweb.com/products/learning-management-system [products] Audit System The Audit System project in SharePoint Online is a centralized solution for managing audits and compliance. It streamlines record tracking, monitoring, and evaluation to improve transparency and accountability. https://desireinfoweb.com/products/audit-system",
-          "overlap_count": 4,
-          "overlap_ratio": 0.5,
-          "entry_rank": 0.614426,
-          "retrieval_mode": "text",
-          "source_scope": "knowledge"
-        },
-        "stream": true,
-        "ts": "2026-05-19T11:39:05.119758+00:00"
-      }
-    },
-    "summary": {
-      "status_code": 200,
-      "reply": "### **Audit Management Portal**\nThe **Audit System** is a SharePoint Online-based solution designed to streamline audit and compliance management. It centralizes record tracking, monitoring, and evaluation, improving transparency and accountability across organizations.\n\n#### **Key Features:**\n- Centralized audit record management.\n- Real-time tracking and monitoring of compliance activities.\n- Streamlined evaluation processes for better accountability.\n- Enhanced transparency for audit workflows.\n\nFor more details, visit the [Audit System page](https://desireinfoweb.com/products/audit-system).\n\n---\n\n### **Project Management Portal**\nThe **Project Management Portal** is a SharePoint-based PMO solution that transforms how organizations plan, track, and deliver projects. It provides centralized visibility for all stakeholders, from task boards to executive dashboards.\n\n#### **Key Features:**\n- Task boards for team collaboration.\n- Executive dashboards for project insights.\n- Centralized project tracking and reporting.\n- Enhanced visibility for all stakeholders.\n\nFor more details, visit the [Project Management Portal page](https://desireinfoweb.com/products/project-management-portal).\n\nLet me know if you'd like to explore how these portals can be customized for your needs!",
-      "stream": true
-    }
-  },
-  {
-    "trace_id": "f731bec1-6607-418a-a3d4-38ce0715f5b7",
-    "started_at": "2026-05-19T11:40:37.609146+00:00",
-    "ended_at": "2026-05-19T11:40:53.613171+00:00",
-    "endpoint": "/api/chat/text/stream",
-    "streaming": true,
-    "status": "success",
-    "duration_ms": 16004.02,
-    "session_id": "cf5efcf0-7945-4455-a54f-845a9d8c44b6",
-    "user_query": "what is  AI-Driven Warehouse Logistics & Efficiency Monitoring?",
-    "process": {
-      "user_request": {
-        "query": "what is AI-Driven Warehouse Logistics & Efficiency Monitoring?",
-        "endpoint": "/api/chat/text/stream",
-        "stream": true,
-        "ts": "2026-05-19T11:40:37.610762+00:00"
-      },
-      "ai_request": {
-        "mode": "rag",
-        "model": "gpt-4o",
-        "model_input_chars": 6593,
+        "model_input_chars": 9462,
         "stream": true,
         "intent": "services",
-        "ts": "2026-05-19T11:40:39.894770+00:00"
+        "ts": "2026-05-20T12:33:55.503219+00:00"
       },
       "ai_search_response": {
         "source": "azure_ai_search",
-        "context_chars": 13756,
-        "top_score": 15.242507,
-        "citations_count": 5,
+        "context_chars": 8080,
+        "top_score": 16.121195,
+        "citations_count": 9,
         "videos_count": 0,
         "citation": {
-          "title": "AI Projects  (2).pdf",
-          "url": "https://desirechatbotweb.blob.core.windows.net/desirechatbotweb/AI%20Projects%20%20(2).pdf",
-          "id": "42c7ea830793_aHR0cHM6Ly9kZXNpcmVjaGF0Ym90d2ViLmJsb2IuY29yZS53aW5kb3dzLm5ldC9kZXNpcmVjaGF0Ym90d2ViL0FJJTIwUHJvamVjdHMlMjAlMjAoMikucGRm0_pages_2",
-          "score": 15.242507,
-          "context_snippet": "Focus: Paper Recycling Department: Production Challenge: ITC needed a solution to ensure strict adherence to safety protocols on the production floor. Specifically, they wanted to identify employees who were not wearing full PPE kits, including helmets, jackets, and safety shoes. Our Solution: We developed a smart surveillance system by integrating CCTV cameras with an AI- powered computer vision model. This system automatically detects and monitors PPE compliance in real time. Impact: Our custom AI model accurately identified each employee and checked whether they were wearing all required PPE items. If any violation was detected, the system instantly cropped the image of the non-compliant individual and triggered a real-time alert on the dashboard. This proactive approach significantly improved on-ground safety and compliance. Technologies Used: ● Hardware: NVIDIA A6000 GPU ● Software & Frameworks: NVIDIA DeepStream, Custom Object Detection Models, Python, React ● Databases: SQL, MongoDB ● Deployment: Docker containerized environment 5 6 Project 3: AI-Driven Warehouse Logistics & Efficiency Monitoring Client: Mahindra Industry: Logistics Focus Area: Warehouse Occupancy and Vehicle Loading/Unloading Department: Logistics Challenge: Mahindra wanted deep visibility into their warehouse loading and unloading operations. Specifically, they needed to track: ● The number of boxes loaded or unloaded from each vehicle ● The time taken per loading/unloading activity per vehicle ● The number of employees involved in each task ● Identification of which loading vehicles were used, along with time-based insights Our Solution:",
-          "overlap_count": 6,
-          "overlap_ratio": 0.857143,
-          "entry_rank": 0.865202,
+          "title": "organization-chart",
+          "url": "https://desireinfoweb.com/products/organization-chart",
+          "id": "s_c2VydmljZUNhdGFsb2cudHh0_i_0_u_c76371ec982743fd978ca381a3778da9",
+          "score": 16.121195,
+          "context_snippet": "[companyProfile] About Desire Infoweb Desire Infoweb is an IT services and consulting company focused on Microsoft technologies, enterprise automation, modern collaboration platforms, analytics, and AI-powered business solutions. Core capabilities include SharePoint, Power Platform, Power BI, Microsoft Teams, Dynamics 365, Azure, .NET development, migration, governance, and custom AI/chatbot implementations. https://desireinfoweb.com/about-us [products] Organization Chart An organizational chart shows the internal structure of an organization or company. The employees and positions are represented by boxes or other shapes, sometimes including photos, contact information, email and page links, icons, and illustrations. Straight or elbowed lines link the levels together. https://desireinfoweb.com/products/organization-chart",
+          "overlap_count": 4,
+          "overlap_ratio": 0.571429,
+          "entry_rank": 0.66689,
           "retrieval_mode": "text",
-          "source_scope": "blob_fallback"
+          "source_scope": "knowledge"
         },
         "stream": true,
-        "ts": "2026-05-19T11:40:47.670973+00:00"
+        "ts": "2026-05-20T12:34:02.410528+00:00"
       },
       "ai_search_json_response": {
         "source_scope": "knowledge",
         "found": true,
         "retrieval_mode": "text",
-        "score": 6.622001,
-        "normalized_score": 0.768035,
-        "rank": 0.84761,
+        "score": 16.121195,
+        "normalized_score": 0.889632,
+        "rank": 0.923,
         "overlap_ratio": 0.714286,
         "overlap_count": 5,
         "query_term_count": 7,
         "meets_score": true,
         "meets_overlap": true,
-        "context_chars": 9290,
-        "context_preview": "\"lmsImg\", \"url\": \"https://desireinfoweb.com/products/learning-management-system\" }, { \"id\": 8, \"title\": \"Audit System\", \"description\": \"The Audit System project in SharePoint Online is a centralized solution for managing audits and compliance. It streamlines record tracking, monitoring, and evaluation to improve transparency and accountability.\", \"imageUrl\": \"auditSystemImg\", \"url\": \"https://desireinfoweb.com/products/audit-system\" } ], \"aiProjectServicesShowcaseData\": [ { \"id\": 1, \"title\": \"Fluentify AI\", \"subtitle\": \"Enhancing Language Proficiency with AI\", \"description\": \"Fluentify AI offer",
-        "citations_count": 2,
+        "context_chars": 8080,
+        "context_preview": "[companyProfile] About Desire Infoweb Desire Infoweb is an IT services and consulting company focused on Microsoft technologies, enterprise automation, modern collaboration platforms, analytics, and AI-powered business solutions. Core capabilities include SharePoint, Power Platform, Power BI, Microsoft Teams, Dynamics 365, Azure, .NET development, migration, governance, and custom AI/chatbot implementations. https://desireinfoweb.com/about-us [products] Organization Chart An organizational chart shows the internal structure of an organization or company. The employees and positions are represe",
+        "citations_count": 3,
         "citation": {
-          "title": "serviceCatalog.json",
-          "url": "https://desirechatbotweb.blob.core.windows.net/desirechatbotweb/serviceCatalog.json",
-          "id": "213591c16597_aHR0cHM6Ly9kZXNpcmVjaGF0Ym90d2ViLmJsb2IuY29yZS53aW5kb3dzLm5ldC9kZXNpcmVjaGF0Ym90d2ViL3NlcnZpY2VDYXRhbG9nLmpzb241_pages_2",
-          "score": 6.622001,
-          "context_snippet": "\"lmsImg\", \"url\": \"https://desireinfoweb.com/products/learning-management-system\" }, { \"id\": 8, \"title\": \"Audit System\", \"description\": \"The Audit System project in SharePoint Online is a centralized solution for managing audits and compliance. It streamlines record tracking, monitoring, and evaluation to improve transparency and accountability.\", \"imageUrl\": \"auditSystemImg\", \"url\": \"https://desireinfoweb.com/products/audit-system\" } ], \"aiProjectServicesShowcaseData\": [ { \"id\": 1, \"title\": \"Fluentify AI\", \"subtitle\": \"Enhancing Language Proficiency with AI\", \"description\": \"Fluentify AI offers a comprehensive solution for enhancing language proficiency through data-driven insights and AI-powered assessments. It helps users improve spoken communication effectively for professionals, educators, and organizations.\", \"features\": [ \"AI-Powered Language Assessment\", \"Process MS Team, Zoom and Google Meet recording\", \"Collaborate and Share Feedback\", \"Optimize Communication Skills\" ], \"imageSrc\": \"img1\", \"imageAlt\": \"img 1\", \"url\": \"https://desireinfoweb.com/services/ai\" }, { \"id\": 2, \"title\": \"Insurance Chatbot\", \"subtitle\": \"AI Knowledge Base for Insurance and Legal Inquiries\", \"description\": \"Insurance Chatbot reduced policy coverage verification time from 15-20 minutes to seconds. It acts as a single source of truth with direct references to official documentation.\", \"features\": [ \"Accelerate Policy Verification\", \"Centralized Source of Truth\", \"Improve Accuracy and Compliance\", \"Enhance Operational Efficiency\" ], \"imageSrc\": \"img2\", \"imageAlt\": \"img 2\", \"url\": \"https://desireinfoweb.com/services/ai\" }, { \"id\": 3, \"title\": \"Social Omni\",",
-          "overlap_count": 5,
-          "overlap_ratio": 0.714286,
-          "entry_rank": 0.730411,
+          "title": "organization-chart",
+          "url": "https://desireinfoweb.com/products/organization-chart",
+          "id": "s_c2VydmljZUNhdGFsb2cudHh0_i_0_u_c76371ec982743fd978ca381a3778da9",
+          "score": 16.121195,
+          "context_snippet": "[companyProfile] About Desire Infoweb Desire Infoweb is an IT services and consulting company focused on Microsoft technologies, enterprise automation, modern collaboration platforms, analytics, and AI-powered business solutions. Core capabilities include SharePoint, Power Platform, Power BI, Microsoft Teams, Dynamics 365, Azure, .NET development, migration, governance, and custom AI/chatbot implementations. https://desireinfoweb.com/about-us [products] Organization Chart An organizational chart shows the internal structure of an organization or company. The employees and positions are represented by boxes or other shapes, sometimes including photos, contact information, email and page links, icons, and illustrations. Straight or elbowed lines link the levels together. https://desireinfoweb.com/products/organization-chart",
+          "overlap_count": 4,
+          "overlap_ratio": 0.571429,
+          "entry_rank": 0.66689,
           "retrieval_mode": "text"
         },
-        "ts": "2026-05-19T11:40:44.268664+00:00"
+        "ts": "2026-05-20T12:33:59.587480+00:00"
       },
       "ai_search_blob_response": {
         "source_scope": "blob_fallback",
         "found": true,
         "retrieval_mode": "text",
-        "score": 15.242507,
-        "normalized_score": 0.884008,
-        "rank": 0.868085,
-        "overlap_ratio": 1.0,
-        "overlap_count": 7,
+        "score": 12.750871,
+        "normalized_score": 0.864415,
+        "rank": 0.747366,
+        "overlap_ratio": 0.714286,
+        "overlap_count": 5,
         "query_term_count": 7,
         "meets_score": true,
         "meets_overlap": true,
-        "context_chars": 13756,
-        "context_preview": "Focus: Paper Recycling Department: Production Challenge: ITC needed a solution to ensure strict adherence to safety protocols on the production floor. Specifically, they wanted to identify employees who were not wearing full PPE kits, including helmets, jackets, and safety shoes. Our Solution: We developed a smart surveillance system by integrating CCTV cameras with an AI- powered computer vision model. This system automatically detects and monitors PPE compliance in real time. Impact: Our custom AI model accurately identified each employee and checked whether they were wearing all required PP",
-        "citations_count": 2,
+        "context_chars": 13437,
+        "context_preview": "for Real Problems Our flagship Microsoft 365 products are purpose-built tools that solve everyday business challenges ready to deploy and customize for your organization. Organization Chart Visual Hierarchy Dynamic, interactive org charts that keep your team structure transparent and up to date. New Joinee Onboarding Made Easy Streamlined onboarding portals that help new employees get up to speed from day one. Employee Directory People at a Glance A smart, searchable directory so your entire organization can find the right person instantly. Project Management Portal Deliver with Confidence Cen",
+        "citations_count": 4,
         "citation": {
-          "title": "AI Projects  (2).pdf",
-          "url": "https://desirechatbotweb.blob.core.windows.net/desirechatbotweb/AI%20Projects%20%20(2).pdf",
-          "id": "42c7ea830793_aHR0cHM6Ly9kZXNpcmVjaGF0Ym90d2ViLmJsb2IuY29yZS53aW5kb3dzLm5ldC9kZXNpcmVjaGF0Ym90d2ViL0FJJTIwUHJvamVjdHMlMjAlMjAoMikucGRm0_pages_2",
-          "score": 15.242507,
-          "context_snippet": "Focus: Paper Recycling Department: Production Challenge: ITC needed a solution to ensure strict adherence to safety protocols on the production floor. Specifically, they wanted to identify employees who were not wearing full PPE kits, including helmets, jackets, and safety shoes. Our Solution: We developed a smart surveillance system by integrating CCTV cameras with an AI- powered computer vision model. This system automatically detects and monitors PPE compliance in real time. Impact: Our custom AI model accurately identified each employee and checked whether they were wearing all required PPE items. If any violation was detected, the system instantly cropped the image of the non-compliant individual and triggered a real-time alert on the dashboard. This proactive approach significantly improved on-ground safety and compliance. Technologies Used: ● Hardware: NVIDIA A6000 GPU ● Software & Frameworks: NVIDIA DeepStream, Custom Object Detection Models, Python, React ● Databases: SQL, MongoDB ● Deployment: Docker containerized environment 5 6 Project 3: AI-Driven Warehouse Logistics & Efficiency Monitoring Client: Mahindra Industry: Logistics Focus Area: Warehouse Occupancy and Vehicle Loading/Unloading Department: Logistics Challenge: Mahindra wanted deep visibility into their warehouse loading and unloading operations. Specifically, they needed to track: ● The number of boxes loaded or unloaded from each vehicle ● The time taken per loading/unloading activity per vehicle ● The number of employees involved in each task ● Identification of which loading vehicles were used, along with time-based insights Our Solution:",
-          "overlap_count": 6,
-          "overlap_ratio": 0.857143,
-          "entry_rank": 0.865202,
+          "title": "Company Presentation New.pdf",
+          "url": "https://desirechatbotweb.blob.core.windows.net/desirechatbotweb/Company%20Presentation%20New.pdf",
+          "id": "42c7ea830793_aHR0cHM6Ly9kZXNpcmVjaGF0Ym90d2ViLmJsb2IuY29yZS53aW5kb3dzLm5ldC9kZXNpcmVjaGF0Ym90d2ViL0NvbXBhbnklMjBQcmVzZW50YXRpb24lMjBOZXcucGRm0_pages_2",
+          "score": 12.750871,
+          "context_snippet": "for Real Problems Our flagship Microsoft 365 products are purpose-built tools that solve everyday business challenges ready to deploy and customize for your organization. Organization Chart Visual Hierarchy Dynamic, interactive org charts that keep your team structure transparent and up to date. New Joinee Onboarding Made Easy Streamlined onboarding portals that help new employees get up to speed from day one. Employee Directory People at a Glance A smart, searchable directory so your entire organization can find the right person instantly. Project Management Portal Deliver with Confidence Centralized project tracking, calendars, and collaboration all within your Microsoft 365 environment. VALUE PROPOSITION Innovation Meets Execution Our value proposition is simple: we don't just build we partner. We become an extension of your team, aligning our technical goals with your business objectives. Our agile approach means rapid iteration and transparent communication, so you always know where we stand. We always use the latest, most stable tech stacks, ensuring your solutions are future-proof and secure. We Partner, Not Jus t Build We become an extension of your team, deeply aligning our technical roadmap with your strategic business objectives for true collaborative success. Agile & Trans parent Rapid iteration, open communication, and full visibility into progress so you're never left wondering where your project stands. Future-Proof Technology We leverage only the latest, most stable tech stacks, ensuring your solutions remain secure, scalable, and ahead of the curve. WHY CHOOSE US The S trategic Advantage Our commitment to quality, reliability, and client success is reflected in every engagement. Here's what sets Desire Infoweb apart from the competition. 24/7 Support Av",
+          "overlap_count": 5,
+          "overlap_ratio": 0.714286,
+          "entry_rank": 0.759324,
           "retrieval_mode": "text"
         },
-        "ts": "2026-05-19T11:40:44.269646+00:00"
+        "ts": "2026-05-20T12:33:59.587480+00:00"
       },
       "ai_selection": {
-        "selected_source_scope": "blob_fallback",
+        "selected_source_scope": "knowledge",
         "selected_retrieval_mode": "text",
-        "selected_score": 15.242507,
-        "selected_rank": 0.868085,
-        "selected_overlap_ratio": 1.0,
-        "candidate_count": 3,
-        "ts": "2026-05-19T11:40:44.269646+00:00"
+        "selected_score": 16.121195,
+        "selected_rank": 0.923,
+        "selected_overlap_ratio": 0.714286,
+        "candidate_count": 4,
+        "ts": "2026-05-20T12:33:59.603126+00:00"
       },
       "ai_openai_response": {
         "source": "azure_openai",
-        "answer_chars": 1061,
+        "answer_chars": 2521,
         "stream": true,
-        "ts": "2026-05-19T11:40:53.278100+00:00"
+        "ts": "2026-05-20T12:34:12.432305+00:00"
       },
       "display_response": {
         "status_code": 200,
-        "answer_chars": 1061,
+        "answer_chars": 2521,
         "citations_count": 1,
         "stream": true,
-        "ts": "2026-05-19T11:40:53.612171+00:00"
+        "ts": "2026-05-20T12:34:12.844382+00:00"
       },
       "ai_research_response": {
         "source": "azure_ai_search",
-        "context_chars": 13756,
-        "top_score": 15.242507,
-        "citations_count": 5,
+        "context_chars": 8080,
+        "top_score": 16.121195,
+        "citations_count": 9,
         "videos_count": 0,
         "citation": {
-          "title": "AI Projects  (2).pdf",
-          "url": "https://desirechatbotweb.blob.core.windows.net/desirechatbotweb/AI%20Projects%20%20(2).pdf",
-          "id": "42c7ea830793_aHR0cHM6Ly9kZXNpcmVjaGF0Ym90d2ViLmJsb2IuY29yZS53aW5kb3dzLm5ldC9kZXNpcmVjaGF0Ym90d2ViL0FJJTIwUHJvamVjdHMlMjAlMjAoMikucGRm0_pages_2",
-          "score": 15.242507,
-          "context_snippet": "Focus: Paper Recycling Department: Production Challenge: ITC needed a solution to ensure strict adherence to safety protocols on the production floor. Specifically, they wanted to identify employees who were not wearing full PPE kits, including helmets, jackets, and safety shoes. Our Solution: We developed a smart surveillance system by integrating CCTV cameras with an AI- powered computer vision model. This system automatically detects and monitors PPE compliance in real time. Impact: Our custom AI model accurately identified each employee and checked whether they were wearing all required PPE items. If any violation was detected, the system instantly cropped the image of the non-compliant individual and triggered a real-time alert on the dashboard. This proactive approach significantly improved on-ground safety and compliance. Technologies Used: ● Hardware: NVIDIA A6000 GPU ● Software & Frameworks: NVIDIA DeepStream, Custom Object Detection Models, Python, React ● Databases: SQL, MongoDB ● Deployment: Docker containerized environment 5 6 Project 3: AI-Driven Warehouse Logistics & Efficiency Monitoring Client: Mahindra Industry: Logistics Focus Area: Warehouse Occupancy and Vehicle Loading/Unloading Department: Logistics Challenge: Mahindra wanted deep visibility into their warehouse loading and unloading operations. Specifically, they needed to track: ● The number of boxes loaded or unloaded from each vehicle ● The time taken per loading/unloading activity per vehicle ● The number of employees involved in each task ● Identification of which loading vehicles were used, along with time-based insights Our Solution:",
-          "overlap_count": 6,
-          "overlap_ratio": 0.857143,
-          "entry_rank": 0.865202,
+          "title": "organization-chart",
+          "url": "https://desireinfoweb.com/products/organization-chart",
+          "id": "s_c2VydmljZUNhdGFsb2cudHh0_i_0_u_c76371ec982743fd978ca381a3778da9",
+          "score": 16.121195,
+          "context_snippet": "[companyProfile] About Desire Infoweb Desire Infoweb is an IT services and consulting company focused on Microsoft technologies, enterprise automation, modern collaboration platforms, analytics, and AI-powered business solutions. Core capabilities include SharePoint, Power Platform, Power BI, Microsoft Teams, Dynamics 365, Azure, .NET development, migration, governance, and custom AI/chatbot implementations. https://desireinfoweb.com/about-us [products] Organization Chart An organizational chart shows the internal structure of an organization or company. The employees and positions are represented by boxes or other shapes, sometimes including photos, contact information, email and page links, icons, and illustrations. Straight or elbowed lines link the levels together. https://desireinfoweb.com/products/organization-chart",
+          "overlap_count": 4,
+          "overlap_ratio": 0.571429,
+          "entry_rank": 0.66689,
           "retrieval_mode": "text",
-          "source_scope": "blob_fallback"
+          "source_scope": "knowledge"
         },
         "stream": true,
-        "ts": "2026-05-19T11:40:47.670973+00:00"
+        "ts": "2026-05-20T12:34:02.410528+00:00"
       }
     },
     "summary": {
       "status_code": 200,
-      "reply": "### **AI-Driven Warehouse Logistics & Efficiency Monitoring**\n\nThis solution was developed for **Mahindra** to optimize warehouse operations by providing real-time insights into loading and unloading activities.\n\n#### **Key Features:**\n- **Box Tracking**: Automatically detects and counts boxes loaded/unloaded from vehicles.\n- **Time Monitoring**: Tracks the time taken for each loading/unloading activity.\n- **Employee & Vehicle Tracking**: Monitors the number of employees involved and identifies vehicles used.\n- **Centralized Dashboard**: Visualizes operational data, including task durations and vehicle usage.\n\n#### **Impact:**\n- Improved productivity and workforce planning.\n- Enhanced visibility into warehouse operations.\n- Data-driven insights for better decision-making.\n\n#### **Technologies Used:**\n- **Hardware**: NVIDIA RTX 4090 GPU.\n- **Software**: NVIDIA DeepStream, Python, React.\n- **Databases**: SQL, MongoDB.\n- **Deployment**: Dockerized environment for scalability.\n\nLet me know if you'd like to explore similar AI solutions for logistics!",
+      "reply": "### Detailed Overview of Desire Infoweb's Products\n\nDesire Infoweb offers **SharePoint and Microsoft 365 web parts** to streamline organizational processes and improve collaboration. Below are the products with detailed descriptions:\n\n1. **[Organization Chart](https://desireinfoweb.com/products/organization-chart)**  \n   - A visual representation of your organization's structure.  \n   - Includes employee details like names, photos, roles, and contact links.  \n   - Helps teams understand reporting hierarchies and connect easily.\n\n2. **[New Joinee](https://desireinfoweb.com/products/new-joinee)**  \n   - Simplifies onboarding by managing profiles and introductions for new employees.  \n   - Integrates with Microsoft tools to ensure smooth communication and team integration.\n\n3. **[Employee Directory](https://desireinfoweb.com/products/employee-directory)**  \n   - A centralized digital directory with employee names, roles, departments, and contact details.  \n   - Enables quick access to colleague information across the organization.\n\n4. **[Calendar](https://desireinfoweb.com/products/calender)**  \n   - An intelligent portal for managing events, meetings, holidays, and deadlines.  \n   - Ensures seamless scheduling and collaboration across teams.\n\n5. **[Celebration](https://desireinfoweb.com/products/celebration)**  \n   - Displays upcoming birthdays and work anniversaries.  \n   - Allows employees to send direct wishes, fostering a positive workplace culture.\n\n6. **[Project Management Portal](https://desireinfoweb.com/products/project-management-portal)**  \n   - A SharePoint-based PMO solution for planning, tracking, and delivering projects.  \n   - Features task boards, dashboards, and visibility for all stakeholders.\n\n7. **[Learning Management System (LMS)](https://desireinfoweb.com/products/learning-management-system)**  \n   - A centralized platform for online training, courses, and learning materials.  \n   - Ideal for employee development and skill-building initiatives.\n\n8. **[Audit System](https://desireinfoweb.com/products/audit-system)**  \n   - A SharePoint-based solution for managing audits and compliance.  \n   - Streamlines record tracking, monitoring, and evaluation for transparency.\n\n9. **[Quick Links](https://desireinfoweb.com/products/quick-links)**  \n   - A portal for quick navigation links within SharePoint intranets.  \n   - Enhances user experience by providing easy access to frequently used resources.\n\nLet me know if you'd like further details or a demo of any product!",
       "stream": true
     }
   },
   {
-    "trace_id": "d2d3b3c4-68a9-41fa-be51-9a3eb8d55519",
-    "started_at": "2026-05-19T11:41:43.750902+00:00",
-    "ended_at": "2026-05-19T11:42:03.642808+00:00",
+    "trace_id": "663c2fce-6150-4c7b-914b-209d270a1229",
+    "started_at": "2026-05-20T12:38:05.541029+00:00",
+    "ended_at": "2026-05-20T12:38:28.822097+00:00",
     "endpoint": "/api/chat/text/stream",
     "streaming": true,
     "status": "success",
-    "duration_ms": 19891.91,
+    "duration_ms": 23281.07,
     "session_id": "cf5efcf0-7945-4455-a54f-845a9d8c44b6",
-    "user_query": "what is What is Power Platform in detail?",
+    "user_query": "what are the products of the desire infoweb? explain in detail?",
     "process": {
       "user_request": {
-        "query": "what is What is Power Platform in detail?",
+        "query": "what are the products of the desire infoweb? explain in detail?",
         "endpoint": "/api/chat/text/stream",
         "stream": true,
-        "ts": "2026-05-19T11:41:43.751901+00:00"
+        "ts": "2026-05-20T12:38:05.541029+00:00"
       },
       "ai_request": {
         "mode": "rag",
         "model": "gpt-4o",
-        "model_input_chars": 6162,
+        "model_input_chars": 10424,
         "stream": true,
         "intent": "services",
-        "ts": "2026-05-19T11:41:46.010406+00:00"
+        "ts": "2026-05-20T12:38:07.687502+00:00"
       },
       "ai_search_response": {
         "source": "azure_ai_search",
-        "context_chars": 7149,
-        "top_score": 6.564295,
-        "citations_count": 10,
+        "context_chars": 8080,
+        "top_score": 16.121195,
+        "citations_count": 9,
         "videos_count": 0,
         "citation": {
-          "title": "power-bi",
-          "url": "https://desireinfoweb.com/services/power-bi",
-          "id": "s_c2VydmljZUNhdGFsb2cudHh0_i_17_u_7e1d768095554de4afdca98278126bc6",
-          "score": 6.564295,
-          "context_snippet": "[services] Azure Microsoft Azure is a cloud platform offering computing, analytics, and storage services for scalable and secure application deployment and management. https://desireinfoweb.com/services/dot-net [services] Dynamics 365 Microsoft Dynamics 365 is an integrated suite combining CRM and ERP capabilities to unify data and processes for informed business decisions. https://desireinfoweb.com/services/ms-dynamics [services] Power BI Microsoft Power BI is a business analytics platform for transforming raw data into interactive dashboards and reports for better decision making. https://desireinfoweb.com/services/power-bi [services] Power Platform Microsoft Power Platform provides tools such as Power BI, Power Apps, and Power Automate for low-code business app development and workflow automation. https://desireinfoweb.com/services/power-platform",
-          "overlap_count": 3,
-          "overlap_ratio": 0.6,
-          "entry_rank": 0.649942,
+          "title": "organization-chart",
+          "url": "https://desireinfoweb.com/products/organization-chart",
+          "id": "s_c2VydmljZUNhdGFsb2cudHh0_i_0_u_c76371ec982743fd978ca381a3778da9",
+          "score": 16.121195,
+          "context_snippet": "[companyProfile] About Desire Infoweb Desire Infoweb is an IT services and consulting company focused on Microsoft technologies, enterprise automation, modern collaboration platforms, analytics, and AI-powered business solutions. Core capabilities include SharePoint, Power Platform, Power BI, Microsoft Teams, Dynamics 365, Azure, .NET development, migration, governance, and custom AI/chatbot implementations. https://desireinfoweb.com/about-us [products] Organization Chart An organizational chart shows the internal structure of an organization or company. The employees and positions are represented by boxes or other shapes, sometimes including photos, contact information, email and page links, icons, and illustrations. Straight or elbowed lines link the levels together. https://desireinfoweb.com/products/organization-chart",
+          "overlap_count": 4,
+          "overlap_ratio": 0.571429,
+          "entry_rank": 0.66689,
           "retrieval_mode": "text",
           "source_scope": "knowledge"
         },
         "stream": true,
-        "ts": "2026-05-19T11:41:53.588933+00:00"
+        "ts": "2026-05-20T12:38:20.681392+00:00"
       },
       "ai_search_json_response": {
         "source_scope": "knowledge",
         "found": true,
         "retrieval_mode": "text",
-        "score": 6.564295,
-        "normalized_score": 0.766472,
-        "rank": 0.879213,
-        "overlap_ratio": 0.8,
-        "overlap_count": 4,
-        "query_term_count": 5,
+        "score": 16.121195,
+        "normalized_score": 0.889632,
+        "rank": 0.923,
+        "overlap_ratio": 0.714286,
+        "overlap_count": 5,
+        "query_term_count": 7,
         "meets_score": true,
         "meets_overlap": true,
-        "context_chars": 7149,
-        "context_preview": "[services] Azure Microsoft Azure is a cloud platform offering computing, analytics, and storage services for scalable and secure application deployment and management. https://desireinfoweb.com/services/dot-net [services] Dynamics 365 Microsoft Dynamics 365 is an integrated suite combining CRM and ERP capabilities to unify data and processes for informed business decisions. https://desireinfoweb.com/services/ms-dynamics [services] Power BI Microsoft Power BI is a business analytics platform for transforming raw data into interactive dashboards and reports for better decision making. https://de",
-        "citations_count": 4,
+        "context_chars": 8080,
+        "context_preview": "[companyProfile] About Desire Infoweb Desire Infoweb is an IT services and consulting company focused on Microsoft technologies, enterprise automation, modern collaboration platforms, analytics, and AI-powered business solutions. Core capabilities include SharePoint, Power Platform, Power BI, Microsoft Teams, Dynamics 365, Azure, .NET development, migration, governance, and custom AI/chatbot implementations. https://desireinfoweb.com/about-us [products] Organization Chart An organizational chart shows the internal structure of an organization or company. The employees and positions are represe",
+        "citations_count": 3,
         "citation": {
-          "title": "power-bi",
-          "url": "https://desireinfoweb.com/services/power-bi",
-          "id": "s_c2VydmljZUNhdGFsb2cudHh0_i_17_u_7e1d768095554de4afdca98278126bc6",
-          "score": 6.564295,
-          "context_snippet": "[services] Azure Microsoft Azure is a cloud platform offering computing, analytics, and storage services for scalable and secure application deployment and management. https://desireinfoweb.com/services/dot-net [services] Dynamics 365 Microsoft Dynamics 365 is an integrated suite combining CRM and ERP capabilities to unify data and processes for informed business decisions. https://desireinfoweb.com/services/ms-dynamics [services] Power BI Microsoft Power BI is a business analytics platform for transforming raw data into interactive dashboards and reports for better decision making. https://desireinfoweb.com/services/power-bi [services] Power Platform Microsoft Power Platform provides tools such as Power BI, Power Apps, and Power Automate for low-code business app development and workflow automation. https://desireinfoweb.com/services/power-platform",
-          "overlap_count": 3,
-          "overlap_ratio": 0.6,
-          "entry_rank": 0.649942,
+          "title": "organization-chart",
+          "url": "https://desireinfoweb.com/products/organization-chart",
+          "id": "s_c2VydmljZUNhdGFsb2cudHh0_i_0_u_c76371ec982743fd978ca381a3778da9",
+          "score": 16.121195,
+          "context_snippet": "[companyProfile] About Desire Infoweb Desire Infoweb is an IT services and consulting company focused on Microsoft technologies, enterprise automation, modern collaboration platforms, analytics, and AI-powered business solutions. Core capabilities include SharePoint, Power Platform, Power BI, Microsoft Teams, Dynamics 365, Azure, .NET development, migration, governance, and custom AI/chatbot implementations. https://desireinfoweb.com/about-us [products] Organization Chart An organizational chart shows the internal structure of an organization or company. The employees and positions are represented by boxes or other shapes, sometimes including photos, contact information, email and page links, icons, and illustrations. Straight or elbowed lines link the levels together. https://desireinfoweb.com/products/organization-chart",
+          "overlap_count": 4,
+          "overlap_ratio": 0.571429,
+          "entry_rank": 0.66689,
           "retrieval_mode": "text"
         },
-        "ts": "2026-05-19T11:41:50.302547+00:00"
+        "ts": "2026-05-20T12:38:16.993447+00:00"
       },
       "ai_search_blob_response": {
         "source_scope": "blob_fallback",
         "found": true,
         "retrieval_mode": "text",
-        "score": 8.411161,
-        "normalized_score": 0.807898,
-        "rank": 0.744897,
-        "overlap_ratio": 0.8,
-        "overlap_count": 4,
-        "query_term_count": 5,
+        "score": 12.750871,
+        "normalized_score": 0.864415,
+        "rank": 0.747366,
+        "overlap_ratio": 0.714286,
+        "overlap_count": 5,
+        "query_term_count": 7,
         "meets_score": true,
         "meets_overlap": true,
-        "context_chars": 12850,
-        "context_preview": "DYNAMICS CASE STUDY Empowering Business Through Intelligent Solutions Cloud-Based AI-Powered Enterprise Solutions vijay@desireinfoweb.com www.desireinfoweb.com What is Microsoft Dynamics 365? A cloud-based, AI-powered suite of intelligent business applications combining CRM and ERP capabilities. Streamlines operations, improves customer engagement, and boosts productivity by unifying data across sales, marketing, service, finance, and supply chain functions. CRM Customer Relationship Management for sales, marketing, and service excellence ERP Enterprise Resource Planning for finance, operation",
+        "context_chars": 13437,
+        "context_preview": "for Real Problems Our flagship Microsoft 365 products are purpose-built tools that solve everyday business challenges ready to deploy and customize for your organization. Organization Chart Visual Hierarchy Dynamic, interactive org charts that keep your team structure transparent and up to date. New Joinee Onboarding Made Easy Streamlined onboarding portals that help new employees get up to speed from day one. Employee Directory People at a Glance A smart, searchable directory so your entire organization can find the right person instantly. Project Management Portal Deliver with Confidence Cen",
         "citations_count": 4,
         "citation": {
-          "title": "Dynamics Case Study.pdf",
-          "url": "https://desirechatbotweb.blob.core.windows.net/desirechatbotweb/Dynamics%20Case%20Study.pdf",
-          "id": "42c7ea830793_aHR0cHM6Ly9kZXNpcmVjaGF0Ym90d2ViLmJsb2IuY29yZS53aW5kb3dzLm5ldC9kZXNpcmVjaGF0Ym90d2ViL0R5bmFtaWNzJTIwQ2FzZSUyMFN0dWR5LnBkZg2_pages_0",
-          "score": 8.411161,
-          "context_snippet": "DYNAMICS CASE STUDY Empowering Business Through Intelligent Solutions Cloud-Based AI-Powered Enterprise Solutions vijay@desireinfoweb.com www.desireinfoweb.com What is Microsoft Dynamics 365? A cloud-based, AI-powered suite of intelligent business applications combining CRM and ERP capabilities. Streamlines operations, improves customer engagement, and boosts productivity by unifying data across sales, marketing, service, finance, and supply chain functions. CRM Customer Relationship Management for sales, marketing, and service excellence ERP Enterprise Resource Planning for finance, operations, and supply chain management AI-Driven Powered by Copilot for predictive insights and intelligent automation vijay@desireinfoweb.com www.desireinfoweb.com Key Features and Components Dynamics 365 AI-Driven Insights Leverages AI (Copilot) for predictive insights and automation across applications Unified Platform Connects seamlessly with Microsoft 365, Azure, and Power Platform Modular Applications Choose specific apps: Sales, Marketing, Service, Finance, Supply Chain Adaptability Designed to scale and adapt to changing business needs Mixed Reality Includes Remote Assist and Guides for field technicians Enterprise-Grade Security Built-in compliance, data protection, and governance capabilities Intelligent Automation Seamless Integration Flexible Scalability vijay@desireinfoweb.com www.desireinfoweb.com vijay@desireinfoweb.com www.desireinfoweb.com Dynamics 365 Key Modules • General Ledger • Tax • Accounts Receivable • Accounts Payable • Bank Management • Budgeting • Fixed Assets • Travel and Expense Management • Fund Accounting • Consolidation • Financial Reporting • Cost Management • Multi Currency Financials • Project accounting • Professional services automation • Service manag",
-          "overlap_count": 4,
-          "overlap_ratio": 0.8,
-          "entry_rank": 0.80237,
+          "title": "Company Presentation New.pdf",
+          "url": "https://desirechatbotweb.blob.core.windows.net/desirechatbotweb/Company%20Presentation%20New.pdf",
+          "id": "42c7ea830793_aHR0cHM6Ly9kZXNpcmVjaGF0Ym90d2ViLmJsb2IuY29yZS53aW5kb3dzLm5ldC9kZXNpcmVjaGF0Ym90d2ViL0NvbXBhbnklMjBQcmVzZW50YXRpb24lMjBOZXcucGRm0_pages_2",
+          "score": 12.750871,
+          "context_snippet": "for Real Problems Our flagship Microsoft 365 products are purpose-built tools that solve everyday business challenges ready to deploy and customize for your organization. Organization Chart Visual Hierarchy Dynamic, interactive org charts that keep your team structure transparent and up to date. New Joinee Onboarding Made Easy Streamlined onboarding portals that help new employees get up to speed from day one. Employee Directory People at a Glance A smart, searchable directory so your entire organization can find the right person instantly. Project Management Portal Deliver with Confidence Centralized project tracking, calendars, and collaboration all within your Microsoft 365 environment. VALUE PROPOSITION Innovation Meets Execution Our value proposition is simple: we don't just build we partner. We become an extension of your team, aligning our technical goals with your business objectives. Our agile approach means rapid iteration and transparent communication, so you always know where we stand. We always use the latest, most stable tech stacks, ensuring your solutions are future-proof and secure. We Partner, Not Jus t Build We become an extension of your team, deeply aligning our technical roadmap with your strategic business objectives for true collaborative success. Agile & Trans parent Rapid iteration, open communication, and full visibility into progress so you're never left wondering where your project stands. Future-Proof Technology We leverage only the latest, most stable tech stacks, ensuring your solutions remain secure, scalable, and ahead of the curve. WHY CHOOSE US The S trategic Advantage Our commitment to quality, reliability, and client success is reflected in every engagement. Here's what sets Desire Infoweb apart from the competition. 24/7 Support Av",
+          "overlap_count": 5,
+          "overlap_ratio": 0.714286,
+          "entry_rank": 0.759324,
           "retrieval_mode": "text"
         },
-        "ts": "2026-05-19T11:41:50.302547+00:00"
+        "ts": "2026-05-20T12:38:16.993447+00:00"
       },
       "ai_selection": {
         "selected_source_scope": "knowledge",
         "selected_retrieval_mode": "text",
-        "selected_score": 6.564295,
-        "selected_rank": 0.879213,
-        "selected_overlap_ratio": 0.8,
+        "selected_score": 16.121195,
+        "selected_rank": 0.923,
+        "selected_overlap_ratio": 0.714286,
         "candidate_count": 4,
-        "ts": "2026-05-19T11:41:50.302547+00:00"
+        "ts": "2026-05-20T12:38:16.993447+00:00"
       },
       "ai_openai_response": {
         "source": "azure_openai",
-        "answer_chars": 1532,
+        "answer_chars": 2530,
         "stream": true,
-        "ts": "2026-05-19T11:42:03.268747+00:00"
+        "ts": "2026-05-20T12:38:28.364188+00:00"
       },
       "display_response": {
         "status_code": 200,
-        "answer_chars": 1532,
+        "answer_chars": 2530,
         "citations_count": 1,
         "stream": true,
-        "ts": "2026-05-19T11:42:03.642082+00:00"
+        "ts": "2026-05-20T12:38:28.822097+00:00"
       },
       "ai_research_response": {
         "source": "azure_ai_search",
-        "context_chars": 7149,
-        "top_score": 6.564295,
-        "citations_count": 10,
+        "context_chars": 8080,
+        "top_score": 16.121195,
+        "citations_count": 9,
         "videos_count": 0,
         "citation": {
-          "title": "power-bi",
-          "url": "https://desireinfoweb.com/services/power-bi",
-          "id": "s_c2VydmljZUNhdGFsb2cudHh0_i_17_u_7e1d768095554de4afdca98278126bc6",
-          "score": 6.564295,
-          "context_snippet": "[services] Azure Microsoft Azure is a cloud platform offering computing, analytics, and storage services for scalable and secure application deployment and management. https://desireinfoweb.com/services/dot-net [services] Dynamics 365 Microsoft Dynamics 365 is an integrated suite combining CRM and ERP capabilities to unify data and processes for informed business decisions. https://desireinfoweb.com/services/ms-dynamics [services] Power BI Microsoft Power BI is a business analytics platform for transforming raw data into interactive dashboards and reports for better decision making. https://desireinfoweb.com/services/power-bi [services] Power Platform Microsoft Power Platform provides tools such as Power BI, Power Apps, and Power Automate for low-code business app development and workflow automation. https://desireinfoweb.com/services/power-platform",
-          "overlap_count": 3,
-          "overlap_ratio": 0.6,
-          "entry_rank": 0.649942,
+          "title": "organization-chart",
+          "url": "https://desireinfoweb.com/products/organization-chart",
+          "id": "s_c2VydmljZUNhdGFsb2cudHh0_i_0_u_c76371ec982743fd978ca381a3778da9",
+          "score": 16.121195,
+          "context_snippet": "[companyProfile] About Desire Infoweb Desire Infoweb is an IT services and consulting company focused on Microsoft technologies, enterprise automation, modern collaboration platforms, analytics, and AI-powered business solutions. Core capabilities include SharePoint, Power Platform, Power BI, Microsoft Teams, Dynamics 365, Azure, .NET development, migration, governance, and custom AI/chatbot implementations. https://desireinfoweb.com/about-us [products] Organization Chart An organizational chart shows the internal structure of an organization or company. The employees and positions are represented by boxes or other shapes, sometimes including photos, contact information, email and page links, icons, and illustrations. Straight or elbowed lines link the levels together. https://desireinfoweb.com/products/organization-chart",
+          "overlap_count": 4,
+          "overlap_ratio": 0.571429,
+          "entry_rank": 0.66689,
           "retrieval_mode": "text",
           "source_scope": "knowledge"
         },
         "stream": true,
-        "ts": "2026-05-19T11:41:53.588933+00:00"
+        "ts": "2026-05-20T12:38:20.681392+00:00"
       }
     },
     "summary": {
       "status_code": 200,
-      "reply": "### **Power Platform Overview**\n\nMicrosoft Power Platform is a suite of low-code/no-code tools that empower businesses to build custom applications, automate workflows, analyze data, and create virtual agents without extensive coding knowledge. It integrates seamlessly with Microsoft 365, Dynamics 365, Azure, and other third-party services.\n\n#### **Core Components:**\n1. **Power Apps**: Build custom business applications with drag-and-drop functionality.\n2. **Power Automate**: Automate repetitive tasks and workflows across apps and services.\n3. **Power BI**: Create interactive dashboards and reports for data-driven insights.\n4. **Power Virtual Agents**: Develop AI-powered chatbots for customer and employee interactions.\n\n#### **Key Capabilities:**\n- **Low-Code Development**: Quickly create apps and workflows with minimal coding.\n- **Integration**: Connect to hundreds of data sources, including SharePoint, SQL, and third-party APIs.\n- **Role-Based Permissions**: Ensure secure access to apps and data.\n- **Custom UI**: Design user-friendly interfaces tailored to business needs.\n\n#### **Example Projects:**\n- **Timesheet Management**: Track employee hours with notifications and multi-language support.\n- **Onboarding Automation**: Streamline HR processes with role-based workflows.\n- **Invoice Management**: Automate invoice creation, tracking, and approvals.\n\nFor more details, visit [Power Platform Services](https://desireinfoweb.com/services/power-platform). Let me know if you'd like to explore specific use cases!",
+      "reply": "### Detailed Overview of Desire Infoweb's Products\n\nDesire Infoweb specializes in **SharePoint and Microsoft 365 web parts** designed to enhance workplace productivity and collaboration. Below are the detailed descriptions of their products:\n\n1. **[Organization Chart](https://desireinfoweb.com/products/organization-chart)**  \n   - Visualizes the internal structure of an organization.  \n   - Displays employee names, roles, photos, and contact links.  \n   - Helps teams understand reporting hierarchies and fosters better communication.\n\n2. **[New Joinee](https://desireinfoweb.com/products/new-joinee)**  \n   - Simplifies onboarding by managing profiles and introductions for new employees.  \n   - Integrates with Microsoft tools to ensure smooth team integration and communication.\n\n3. **[Employee Directory](https://desireinfoweb.com/products/employee-directory)**  \n   - A centralized directory with employee names, roles, departments, and contact details.  \n   - Enables quick access to colleague information across the organization.\n\n4. **[Calendar](https://desireinfoweb.com/products/calender)**  \n   - An intelligent portal for managing events, meetings, holidays, and deadlines.  \n   - Ensures seamless scheduling and collaboration across teams.\n\n5. **[Celebration](https://desireinfoweb.com/products/celebration)**  \n   - Displays upcoming birthdays and work anniversaries.  \n   - Allows employees to send direct wishes, fostering a positive workplace culture.\n\n6. **[Project Management Portal](https://desireinfoweb.com/products/project-management-portal)**  \n   - A SharePoint-based PMO solution for planning, tracking, and delivering projects.  \n   - Features task boards, dashboards, and visibility for all stakeholders.\n\n7. **[Learning Management System (LMS)](https://desireinfoweb.com/products/learning-management-system)**  \n   - A centralized platform for online training, courses, and learning materials.  \n   - Ideal for employee development and skill-building initiatives.\n\n8. **[Audit System](https://desireinfoweb.com/products/audit-system)**  \n   - A SharePoint-based solution for managing audits and compliance.  \n   - Streamlines record tracking, monitoring, and evaluation for transparency.\n\n9. **[Quick Links](https://desireinfoweb.com/products/quick-links)**  \n   - A portal for quick navigation links within SharePoint intranets.  \n   - Enhances user experience by providing easy access to frequently used resources.\n\nLet me know if you'd like a demo or further details about any specific product!",
       "stream": true
     }
   },
   {
-    "trace_id": "323566d8-1319-4f49-8c40-bec37679f4c3",
-    "started_at": "2026-05-19T11:43:19.888479+00:00",
-    "ended_at": "2026-05-19T11:43:43.887390+00:00",
+    "trace_id": "b2109c46-ffa8-4c1c-8bea-7085e2331ee7",
+    "started_at": "2026-05-20T12:40:04.816102+00:00",
+    "ended_at": "2026-05-20T12:40:29.536196+00:00",
     "endpoint": "/api/chat/text/stream",
     "streaming": true,
     "status": "success",
-    "duration_ms": 23998.91,
+    "duration_ms": 24720.09,
     "session_id": "cf5efcf0-7945-4455-a54f-845a9d8c44b6",
-    "user_query": "please explain me in deatil and Power Automate and what are the projects are done by desire infowen in power automate in detail?",
+    "user_query": "what are the products of the desire infoweb? explain in detail?",
     "process": {
       "user_request": {
-        "query": "please explain me in detail and Power Automate and what are the projects are done by desire infowen in power automate in detail?",
+        "query": "what are the products of the desire infoweb? explain in detail?",
         "endpoint": "/api/chat/text/stream",
         "stream": true,
-        "ts": "2026-05-19T11:43:19.893491+00:00"
+        "ts": "2026-05-20T12:40:04.816102+00:00"
       },
       "ai_request": {
         "mode": "rag",
         "model": "gpt-4o",
-        "model_input_chars": 6561,
+        "model_input_chars": 12126,
         "stream": true,
-        "intent": "projects",
-        "ts": "2026-05-19T11:43:22.124933+00:00"
+        "intent": "services",
+        "ts": "2026-05-20T12:40:07.341717+00:00"
       },
       "ai_search_response": {
         "source": "azure_ai_search",
-        "context_chars": 6358,
-        "top_score": 14.9375305,
+        "context_chars": 8080,
+        "top_score": 16.121195,
         "citations_count": 9,
         "videos_count": 0,
         "citation": {
           "title": "organization-chart",
           "url": "https://desireinfoweb.com/products/organization-chart",
           "id": "s_c2VydmljZUNhdGFsb2cudHh0_i_0_u_c76371ec982743fd978ca381a3778da9",
-          "score": 14.93753,
+          "score": 16.121195,
           "context_snippet": "[companyProfile] About Desire Infoweb Desire Infoweb is an IT services and consulting company focused on Microsoft technologies, enterprise automation, modern collaboration platforms, analytics, and AI-powered business solutions. Core capabilities include SharePoint, Power Platform, Power BI, Microsoft Teams, Dynamics 365, Azure, .NET development, migration, governance, and custom AI/chatbot implementations. https://desireinfoweb.com/about-us [products] Organization Chart An organizational chart shows the internal structure of an organization or company. The employees and positions are represented by boxes or other shapes, sometimes including photos, contact information, email and page links, icons, and illustrations. Straight or elbowed lines link the levels together. https://desireinfoweb.com/products/organization-chart",
-          "overlap_count": 3,
-          "overlap_ratio": 0.3,
-          "entry_rank": 0.474576,
+          "overlap_count": 4,
+          "overlap_ratio": 0.571429,
+          "entry_rank": 0.66689,
           "retrieval_mode": "text",
           "source_scope": "knowledge"
         },
         "stream": true,
-        "ts": "2026-05-19T11:43:29.725308+00:00"
+        "ts": "2026-05-20T12:40:14.921358+00:00"
       },
       "ai_search_json_response": {
         "source_scope": "knowledge",
         "found": true,
         "retrieval_mode": "text",
-        "score": 14.93753,
-        "normalized_score": 0.881919,
-        "rank": 0.87479,
-        "overlap_ratio": 0.6,
-        "overlap_count": 6,
-        "query_term_count": 10,
+        "score": 16.121195,
+        "normalized_score": 0.889632,
+        "rank": 0.923,
+        "overlap_ratio": 0.714286,
+        "overlap_count": 5,
+        "query_term_count": 7,
         "meets_score": true,
         "meets_overlap": true,
-        "context_chars": 6358,
+        "context_chars": 8080,
         "context_preview": "[companyProfile] About Desire Infoweb Desire Infoweb is an IT services and consulting company focused on Microsoft technologies, enterprise automation, modern collaboration platforms, analytics, and AI-powered business solutions. Core capabilities include SharePoint, Power Platform, Power BI, Microsoft Teams, Dynamics 365, Azure, .NET development, migration, governance, and custom AI/chatbot implementations. https://desireinfoweb.com/about-us [products] Organization Chart An organizational chart shows the internal structure of an organization or company. The employees and positions are represe",
-        "citations_count": 4,
+        "citations_count": 3,
         "citation": {
           "title": "organization-chart",
           "url": "https://desireinfoweb.com/products/organization-chart",
           "id": "s_c2VydmljZUNhdGFsb2cudHh0_i_0_u_c76371ec982743fd978ca381a3778da9",
-          "score": 14.93753,
+          "score": 16.121195,
           "context_snippet": "[companyProfile] About Desire Infoweb Desire Infoweb is an IT services and consulting company focused on Microsoft technologies, enterprise automation, modern collaboration platforms, analytics, and AI-powered business solutions. Core capabilities include SharePoint, Power Platform, Power BI, Microsoft Teams, Dynamics 365, Azure, .NET development, migration, governance, and custom AI/chatbot implementations. https://desireinfoweb.com/about-us [products] Organization Chart An organizational chart shows the internal structure of an organization or company. The employees and positions are represented by boxes or other shapes, sometimes including photos, contact information, email and page links, icons, and illustrations. Straight or elbowed lines link the levels together. https://desireinfoweb.com/products/organization-chart",
-          "overlap_count": 3,
-          "overlap_ratio": 0.3,
-          "entry_rank": 0.474576,
+          "overlap_count": 4,
+          "overlap_ratio": 0.571429,
+          "entry_rank": 0.66689,
           "retrieval_mode": "text"
         },
-        "ts": "2026-05-19T11:43:26.508381+00:00"
+        "ts": "2026-05-20T12:40:11.547188+00:00"
       },
       "ai_search_blob_response": {
         "source_scope": "blob_fallback",
         "found": true,
         "retrieval_mode": "text",
-        "score": 17.237247,
-        "normalized_score": 0.896035,
-        "rank": 0.723542,
-        "overlap_ratio": 0.6,
-        "overlap_count": 6,
-        "query_term_count": 10,
+        "score": 12.750871,
+        "normalized_score": 0.864415,
+        "rank": 0.747366,
+        "overlap_ratio": 0.714286,
+        "overlap_count": 5,
+        "query_term_count": 7,
         "meets_score": true,
         "meets_overlap": true,
-        "context_chars": 13585,
-        "context_preview": "Organization Chart Transform complex reporting structures into dynamic, interactive visual hierarchies. View Product Disconnected Teams operate in silos, making it difficult to understand reporting lines and collaboration paths. Complexity Rapid growth creates tangled hierarchies that are impossible to navigate manually. No Visibility HR struggles to maintain up-to- date records, leading to outdated information and inefficiencies. THE CHALLENGE ComplexityKills Productivity The Solution One Dynamic Portal for Your Entire Workforce Seamless SharePoint Integration Interactive Visualization Automa",
-        "citations_count": 3,
+        "context_chars": 13437,
+        "context_preview": "for Real Problems Our flagship Microsoft 365 products are purpose-built tools that solve everyday business challenges ready to deploy and customize for your organization. Organization Chart Visual Hierarchy Dynamic, interactive org charts that keep your team structure transparent and up to date. New Joinee Onboarding Made Easy Streamlined onboarding portals that help new employees get up to speed from day one. Employee Directory People at a Glance A smart, searchable directory so your entire organization can find the right person instantly. Project Management Portal Deliver with Confidence Cen",
+        "citations_count": 4,
         "citation": {
-          "title": "Organization Chart.pdf",
-          "url": "https://desirechatbotweb.blob.core.windows.net/desirechatbotweb/Organization%20Chart.pdf",
-          "id": "42c7ea830793_aHR0cHM6Ly9kZXNpcmVjaGF0Ym90d2ViLmJsb2IuY29yZS53aW5kb3dzLm5ldC9kZXNpcmVjaGF0Ym90d2ViL09yZ2FuaXphdGlvbiUyMENoYXJ0LnBkZg2_pages_0",
-          "score": 17.237247,
-          "context_snippet": "Organization Chart Transform complex reporting structures into dynamic, interactive visual hierarchies. View Product Disconnected Teams operate in silos, making it difficult to understand reporting lines and collaboration paths. Complexity Rapid growth creates tangled hierarchies that are impossible to navigate manually. No Visibility HR struggles to maintain up-to- date records, leading to outdated information and inefficiencies. THE CHALLENGE ComplexityKills Productivity The Solution One Dynamic Portal for Your Entire Workforce Seamless SharePoint Integration Interactive Visualization Automated Workflows 100% SECURE AD INTEGRATED 24/7 SUPPORT Native experience with MS Teams and Office 365. Dynamic hierarchy with zoom and collapse controls. Auto-syncs with Active Directory via Power Automate. See It In Action Watch the full walkthrough of the Organization Chart Dynamic Hierarchy Interactive org charts with collapsible nodes, zoom controls, and department filtering. Employee Profiles Rich employee cards with photos, contact details, skills, and reporting lines. Responsive Design Native mobile support & fluid layouts. Access from desktop, tablet, or mobile. CoreFeatures Everything you need to build a modern, engaging digital workplace. Smart Search Instantly locate employees using intelligent search, role filters, and department drill-down. Enterprise Security Robust protection with role-based access, data encryption, and advanced threat monitoring. Custom Workflows Automate HR updates via Power Automate and sync seamlessly with core systems. CORE FEATURES Intelligent &Secure Advanced capabilities to manage your workforce efficiently and safely. Microsoft Partner Since 2023 Empowering Digital Transformation Desire Infoweb is a leading IT offshoring company delivering tru",
+          "title": "Company Presentation New.pdf",
+          "url": "https://desirechatbotweb.blob.core.windows.net/desirechatbotweb/Company%20Presentation%20New.pdf",
+          "id": "42c7ea830793_aHR0cHM6Ly9kZXNpcmVjaGF0Ym90d2ViLmJsb2IuY29yZS53aW5kb3dzLm5ldC9kZXNpcmVjaGF0Ym90d2ViL0NvbXBhbnklMjBQcmVzZW50YXRpb24lMjBOZXcucGRm0_pages_2",
+          "score": 12.750871,
+          "context_snippet": "for Real Problems Our flagship Microsoft 365 products are purpose-built tools that solve everyday business challenges ready to deploy and customize for your organization. Organization Chart Visual Hierarchy Dynamic, interactive org charts that keep your team structure transparent and up to date. New Joinee Onboarding Made Easy Streamlined onboarding portals that help new employees get up to speed from day one. Employee Directory People at a Glance A smart, searchable directory so your entire organization can find the right person instantly. Project Management Portal Deliver with Confidence Centralized project tracking, calendars, and collaboration all within your Microsoft 365 environment. VALUE PROPOSITION Innovation Meets Execution Our value proposition is simple: we don't just build we partner. We become an extension of your team, aligning our technical goals with your business objectives. Our agile approach means rapid iteration and transparent communication, so you always know where we stand. We always use the latest, most stable tech stacks, ensuring your solutions are future-proof and secure. We Partner, Not Jus t Build We become an extension of your team, deeply aligning our technical roadmap with your strategic business objectives for true collaborative success. Agile & Trans parent Rapid iteration, open communication, and full visibility into progress so you're never left wondering where your project stands. Future-Proof Technology We leverage only the latest, most stable tech stacks, ensuring your solutions remain secure, scalable, and ahead of the curve. WHY CHOOSE US The S trategic Advantage Our commitment to quality, reliability, and client success is reflected in every engagement. Here's what sets Desire Infoweb apart from the competition. 24/7 Support Av",
           "overlap_count": 5,
-          "overlap_ratio": 0.5,
-          "entry_rank": 0.618811,
+          "overlap_ratio": 0.714286,
+          "entry_rank": 0.759324,
           "retrieval_mode": "text"
         },
-        "ts": "2026-05-19T11:43:26.508381+00:00"
+        "ts": "2026-05-20T12:40:11.547188+00:00"
       },
       "ai_selection": {
         "selected_source_scope": "knowledge",
         "selected_retrieval_mode": "text",
-        "selected_score": 14.93753,
-        "selected_rank": 0.87479,
-        "selected_overlap_ratio": 0.6,
+        "selected_score": 16.121195,
+        "selected_rank": 0.923,
+        "selected_overlap_ratio": 0.714286,
         "candidate_count": 4,
-        "ts": "2026-05-19T11:43:26.508381+00:00"
+        "ts": "2026-05-20T12:40:11.547188+00:00"
       },
       "ai_openai_response": {
         "source": "azure_openai",
-        "answer_chars": 2579,
+        "answer_chars": 2434,
         "stream": true,
-        "ts": "2026-05-19T11:43:43.548805+00:00"
+        "ts": "2026-05-20T12:40:29.181291+00:00"
       },
       "display_response": {
         "status_code": 200,
-        "answer_chars": 2579,
+        "answer_chars": 2434,
         "citations_count": 1,
         "stream": true,
-        "ts": "2026-05-19T11:43:43.887390+00:00"
+        "ts": "2026-05-20T12:40:29.535198+00:00"
       },
       "ai_research_response": {
         "source": "azure_ai_search",
-        "context_chars": 6358,
-        "top_score": 14.9375305,
+        "context_chars": 8080,
+        "top_score": 16.121195,
         "citations_count": 9,
         "videos_count": 0,
         "citation": {
           "title": "organization-chart",
           "url": "https://desireinfoweb.com/products/organization-chart",
           "id": "s_c2VydmljZUNhdGFsb2cudHh0_i_0_u_c76371ec982743fd978ca381a3778da9",
-          "score": 14.93753,
+          "score": 16.121195,
           "context_snippet": "[companyProfile] About Desire Infoweb Desire Infoweb is an IT services and consulting company focused on Microsoft technologies, enterprise automation, modern collaboration platforms, analytics, and AI-powered business solutions. Core capabilities include SharePoint, Power Platform, Power BI, Microsoft Teams, Dynamics 365, Azure, .NET development, migration, governance, and custom AI/chatbot implementations. https://desireinfoweb.com/about-us [products] Organization Chart An organizational chart shows the internal structure of an organization or company. The employees and positions are represented by boxes or other shapes, sometimes including photos, contact information, email and page links, icons, and illustrations. Straight or elbowed lines link the levels together. https://desireinfoweb.com/products/organization-chart",
-          "overlap_count": 3,
-          "overlap_ratio": 0.3,
-          "entry_rank": 0.474576,
+          "overlap_count": 4,
+          "overlap_ratio": 0.571429,
+          "entry_rank": 0.66689,
           "retrieval_mode": "text",
           "source_scope": "knowledge"
         },
         "stream": true,
-        "ts": "2026-05-19T11:43:29.725308+00:00"
+        "ts": "2026-05-20T12:40:14.921358+00:00"
       }
     },
     "summary": {
       "status_code": 200,
-      "reply": "### **Power Automate Overview**\n\nPower Automate is a key component of Microsoft Power Platform, designed to automate repetitive tasks and workflows across applications and services. It enables businesses to streamline processes, reduce manual effort, and improve efficiency by connecting various systems and automating data flows.\n\n#### **Key Features:**\n- **Workflow Automation**: Automate approvals, notifications, and data synchronization.\n- **Integration**: Connect with 500+ apps and services, including SharePoint, Dynamics 365, Teams, and third-party APIs.\n- **Triggers & Actions**: Set up workflows based on specific triggers (e.g., form submissions, email arrivals).\n- **AI Builder**: Add AI capabilities like form processing and sentiment analysis to workflows.\n- **Cloud & Desktop Flows**: Automate tasks in both cloud-based apps and desktop environments.\n\n---\n\n### **Power Automate Projects by Desire Infoweb**\n\n#### **1. Timesheet Management**\n- **Purpose**: Track employee and project hours accurately for better resource allocation and billing.\n- **Features**:\n  - Multi-language support for global teams.\n  - Notification flows for reminders and approvals.\n  - Event calendar integration for scheduling.\n  - Custom UI for ease of use.\n- **Impact**: Improved time tracking accuracy and streamlined approval processes.\n\n#### **2. Onboarding Automation**\n- **Purpose**: Simplify HR onboarding processes for new employees.\n- **Features**:\n  - Automated compliance checks and document collection.\n  - Role-based permissions for secure access.\n  - Modern, user-friendly interface for HR teams.\n- **Impact**: Reduced onboarding time and improved compliance tracking.\n\n#### **3. Invoice Management**\n- **Purpose**: Automate invoice creation, tracking, and approval workflows for manufacturing clients.\n- **Features**:\n  - Automated data extraction from invoices.\n  - Approval workflows with notifications.\n  - Centralized tracking for better visibility.\n- **Impact**: Faster invoice processing and reduced manual errors.\n\n#### **4. Contract Management**\n- **Purpose**: Manage contracts with milestone tracking and automated workflows.\n- **Features**:\n  - Renewal date reminders and approval workflows.\n  - Pre-built templates for contracts.\n  - Centralized repository for easy access.\n- **Impact**: Improved contract lifecycle management and reduced missed deadlines.\n\n---\n\nFor more details, visit [Power Platform Services](https://desireinfoweb.com/services/power-platform). Let me know if you'd like to explore how Power Automate can be tailored to your business needs!",
+      "reply": "### Detailed Overview of Desire Infoweb's Products\n\nDesire Infoweb offers **SharePoint and Microsoft 365 web parts** tailored to improve organizational efficiency and collaboration. Below are the detailed descriptions:\n\n1. **[Organization Chart](https://desireinfoweb.com/products/organization-chart)**  \n   - Visualizes the organizational structure with employee names, roles, photos, and contact links.  \n   - Simplifies understanding of reporting hierarchies and team connections.\n\n2. **[New Joinee](https://desireinfoweb.com/products/new-joinee)**  \n   - Streamlines onboarding by managing new employee profiles and introductions.  \n   - Integrates with Microsoft tools for seamless team communication and integration.\n\n3. **[Employee Directory](https://desireinfoweb.com/products/employee-directory)**  \n   - A centralized directory with employee details like names, roles, departments, and contact info.  \n   - Facilitates quick access to colleague information across the organization.\n\n4. **[Calendar](https://desireinfoweb.com/products/calender)**  \n   - Intelligent portal for managing events, meetings, holidays, and deadlines.  \n   - Enhances team collaboration and scheduling efficiency.\n\n5. **[Celebration](https://desireinfoweb.com/products/celebration)**  \n   - Displays upcoming birthdays and work anniversaries.  \n   - Encourages workplace positivity by enabling direct wishes.\n\n6. **[Project Management Portal](https://desireinfoweb.com/products/project-management-portal)**  \n   - SharePoint-based PMO for planning, tracking, and delivering projects.  \n   - Includes task boards, dashboards, and stakeholder visibility.\n\n7. **[Learning Management System (LMS)](https://desireinfoweb.com/products/learning-management-system)**  \n   - Centralized platform for online training, courses, and learning materials.  \n   - Supports employee development and skill-building initiatives.\n\n8. **[Audit System](https://desireinfoweb.com/products/audit-system)**  \n   - SharePoint-based solution for managing audits and compliance.  \n   - Streamlines record tracking, monitoring, and evaluation for transparency.\n\n9. **[Quick Links](https://desireinfoweb.com/products/quick-links)**  \n   - Portal for quick navigation links within SharePoint intranets.  \n   - Improves user experience by providing easy access to frequently used resources.\n\nLet me know if you'd like more details, a demo, or assistance with any specific product!",
+      "stream": true
+    }
+  },
+  {
+    "trace_id": "b3c8e613-f7b3-4e9c-b5fb-047c5c24715f",
+    "started_at": "2026-05-20T12:42:38.230957+00:00",
+    "ended_at": "2026-05-20T12:42:38.614550+00:00",
+    "endpoint": "/api/chat/text/stream",
+    "streaming": true,
+    "status": "success",
+    "duration_ms": 383.59,
+    "session_id": "cf5efcf0-7945-4455-a54f-845a9d8c44b6",
+    "user_query": "hiiii",
+    "process": {
+      "user_request": {
+        "query": "hiiii",
+        "endpoint": "/api/chat/text/stream",
+        "stream": true,
+        "ts": "2026-05-20T12:42:38.230957+00:00"
+      },
+      "ai_request": {
+        "mode": "direct_answer",
+        "model_input_chars": 0,
+        "stream": true,
+        "intent": "greeting",
+        "ts": "2026-05-20T12:42:38.230957+00:00"
+      },
+      "ai_search_response": {
+        "source": "direct_answer",
+        "context_chars": 0,
+        "top_score": 0.0,
+        "citations_count": 0,
+        "stream": true,
+        "ts": "2026-05-20T12:42:38.230957+00:00"
+      },
+      "ai_search_json_response": {},
+      "ai_search_blob_response": {},
+      "ai_selection": {},
+      "ai_openai_response": {
+        "source": "direct_answer",
+        "answer_chars": 32,
+        "stream": true,
+        "ts": "2026-05-20T12:42:38.614550+00:00"
+      },
+      "display_response": {
+        "status_code": 200,
+        "answer_chars": 32,
+        "citations_count": 0,
+        "stream": true,
+        "ts": "2026-05-20T12:42:38.614550+00:00"
+      },
+      "ai_research_response": {
+        "source": "direct_answer",
+        "context_chars": 0,
+        "top_score": 0.0,
+        "citations_count": 0,
+        "stream": true,
+        "ts": "2026-05-20T12:42:38.230957+00:00"
+      }
+    },
+    "summary": {
+      "status_code": 200,
+      "reply": "Hello, How can I help you today?",
+      "stream": true
+    }
+  },
+  {
+    "trace_id": "345f8e1d-bd8a-4483-8e01-5b8219dc7fdd",
+    "started_at": "2026-05-20T12:42:45.757700+00:00",
+    "ended_at": "2026-05-20T12:42:46.114927+00:00",
+    "endpoint": "/api/chat/text/stream",
+    "streaming": true,
+    "status": "success",
+    "duration_ms": 357.23,
+    "session_id": "cf5efcf0-7945-4455-a54f-845a9d8c44b6",
+    "user_query": "heyy",
+    "process": {
+      "user_request": {
+        "query": "heyy",
+        "endpoint": "/api/chat/text/stream",
+        "stream": true,
+        "ts": "2026-05-20T12:42:45.757700+00:00"
+      },
+      "ai_request": {
+        "mode": "direct_answer",
+        "model_input_chars": 0,
+        "stream": true,
+        "intent": "greeting",
+        "ts": "2026-05-20T12:42:45.757700+00:00"
+      },
+      "ai_search_response": {
+        "source": "direct_answer",
+        "context_chars": 0,
+        "top_score": 0.0,
+        "citations_count": 0,
+        "stream": true,
+        "ts": "2026-05-20T12:42:45.757700+00:00"
+      },
+      "ai_search_json_response": {},
+      "ai_search_blob_response": {},
+      "ai_selection": {},
+      "ai_openai_response": {
+        "source": "direct_answer",
+        "answer_chars": 32,
+        "stream": true,
+        "ts": "2026-05-20T12:42:46.114927+00:00"
+      },
+      "display_response": {
+        "status_code": 200,
+        "answer_chars": 32,
+        "citations_count": 0,
+        "stream": true,
+        "ts": "2026-05-20T12:42:46.114927+00:00"
+      },
+      "ai_research_response": {
+        "source": "direct_answer",
+        "context_chars": 0,
+        "top_score": 0.0,
+        "citations_count": 0,
+        "stream": true,
+        "ts": "2026-05-20T12:42:45.757700+00:00"
+      }
+    },
+    "summary": {
+      "status_code": 200,
+      "reply": "Hello, How can I help you today?",
+      "stream": true
+    }
+  },
+  {
+    "trace_id": "815a696c-2b41-45f3-9844-116bdf786e82",
+    "started_at": "2026-05-20T12:42:54.131558+00:00",
+    "ended_at": "2026-05-20T12:42:56.469852+00:00",
+    "endpoint": "/api/chat/text/stream",
+    "streaming": true,
+    "status": "success",
+    "duration_ms": 2338.29,
+    "session_id": "cf5efcf0-7945-4455-a54f-845a9d8c44b6",
+    "user_query": "jai shree ram",
+    "process": {
+      "user_request": {
+        "query": "jai shree ram",
+        "endpoint": "/api/chat/text/stream",
+        "stream": true,
+        "ts": "2026-05-20T12:42:54.131558+00:00"
+      },
+      "ai_request": {
+        "mode": "direct_answer",
+        "model_input_chars": 0,
+        "stream": true,
+        "intent": "greeting",
+        "ts": "2026-05-20T12:42:56.154094+00:00"
+      },
+      "ai_search_response": {
+        "source": "direct_answer",
+        "context_chars": 0,
+        "top_score": 0.0,
+        "citations_count": 0,
+        "stream": true,
+        "ts": "2026-05-20T12:42:56.154094+00:00"
+      },
+      "ai_search_json_response": {},
+      "ai_search_blob_response": {},
+      "ai_selection": {},
+      "ai_openai_response": {
+        "source": "direct_answer",
+        "answer_chars": 32,
+        "stream": true,
+        "ts": "2026-05-20T12:42:56.469268+00:00"
+      },
+      "display_response": {
+        "status_code": 200,
+        "answer_chars": 32,
+        "citations_count": 0,
+        "stream": true,
+        "ts": "2026-05-20T12:42:56.469268+00:00"
+      },
+      "ai_research_response": {
+        "source": "direct_answer",
+        "context_chars": 0,
+        "top_score": 0.0,
+        "citations_count": 0,
+        "stream": true,
+        "ts": "2026-05-20T12:42:56.154094+00:00"
+      }
+    },
+    "summary": {
+      "status_code": 200,
+      "reply": "Hello, How can I help you today?",
+      "stream": true
+    }
+  },
+  {
+    "trace_id": "c95eb771-d746-4c47-8d0b-56f9eab9bd4e",
+    "started_at": "2026-05-20T12:43:11.545548+00:00",
+    "ended_at": "2026-05-20T12:43:13.781010+00:00",
+    "endpoint": "/api/chat/text/stream",
+    "streaming": true,
+    "status": "success",
+    "duration_ms": 2235.46,
+    "session_id": "cf5efcf0-7945-4455-a54f-845a9d8c44b6",
+    "user_query": "sopara",
+    "process": {
+      "user_request": {
+        "query": "sopara",
+        "endpoint": "/api/chat/text/stream",
+        "stream": true,
+        "ts": "2026-05-20T12:43:11.552402+00:00"
+      },
+      "ai_request": {
+        "mode": "direct_answer",
+        "model_input_chars": 0,
+        "stream": true,
+        "intent": "out_of_scope",
+        "ts": "2026-05-20T12:43:13.373529+00:00"
+      },
+      "ai_search_response": {
+        "source": "direct_answer",
+        "context_chars": 0,
+        "top_score": 0.0,
+        "citations_count": 0,
+        "stream": true,
+        "ts": "2026-05-20T12:43:13.373529+00:00"
+      },
+      "ai_search_json_response": {},
+      "ai_search_blob_response": {},
+      "ai_selection": {},
+      "ai_openai_response": {
+        "source": "direct_answer",
+        "answer_chars": 314,
+        "stream": true,
+        "ts": "2026-05-20T12:43:13.781010+00:00"
+      },
+      "display_response": {
+        "status_code": 200,
+        "answer_chars": 314,
+        "citations_count": 0,
+        "stream": true,
+        "ts": "2026-05-20T12:43:13.781010+00:00"
+      },
+      "ai_research_response": {
+        "source": "direct_answer",
+        "context_chars": 0,
+        "top_score": 0.0,
+        "citations_count": 0,
+        "stream": true,
+        "ts": "2026-05-20T12:43:13.373529+00:00"
+      }
+    },
+    "summary": {
+      "status_code": 200,
+      "reply": "Thank you for your query. At the moment, I'm unable to provide a relevant response as it falls outside my current scope.\n\nFor further assistance, please contact our support team:\n- vijay@desireinfoweb.com\n- hr@desireinfoweb.in\n- India: +91-8780468807\n- USA: +1 260 560 2128\n\nWe will be happy to assist you further.",
+      "stream": true
+    }
+  },
+  {
+    "trace_id": "5e4122a5-8430-472d-9411-3247a2d0e092",
+    "started_at": "2026-05-20T12:43:41.767808+00:00",
+    "ended_at": "2026-05-20T12:43:43.949103+00:00",
+    "endpoint": "/api/chat/text/stream",
+    "streaming": true,
+    "status": "success",
+    "duration_ms": 2181.29,
+    "session_id": "cf5efcf0-7945-4455-a54f-845a9d8c44b6",
+    "user_query": "bhosdina",
+    "process": {
+      "user_request": {
+        "query": "bhosdina",
+        "endpoint": "/api/chat/text/stream",
+        "stream": true,
+        "ts": "2026-05-20T12:43:41.767808+00:00"
+      },
+      "ai_request": {
+        "mode": "direct_answer",
+        "model_input_chars": 0,
+        "stream": true,
+        "intent": "out_of_scope",
+        "ts": "2026-05-20T12:43:43.538053+00:00"
+      },
+      "ai_search_response": {
+        "source": "direct_answer",
+        "context_chars": 0,
+        "top_score": 0.0,
+        "citations_count": 0,
+        "stream": true,
+        "ts": "2026-05-20T12:43:43.538053+00:00"
+      },
+      "ai_search_json_response": {},
+      "ai_search_blob_response": {},
+      "ai_selection": {},
+      "ai_openai_response": {
+        "source": "direct_answer",
+        "answer_chars": 314,
+        "stream": true,
+        "ts": "2026-05-20T12:43:43.949103+00:00"
+      },
+      "display_response": {
+        "status_code": 200,
+        "answer_chars": 314,
+        "citations_count": 0,
+        "stream": true,
+        "ts": "2026-05-20T12:43:43.949103+00:00"
+      },
+      "ai_research_response": {
+        "source": "direct_answer",
+        "context_chars": 0,
+        "top_score": 0.0,
+        "citations_count": 0,
+        "stream": true,
+        "ts": "2026-05-20T12:43:43.538053+00:00"
+      }
+    },
+    "summary": {
+      "status_code": 200,
+      "reply": "Thank you for your query. At the moment, I'm unable to provide a relevant response as it falls outside my current scope.\n\nFor further assistance, please contact our support team:\n- vijay@desireinfoweb.com\n- hr@desireinfoweb.in\n- India: +91-8780468807\n- USA: +1 260 560 2128\n\nWe will be happy to assist you further.",
+      "stream": true
+    }
+  },
+  {
+    "trace_id": "34e00c3a-969a-46ec-bfdf-2407c4253598",
+    "started_at": "2026-05-20T12:44:23.981115+00:00",
+    "ended_at": "2026-05-20T12:44:26.298304+00:00",
+    "endpoint": "/api/chat/text/stream",
+    "streaming": true,
+    "status": "success",
+    "duration_ms": 2317.19,
+    "session_id": "cf5efcf0-7945-4455-a54f-845a9d8c44b6",
+    "user_query": "bhosdina",
+    "process": {
+      "user_request": {
+        "query": "bhosdina",
+        "endpoint": "/api/chat/text/stream",
+        "stream": true,
+        "ts": "2026-05-20T12:44:23.981115+00:00"
+      },
+      "ai_request": {
+        "mode": "direct_answer",
+        "model_input_chars": 0,
+        "stream": true,
+        "intent": "out_of_scope",
+        "ts": "2026-05-20T12:44:25.963153+00:00"
+      },
+      "ai_search_response": {
+        "source": "direct_answer",
+        "context_chars": 0,
+        "top_score": 0.0,
+        "citations_count": 0,
+        "stream": true,
+        "ts": "2026-05-20T12:44:25.963153+00:00"
+      },
+      "ai_search_json_response": {},
+      "ai_search_blob_response": {},
+      "ai_selection": {},
+      "ai_openai_response": {
+        "source": "direct_answer",
+        "answer_chars": 314,
+        "stream": true,
+        "ts": "2026-05-20T12:44:26.298304+00:00"
+      },
+      "display_response": {
+        "status_code": 200,
+        "answer_chars": 314,
+        "citations_count": 0,
+        "stream": true,
+        "ts": "2026-05-20T12:44:26.298304+00:00"
+      },
+      "ai_research_response": {
+        "source": "direct_answer",
+        "context_chars": 0,
+        "top_score": 0.0,
+        "citations_count": 0,
+        "stream": true,
+        "ts": "2026-05-20T12:44:25.963153+00:00"
+      }
+    },
+    "summary": {
+      "status_code": 200,
+      "reply": "Thank you for your query. At the moment, I'm unable to provide a relevant response as it falls outside my current scope.\n\nFor further assistance, please contact our support team:\n- vijay@desireinfoweb.com\n- hr@desireinfoweb.in\n- India: +91-8780468807\n- USA: +1 260 560 2128\n\nWe will be happy to assist you further.",
       "stream": true
     }
   }
