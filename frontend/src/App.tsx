@@ -41,7 +41,7 @@ const API_BASE_URL = (() => {
 
   return candidate;
 })();
-const FLOATING_BOT_IMAGE_URL = (import.meta.env.VITE_FLOATING_BOT_IMAGE_URL || '/bot.gif').trim();
+const FLOATING_BOT_IMAGE_URL = (import.meta.env.VITE_FLOATING_BOT_IMAGE_URL || '/chatbot icon.png').trim();
 
 const SESSION_STORAGE_KEY = 'vtl_session_id';
 const EMAIL_STORAGE_KEY = 'vtl_lead_email';
@@ -1195,7 +1195,7 @@ function App() {
         }}
         className={`fixed z-50 transition-transform hover:scale-105 flex items-center justify-center ${isOpen ? 'top-3 right-3 sm:top-auto sm:bottom-6 sm:right-6' : 'bottom-4 right-4 sm:bottom-6 sm:right-6'
           } ${showFloatingImage
-            ? 'w-16 h-16 sm:w-[110px] sm:h-[110px] rounded-full bg-transparent shadow-none overflow-hidden p-0'
+            ? 'w-20 h-20 sm:w-[130px] sm:h-[130px] rounded-full bg-transparent shadow-none overflow-hidden p-0'
             : 'p-3 sm:p-4 vtl-brand-gradient text-white rounded-full shadow-2xl hover:brightness-95'
           }`}
       >
