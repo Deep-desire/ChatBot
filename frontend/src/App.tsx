@@ -321,6 +321,16 @@ function App() {
   const streamCharacterQueueRef = useRef('');
   const streamTypeTimerRef = useRef<number | null>(null);
   const streamDrainResolverRef = useRef<(() => void) | null>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (!isLoading && isOpen) {
+      const timer = setTimeout(() => {
+        inputRef.current?.focus();
+      }, 50);
+      return () => clearTimeout(timer);
+    }
+  }, [isLoading, isOpen, leadStage]);
 
   useEffect(() => {
     const storedSessionId = localStorage.getItem(SESSION_STORAGE_KEY)?.trim();
@@ -412,6 +422,15 @@ function App() {
 
     if (!Array.isArray(rawSuggestions)) {
       return [];
+    }
+
+    const containsStarter = rawSuggestions.some((item) => {
+      if (typeof item !== 'string') return false;
+      return STARTER_QUESTION_KEYS.has(normalizeQuestionText(item));
+    });
+
+    if (containsStarter) {
+      return DEFAULT_SUGGESTED_QUESTIONS;
     }
 
     return rawSuggestions
@@ -1371,6 +1390,7 @@ function App() {
 
               <form onSubmit={handleTextSubmit} className="flex-1 flex gap-2">
                 <input
+                  ref={inputRef}
                   type="text"
                   value={inputText}
                   onChange={(e) => setInputText(e.target.value)}

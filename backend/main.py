@@ -74,6 +74,11 @@ class IntentCategory(str, Enum):
     LEAD_CAPTURE = "lead_capture"
     RAG_GENERAL = "rag_general"
     OUT_OF_SCOPE = "out_of_scope"
+    SMALL_TALK = "small_talk"
+    PERMISSION_QUESTION = "permission_question"
+    ACKNOWLEDGEMENT = "acknowledgement"
+    GENERAL_HELPER = "general_helper"
+    INCOMPLETE_QUESTION = "incomplete_question"
 
 SERVICE_SUMMARY = (
     "Desire Infoweb provides Microsoft-focused IT services including SharePoint, "
@@ -93,12 +98,6 @@ AI_PROJECTS_SUMMARY = (
     "to provide responses based on uploaded files."
 )
 
-BUDGET_SUMMARY = (
-    "Budget depends on scope, integrations, data volume, and deployment model. "
-    "For an AI chatbot, we usually start with a discovery session and then share a tailored estimate "
-    "with timeline and milestones. If you share your use case, channels (website/Teams/WhatsApp), "
-    "and expected users, we can provide a more accurate proposal."
-)
 
 DOTNET_SUMMARY = (
     "Desire Infoweb .NET services include custom enterprise application development, "
@@ -147,6 +146,12 @@ NO_CONTEXT_RESPONSE = (
     "- USA: +1 260 560 2128\n\n"
     "We will be happy to assist you further."
 )
+
+DEFAULT_SUGGESTED_QUESTIONS = [
+    "What is Desire Infoweb?",
+    "What type of services does Desire Infoweb provide?",
+    "What type of AI projects has Desire Infoweb completed?",
+]
 
 OVERLAP_STOPWORDS = {
     "the", "and", "for", "with", "from", "into", "that", "this", "what", "when", "where", "which",
@@ -498,7 +503,6 @@ def _get_query_spell_vocabulary() -> tuple[str, ...]:
             SERVICE_SUMMARY,
             AI_SUMMARY,
             AI_PROJECTS_SUMMARY,
-            BUDGET_SUMMARY,
             DOTNET_SUMMARY,
             CHATBOT_IMPLEMENTATION_SUMMARY,
             CHATBOT_DATA_SOURCE_SUMMARY,
@@ -1087,12 +1091,40 @@ def _extract_topic_seeds_from_history(history: list[tuple[str, str]], max_topics
     return seeds
 
 
+def _is_knowledge_base_answer(reply: str) -> bool:
+    if not reply:
+        return False
+    reply_lc = reply.strip().lower()
+    
+    # Non-KB response patterns
+    if "how can i help you today" in reply_lc:
+        return False
+    if "ask your question about desire infoweb" in reply_lc:
+        return False
+    if "i am the desire infoweb assistant" in reply_lc:
+        return False
+    if "you're welcome! let me know" in reply_lc:
+        return False
+    if "what would you like to know" in reply_lc:
+        return False
+    if "could you please specify what you" in reply_lc:
+        return False
+        
+    if _is_no_context_like_answer(reply):
+        return False
+    return True
+
+
 def _build_dynamic_followup_questions(session_id: str, limit: int = 3) -> list[str]:
     with _conversation_lock:
         history = list(_conversation_store.get(session_id, []))
 
     if not history or limit <= 0:
-        return []
+        return DEFAULT_SUGGESTED_QUESTIONS[:limit]
+
+    latest_assistant_reply = history[-1][1] if history else ""
+    if not _is_knowledge_base_answer(latest_assistant_reply):
+        return DEFAULT_SUGGESTED_QUESTIONS[:limit]
 
     suggestions: list[str] = []
     seen_suggestions: set[str] = set()
@@ -1353,8 +1385,73 @@ async def _sync_sharepoint_lead_safely(session_id: str) -> None:
         logger.warning("SharePoint sync skipped/failed for session %s: %s", session_id, error)
 
 
+def _detect_non_kb_intent(query: str) -> tuple[IntentCategory, str] | None:
+    normalized = query.lower().strip()
+    compact = re.sub(r"[?.,!]", "", normalized).strip()
+    
+    # 1. GREETINGS
+    greeting_patterns = [
+        r"^(hi+|hello+|hey+|hii+|hiii+|good morning|good afternoon|good evening|howdy|hola|greetings)$",
+        r"^(hi|hello|hey|hii|hiii)\s+(there|friend|buddy|bot|assistant|team)$"
+    ]
+    if any(re.match(p, compact) for p in greeting_patterns):
+        return IntentCategory.GREETING, "Hello! How can I help you today?"
+        
+    # 2. ACKNOWLEDGEMENT MESSAGES
+    ack_words = {"thanks", "thank you", "thank you so much", "thankyou", "ok", "okay", "got it", "perfect", "awesome", "cool", "great", "sure", "fine"}
+    if compact in ack_words or (len(compact.split()) <= 2 and any(w in compact for w in ["thank", "thanks", "ok", "okay", "got it"])):
+        return IntentCategory.ACKNOWLEDGEMENT, "You're welcome! Let me know if you have any questions or if there is anything else I can help you with."
+
+    # 3. PERMISSION QUESTIONS
+    permission_patterns = [
+        r"^(can|may|could|should|would)\s+(i|we)\s+(ask|query|request|submit)\s+(a|one|some|any)?\s*(question|questions|query|queries|something|about)?.*$",
+        r"^i\s+(have|want to ask|need to ask)\s+(a|one|some|any)?\s*(question|questions|query|queries|something|about).*$"
+    ]
+    if any(re.match(p, compact) for p in permission_patterns):
+        return IntentCategory.PERMISSION_QUESTION, "Sure, please go ahead and ask your question about Desire Infoweb. I'll do my best to assist you!"
+
+    # 4. SMALL TALK
+    small_talk_patterns = [
+        r"^how\s+(are\s+you|are\s+u|is\s+it\s+going|is\s+everything|have\s+you\s+been|is\s+life).*$",
+        r"^who\s+(are\s+you|is\s+this|made\s+you|built\s+you|created\s+you|designed\s+you).*$",
+        r"^what\s+(is\s+your\s+name|are\s+you|do\s+you\s+do|is\s+your\s+purpose).*$",
+        r"^tell\s+me\s+about\s+(yourself|you)\b.*$",
+        r"^(are\s+you|are\s+u)\s+(ai|a\s+bot|a\s+robot|human|real).*$"
+    ]
+    if any(re.match(p, compact) for p in small_talk_patterns):
+        return IntentCategory.SMALL_TALK, "I am the Desire Infoweb assistant. I'm doing great, thank you! I can help you with information about our IT services, AI projects, pricing, and more. How can I help you today?"
+
+    # 5. GENERAL HELPER RESPONSES
+    helper_patterns = [
+        r"^(help|help me|info|information)$",
+        r"^(what|how)\s+can\s+you\s+(do|help\s+me|assist|support).*$",
+        r"^show\s+(me\s+)?(options|services|menu|help)\b.*$"
+    ]
+    if any(re.match(p, compact) for p in helper_patterns):
+        return IntentCategory.GENERAL_HELPER, "I can help you with details about Desire Infoweb's services (such as SharePoint, Power Apps, AI/chatbot development, and .NET), pricing, and completed projects. What would you like to know?"
+
+    # 6. INCOMPLETE QUESTIONS
+    incomplete_phrases = {
+        "what is", "tell me", "tell me about", "show me", "how to", "why did", "what do", "can you",
+        "is there", "do you", "how does", "what are", "where is", "who is", "give me", "give me a"
+    }
+    if compact in incomplete_phrases or len(compact.split()) <= 1 or (compact.startswith(tuple(incomplete_phrases)) and len(compact.split()) <= 2):
+        if compact in incomplete_phrases or compact.startswith(tuple(incomplete_phrases)):
+            return IntentCategory.INCOMPLETE_QUESTION, "Could you please specify what you would like to know more about? I'd be happy to provide the details!"
+
+    return None
+
+
+
+
 def _get_intent_based_response(query: str, session_id: str | None = None) -> tuple[IntentCategory, str | None]:
     """Identifies user intent and returns a direct response if applicable."""
+    # Fast path for non-KB intents
+    detected = _detect_non_kb_intent(query)
+    if detected:
+        logger.info("Fast-path detected intent for query '%s': %s", query, detected[0])
+        return detected
+
     intent = _classify_intent(query, session_id)
     logger.info("Identified intent for query '%s': %s", query, intent)
 
@@ -1368,20 +1465,17 @@ def _get_intent_based_response(query: str, session_id: str | None = None) -> tup
             logger.info("Overriding intent to OUT_OF_SCOPE due to general coding pattern.")
 
     if intent == IntentCategory.GREETING:
-        return intent, (
-            "Hello, How can I help you today?"
-        
-        )
-
-    if intent == IntentCategory.PRICING:
-        return intent, BUDGET_SUMMARY
-
-    # if intent == IntentCategory.COMPANY_INFO:
-    #     return intent, (
-    #         "Desire Infoweb is an IT services company focused on Microsoft technologies and business automation. "
-    #         f"{SERVICE_SUMMARY}"
-    #     )
-
+        return intent, "Hello! How can I help you today?"
+    if intent == IntentCategory.SMALL_TALK:
+        return intent, "I am the Desire Infoweb assistant. I'm doing great, thank you! I can help you with information about our IT services, AI projects, pricing, and more. How can I help you today?"
+    if intent == IntentCategory.PERMISSION_QUESTION:
+        return intent, "Sure, please go ahead and ask your question about Desire Infoweb. I'll do my best to assist you!"
+    if intent == IntentCategory.ACKNOWLEDGEMENT:
+        return intent, "You're welcome! Let me know if you have any questions or if there is anything else I can help you with."
+    if intent == IntentCategory.GENERAL_HELPER:
+        return intent, "I can help you with details about Desire Infoweb's services (such as SharePoint, Power Apps, AI/chatbot development, and .NET), pricing, and completed projects. What would you like to know?"
+    if intent == IntentCategory.INCOMPLETE_QUESTION:
+        return intent, "Could you please specify what you would like to know more about? I'd be happy to provide the details!"
     if intent == IntentCategory.OUT_OF_SCOPE:
         return intent, _no_context_response()
 
@@ -1409,6 +1503,11 @@ def _classify_intent(query: str, session_id: str | None = None) -> IntentCategor
     prompt = f"""Identify the user intent for the following query at Desire Infoweb (an IT services company).
 Categories:
 - GREETING: Casual hellos, pleasantries.
+- SMALL_TALK: Personal or casual check-ins ("how are you?", "who are you?").
+- PERMISSION_QUESTION: Asking permission to ask a question ("can I ask a question?").
+- ACKNOWLEDGEMENT: Simple thank yous or confirmation ("ok", "thanks").
+- GENERAL_HELPER: Help requests or asking what the bot can do ("help", "what can you do?").
+- INCOMPLETE_QUESTION: Fragmented or incomplete phrases ("what is", "tell me").
 - SERVICES: Questions about specific services offered (SharePoint, AI, .NET, Power Platform, etc).
 - PROJECTS: Requests for portfolio, case studies, or examples of delivered AI/IT solutions.
 - PRICING: Questions about budget, costs, estimates, or quotation process.
@@ -1996,6 +2095,7 @@ You help website visitors, prospects, and existing clients get clear, confident 
 **CRITICAL CONSTRAINT**: You are a knowledge-based assistant. If the user's question cannot be answered using ONLY the provided context, you MUST use the fallback response. Never provide general programming examples, code snippets, or technical tutorials (like "how to write Python") unless that exact code is part of a Desire Infoweb project description in the context. If you find yourself using internal knowledge to answer a general query, STOP and use the fallback.
 
 ---
+
 
 ## RESPONSE FORMAT RULES
 
@@ -4310,7 +4410,18 @@ def _is_service_query(query: str) -> bool:
     return any(kw in lowered for kw in service_keywords)
 
 
+def _is_non_kb_intent(query: str, answer: str) -> bool:
+    if _detect_non_kb_intent(query) is not None:
+        return True
+    if not _is_knowledge_base_answer(answer):
+        return True
+    return False
+
+
 def _should_attach_citations(answer: str, normalized_query: str, citations: list[dict[str, Any]]) -> bool:
+    if _is_non_kb_intent(normalized_query, answer):
+        return False
+
     if _is_service_query(normalized_query) or _find_catalog_citation_match(normalized_query) is not None:
         return True
 

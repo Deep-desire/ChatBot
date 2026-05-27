@@ -1,331 +1,27 @@
 [
   {
-    "trace_id": "663c2fce-6150-4c7b-914b-209d270a1229",
-    "started_at": "2026-05-20T12:38:05.541029+00:00",
-    "ended_at": "2026-05-20T12:38:28.822097+00:00",
+    "trace_id": "11155ec3-3960-4f13-8af3-cc11d7f966f9",
+    "started_at": "2026-05-27T07:07:37.594240+00:00",
+    "ended_at": "2026-05-27T07:07:38.017704+00:00",
     "endpoint": "/api/chat/text/stream",
     "streaming": true,
     "status": "success",
-    "duration_ms": 23281.07,
+    "duration_ms": 423.46,
     "session_id": "cf5efcf0-7945-4455-a54f-845a9d8c44b6",
-    "user_query": "what are the products of the desire infoweb? explain in detail?",
+    "user_query": "heyyy",
     "process": {
       "user_request": {
-        "query": "what are the products of the desire infoweb? explain in detail?",
+        "query": "heyyy",
         "endpoint": "/api/chat/text/stream",
         "stream": true,
-        "ts": "2026-05-20T12:38:05.541029+00:00"
-      },
-      "ai_request": {
-        "mode": "rag",
-        "model": "gpt-4o",
-        "model_input_chars": 10424,
-        "stream": true,
-        "intent": "services",
-        "ts": "2026-05-20T12:38:07.687502+00:00"
-      },
-      "ai_search_response": {
-        "source": "azure_ai_search",
-        "context_chars": 8080,
-        "top_score": 16.121195,
-        "citations_count": 9,
-        "videos_count": 0,
-        "citation": {
-          "title": "organization-chart",
-          "url": "https://desireinfoweb.com/products/organization-chart",
-          "id": "s_c2VydmljZUNhdGFsb2cudHh0_i_0_u_c76371ec982743fd978ca381a3778da9",
-          "score": 16.121195,
-          "context_snippet": "[companyProfile] About Desire Infoweb Desire Infoweb is an IT services and consulting company focused on Microsoft technologies, enterprise automation, modern collaboration platforms, analytics, and AI-powered business solutions. Core capabilities include SharePoint, Power Platform, Power BI, Microsoft Teams, Dynamics 365, Azure, .NET development, migration, governance, and custom AI/chatbot implementations. https://desireinfoweb.com/about-us [products] Organization Chart An organizational chart shows the internal structure of an organization or company. The employees and positions are represented by boxes or other shapes, sometimes including photos, contact information, email and page links, icons, and illustrations. Straight or elbowed lines link the levels together. https://desireinfoweb.com/products/organization-chart",
-          "overlap_count": 4,
-          "overlap_ratio": 0.571429,
-          "entry_rank": 0.66689,
-          "retrieval_mode": "text",
-          "source_scope": "knowledge"
-        },
-        "stream": true,
-        "ts": "2026-05-20T12:38:20.681392+00:00"
-      },
-      "ai_search_json_response": {
-        "source_scope": "knowledge",
-        "found": true,
-        "retrieval_mode": "text",
-        "score": 16.121195,
-        "normalized_score": 0.889632,
-        "rank": 0.923,
-        "overlap_ratio": 0.714286,
-        "overlap_count": 5,
-        "query_term_count": 7,
-        "meets_score": true,
-        "meets_overlap": true,
-        "context_chars": 8080,
-        "context_preview": "[companyProfile] About Desire Infoweb Desire Infoweb is an IT services and consulting company focused on Microsoft technologies, enterprise automation, modern collaboration platforms, analytics, and AI-powered business solutions. Core capabilities include SharePoint, Power Platform, Power BI, Microsoft Teams, Dynamics 365, Azure, .NET development, migration, governance, and custom AI/chatbot implementations. https://desireinfoweb.com/about-us [products] Organization Chart An organizational chart shows the internal structure of an organization or company. The employees and positions are represe",
-        "citations_count": 3,
-        "citation": {
-          "title": "organization-chart",
-          "url": "https://desireinfoweb.com/products/organization-chart",
-          "id": "s_c2VydmljZUNhdGFsb2cudHh0_i_0_u_c76371ec982743fd978ca381a3778da9",
-          "score": 16.121195,
-          "context_snippet": "[companyProfile] About Desire Infoweb Desire Infoweb is an IT services and consulting company focused on Microsoft technologies, enterprise automation, modern collaboration platforms, analytics, and AI-powered business solutions. Core capabilities include SharePoint, Power Platform, Power BI, Microsoft Teams, Dynamics 365, Azure, .NET development, migration, governance, and custom AI/chatbot implementations. https://desireinfoweb.com/about-us [products] Organization Chart An organizational chart shows the internal structure of an organization or company. The employees and positions are represented by boxes or other shapes, sometimes including photos, contact information, email and page links, icons, and illustrations. Straight or elbowed lines link the levels together. https://desireinfoweb.com/products/organization-chart",
-          "overlap_count": 4,
-          "overlap_ratio": 0.571429,
-          "entry_rank": 0.66689,
-          "retrieval_mode": "text"
-        },
-        "ts": "2026-05-20T12:38:16.993447+00:00"
-      },
-      "ai_search_blob_response": {
-        "source_scope": "blob_fallback",
-        "found": true,
-        "retrieval_mode": "text",
-        "score": 12.750871,
-        "normalized_score": 0.864415,
-        "rank": 0.747366,
-        "overlap_ratio": 0.714286,
-        "overlap_count": 5,
-        "query_term_count": 7,
-        "meets_score": true,
-        "meets_overlap": true,
-        "context_chars": 13437,
-        "context_preview": "for Real Problems Our flagship Microsoft 365 products are purpose-built tools that solve everyday business challenges ready to deploy and customize for your organization. Organization Chart Visual Hierarchy Dynamic, interactive org charts that keep your team structure transparent and up to date. New Joinee Onboarding Made Easy Streamlined onboarding portals that help new employees get up to speed from day one. Employee Directory People at a Glance A smart, searchable directory so your entire organization can find the right person instantly. Project Management Portal Deliver with Confidence Cen",
-        "citations_count": 4,
-        "citation": {
-          "title": "Company Presentation New.pdf",
-          "url": "https://desirechatbotweb.blob.core.windows.net/desirechatbotweb/Company%20Presentation%20New.pdf",
-          "id": "42c7ea830793_aHR0cHM6Ly9kZXNpcmVjaGF0Ym90d2ViLmJsb2IuY29yZS53aW5kb3dzLm5ldC9kZXNpcmVjaGF0Ym90d2ViL0NvbXBhbnklMjBQcmVzZW50YXRpb24lMjBOZXcucGRm0_pages_2",
-          "score": 12.750871,
-          "context_snippet": "for Real Problems Our flagship Microsoft 365 products are purpose-built tools that solve everyday business challenges ready to deploy and customize for your organization. Organization Chart Visual Hierarchy Dynamic, interactive org charts that keep your team structure transparent and up to date. New Joinee Onboarding Made Easy Streamlined onboarding portals that help new employees get up to speed from day one. Employee Directory People at a Glance A smart, searchable directory so your entire organization can find the right person instantly. Project Management Portal Deliver with Confidence Centralized project tracking, calendars, and collaboration all within your Microsoft 365 environment. VALUE PROPOSITION Innovation Meets Execution Our value proposition is simple: we don't just build we partner. We become an extension of your team, aligning our technical goals with your business objectives. Our agile approach means rapid iteration and transparent communication, so you always know where we stand. We always use the latest, most stable tech stacks, ensuring your solutions are future-proof and secure. We Partner, Not Jus t Build We become an extension of your team, deeply aligning our technical roadmap with your strategic business objectives for true collaborative success. Agile & Trans parent Rapid iteration, open communication, and full visibility into progress so you're never left wondering where your project stands. Future-Proof Technology We leverage only the latest, most stable tech stacks, ensuring your solutions remain secure, scalable, and ahead of the curve. WHY CHOOSE US The S trategic Advantage Our commitment to quality, reliability, and client success is reflected in every engagement. Here's what sets Desire Infoweb apart from the competition. 24/7 Support Av",
-          "overlap_count": 5,
-          "overlap_ratio": 0.714286,
-          "entry_rank": 0.759324,
-          "retrieval_mode": "text"
-        },
-        "ts": "2026-05-20T12:38:16.993447+00:00"
-      },
-      "ai_selection": {
-        "selected_source_scope": "knowledge",
-        "selected_retrieval_mode": "text",
-        "selected_score": 16.121195,
-        "selected_rank": 0.923,
-        "selected_overlap_ratio": 0.714286,
-        "candidate_count": 4,
-        "ts": "2026-05-20T12:38:16.993447+00:00"
-      },
-      "ai_openai_response": {
-        "source": "azure_openai",
-        "answer_chars": 2530,
-        "stream": true,
-        "ts": "2026-05-20T12:38:28.364188+00:00"
-      },
-      "display_response": {
-        "status_code": 200,
-        "answer_chars": 2530,
-        "citations_count": 1,
-        "stream": true,
-        "ts": "2026-05-20T12:38:28.822097+00:00"
-      },
-      "ai_research_response": {
-        "source": "azure_ai_search",
-        "context_chars": 8080,
-        "top_score": 16.121195,
-        "citations_count": 9,
-        "videos_count": 0,
-        "citation": {
-          "title": "organization-chart",
-          "url": "https://desireinfoweb.com/products/organization-chart",
-          "id": "s_c2VydmljZUNhdGFsb2cudHh0_i_0_u_c76371ec982743fd978ca381a3778da9",
-          "score": 16.121195,
-          "context_snippet": "[companyProfile] About Desire Infoweb Desire Infoweb is an IT services and consulting company focused on Microsoft technologies, enterprise automation, modern collaboration platforms, analytics, and AI-powered business solutions. Core capabilities include SharePoint, Power Platform, Power BI, Microsoft Teams, Dynamics 365, Azure, .NET development, migration, governance, and custom AI/chatbot implementations. https://desireinfoweb.com/about-us [products] Organization Chart An organizational chart shows the internal structure of an organization or company. The employees and positions are represented by boxes or other shapes, sometimes including photos, contact information, email and page links, icons, and illustrations. Straight or elbowed lines link the levels together. https://desireinfoweb.com/products/organization-chart",
-          "overlap_count": 4,
-          "overlap_ratio": 0.571429,
-          "entry_rank": 0.66689,
-          "retrieval_mode": "text",
-          "source_scope": "knowledge"
-        },
-        "stream": true,
-        "ts": "2026-05-20T12:38:20.681392+00:00"
-      }
-    },
-    "summary": {
-      "status_code": 200,
-      "reply": "### Detailed Overview of Desire Infoweb's Products\n\nDesire Infoweb specializes in **SharePoint and Microsoft 365 web parts** designed to enhance workplace productivity and collaboration. Below are the detailed descriptions of their products:\n\n1. **[Organization Chart](https://desireinfoweb.com/products/organization-chart)**  \n   - Visualizes the internal structure of an organization.  \n   - Displays employee names, roles, photos, and contact links.  \n   - Helps teams understand reporting hierarchies and fosters better communication.\n\n2. **[New Joinee](https://desireinfoweb.com/products/new-joinee)**  \n   - Simplifies onboarding by managing profiles and introductions for new employees.  \n   - Integrates with Microsoft tools to ensure smooth team integration and communication.\n\n3. **[Employee Directory](https://desireinfoweb.com/products/employee-directory)**  \n   - A centralized directory with employee names, roles, departments, and contact details.  \n   - Enables quick access to colleague information across the organization.\n\n4. **[Calendar](https://desireinfoweb.com/products/calender)**  \n   - An intelligent portal for managing events, meetings, holidays, and deadlines.  \n   - Ensures seamless scheduling and collaboration across teams.\n\n5. **[Celebration](https://desireinfoweb.com/products/celebration)**  \n   - Displays upcoming birthdays and work anniversaries.  \n   - Allows employees to send direct wishes, fostering a positive workplace culture.\n\n6. **[Project Management Portal](https://desireinfoweb.com/products/project-management-portal)**  \n   - A SharePoint-based PMO solution for planning, tracking, and delivering projects.  \n   - Features task boards, dashboards, and visibility for all stakeholders.\n\n7. **[Learning Management System (LMS)](https://desireinfoweb.com/products/learning-management-system)**  \n   - A centralized platform for online training, courses, and learning materials.  \n   - Ideal for employee development and skill-building initiatives.\n\n8. **[Audit System](https://desireinfoweb.com/products/audit-system)**  \n   - A SharePoint-based solution for managing audits and compliance.  \n   - Streamlines record tracking, monitoring, and evaluation for transparency.\n\n9. **[Quick Links](https://desireinfoweb.com/products/quick-links)**  \n   - A portal for quick navigation links within SharePoint intranets.  \n   - Enhances user experience by providing easy access to frequently used resources.\n\nLet me know if you'd like a demo or further details about any specific product!",
-      "stream": true
-    }
-  },
-  {
-    "trace_id": "b2109c46-ffa8-4c1c-8bea-7085e2331ee7",
-    "started_at": "2026-05-20T12:40:04.816102+00:00",
-    "ended_at": "2026-05-20T12:40:29.536196+00:00",
-    "endpoint": "/api/chat/text/stream",
-    "streaming": true,
-    "status": "success",
-    "duration_ms": 24720.09,
-    "session_id": "cf5efcf0-7945-4455-a54f-845a9d8c44b6",
-    "user_query": "what are the products of the desire infoweb? explain in detail?",
-    "process": {
-      "user_request": {
-        "query": "what are the products of the desire infoweb? explain in detail?",
-        "endpoint": "/api/chat/text/stream",
-        "stream": true,
-        "ts": "2026-05-20T12:40:04.816102+00:00"
-      },
-      "ai_request": {
-        "mode": "rag",
-        "model": "gpt-4o",
-        "model_input_chars": 12126,
-        "stream": true,
-        "intent": "services",
-        "ts": "2026-05-20T12:40:07.341717+00:00"
-      },
-      "ai_search_response": {
-        "source": "azure_ai_search",
-        "context_chars": 8080,
-        "top_score": 16.121195,
-        "citations_count": 9,
-        "videos_count": 0,
-        "citation": {
-          "title": "organization-chart",
-          "url": "https://desireinfoweb.com/products/organization-chart",
-          "id": "s_c2VydmljZUNhdGFsb2cudHh0_i_0_u_c76371ec982743fd978ca381a3778da9",
-          "score": 16.121195,
-          "context_snippet": "[companyProfile] About Desire Infoweb Desire Infoweb is an IT services and consulting company focused on Microsoft technologies, enterprise automation, modern collaboration platforms, analytics, and AI-powered business solutions. Core capabilities include SharePoint, Power Platform, Power BI, Microsoft Teams, Dynamics 365, Azure, .NET development, migration, governance, and custom AI/chatbot implementations. https://desireinfoweb.com/about-us [products] Organization Chart An organizational chart shows the internal structure of an organization or company. The employees and positions are represented by boxes or other shapes, sometimes including photos, contact information, email and page links, icons, and illustrations. Straight or elbowed lines link the levels together. https://desireinfoweb.com/products/organization-chart",
-          "overlap_count": 4,
-          "overlap_ratio": 0.571429,
-          "entry_rank": 0.66689,
-          "retrieval_mode": "text",
-          "source_scope": "knowledge"
-        },
-        "stream": true,
-        "ts": "2026-05-20T12:40:14.921358+00:00"
-      },
-      "ai_search_json_response": {
-        "source_scope": "knowledge",
-        "found": true,
-        "retrieval_mode": "text",
-        "score": 16.121195,
-        "normalized_score": 0.889632,
-        "rank": 0.923,
-        "overlap_ratio": 0.714286,
-        "overlap_count": 5,
-        "query_term_count": 7,
-        "meets_score": true,
-        "meets_overlap": true,
-        "context_chars": 8080,
-        "context_preview": "[companyProfile] About Desire Infoweb Desire Infoweb is an IT services and consulting company focused on Microsoft technologies, enterprise automation, modern collaboration platforms, analytics, and AI-powered business solutions. Core capabilities include SharePoint, Power Platform, Power BI, Microsoft Teams, Dynamics 365, Azure, .NET development, migration, governance, and custom AI/chatbot implementations. https://desireinfoweb.com/about-us [products] Organization Chart An organizational chart shows the internal structure of an organization or company. The employees and positions are represe",
-        "citations_count": 3,
-        "citation": {
-          "title": "organization-chart",
-          "url": "https://desireinfoweb.com/products/organization-chart",
-          "id": "s_c2VydmljZUNhdGFsb2cudHh0_i_0_u_c76371ec982743fd978ca381a3778da9",
-          "score": 16.121195,
-          "context_snippet": "[companyProfile] About Desire Infoweb Desire Infoweb is an IT services and consulting company focused on Microsoft technologies, enterprise automation, modern collaboration platforms, analytics, and AI-powered business solutions. Core capabilities include SharePoint, Power Platform, Power BI, Microsoft Teams, Dynamics 365, Azure, .NET development, migration, governance, and custom AI/chatbot implementations. https://desireinfoweb.com/about-us [products] Organization Chart An organizational chart shows the internal structure of an organization or company. The employees and positions are represented by boxes or other shapes, sometimes including photos, contact information, email and page links, icons, and illustrations. Straight or elbowed lines link the levels together. https://desireinfoweb.com/products/organization-chart",
-          "overlap_count": 4,
-          "overlap_ratio": 0.571429,
-          "entry_rank": 0.66689,
-          "retrieval_mode": "text"
-        },
-        "ts": "2026-05-20T12:40:11.547188+00:00"
-      },
-      "ai_search_blob_response": {
-        "source_scope": "blob_fallback",
-        "found": true,
-        "retrieval_mode": "text",
-        "score": 12.750871,
-        "normalized_score": 0.864415,
-        "rank": 0.747366,
-        "overlap_ratio": 0.714286,
-        "overlap_count": 5,
-        "query_term_count": 7,
-        "meets_score": true,
-        "meets_overlap": true,
-        "context_chars": 13437,
-        "context_preview": "for Real Problems Our flagship Microsoft 365 products are purpose-built tools that solve everyday business challenges ready to deploy and customize for your organization. Organization Chart Visual Hierarchy Dynamic, interactive org charts that keep your team structure transparent and up to date. New Joinee Onboarding Made Easy Streamlined onboarding portals that help new employees get up to speed from day one. Employee Directory People at a Glance A smart, searchable directory so your entire organization can find the right person instantly. Project Management Portal Deliver with Confidence Cen",
-        "citations_count": 4,
-        "citation": {
-          "title": "Company Presentation New.pdf",
-          "url": "https://desirechatbotweb.blob.core.windows.net/desirechatbotweb/Company%20Presentation%20New.pdf",
-          "id": "42c7ea830793_aHR0cHM6Ly9kZXNpcmVjaGF0Ym90d2ViLmJsb2IuY29yZS53aW5kb3dzLm5ldC9kZXNpcmVjaGF0Ym90d2ViL0NvbXBhbnklMjBQcmVzZW50YXRpb24lMjBOZXcucGRm0_pages_2",
-          "score": 12.750871,
-          "context_snippet": "for Real Problems Our flagship Microsoft 365 products are purpose-built tools that solve everyday business challenges ready to deploy and customize for your organization. Organization Chart Visual Hierarchy Dynamic, interactive org charts that keep your team structure transparent and up to date. New Joinee Onboarding Made Easy Streamlined onboarding portals that help new employees get up to speed from day one. Employee Directory People at a Glance A smart, searchable directory so your entire organization can find the right person instantly. Project Management Portal Deliver with Confidence Centralized project tracking, calendars, and collaboration all within your Microsoft 365 environment. VALUE PROPOSITION Innovation Meets Execution Our value proposition is simple: we don't just build we partner. We become an extension of your team, aligning our technical goals with your business objectives. Our agile approach means rapid iteration and transparent communication, so you always know where we stand. We always use the latest, most stable tech stacks, ensuring your solutions are future-proof and secure. We Partner, Not Jus t Build We become an extension of your team, deeply aligning our technical roadmap with your strategic business objectives for true collaborative success. Agile & Trans parent Rapid iteration, open communication, and full visibility into progress so you're never left wondering where your project stands. Future-Proof Technology We leverage only the latest, most stable tech stacks, ensuring your solutions remain secure, scalable, and ahead of the curve. WHY CHOOSE US The S trategic Advantage Our commitment to quality, reliability, and client success is reflected in every engagement. Here's what sets Desire Infoweb apart from the competition. 24/7 Support Av",
-          "overlap_count": 5,
-          "overlap_ratio": 0.714286,
-          "entry_rank": 0.759324,
-          "retrieval_mode": "text"
-        },
-        "ts": "2026-05-20T12:40:11.547188+00:00"
-      },
-      "ai_selection": {
-        "selected_source_scope": "knowledge",
-        "selected_retrieval_mode": "text",
-        "selected_score": 16.121195,
-        "selected_rank": 0.923,
-        "selected_overlap_ratio": 0.714286,
-        "candidate_count": 4,
-        "ts": "2026-05-20T12:40:11.547188+00:00"
-      },
-      "ai_openai_response": {
-        "source": "azure_openai",
-        "answer_chars": 2434,
-        "stream": true,
-        "ts": "2026-05-20T12:40:29.181291+00:00"
-      },
-      "display_response": {
-        "status_code": 200,
-        "answer_chars": 2434,
-        "citations_count": 1,
-        "stream": true,
-        "ts": "2026-05-20T12:40:29.535198+00:00"
-      },
-      "ai_research_response": {
-        "source": "azure_ai_search",
-        "context_chars": 8080,
-        "top_score": 16.121195,
-        "citations_count": 9,
-        "videos_count": 0,
-        "citation": {
-          "title": "organization-chart",
-          "url": "https://desireinfoweb.com/products/organization-chart",
-          "id": "s_c2VydmljZUNhdGFsb2cudHh0_i_0_u_c76371ec982743fd978ca381a3778da9",
-          "score": 16.121195,
-          "context_snippet": "[companyProfile] About Desire Infoweb Desire Infoweb is an IT services and consulting company focused on Microsoft technologies, enterprise automation, modern collaboration platforms, analytics, and AI-powered business solutions. Core capabilities include SharePoint, Power Platform, Power BI, Microsoft Teams, Dynamics 365, Azure, .NET development, migration, governance, and custom AI/chatbot implementations. https://desireinfoweb.com/about-us [products] Organization Chart An organizational chart shows the internal structure of an organization or company. The employees and positions are represented by boxes or other shapes, sometimes including photos, contact information, email and page links, icons, and illustrations. Straight or elbowed lines link the levels together. https://desireinfoweb.com/products/organization-chart",
-          "overlap_count": 4,
-          "overlap_ratio": 0.571429,
-          "entry_rank": 0.66689,
-          "retrieval_mode": "text",
-          "source_scope": "knowledge"
-        },
-        "stream": true,
-        "ts": "2026-05-20T12:40:14.921358+00:00"
-      }
-    },
-    "summary": {
-      "status_code": 200,
-      "reply": "### Detailed Overview of Desire Infoweb's Products\n\nDesire Infoweb offers **SharePoint and Microsoft 365 web parts** tailored to improve organizational efficiency and collaboration. Below are the detailed descriptions:\n\n1. **[Organization Chart](https://desireinfoweb.com/products/organization-chart)**  \n   - Visualizes the organizational structure with employee names, roles, photos, and contact links.  \n   - Simplifies understanding of reporting hierarchies and team connections.\n\n2. **[New Joinee](https://desireinfoweb.com/products/new-joinee)**  \n   - Streamlines onboarding by managing new employee profiles and introductions.  \n   - Integrates with Microsoft tools for seamless team communication and integration.\n\n3. **[Employee Directory](https://desireinfoweb.com/products/employee-directory)**  \n   - A centralized directory with employee details like names, roles, departments, and contact info.  \n   - Facilitates quick access to colleague information across the organization.\n\n4. **[Calendar](https://desireinfoweb.com/products/calender)**  \n   - Intelligent portal for managing events, meetings, holidays, and deadlines.  \n   - Enhances team collaboration and scheduling efficiency.\n\n5. **[Celebration](https://desireinfoweb.com/products/celebration)**  \n   - Displays upcoming birthdays and work anniversaries.  \n   - Encourages workplace positivity by enabling direct wishes.\n\n6. **[Project Management Portal](https://desireinfoweb.com/products/project-management-portal)**  \n   - SharePoint-based PMO for planning, tracking, and delivering projects.  \n   - Includes task boards, dashboards, and stakeholder visibility.\n\n7. **[Learning Management System (LMS)](https://desireinfoweb.com/products/learning-management-system)**  \n   - Centralized platform for online training, courses, and learning materials.  \n   - Supports employee development and skill-building initiatives.\n\n8. **[Audit System](https://desireinfoweb.com/products/audit-system)**  \n   - SharePoint-based solution for managing audits and compliance.  \n   - Streamlines record tracking, monitoring, and evaluation for transparency.\n\n9. **[Quick Links](https://desireinfoweb.com/products/quick-links)**  \n   - Portal for quick navigation links within SharePoint intranets.  \n   - Improves user experience by providing easy access to frequently used resources.\n\nLet me know if you'd like more details, a demo, or assistance with any specific product!",
-      "stream": true
-    }
-  },
-  {
-    "trace_id": "b3c8e613-f7b3-4e9c-b5fb-047c5c24715f",
-    "started_at": "2026-05-20T12:42:38.230957+00:00",
-    "ended_at": "2026-05-20T12:42:38.614550+00:00",
-    "endpoint": "/api/chat/text/stream",
-    "streaming": true,
-    "status": "success",
-    "duration_ms": 383.59,
-    "session_id": "cf5efcf0-7945-4455-a54f-845a9d8c44b6",
-    "user_query": "hiiii",
-    "process": {
-      "user_request": {
-        "query": "hiiii",
-        "endpoint": "/api/chat/text/stream",
-        "stream": true,
-        "ts": "2026-05-20T12:42:38.230957+00:00"
+        "ts": "2026-05-27T07:07:37.595240+00:00"
       },
       "ai_request": {
         "mode": "direct_answer",
         "model_input_chars": 0,
         "stream": true,
         "intent": "greeting",
-        "ts": "2026-05-20T12:42:38.230957+00:00"
+        "ts": "2026-05-27T07:07:37.602260+00:00"
       },
       "ai_search_response": {
         "source": "direct_answer",
@@ -333,7 +29,7 @@
         "top_score": 0.0,
         "citations_count": 0,
         "stream": true,
-        "ts": "2026-05-20T12:42:38.230957+00:00"
+        "ts": "2026-05-27T07:07:37.602260+00:00"
       },
       "ai_search_json_response": {},
       "ai_search_blob_response": {},
@@ -342,14 +38,14 @@
         "source": "direct_answer",
         "answer_chars": 32,
         "stream": true,
-        "ts": "2026-05-20T12:42:38.614550+00:00"
+        "ts": "2026-05-27T07:07:38.017704+00:00"
       },
       "display_response": {
         "status_code": 200,
         "answer_chars": 32,
         "citations_count": 0,
         "stream": true,
-        "ts": "2026-05-20T12:42:38.614550+00:00"
+        "ts": "2026-05-27T07:07:38.017704+00:00"
       },
       "ai_research_response": {
         "source": "direct_answer",
@@ -357,38 +53,38 @@
         "top_score": 0.0,
         "citations_count": 0,
         "stream": true,
-        "ts": "2026-05-20T12:42:38.230957+00:00"
+        "ts": "2026-05-27T07:07:37.602260+00:00"
       }
     },
     "summary": {
       "status_code": 200,
-      "reply": "Hello, How can I help you today?",
+      "reply": "Hello! How can I help you today?",
       "stream": true
     }
   },
   {
-    "trace_id": "345f8e1d-bd8a-4483-8e01-5b8219dc7fdd",
-    "started_at": "2026-05-20T12:42:45.757700+00:00",
-    "ended_at": "2026-05-20T12:42:46.114927+00:00",
+    "trace_id": "21c9046b-1303-4129-b163-e28bfcbd8b0a",
+    "started_at": "2026-05-27T07:07:56.349931+00:00",
+    "ended_at": "2026-05-27T07:07:56.999103+00:00",
     "endpoint": "/api/chat/text/stream",
     "streaming": true,
     "status": "success",
-    "duration_ms": 357.23,
+    "duration_ms": 649.17,
     "session_id": "cf5efcf0-7945-4455-a54f-845a9d8c44b6",
-    "user_query": "heyy",
+    "user_query": "i have one question of the desire??",
     "process": {
       "user_request": {
-        "query": "heyy",
+        "query": "i have one question of the desire??",
         "endpoint": "/api/chat/text/stream",
         "stream": true,
-        "ts": "2026-05-20T12:42:45.757700+00:00"
+        "ts": "2026-05-27T07:07:56.356089+00:00"
       },
       "ai_request": {
         "mode": "direct_answer",
         "model_input_chars": 0,
         "stream": true,
-        "intent": "greeting",
-        "ts": "2026-05-20T12:42:45.757700+00:00"
+        "intent": "permission_question",
+        "ts": "2026-05-27T07:07:56.358987+00:00"
       },
       "ai_search_response": {
         "source": "direct_answer",
@@ -396,23 +92,23 @@
         "top_score": 0.0,
         "citations_count": 0,
         "stream": true,
-        "ts": "2026-05-20T12:42:45.757700+00:00"
+        "ts": "2026-05-27T07:07:56.358987+00:00"
       },
       "ai_search_json_response": {},
       "ai_search_blob_response": {},
       "ai_selection": {},
       "ai_openai_response": {
         "source": "direct_answer",
-        "answer_chars": 32,
+        "answer_chars": 96,
         "stream": true,
-        "ts": "2026-05-20T12:42:46.114927+00:00"
+        "ts": "2026-05-27T07:07:56.999103+00:00"
       },
       "display_response": {
         "status_code": 200,
-        "answer_chars": 32,
+        "answer_chars": 96,
         "citations_count": 0,
         "stream": true,
-        "ts": "2026-05-20T12:42:46.114927+00:00"
+        "ts": "2026-05-27T07:07:56.999103+00:00"
       },
       "ai_research_response": {
         "source": "direct_answer",
@@ -420,38 +116,38 @@
         "top_score": 0.0,
         "citations_count": 0,
         "stream": true,
-        "ts": "2026-05-20T12:42:45.757700+00:00"
+        "ts": "2026-05-27T07:07:56.358987+00:00"
       }
     },
     "summary": {
       "status_code": 200,
-      "reply": "Hello, How can I help you today?",
+      "reply": "Sure, please go ahead and ask your question about Desire Infoweb. I'll do my best to assist you!",
       "stream": true
     }
   },
   {
-    "trace_id": "815a696c-2b41-45f3-9844-116bdf786e82",
-    "started_at": "2026-05-20T12:42:54.131558+00:00",
-    "ended_at": "2026-05-20T12:42:56.469852+00:00",
+    "trace_id": "db1f0195-f424-4789-a92e-ea4b93512827",
+    "started_at": "2026-05-27T07:08:18.232394+00:00",
+    "ended_at": "2026-05-27T07:08:18.750566+00:00",
     "endpoint": "/api/chat/text/stream",
     "streaming": true,
     "status": "success",
-    "duration_ms": 2338.29,
+    "duration_ms": 518.17,
     "session_id": "cf5efcf0-7945-4455-a54f-845a9d8c44b6",
-    "user_query": "jai shree ram",
+    "user_query": "what is?",
     "process": {
       "user_request": {
-        "query": "jai shree ram",
+        "query": "what is?",
         "endpoint": "/api/chat/text/stream",
         "stream": true,
-        "ts": "2026-05-20T12:42:54.131558+00:00"
+        "ts": "2026-05-27T07:08:18.232394+00:00"
       },
       "ai_request": {
         "mode": "direct_answer",
         "model_input_chars": 0,
         "stream": true,
-        "intent": "greeting",
-        "ts": "2026-05-20T12:42:56.154094+00:00"
+        "intent": "incomplete_question",
+        "ts": "2026-05-27T07:08:18.272597+00:00"
       },
       "ai_search_response": {
         "source": "direct_answer",
@@ -459,23 +155,23 @@
         "top_score": 0.0,
         "citations_count": 0,
         "stream": true,
-        "ts": "2026-05-20T12:42:56.154094+00:00"
+        "ts": "2026-05-27T07:08:18.272597+00:00"
       },
       "ai_search_json_response": {},
       "ai_search_blob_response": {},
       "ai_selection": {},
       "ai_openai_response": {
         "source": "direct_answer",
-        "answer_chars": 32,
+        "answer_chars": 101,
         "stream": true,
-        "ts": "2026-05-20T12:42:56.469268+00:00"
+        "ts": "2026-05-27T07:08:18.750566+00:00"
       },
       "display_response": {
         "status_code": 200,
-        "answer_chars": 32,
+        "answer_chars": 101,
         "citations_count": 0,
         "stream": true,
-        "ts": "2026-05-20T12:42:56.469268+00:00"
+        "ts": "2026-05-27T07:08:18.750566+00:00"
       },
       "ai_research_response": {
         "source": "direct_answer",
@@ -483,275 +179,23 @@
         "top_score": 0.0,
         "citations_count": 0,
         "stream": true,
-        "ts": "2026-05-20T12:42:56.154094+00:00"
+        "ts": "2026-05-27T07:08:18.272597+00:00"
       }
     },
     "summary": {
       "status_code": 200,
-      "reply": "Hello, How can I help you today?",
+      "reply": "Could you please specify what you would like to know more about? I'd be happy to provide the details!",
       "stream": true
     }
   },
   {
-    "trace_id": "c95eb771-d746-4c47-8d0b-56f9eab9bd4e",
-    "started_at": "2026-05-20T12:43:11.545548+00:00",
-    "ended_at": "2026-05-20T12:43:13.781010+00:00",
+    "trace_id": "79969e04-d0d3-462d-ac40-83a91b57c17f",
+    "started_at": "2026-05-27T07:08:28.708892+00:00",
+    "ended_at": "2026-05-27T07:08:48.093180+00:00",
     "endpoint": "/api/chat/text/stream",
     "streaming": true,
     "status": "success",
-    "duration_ms": 2235.46,
-    "session_id": "cf5efcf0-7945-4455-a54f-845a9d8c44b6",
-    "user_query": "sopara",
-    "process": {
-      "user_request": {
-        "query": "sopara",
-        "endpoint": "/api/chat/text/stream",
-        "stream": true,
-        "ts": "2026-05-20T12:43:11.552402+00:00"
-      },
-      "ai_request": {
-        "mode": "direct_answer",
-        "model_input_chars": 0,
-        "stream": true,
-        "intent": "out_of_scope",
-        "ts": "2026-05-20T12:43:13.373529+00:00"
-      },
-      "ai_search_response": {
-        "source": "direct_answer",
-        "context_chars": 0,
-        "top_score": 0.0,
-        "citations_count": 0,
-        "stream": true,
-        "ts": "2026-05-20T12:43:13.373529+00:00"
-      },
-      "ai_search_json_response": {},
-      "ai_search_blob_response": {},
-      "ai_selection": {},
-      "ai_openai_response": {
-        "source": "direct_answer",
-        "answer_chars": 314,
-        "stream": true,
-        "ts": "2026-05-20T12:43:13.781010+00:00"
-      },
-      "display_response": {
-        "status_code": 200,
-        "answer_chars": 314,
-        "citations_count": 0,
-        "stream": true,
-        "ts": "2026-05-20T12:43:13.781010+00:00"
-      },
-      "ai_research_response": {
-        "source": "direct_answer",
-        "context_chars": 0,
-        "top_score": 0.0,
-        "citations_count": 0,
-        "stream": true,
-        "ts": "2026-05-20T12:43:13.373529+00:00"
-      }
-    },
-    "summary": {
-      "status_code": 200,
-      "reply": "Thank you for your query. At the moment, I'm unable to provide a relevant response as it falls outside my current scope.\n\nFor further assistance, please contact our support team:\n- vijay@desireinfoweb.com\n- hr@desireinfoweb.in\n- India: +91-8780468807\n- USA: +1 260 560 2128\n\nWe will be happy to assist you further.",
-      "stream": true
-    }
-  },
-  {
-    "trace_id": "5e4122a5-8430-472d-9411-3247a2d0e092",
-    "started_at": "2026-05-20T12:43:41.767808+00:00",
-    "ended_at": "2026-05-20T12:43:43.949103+00:00",
-    "endpoint": "/api/chat/text/stream",
-    "streaming": true,
-    "status": "success",
-    "duration_ms": 2181.29,
-    "session_id": "cf5efcf0-7945-4455-a54f-845a9d8c44b6",
-    "user_query": "bhosdina",
-    "process": {
-      "user_request": {
-        "query": "bhosdina",
-        "endpoint": "/api/chat/text/stream",
-        "stream": true,
-        "ts": "2026-05-20T12:43:41.767808+00:00"
-      },
-      "ai_request": {
-        "mode": "direct_answer",
-        "model_input_chars": 0,
-        "stream": true,
-        "intent": "out_of_scope",
-        "ts": "2026-05-20T12:43:43.538053+00:00"
-      },
-      "ai_search_response": {
-        "source": "direct_answer",
-        "context_chars": 0,
-        "top_score": 0.0,
-        "citations_count": 0,
-        "stream": true,
-        "ts": "2026-05-20T12:43:43.538053+00:00"
-      },
-      "ai_search_json_response": {},
-      "ai_search_blob_response": {},
-      "ai_selection": {},
-      "ai_openai_response": {
-        "source": "direct_answer",
-        "answer_chars": 314,
-        "stream": true,
-        "ts": "2026-05-20T12:43:43.949103+00:00"
-      },
-      "display_response": {
-        "status_code": 200,
-        "answer_chars": 314,
-        "citations_count": 0,
-        "stream": true,
-        "ts": "2026-05-20T12:43:43.949103+00:00"
-      },
-      "ai_research_response": {
-        "source": "direct_answer",
-        "context_chars": 0,
-        "top_score": 0.0,
-        "citations_count": 0,
-        "stream": true,
-        "ts": "2026-05-20T12:43:43.538053+00:00"
-      }
-    },
-    "summary": {
-      "status_code": 200,
-      "reply": "Thank you for your query. At the moment, I'm unable to provide a relevant response as it falls outside my current scope.\n\nFor further assistance, please contact our support team:\n- vijay@desireinfoweb.com\n- hr@desireinfoweb.in\n- India: +91-8780468807\n- USA: +1 260 560 2128\n\nWe will be happy to assist you further.",
-      "stream": true
-    }
-  },
-  {
-    "trace_id": "34e00c3a-969a-46ec-bfdf-2407c4253598",
-    "started_at": "2026-05-20T12:44:23.981115+00:00",
-    "ended_at": "2026-05-20T12:44:26.298304+00:00",
-    "endpoint": "/api/chat/text/stream",
-    "streaming": true,
-    "status": "success",
-    "duration_ms": 2317.19,
-    "session_id": "cf5efcf0-7945-4455-a54f-845a9d8c44b6",
-    "user_query": "bhosdina",
-    "process": {
-      "user_request": {
-        "query": "bhosdina",
-        "endpoint": "/api/chat/text/stream",
-        "stream": true,
-        "ts": "2026-05-20T12:44:23.981115+00:00"
-      },
-      "ai_request": {
-        "mode": "direct_answer",
-        "model_input_chars": 0,
-        "stream": true,
-        "intent": "out_of_scope",
-        "ts": "2026-05-20T12:44:25.963153+00:00"
-      },
-      "ai_search_response": {
-        "source": "direct_answer",
-        "context_chars": 0,
-        "top_score": 0.0,
-        "citations_count": 0,
-        "stream": true,
-        "ts": "2026-05-20T12:44:25.963153+00:00"
-      },
-      "ai_search_json_response": {},
-      "ai_search_blob_response": {},
-      "ai_selection": {},
-      "ai_openai_response": {
-        "source": "direct_answer",
-        "answer_chars": 314,
-        "stream": true,
-        "ts": "2026-05-20T12:44:26.298304+00:00"
-      },
-      "display_response": {
-        "status_code": 200,
-        "answer_chars": 314,
-        "citations_count": 0,
-        "stream": true,
-        "ts": "2026-05-20T12:44:26.298304+00:00"
-      },
-      "ai_research_response": {
-        "source": "direct_answer",
-        "context_chars": 0,
-        "top_score": 0.0,
-        "citations_count": 0,
-        "stream": true,
-        "ts": "2026-05-20T12:44:25.963153+00:00"
-      }
-    },
-    "summary": {
-      "status_code": 200,
-      "reply": "Thank you for your query. At the moment, I'm unable to provide a relevant response as it falls outside my current scope.\n\nFor further assistance, please contact our support team:\n- vijay@desireinfoweb.com\n- hr@desireinfoweb.in\n- India: +91-8780468807\n- USA: +1 260 560 2128\n\nWe will be happy to assist you further.",
-      "stream": true
-    }
-  },
-  {
-    "trace_id": "706f006f-7af8-41f8-9e9c-9b9adfca40e9",
-    "started_at": "2026-05-20T13:52:39.449952+00:00",
-    "ended_at": "2026-05-20T13:52:40.378867+00:00",
-    "endpoint": "/api/chat/text/stream",
-    "streaming": true,
-    "status": "success",
-    "duration_ms": 928.91,
-    "session_id": "cf5efcf0-7945-4455-a54f-845a9d8c44b6",
-    "user_query": "hey",
-    "process": {
-      "user_request": {
-        "query": "hey",
-        "endpoint": "/api/chat/text/stream",
-        "stream": true,
-        "ts": "2026-05-20T13:52:39.451934+00:00"
-      },
-      "ai_request": {
-        "mode": "direct_answer",
-        "model_input_chars": 0,
-        "stream": true,
-        "intent": "greeting",
-        "ts": "2026-05-20T13:52:39.461267+00:00"
-      },
-      "ai_search_response": {
-        "source": "direct_answer",
-        "context_chars": 0,
-        "top_score": 0.0,
-        "citations_count": 0,
-        "stream": true,
-        "ts": "2026-05-20T13:52:39.461267+00:00"
-      },
-      "ai_search_json_response": {},
-      "ai_search_blob_response": {},
-      "ai_selection": {},
-      "ai_openai_response": {
-        "source": "direct_answer",
-        "answer_chars": 32,
-        "stream": true,
-        "ts": "2026-05-20T13:52:40.376887+00:00"
-      },
-      "display_response": {
-        "status_code": 200,
-        "answer_chars": 32,
-        "citations_count": 0,
-        "stream": true,
-        "ts": "2026-05-20T13:52:40.376887+00:00"
-      },
-      "ai_research_response": {
-        "source": "direct_answer",
-        "context_chars": 0,
-        "top_score": 0.0,
-        "citations_count": 0,
-        "stream": true,
-        "ts": "2026-05-20T13:52:39.461267+00:00"
-      }
-    },
-    "summary": {
-      "status_code": 200,
-      "reply": "Hello, How can I help you today?",
-      "stream": true
-    }
-  },
-  {
-    "trace_id": "53543154-513c-47ee-a703-87b4d362fdf5",
-    "started_at": "2026-05-20T13:52:54.261347+00:00",
-    "ended_at": "2026-05-20T13:53:13.840190+00:00",
-    "endpoint": "/api/chat/text/stream",
-    "streaming": true,
-    "status": "success",
-    "duration_ms": 19578.84,
+    "duration_ms": 19384.29,
     "session_id": "cf5efcf0-7945-4455-a54f-845a9d8c44b6",
     "user_query": "services?",
     "process": {
@@ -759,15 +203,15 @@
         "query": "services?",
         "endpoint": "/api/chat/text/stream",
         "stream": true,
-        "ts": "2026-05-20T13:52:54.261347+00:00"
+        "ts": "2026-05-27T07:08:28.708892+00:00"
       },
       "ai_request": {
         "mode": "rag",
         "model": "gpt-4o",
-        "model_input_chars": 257,
+        "model_input_chars": 2932,
         "stream": true,
         "intent": "services",
-        "ts": "2026-05-20T13:52:56.292012+00:00"
+        "ts": "2026-05-27T07:08:31.063101+00:00"
       },
       "ai_search_response": {
         "source": "azure_ai_search",
@@ -788,7 +232,7 @@
           "source_scope": "knowledge"
         },
         "stream": true,
-        "ts": "2026-05-20T13:53:04.816252+00:00"
+        "ts": "2026-05-27T07:08:40.945738+00:00"
       },
       "ai_search_json_response": {
         "source_scope": "knowledge",
@@ -816,7 +260,7 @@
           "entry_rank": 0.897823,
           "retrieval_mode": "vector"
         },
-        "ts": "2026-05-20T13:53:01.694790+00:00"
+        "ts": "2026-05-27T07:08:37.006136+00:00"
       },
       "ai_search_blob_response": {
         "source_scope": "blob_fallback",
@@ -844,7 +288,7 @@
           "entry_rank": 0.788516,
           "retrieval_mode": "text"
         },
-        "ts": "2026-05-20T13:53:01.694790+00:00"
+        "ts": "2026-05-27T07:08:37.006136+00:00"
       },
       "ai_selection": {
         "selected_source_scope": "knowledge",
@@ -853,20 +297,20 @@
         "selected_rank": 0.888835,
         "selected_overlap_ratio": 1.0,
         "candidate_count": 3,
-        "ts": "2026-05-20T13:53:01.694790+00:00"
+        "ts": "2026-05-27T07:08:37.006136+00:00"
       },
       "ai_openai_response": {
         "source": "azure_openai",
-        "answer_chars": 1263,
+        "answer_chars": 1364,
         "stream": true,
-        "ts": "2026-05-20T13:53:13.378395+00:00"
+        "ts": "2026-05-27T07:08:47.645311+00:00"
       },
       "display_response": {
         "status_code": 200,
-        "answer_chars": 1263,
+        "answer_chars": 1364,
         "citations_count": 1,
         "stream": true,
-        "ts": "2026-05-20T13:53:13.840190+00:00"
+        "ts": "2026-05-27T07:08:48.093180+00:00"
       },
       "ai_research_response": {
         "source": "azure_ai_search",
@@ -887,12 +331,411 @@
           "source_scope": "knowledge"
         },
         "stream": true,
-        "ts": "2026-05-20T13:53:04.816252+00:00"
+        "ts": "2026-05-27T07:08:40.945738+00:00"
       }
     },
     "summary": {
       "status_code": 200,
-      "reply": "Desire Infoweb offers 9 key services:\n\n1. **AI / Artificial Intelligence** — Chatbots, document automation, predictive analytics ([Details](https://desireinfoweb.com/services/ai))  \n2. **SharePoint** — Intranets, document management, custom web parts ([Details](https://desireinfoweb.com/services/sharepoint))  \n3. **Power BI** — Dashboards, data visualization, sales forecasting ([Details](https://desireinfoweb.com/services/power-bi))  \n4. **Power Platform** — Low-code apps, workflows, automation ([Details](https://desireinfoweb.com/services/power-platform))  \n5. **Dynamics 365** — CRM/ERP, field service, business workflows ([Details](https://desireinfoweb.com/services/ms-dynamics))  \n6. **Azure** — Cloud computing, scalable apps, enterprise security ([Details](https://desireinfoweb.com/services/dot-net))  \n7. **Web Development** — Custom websites, apps, responsive design ([Details](https://desireinfoweb.com/services/web-development))  \n8. **SEO Services** — Search rankings, organic traffic, content strategies ([Details](https://desireinfoweb.com/services/seo))  \n9. **Mobile Development** — iOS, Android, cross-platform apps ([Details](https://desireinfoweb.com/services/mobile-development))  \n\nLet me know which area you'd like to explore further!",
+      "reply": "Desire Infoweb offers 9 core services to meet diverse business needs:\n\n1. **AI / Artificial Intelligence**: Intelligent agents, chatbots, document automation, predictive analytics ([Details](https://desireinfoweb.com/services/ai)).\n2. **SharePoint**: Intranet portals, document management, custom web parts ([Details](https://desireinfoweb.com/services/sharepoint)).\n3. **Power BI**: Interactive dashboards, data visualization, sales forecasting ([Details](https://desireinfoweb.com/services/power-bi)).\n4. **Power Platform**: Low-code apps, process automation, workflows ([Details](https://desireinfoweb.com/services/power-platform)).\n5. **Dynamics 365**: CRM and ERP solutions, field service management ([Details](https://desireinfoweb.com/services/ms-dynamics)).\n6. **Azure**: Cloud computing, scalable app deployment, enterprise-grade security ([Details](https://desireinfoweb.com/services/dot-net)).\n7. **Web Development**: Custom websites, responsive design, role-based systems ([Details](https://desireinfoweb.com/services/web-development)).\n8. **SEO Services**: Search ranking improvement, organic traffic growth ([Details](https://desireinfoweb.com/services/seo)).\n9. **Mobile Development**: iOS, Android, and cross-platform apps ([Details](https://desireinfoweb.com/services/mobile-development)).\n\nLet me know which service you'd like to explore further!",
+      "stream": true
+    }
+  },
+  {
+    "trace_id": "cb1799fa-f4f5-48e4-8284-7c8fb23e48ce",
+    "started_at": "2026-05-27T07:13:11.724216+00:00",
+    "ended_at": "2026-05-27T07:13:12.164850+00:00",
+    "endpoint": "/api/chat/text/stream",
+    "streaming": true,
+    "status": "success",
+    "duration_ms": 440.63,
+    "session_id": "cf5efcf0-7945-4455-a54f-845a9d8c44b6",
+    "user_query": "heyyy",
+    "process": {
+      "user_request": {
+        "query": "heyyy",
+        "endpoint": "/api/chat/text/stream",
+        "stream": true,
+        "ts": "2026-05-27T07:13:11.724216+00:00"
+      },
+      "ai_request": {
+        "mode": "direct_answer",
+        "model_input_chars": 0,
+        "stream": true,
+        "intent": "greeting",
+        "ts": "2026-05-27T07:13:11.724216+00:00"
+      },
+      "ai_search_response": {
+        "source": "direct_answer",
+        "context_chars": 0,
+        "top_score": 0.0,
+        "citations_count": 0,
+        "stream": true,
+        "ts": "2026-05-27T07:13:11.724216+00:00"
+      },
+      "ai_search_json_response": {},
+      "ai_search_blob_response": {},
+      "ai_selection": {},
+      "ai_openai_response": {
+        "source": "direct_answer",
+        "answer_chars": 32,
+        "stream": true,
+        "ts": "2026-05-27T07:13:12.164850+00:00"
+      },
+      "display_response": {
+        "status_code": 200,
+        "answer_chars": 32,
+        "citations_count": 0,
+        "stream": true,
+        "ts": "2026-05-27T07:13:12.164850+00:00"
+      },
+      "ai_research_response": {
+        "source": "direct_answer",
+        "context_chars": 0,
+        "top_score": 0.0,
+        "citations_count": 0,
+        "stream": true,
+        "ts": "2026-05-27T07:13:11.724216+00:00"
+      }
+    },
+    "summary": {
+      "status_code": 200,
+      "reply": "Hello! How can I help you today?",
+      "stream": true
+    }
+  },
+  {
+    "trace_id": "725daf09-878b-4dab-9ddf-6bfcf8b57e26",
+    "started_at": "2026-05-27T07:15:45.854758+00:00",
+    "ended_at": "2026-05-27T07:15:46.240793+00:00",
+    "endpoint": "/api/chat/text/stream",
+    "streaming": true,
+    "status": "success",
+    "duration_ms": 386.04,
+    "session_id": "cf5efcf0-7945-4455-a54f-845a9d8c44b6",
+    "user_query": "heyy",
+    "process": {
+      "user_request": {
+        "query": "heyy",
+        "endpoint": "/api/chat/text/stream",
+        "stream": true,
+        "ts": "2026-05-27T07:15:45.854758+00:00"
+      },
+      "ai_request": {
+        "mode": "direct_answer",
+        "model_input_chars": 0,
+        "stream": true,
+        "intent": "greeting",
+        "ts": "2026-05-27T07:15:45.859773+00:00"
+      },
+      "ai_search_response": {
+        "source": "direct_answer",
+        "context_chars": 0,
+        "top_score": 0.0,
+        "citations_count": 0,
+        "stream": true,
+        "ts": "2026-05-27T07:15:45.859773+00:00"
+      },
+      "ai_search_json_response": {},
+      "ai_search_blob_response": {},
+      "ai_selection": {},
+      "ai_openai_response": {
+        "source": "direct_answer",
+        "answer_chars": 32,
+        "stream": true,
+        "ts": "2026-05-27T07:15:46.240793+00:00"
+      },
+      "display_response": {
+        "status_code": 200,
+        "answer_chars": 32,
+        "citations_count": 0,
+        "stream": true,
+        "ts": "2026-05-27T07:15:46.240793+00:00"
+      },
+      "ai_research_response": {
+        "source": "direct_answer",
+        "context_chars": 0,
+        "top_score": 0.0,
+        "citations_count": 0,
+        "stream": true,
+        "ts": "2026-05-27T07:15:45.859773+00:00"
+      }
+    },
+    "summary": {
+      "status_code": 200,
+      "reply": "Hello! How can I help you today?",
+      "stream": true
+    }
+  },
+  {
+    "trace_id": "47d80f5e-8f07-4972-8cdd-df3ae60b757d",
+    "started_at": "2026-05-27T07:19:02.888451+00:00",
+    "ended_at": "2026-05-27T07:19:05.918715+00:00",
+    "endpoint": "/api/chat/text",
+    "streaming": false,
+    "status": "success",
+    "duration_ms": 3030.26,
+    "session_id": "qa-direct",
+    "user_query": "what is desire infoweb",
+    "process": {
+      "user_request": {
+        "query": "what is desire infoweb",
+        "endpoint": "/api/chat/text",
+        "stream": false,
+        "ts": "2026-05-27T07:19:02.889978+00:00"
+      },
+      "ai_request": {
+        "mode": "direct_answer",
+        "model_input_chars": 0,
+        "intent": "incomplete_question",
+        "ts": "2026-05-27T07:19:05.918715+00:00"
+      },
+      "ai_search_response": {
+        "source": "direct_answer",
+        "context_chars": 0,
+        "top_score": 0.0,
+        "citations_count": 0,
+        "ts": "2026-05-27T07:19:05.918715+00:00"
+      },
+      "ai_search_json_response": {},
+      "ai_search_blob_response": {},
+      "ai_selection": {},
+      "ai_openai_response": {
+        "source": "direct_answer",
+        "answer_chars": 101,
+        "ts": "2026-05-27T07:19:05.918715+00:00"
+      },
+      "display_response": {
+        "status_code": 200,
+        "answer_chars": 101,
+        "citations_count": 0,
+        "stream": false,
+        "ts": "2026-05-27T07:19:05.918715+00:00"
+      },
+      "ai_research_response": {
+        "source": "direct_answer",
+        "context_chars": 0,
+        "top_score": 0.0,
+        "citations_count": 0,
+        "ts": "2026-05-27T07:19:05.918715+00:00"
+      }
+    },
+    "summary": {
+      "status_code": 200,
+      "reply": "Could you please specify what you would like to know more about? I'd be happy to provide the details!"
+    }
+  },
+  {
+    "trace_id": "7bc3b59c-1f7d-4fb4-945b-5e541f9feab1",
+    "started_at": "2026-05-27T07:19:05.964272+00:00",
+    "ended_at": "2026-05-27T07:19:13.485285+00:00",
+    "endpoint": "/api/chat/text",
+    "streaming": false,
+    "status": "success",
+    "duration_ms": 7521.01,
+    "session_id": "qa-cite",
+    "user_query": "give me detail about the fluentify ai project",
+    "process": {
+      "user_request": {
+        "query": "give me detail about the fluentify ai project",
+        "endpoint": "/api/chat/text",
+        "stream": false,
+        "ts": "2026-05-27T07:19:05.964272+00:00"
+      },
+      "ai_request": {
+        "mode": "rag",
+        "model": "gpt-4o",
+        "model_input_chars": 216,
+        "intent": "projects",
+        "ts": "2026-05-27T07:19:07.505517+00:00"
+      },
+      "ai_search_response": {
+        "source": "azure_ai_search",
+        "context_chars": 17,
+        "top_score": 0.91,
+        "citations_count": 1,
+        "videos_count": 0,
+        "citation": {
+          "title": "Fluentify Source",
+          "url": "https://example.com/fluentify.pdf",
+          "id": "1",
+          "score": 0.91
+        },
+        "ts": "2026-05-27T07:19:13.485285+00:00"
+      },
+      "ai_search_json_response": {},
+      "ai_search_blob_response": {},
+      "ai_selection": {},
+      "ai_openai_response": {
+        "source": "azure_openai",
+        "answer_chars": 25,
+        "ts": "2026-05-27T07:19:13.485285+00:00"
+      },
+      "display_response": {
+        "status_code": 200,
+        "answer_chars": 25,
+        "citations_count": 1,
+        "videos_count": 0,
+        "stream": false,
+        "ts": "2026-05-27T07:19:13.485285+00:00"
+      },
+      "ai_research_response": {
+        "source": "azure_ai_search",
+        "context_chars": 17,
+        "top_score": 0.91,
+        "citations_count": 1,
+        "videos_count": 0,
+        "citation": {
+          "title": "Fluentify Source",
+          "url": "https://example.com/fluentify.pdf",
+          "id": "1",
+          "score": 0.91
+        },
+        "ts": "2026-05-27T07:19:13.485285+00:00"
+      }
+    },
+    "summary": {
+      "status_code": 200,
+      "reply": "Fluentify detailed answer"
+    }
+  },
+  {
+    "trace_id": "8e05197b-aef8-423f-86b4-2287fc77babb",
+    "started_at": "2026-05-27T07:19:13.510038+00:00",
+    "ended_at": "2026-05-27T07:19:20.637983+00:00",
+    "endpoint": "/api/chat/text/stream",
+    "streaming": true,
+    "status": "success",
+    "duration_ms": 7127.94,
+    "session_id": "qa-cite",
+    "user_query": "give me detail about the fluentify ai project",
+    "process": {
+      "user_request": {
+        "query": "give me detail about the fluentify ai project",
+        "endpoint": "/api/chat/text/stream",
+        "stream": true,
+        "ts": "2026-05-27T07:19:13.510038+00:00"
+      },
+      "ai_request": {
+        "mode": "rag",
+        "model": "gpt-4o",
+        "model_input_chars": 328,
+        "stream": true,
+        "intent": "projects",
+        "ts": "2026-05-27T07:19:15.939271+00:00"
+      },
+      "ai_search_response": {
+        "source": "azure_ai_search",
+        "context_chars": 17,
+        "top_score": 0.91,
+        "citations_count": 1,
+        "videos_count": 0,
+        "citation": {
+          "title": "Fluentify Source",
+          "url": "https://example.com/fluentify.pdf",
+          "id": "1",
+          "score": 0.91
+        },
+        "stream": true,
+        "ts": "2026-05-27T07:19:20.637983+00:00"
+      },
+      "ai_search_json_response": {},
+      "ai_search_blob_response": {},
+      "ai_selection": {},
+      "ai_openai_response": {
+        "source": "azure_openai",
+        "answer_chars": 25,
+        "stream": true,
+        "ts": "2026-05-27T07:19:20.637983+00:00"
+      },
+      "display_response": {
+        "status_code": 200,
+        "answer_chars": 25,
+        "citations_count": 1,
+        "stream": true,
+        "ts": "2026-05-27T07:19:20.637983+00:00"
+      },
+      "ai_research_response": {
+        "source": "azure_ai_search",
+        "context_chars": 17,
+        "top_score": 0.91,
+        "citations_count": 1,
+        "videos_count": 0,
+        "citation": {
+          "title": "Fluentify Source",
+          "url": "https://example.com/fluentify.pdf",
+          "id": "1",
+          "score": 0.91
+        },
+        "stream": true,
+        "ts": "2026-05-27T07:19:20.637983+00:00"
+      }
+    },
+    "summary": {
+      "status_code": 200,
+      "reply": "Fluentify detailed answer",
+      "stream": true
+    }
+  },
+  {
+    "trace_id": "7fc8de55-3248-4c21-aa06-ae75d108edf6",
+    "started_at": "2026-05-27T07:21:43.265605+00:00",
+    "ended_at": "2026-05-27T07:21:43.648543+00:00",
+    "endpoint": "/api/chat/text/stream",
+    "streaming": true,
+    "status": "success",
+    "duration_ms": 382.94,
+    "session_id": "cf5efcf0-7945-4455-a54f-845a9d8c44b6",
+    "user_query": "heyyy",
+    "process": {
+      "user_request": {
+        "query": "heyyy",
+        "endpoint": "/api/chat/text/stream",
+        "stream": true,
+        "ts": "2026-05-27T07:21:43.266604+00:00"
+      },
+      "ai_request": {
+        "mode": "direct_answer",
+        "model_input_chars": 0,
+        "stream": true,
+        "intent": "greeting",
+        "ts": "2026-05-27T07:21:43.266604+00:00"
+      },
+      "ai_search_response": {
+        "source": "direct_answer",
+        "context_chars": 0,
+        "top_score": 0.0,
+        "citations_count": 0,
+        "stream": true,
+        "ts": "2026-05-27T07:21:43.266604+00:00"
+      },
+      "ai_search_json_response": {},
+      "ai_search_blob_response": {},
+      "ai_selection": {},
+      "ai_openai_response": {
+        "source": "direct_answer",
+        "answer_chars": 32,
+        "stream": true,
+        "ts": "2026-05-27T07:21:43.648543+00:00"
+      },
+      "display_response": {
+        "status_code": 200,
+        "answer_chars": 32,
+        "citations_count": 0,
+        "stream": true,
+        "ts": "2026-05-27T07:21:43.648543+00:00"
+      },
+      "ai_research_response": {
+        "source": "direct_answer",
+        "context_chars": 0,
+        "top_score": 0.0,
+        "citations_count": 0,
+        "stream": true,
+        "ts": "2026-05-27T07:21:43.266604+00:00"
+      }
+    },
+    "summary": {
+      "status_code": 200,
+      "reply": "Hello! How can I help you today?",
       "stream": true
     }
   }
