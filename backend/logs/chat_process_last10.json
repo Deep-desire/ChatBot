@@ -1,346 +1,5 @@
 [
   {
-    "trace_id": "11155ec3-3960-4f13-8af3-cc11d7f966f9",
-    "started_at": "2026-05-27T07:07:37.594240+00:00",
-    "ended_at": "2026-05-27T07:07:38.017704+00:00",
-    "endpoint": "/api/chat/text/stream",
-    "streaming": true,
-    "status": "success",
-    "duration_ms": 423.46,
-    "session_id": "cf5efcf0-7945-4455-a54f-845a9d8c44b6",
-    "user_query": "heyyy",
-    "process": {
-      "user_request": {
-        "query": "heyyy",
-        "endpoint": "/api/chat/text/stream",
-        "stream": true,
-        "ts": "2026-05-27T07:07:37.595240+00:00"
-      },
-      "ai_request": {
-        "mode": "direct_answer",
-        "model_input_chars": 0,
-        "stream": true,
-        "intent": "greeting",
-        "ts": "2026-05-27T07:07:37.602260+00:00"
-      },
-      "ai_search_response": {
-        "source": "direct_answer",
-        "context_chars": 0,
-        "top_score": 0.0,
-        "citations_count": 0,
-        "stream": true,
-        "ts": "2026-05-27T07:07:37.602260+00:00"
-      },
-      "ai_search_json_response": {},
-      "ai_search_blob_response": {},
-      "ai_selection": {},
-      "ai_openai_response": {
-        "source": "direct_answer",
-        "answer_chars": 32,
-        "stream": true,
-        "ts": "2026-05-27T07:07:38.017704+00:00"
-      },
-      "display_response": {
-        "status_code": 200,
-        "answer_chars": 32,
-        "citations_count": 0,
-        "stream": true,
-        "ts": "2026-05-27T07:07:38.017704+00:00"
-      },
-      "ai_research_response": {
-        "source": "direct_answer",
-        "context_chars": 0,
-        "top_score": 0.0,
-        "citations_count": 0,
-        "stream": true,
-        "ts": "2026-05-27T07:07:37.602260+00:00"
-      }
-    },
-    "summary": {
-      "status_code": 200,
-      "reply": "Hello! How can I help you today?",
-      "stream": true
-    }
-  },
-  {
-    "trace_id": "21c9046b-1303-4129-b163-e28bfcbd8b0a",
-    "started_at": "2026-05-27T07:07:56.349931+00:00",
-    "ended_at": "2026-05-27T07:07:56.999103+00:00",
-    "endpoint": "/api/chat/text/stream",
-    "streaming": true,
-    "status": "success",
-    "duration_ms": 649.17,
-    "session_id": "cf5efcf0-7945-4455-a54f-845a9d8c44b6",
-    "user_query": "i have one question of the desire??",
-    "process": {
-      "user_request": {
-        "query": "i have one question of the desire??",
-        "endpoint": "/api/chat/text/stream",
-        "stream": true,
-        "ts": "2026-05-27T07:07:56.356089+00:00"
-      },
-      "ai_request": {
-        "mode": "direct_answer",
-        "model_input_chars": 0,
-        "stream": true,
-        "intent": "permission_question",
-        "ts": "2026-05-27T07:07:56.358987+00:00"
-      },
-      "ai_search_response": {
-        "source": "direct_answer",
-        "context_chars": 0,
-        "top_score": 0.0,
-        "citations_count": 0,
-        "stream": true,
-        "ts": "2026-05-27T07:07:56.358987+00:00"
-      },
-      "ai_search_json_response": {},
-      "ai_search_blob_response": {},
-      "ai_selection": {},
-      "ai_openai_response": {
-        "source": "direct_answer",
-        "answer_chars": 96,
-        "stream": true,
-        "ts": "2026-05-27T07:07:56.999103+00:00"
-      },
-      "display_response": {
-        "status_code": 200,
-        "answer_chars": 96,
-        "citations_count": 0,
-        "stream": true,
-        "ts": "2026-05-27T07:07:56.999103+00:00"
-      },
-      "ai_research_response": {
-        "source": "direct_answer",
-        "context_chars": 0,
-        "top_score": 0.0,
-        "citations_count": 0,
-        "stream": true,
-        "ts": "2026-05-27T07:07:56.358987+00:00"
-      }
-    },
-    "summary": {
-      "status_code": 200,
-      "reply": "Sure, please go ahead and ask your question about Desire Infoweb. I'll do my best to assist you!",
-      "stream": true
-    }
-  },
-  {
-    "trace_id": "db1f0195-f424-4789-a92e-ea4b93512827",
-    "started_at": "2026-05-27T07:08:18.232394+00:00",
-    "ended_at": "2026-05-27T07:08:18.750566+00:00",
-    "endpoint": "/api/chat/text/stream",
-    "streaming": true,
-    "status": "success",
-    "duration_ms": 518.17,
-    "session_id": "cf5efcf0-7945-4455-a54f-845a9d8c44b6",
-    "user_query": "what is?",
-    "process": {
-      "user_request": {
-        "query": "what is?",
-        "endpoint": "/api/chat/text/stream",
-        "stream": true,
-        "ts": "2026-05-27T07:08:18.232394+00:00"
-      },
-      "ai_request": {
-        "mode": "direct_answer",
-        "model_input_chars": 0,
-        "stream": true,
-        "intent": "incomplete_question",
-        "ts": "2026-05-27T07:08:18.272597+00:00"
-      },
-      "ai_search_response": {
-        "source": "direct_answer",
-        "context_chars": 0,
-        "top_score": 0.0,
-        "citations_count": 0,
-        "stream": true,
-        "ts": "2026-05-27T07:08:18.272597+00:00"
-      },
-      "ai_search_json_response": {},
-      "ai_search_blob_response": {},
-      "ai_selection": {},
-      "ai_openai_response": {
-        "source": "direct_answer",
-        "answer_chars": 101,
-        "stream": true,
-        "ts": "2026-05-27T07:08:18.750566+00:00"
-      },
-      "display_response": {
-        "status_code": 200,
-        "answer_chars": 101,
-        "citations_count": 0,
-        "stream": true,
-        "ts": "2026-05-27T07:08:18.750566+00:00"
-      },
-      "ai_research_response": {
-        "source": "direct_answer",
-        "context_chars": 0,
-        "top_score": 0.0,
-        "citations_count": 0,
-        "stream": true,
-        "ts": "2026-05-27T07:08:18.272597+00:00"
-      }
-    },
-    "summary": {
-      "status_code": 200,
-      "reply": "Could you please specify what you would like to know more about? I'd be happy to provide the details!",
-      "stream": true
-    }
-  },
-  {
-    "trace_id": "79969e04-d0d3-462d-ac40-83a91b57c17f",
-    "started_at": "2026-05-27T07:08:28.708892+00:00",
-    "ended_at": "2026-05-27T07:08:48.093180+00:00",
-    "endpoint": "/api/chat/text/stream",
-    "streaming": true,
-    "status": "success",
-    "duration_ms": 19384.29,
-    "session_id": "cf5efcf0-7945-4455-a54f-845a9d8c44b6",
-    "user_query": "services?",
-    "process": {
-      "user_request": {
-        "query": "services?",
-        "endpoint": "/api/chat/text/stream",
-        "stream": true,
-        "ts": "2026-05-27T07:08:28.708892+00:00"
-      },
-      "ai_request": {
-        "mode": "rag",
-        "model": "gpt-4o",
-        "model_input_chars": 2932,
-        "stream": true,
-        "intent": "services",
-        "ts": "2026-05-27T07:08:31.063101+00:00"
-      },
-      "ai_search_response": {
-        "source": "azure_ai_search",
-        "context_chars": 5499,
-        "top_score": 0.65941083,
-        "citations_count": 12,
-        "videos_count": 0,
-        "citation": {
-          "title": "sharepoint",
-          "url": "https://desireinfoweb.com/services/sharepoint",
-          "id": "s_c2VydmljZUNhdGFsb2cudHh0_i_18_u_3018b1907aea468cafbae1ca17d88a4f",
-          "score": 0.659411,
-          "context_snippet": "[services] SharePoint Microsoft SharePoint enables document management, content sharing, and collaboration through centralized platforms that enhance team productivity. https://desireinfoweb.com/services/sharepoint [services] SEO Services SEO services improve search rankings, organic traffic, and online visibility using keyword research, on-page optimization, technical SEO, and content strategies. https://desireinfoweb.com/services/seo [services] Mobile Development Mobile development services include iOS, Android, and cross-platform apps covering strategy, design, development, launch, and ongoing support. https://desireinfoweb.com/services/mobile-development [serviceCatalogFromCode] AI or Artificial Intelligence Intelligent assistants, automation experiences, and knowledge-driven solutions built for faster decisions and stronger user support. https://desireinfoweb.com/services/ai",
-          "overlap_count": 1,
-          "overlap_ratio": 1.0,
-          "entry_rank": 0.897823,
-          "retrieval_mode": "vector",
-          "source_scope": "knowledge"
-        },
-        "stream": true,
-        "ts": "2026-05-27T07:08:40.945738+00:00"
-      },
-      "ai_search_json_response": {
-        "source_scope": "knowledge",
-        "found": true,
-        "retrieval_mode": "vector",
-        "score": 0.659411,
-        "normalized_score": 0.659411,
-        "rank": 0.888835,
-        "overlap_ratio": 1.0,
-        "overlap_count": 1,
-        "query_term_count": 1,
-        "meets_score": true,
-        "meets_overlap": true,
-        "context_chars": 5499,
-        "context_preview": "[services] SharePoint Microsoft SharePoint enables document management, content sharing, and collaboration through centralized platforms that enhance team productivity. https://desireinfoweb.com/services/sharepoint [services] SEO Services SEO services improve search rankings, organic traffic, and online visibility using keyword research, on-page optimization, technical SEO, and content strategies. https://desireinfoweb.com/services/seo [services] Mobile Development Mobile development services include iOS, Android, and cross-platform apps covering strategy, design, development, launch, and ongo",
-        "citations_count": 5,
-        "citation": {
-          "title": "sharepoint",
-          "url": "https://desireinfoweb.com/services/sharepoint",
-          "id": "s_c2VydmljZUNhdGFsb2cudHh0_i_18_u_3018b1907aea468cafbae1ca17d88a4f",
-          "score": 0.659411,
-          "context_snippet": "[services] SharePoint Microsoft SharePoint enables document management, content sharing, and collaboration through centralized platforms that enhance team productivity. https://desireinfoweb.com/services/sharepoint [services] SEO Services SEO services improve search rankings, organic traffic, and online visibility using keyword research, on-page optimization, technical SEO, and content strategies. https://desireinfoweb.com/services/seo [services] Mobile Development Mobile development services include iOS, Android, and cross-platform apps covering strategy, design, development, launch, and ongoing support. https://desireinfoweb.com/services/mobile-development [serviceCatalogFromCode] AI or Artificial Intelligence Intelligent assistants, automation experiences, and knowledge-driven solutions built for faster decisions and stronger user support. https://desireinfoweb.com/services/ai",
-          "overlap_count": 1,
-          "overlap_ratio": 1.0,
-          "entry_rank": 0.897823,
-          "retrieval_mode": "vector"
-        },
-        "ts": "2026-05-27T07:08:37.006136+00:00"
-      },
-      "ai_search_blob_response": {
-        "source_scope": "blob_fallback",
-        "found": true,
-        "retrieval_mode": "text",
-        "score": 0.837095,
-        "normalized_score": 0.295054,
-        "rank": 0.502933,
-        "overlap_ratio": 1.0,
-        "overlap_count": 1,
-        "query_term_count": 1,
-        "meets_score": true,
-        "meets_overlap": true,
-        "context_chars": 13874,
-        "context_preview": "expertise  AI & Cloud Technologies Modern, scalable, intelligent solutions  Automation & Integration Enhanced collaboration and decision-making  40+ Experienced Engineers Our Services  Microsoft SharePoint Intranet, Extranet, Governance  Microsoft PowerApps Custom business applications  Power Automate Workflow automation  Microsoft Power BI Advanced data analytics  .Net Core Application development  SharePoint Customization Branding and custom dev  Azure Admin & Migration Cloud services expertise  AI Services Intelligent automation  Azure DevOps CI/CD pipelines  Quality Assurance ",
-        "citations_count": 7,
-        "citation": {
-          "title": "DesireInfoWeb - Corporate Profile (3).pdf",
-          "url": "https://desirechatbotweb.blob.core.windows.net/desirechatbotweb/DesireInfoWeb%20-%20Corporate%20Profile%20(3).pdf",
-          "id": "213591c16597_aHR0cHM6Ly9kZXNpcmVjaGF0Ym90d2ViLmJsb2IuY29yZS53aW5kb3dzLm5ldC9kZXNpcmVjaGF0Ym90d2ViL0Rlc2lyZUluZm9XZWIlMjAtJTIwQ29ycG9yYXRlJTIwUHJvZmlsZSUyMCgzKS5wZGY1_pages_1",
-          "score": 0.837095,
-          "context_snippet": "expertise  AI & Cloud Technologies Modern, scalable, intelligent solutions  Automation & Integration Enhanced collaboration and decision-making  40+ Experienced Engineers Our Services  Microsoft SharePoint Intranet, Extranet, Governance  Microsoft PowerApps Custom business applications  Power Automate Workflow automation  Microsoft Power BI Advanced data analytics  .Net Core Application development  SharePoint Customization Branding and custom dev  Azure Admin & Migration Cloud services expertise  AI Services Intelligent automation  Azure DevOps CI/CD pipelines  Quality Assurance Automated testing  Microsoft Dynamics365 CRM, BC, NAV solutions  Integration Services API integration Microsoft AI Services  AI-Powered Innovation Microsoft AI Services bring generative AI and automation into everyday work, apps, business solutions, and cloud-based development.  Transform Business Operations Intelligent automation, data analytics, and machine learning solutions driving efficiency and innovation  Microsoft Copilot AI-powered assistant for productivity and development  Azure AI Services Comprehensive AI platform for intelligent applications  Azure Machine Learning Build, train, and deploy ML models at scale  Azure AI Foundry End-to-end AI development platform  Microsoft Power Platform Low-code AI-powered business solutions  Responsible AI & Security Ethical AI practices and robust security framework Our Products  Intranet Corporate portal solution  Webpart SharePoint components  Timesheet Time tracking system  LMS Learning Management System  DMS Document Management System  Calendar Event scheduling  New Joinee Employee onboarding  Org Chart Company structure view  Directory Employee directory  Project Mgmt Project tracking tools Why Choose Us Our ",
-          "overlap_count": 1,
-          "overlap_ratio": 1.0,
-          "entry_rank": 0.788516,
-          "retrieval_mode": "text"
-        },
-        "ts": "2026-05-27T07:08:37.006136+00:00"
-      },
-      "ai_selection": {
-        "selected_source_scope": "knowledge",
-        "selected_retrieval_mode": "vector",
-        "selected_score": 0.659411,
-        "selected_rank": 0.888835,
-        "selected_overlap_ratio": 1.0,
-        "candidate_count": 3,
-        "ts": "2026-05-27T07:08:37.006136+00:00"
-      },
-      "ai_openai_response": {
-        "source": "azure_openai",
-        "answer_chars": 1364,
-        "stream": true,
-        "ts": "2026-05-27T07:08:47.645311+00:00"
-      },
-      "display_response": {
-        "status_code": 200,
-        "answer_chars": 1364,
-        "citations_count": 1,
-        "stream": true,
-        "ts": "2026-05-27T07:08:48.093180+00:00"
-      },
-      "ai_research_response": {
-        "source": "azure_ai_search",
-        "context_chars": 5499,
-        "top_score": 0.65941083,
-        "citations_count": 12,
-        "videos_count": 0,
-        "citation": {
-          "title": "sharepoint",
-          "url": "https://desireinfoweb.com/services/sharepoint",
-          "id": "s_c2VydmljZUNhdGFsb2cudHh0_i_18_u_3018b1907aea468cafbae1ca17d88a4f",
-          "score": 0.659411,
-          "context_snippet": "[services] SharePoint Microsoft SharePoint enables document management, content sharing, and collaboration through centralized platforms that enhance team productivity. https://desireinfoweb.com/services/sharepoint [services] SEO Services SEO services improve search rankings, organic traffic, and online visibility using keyword research, on-page optimization, technical SEO, and content strategies. https://desireinfoweb.com/services/seo [services] Mobile Development Mobile development services include iOS, Android, and cross-platform apps covering strategy, design, development, launch, and ongoing support. https://desireinfoweb.com/services/mobile-development [serviceCatalogFromCode] AI or Artificial Intelligence Intelligent assistants, automation experiences, and knowledge-driven solutions built for faster decisions and stronger user support. https://desireinfoweb.com/services/ai",
-          "overlap_count": 1,
-          "overlap_ratio": 1.0,
-          "entry_rank": 0.897823,
-          "retrieval_mode": "vector",
-          "source_scope": "knowledge"
-        },
-        "stream": true,
-        "ts": "2026-05-27T07:08:40.945738+00:00"
-      }
-    },
-    "summary": {
-      "status_code": 200,
-      "reply": "Desire Infoweb offers 9 core services to meet diverse business needs:\n\n1. **AI / Artificial Intelligence**: Intelligent agents, chatbots, document automation, predictive analytics ([Details](https://desireinfoweb.com/services/ai)).\n2. **SharePoint**: Intranet portals, document management, custom web parts ([Details](https://desireinfoweb.com/services/sharepoint)).\n3. **Power BI**: Interactive dashboards, data visualization, sales forecasting ([Details](https://desireinfoweb.com/services/power-bi)).\n4. **Power Platform**: Low-code apps, process automation, workflows ([Details](https://desireinfoweb.com/services/power-platform)).\n5. **Dynamics 365**: CRM and ERP solutions, field service management ([Details](https://desireinfoweb.com/services/ms-dynamics)).\n6. **Azure**: Cloud computing, scalable app deployment, enterprise-grade security ([Details](https://desireinfoweb.com/services/dot-net)).\n7. **Web Development**: Custom websites, responsive design, role-based systems ([Details](https://desireinfoweb.com/services/web-development)).\n8. **SEO Services**: Search ranking improvement, organic traffic growth ([Details](https://desireinfoweb.com/services/seo)).\n9. **Mobile Development**: iOS, Android, and cross-platform apps ([Details](https://desireinfoweb.com/services/mobile-development)).\n\nLet me know which service you'd like to explore further!",
-      "stream": true
-    }
-  },
-  {
     "trace_id": "cb1799fa-f4f5-48e4-8284-7c8fb23e48ce",
     "started_at": "2026-05-27T07:13:11.724216+00:00",
     "ended_at": "2026-05-27T07:13:12.164850+00:00",
@@ -736,6 +395,347 @@
     "summary": {
       "status_code": 200,
       "reply": "Hello! How can I help you today?",
+      "stream": true
+    }
+  },
+  {
+    "trace_id": "8d18be97-7ada-4ddc-a543-7165b3f16dcc",
+    "started_at": "2026-05-28T10:04:15.772734+00:00",
+    "ended_at": "2026-05-28T10:04:21.418736+00:00",
+    "endpoint": "/api/chat/text/stream",
+    "streaming": true,
+    "status": "success",
+    "duration_ms": 5646.0,
+    "session_id": "e7b3a0c8-6ecb-4df7-8315-89bf047616f5",
+    "user_query": "What is Desire Infoweb?",
+    "process": {
+      "user_request": {
+        "query": "What is Desire Infoweb?",
+        "endpoint": "/api/chat/text/stream",
+        "stream": true,
+        "ts": "2026-05-28T10:04:15.925223+00:00"
+      },
+      "ai_request": {
+        "mode": "direct_answer",
+        "model_input_chars": 0,
+        "stream": true,
+        "intent": "small_talk",
+        "ts": "2026-05-28T10:04:20.430595+00:00"
+      },
+      "ai_search_response": {
+        "source": "direct_answer",
+        "context_chars": 0,
+        "top_score": 0.0,
+        "citations_count": 0,
+        "stream": true,
+        "ts": "2026-05-28T10:04:20.430595+00:00"
+      },
+      "ai_search_json_response": {},
+      "ai_search_blob_response": {},
+      "ai_selection": {},
+      "ai_openai_response": {
+        "source": "direct_answer",
+        "answer_chars": 175,
+        "stream": true,
+        "ts": "2026-05-28T10:04:21.418736+00:00"
+      },
+      "display_response": {
+        "status_code": 200,
+        "answer_chars": 175,
+        "citations_count": 0,
+        "stream": true,
+        "ts": "2026-05-28T10:04:21.418736+00:00"
+      },
+      "ai_research_response": {
+        "source": "direct_answer",
+        "context_chars": 0,
+        "top_score": 0.0,
+        "citations_count": 0,
+        "stream": true,
+        "ts": "2026-05-28T10:04:20.430595+00:00"
+      }
+    },
+    "summary": {
+      "status_code": 200,
+      "reply": "I am the Desire Infoweb assistant. I'm doing great, thank you! I can help you with information about our IT services, AI projects, pricing, and more. How can I help you today?",
+      "stream": true
+    }
+  },
+  {
+    "trace_id": "0f039c6c-ef26-4ea0-b157-b927c0992a6b",
+    "started_at": "2026-05-28T10:05:20.246076+00:00",
+    "ended_at": "2026-05-28T10:05:23.285657+00:00",
+    "endpoint": "/api/chat/text/stream",
+    "streaming": true,
+    "status": "success",
+    "duration_ms": 3039.58,
+    "session_id": "e7b3a0c8-6ecb-4df7-8315-89bf047616f5",
+    "user_query": "What is Desire Infoweb?",
+    "process": {
+      "user_request": {
+        "query": "What is Desire Infoweb?",
+        "endpoint": "/api/chat/text/stream",
+        "stream": true,
+        "ts": "2026-05-28T10:05:20.246076+00:00"
+      },
+      "ai_request": {
+        "mode": "direct_answer",
+        "model_input_chars": 0,
+        "stream": true,
+        "intent": "small_talk",
+        "ts": "2026-05-28T10:05:22.750974+00:00"
+      },
+      "ai_search_response": {
+        "source": "direct_answer",
+        "context_chars": 0,
+        "top_score": 0.0,
+        "citations_count": 0,
+        "stream": true,
+        "ts": "2026-05-28T10:05:22.750974+00:00"
+      },
+      "ai_search_json_response": {},
+      "ai_search_blob_response": {},
+      "ai_selection": {},
+      "ai_openai_response": {
+        "source": "direct_answer",
+        "answer_chars": 175,
+        "stream": true,
+        "ts": "2026-05-28T10:05:23.285657+00:00"
+      },
+      "display_response": {
+        "status_code": 200,
+        "answer_chars": 175,
+        "citations_count": 0,
+        "stream": true,
+        "ts": "2026-05-28T10:05:23.285657+00:00"
+      },
+      "ai_research_response": {
+        "source": "direct_answer",
+        "context_chars": 0,
+        "top_score": 0.0,
+        "citations_count": 0,
+        "stream": true,
+        "ts": "2026-05-28T10:05:22.750974+00:00"
+      }
+    },
+    "summary": {
+      "status_code": 200,
+      "reply": "I am the Desire Infoweb assistant. I'm doing great, thank you! I can help you with information about our IT services, AI projects, pricing, and more. How can I help you today?",
+      "stream": true
+    }
+  },
+  {
+    "trace_id": "8619c9ca-0c1a-4a3b-9227-ee868c0b51d2",
+    "started_at": "2026-05-28T10:07:23.613111+00:00",
+    "ended_at": "2026-05-28T10:07:26.395525+00:00",
+    "endpoint": "/api/chat/text/stream",
+    "streaming": true,
+    "status": "success",
+    "duration_ms": 2782.41,
+    "session_id": "e7b3a0c8-6ecb-4df7-8315-89bf047616f5",
+    "user_query": "What is Desire Infoweb?",
+    "process": {
+      "user_request": {
+        "query": "What is Desire Infoweb?",
+        "endpoint": "/api/chat/text/stream",
+        "stream": true,
+        "ts": "2026-05-28T10:07:23.613111+00:00"
+      },
+      "ai_request": {
+        "mode": "direct_answer",
+        "model_input_chars": 0,
+        "stream": true,
+        "intent": "small_talk",
+        "ts": "2026-05-28T10:07:25.634692+00:00"
+      },
+      "ai_search_response": {
+        "source": "direct_answer",
+        "context_chars": 0,
+        "top_score": 0.0,
+        "citations_count": 0,
+        "stream": true,
+        "ts": "2026-05-28T10:07:25.634692+00:00"
+      },
+      "ai_search_json_response": {},
+      "ai_search_blob_response": {},
+      "ai_selection": {},
+      "ai_openai_response": {
+        "source": "direct_answer",
+        "answer_chars": 175,
+        "stream": true,
+        "ts": "2026-05-28T10:07:26.395525+00:00"
+      },
+      "display_response": {
+        "status_code": 200,
+        "answer_chars": 175,
+        "citations_count": 0,
+        "stream": true,
+        "ts": "2026-05-28T10:07:26.395525+00:00"
+      },
+      "ai_research_response": {
+        "source": "direct_answer",
+        "context_chars": 0,
+        "top_score": 0.0,
+        "citations_count": 0,
+        "stream": true,
+        "ts": "2026-05-28T10:07:25.634692+00:00"
+      }
+    },
+    "summary": {
+      "status_code": 200,
+      "reply": "I am the Desire Infoweb assistant. I'm doing great, thank you! I can help you with information about our IT services, AI projects, pricing, and more. How can I help you today?",
+      "stream": true
+    }
+  },
+  {
+    "trace_id": "25091d9f-0eb1-4f14-bb6a-af10a3c2b8c5",
+    "started_at": "2026-05-28T10:08:15.394787+00:00",
+    "ended_at": "2026-05-28T10:08:48.935759+00:00",
+    "endpoint": "/api/chat/text/stream",
+    "streaming": true,
+    "status": "success",
+    "duration_ms": 33540.97,
+    "session_id": "e7b3a0c8-6ecb-4df7-8315-89bf047616f5",
+    "user_query": "What is Desire Infoweb?",
+    "process": {
+      "user_request": {
+        "query": "What is Desire Infoweb?",
+        "endpoint": "/api/chat/text/stream",
+        "stream": true,
+        "ts": "2026-05-28T10:08:15.396788+00:00"
+      },
+      "ai_request": {
+        "mode": "rag",
+        "model": "gpt-4o",
+        "model_input_chars": 194,
+        "stream": true,
+        "intent": "small_talk",
+        "ts": "2026-05-28T10:08:17.781610+00:00"
+      },
+      "ai_search_response": {
+        "source": "azure_ai_search",
+        "context_chars": 7967,
+        "top_score": 9.117103,
+        "citations_count": 11,
+        "videos_count": 0,
+        "citation": {
+          "title": "about-us",
+          "url": "https://desireinfoweb.com/about-us",
+          "id": "s_c2VydmljZUNhdGFsb2cudHh0_i_0_u_c76371ec982743fd978ca381a3778da9",
+          "score": 9.117103,
+          "context_snippet": "[companyProfile] About Desire Infoweb Desire Infoweb is an IT services and consulting company focused on Microsoft technologies, enterprise automation, modern collaboration platforms, analytics, and AI-powered business solutions. Core capabilities include SharePoint, Power Platform, Power BI, Microsoft Teams, Dynamics 365, Azure, .NET development, migration, governance, and custom AI/chatbot implementations. https://desireinfoweb.com/about-us [products] Organization Chart An organizational chart shows the internal structure of an organization or company. The employees and positions are represented by boxes or other shapes, sometimes including photos, contact information, email and page links, icons, and illustrations. Straight or elbowed lines link the levels together. https://desireinfoweb.com/products/organization-chart",
+          "overlap_count": 3,
+          "overlap_ratio": 1.0,
+          "entry_rank": 0.946029,
+          "retrieval_mode": "text",
+          "source_scope": "knowledge"
+        },
+        "stream": true,
+        "ts": "2026-05-28T10:08:36.453278+00:00"
+      },
+      "ai_search_json_response": {
+        "source_scope": "knowledge",
+        "found": true,
+        "retrieval_mode": "text",
+        "score": 9.117103,
+        "normalized_score": 0.820097,
+        "rank": 0.98846,
+        "overlap_ratio": 1.0,
+        "overlap_count": 3,
+        "query_term_count": 3,
+        "meets_score": true,
+        "meets_overlap": true,
+        "context_chars": 7967,
+        "context_preview": "[companyProfile] About Desire Infoweb Desire Infoweb is an IT services and consulting company focused on Microsoft technologies, enterprise automation, modern collaboration platforms, analytics, and AI-powered business solutions. Core capabilities include SharePoint, Power Platform, Power BI, Microsoft Teams, Dynamics 365, Azure, .NET development, migration, governance, and custom AI/chatbot implementations. https://desireinfoweb.com/about-us [products] Organization Chart An organizational chart shows the internal structure of an organization or company. The employees and positions are represe",
+        "citations_count": 4,
+        "citation": {
+          "title": "about-us",
+          "url": "https://desireinfoweb.com/about-us",
+          "id": "s_c2VydmljZUNhdGFsb2cudHh0_i_0_u_c76371ec982743fd978ca381a3778da9",
+          "score": 9.117103,
+          "context_snippet": "[companyProfile] About Desire Infoweb Desire Infoweb is an IT services and consulting company focused on Microsoft technologies, enterprise automation, modern collaboration platforms, analytics, and AI-powered business solutions. Core capabilities include SharePoint, Power Platform, Power BI, Microsoft Teams, Dynamics 365, Azure, .NET development, migration, governance, and custom AI/chatbot implementations. https://desireinfoweb.com/about-us [products] Organization Chart An organizational chart shows the internal structure of an organization or company. The employees and positions are represented by boxes or other shapes, sometimes including photos, contact information, email and page links, icons, and illustrations. Straight or elbowed lines link the levels together. https://desireinfoweb.com/products/organization-chart",
+          "overlap_count": 3,
+          "overlap_ratio": 1.0,
+          "entry_rank": 0.946029,
+          "retrieval_mode": "text"
+        },
+        "ts": "2026-05-28T10:08:33.360380+00:00"
+      },
+      "ai_search_blob_response": {
+        "source_scope": "blob_fallback",
+        "found": true,
+        "retrieval_mode": "text",
+        "score": 7.212659,
+        "normalized_score": 0.782907,
+        "rank": 0.805403,
+        "overlap_ratio": 1.0,
+        "overlap_count": 3,
+        "query_term_count": 3,
+        "meets_score": true,
+        "meets_overlap": true,
+        "context_chars": 13571,
+        "context_preview": "with role-based access, data encryption, and advanced threat monitoring. Custom Workflows Automate HR updates via Power Automate and sync seamlessly with core systems. CORE FEATURES Intelligent &Secure Advanced capabilities to manage your workforce efficiently and safely. Microsoft Partner Since 2023 Empowering Digital Transformation Desire Infoweb is a leading IT offshoring company delivering trusted AI and cloud solutions to businesses globally. Trusted globally by: Startups • Enterprises• Agencies 50+ Certified Experts 100% Success Rate 99% On-Time Delivery 4.9 Client Rating SharePoint Intr",
+        "citations_count": 6,
+        "citation": {
+          "title": "Organization Chart.pdf",
+          "url": "https://desirechatbotweb.blob.core.windows.net/desirechatbotweb/Organization%20Chart.pdf",
+          "id": "42c7ea830793_aHR0cHM6Ly9kZXNpcmVjaGF0Ym90d2ViLmJsb2IuY29yZS53aW5kb3dzLm5ldC9kZXNpcmVjaGF0Ym90d2ViL09yZ2FuaXphdGlvbiUyMENoYXJ0LnBkZg2_pages_1",
+          "score": 7.212659,
+          "context_snippet": "with role-based access, data encryption, and advanced threat monitoring. Custom Workflows Automate HR updates via Power Automate and sync seamlessly with core systems. CORE FEATURES Intelligent &Secure Advanced capabilities to manage your workforce efficiently and safely. Microsoft Partner Since 2023 Empowering Digital Transformation Desire Infoweb is a leading IT offshoring company delivering trusted AI and cloud solutions to businesses globally. Trusted globally by: Startups • Enterprises• Agencies 50+ Certified Experts 100% Success Rate 99% On-Time Delivery 4.9 Client Rating SharePoint Intranets, Document Management, & Team Sites. Power Platform Automations, Custom Apps, & Business Intelligence. Azure OpenAI Advanced AI, NLP Solutions, & Intelligent Agents. Dynamics 365 Operations, Sales, & Customer Engagement. MS Teams Collaboration, Communication, & Custom Tabs. .NET Robust Web, Cloud Applications, & APIs. OUR CAPABILITIES CoreExpertise A comprehensive suite of Microsoft technologies to drive your digital transformation. Organization Chart Learning Management System Intranet Portals Employee Directory Power BI Dashboards Project Management Portal Calendar & Celebrations Our Product Ecosystem Integrated solutions for a seamless digital workplace Ready to Transform Your Workspace? Let's build something great together. Reach out to our global team for expert consulting and custom solutions. Headquarters 509, 510 - Ganesh Glory, Jagatpur Road, Near Nirma University, Ahmedabad, India. Get In Touch Global Lines India: +91-8780468807 US: +1-260-560-2128 Canada: +1-639-997-9925 © 2026 Desire Infoweb Pvt Ltd. All Rights Reserved. hr@desireinfoweb.com vijay@desireinfoweb.com www.desireinfoweb.com",
+          "overlap_count": 3,
+          "overlap_ratio": 1.0,
+          "entry_rank": 0.934872,
+          "retrieval_mode": "text"
+        },
+        "ts": "2026-05-28T10:08:33.360380+00:00"
+      },
+      "ai_selection": {
+        "selected_source_scope": "knowledge",
+        "selected_retrieval_mode": "text",
+        "selected_score": 9.117103,
+        "selected_rank": 0.98846,
+        "selected_overlap_ratio": 1.0,
+        "candidate_count": 4,
+        "ts": "2026-05-28T10:08:33.360380+00:00"
+      },
+      "ai_openai_response": {
+        "source": "azure_openai",
+        "answer_chars": 538,
+        "stream": true,
+        "ts": "2026-05-28T10:08:43.699260+00:00"
+      },
+      "display_response": {
+        "status_code": 200,
+        "answer_chars": 538,
+        "citations_count": 1,
+        "stream": true,
+        "ts": "2026-05-28T10:08:45.399701+00:00"
+      },
+      "ai_research_response": {
+        "source": "azure_ai_search",
+        "context_chars": 7967,
+        "top_score": 9.117103,
+        "citations_count": 11,
+        "videos_count": 0,
+        "citation": {
+          "title": "about-us",
+          "url": "https://desireinfoweb.com/about-us",
+          "id": "s_c2VydmljZUNhdGFsb2cudHh0_i_0_u_c76371ec982743fd978ca381a3778da9",
+          "score": 9.117103,
+          "context_snippet": "[companyProfile] About Desire Infoweb Desire Infoweb is an IT services and consulting company focused on Microsoft technologies, enterprise automation, modern collaboration platforms, analytics, and AI-powered business solutions. Core capabilities include SharePoint, Power Platform, Power BI, Microsoft Teams, Dynamics 365, Azure, .NET development, migration, governance, and custom AI/chatbot implementations. https://desireinfoweb.com/about-us [products] Organization Chart An organizational chart shows the internal structure of an organization or company. The employees and positions are represented by boxes or other shapes, sometimes including photos, contact information, email and page links, icons, and illustrations. Straight or elbowed lines link the levels together. https://desireinfoweb.com/products/organization-chart",
+          "overlap_count": 3,
+          "overlap_ratio": 1.0,
+          "entry_rank": 0.946029,
+          "retrieval_mode": "text",
+          "source_scope": "knowledge"
+        },
+        "stream": true,
+        "ts": "2026-05-28T10:08:36.453278+00:00"
+      }
+    },
+    "summary": {
+      "status_code": 200,
+      "reply": "Desire Infoweb Pvt Ltd is a certified Microsoft Partner and IT consulting company founded in 2015. Headquartered in Ahmedabad, India, with offices in Canada and the USA, it specializes in Microsoft technologies, AI solutions, cloud applications, and enterprise automation. The company has delivered 500+ projects for 250+ global clients across industries like healthcare, finance, and retail. Key services include SharePoint, Power Platform, AI, Dynamics 365, and Power BI.  \n\nLearn more at [About Us](https://desireinfoweb.com/about-us).",
       "stream": true
     }
   }

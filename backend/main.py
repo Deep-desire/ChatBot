@@ -1411,15 +1411,15 @@ def _detect_non_kb_intent(query: str) -> tuple[IntentCategory, str] | None:
         return IntentCategory.PERMISSION_QUESTION, "Sure, please go ahead and ask your question about Desire Infoweb. I'll do my best to assist you!"
 
     # 4. SMALL TALK
-    small_talk_patterns = [
-        r"^how\s+(are\s+you|are\s+u|is\s+it\s+going|is\s+everything|have\s+you\s+been|is\s+life).*$",
-        r"^who\s+(are\s+you|is\s+this|made\s+you|built\s+you|created\s+you|designed\s+you).*$",
-        r"^what\s+(is\s+your\s+name|are\s+you|do\s+you\s+do|is\s+your\s+purpose).*$",
-        r"^tell\s+me\s+about\s+(yourself|you)\b.*$",
-        r"^(are\s+you|are\s+u)\s+(ai|a\s+bot|a\s+robot|human|real).*$"
-    ]
-    if any(re.match(p, compact) for p in small_talk_patterns):
-        return IntentCategory.SMALL_TALK, "I am the Desire Infoweb assistant. I'm doing great, thank you! I can help you with information about our IT services, AI projects, pricing, and more. How can I help you today?"
+    # small_talk_patterns = [
+    #     r"^how\s+(are\s+you|are\s+u|is\s+it\s+going|is\s+everything|have\s+you\s+been|is\s+life).*$",
+    #     r"^who\s+(are\s+you|is\s+this|made\s+you|built\s+you|created\s+you|designed\s+you).*$",
+    #     r"^what\s+(is\s+your\s+name|are\s+you|do\s+you\s+do|is\s+your\s+purpose).*$",
+    #     r"^tell\s+me\s+about\s+(yourself|you)\b.*$",
+    #     r"^(are\s+you|are\s+u)\s+(ai|a\s+bot|a\s+robot|human|real).*$"
+    # ]
+    # if any(re.match(p, compact) for p in small_talk_patterns):
+    #     return IntentCategory.SMALL_TALK, "I am the Desire Infoweb assistant. I'm doing great, thank you! I can help you with information about our IT services, AI projects, pricing, and more. How can I help you today?"
 
     # 5. GENERAL HELPER RESPONSES
     helper_patterns = [
@@ -1466,8 +1466,8 @@ def _get_intent_based_response(query: str, session_id: str | None = None) -> tup
 
     if intent == IntentCategory.GREETING:
         return intent, "Hello! How can I help you today?"
-    if intent == IntentCategory.SMALL_TALK:
-        return intent, "I am the Desire Infoweb assistant. I'm doing great, thank you! I can help you with information about our IT services, AI projects, pricing, and more. How can I help you today?"
+    # if intent == IntentCategory.SMALL_TALK:
+    #     return intent, "I am the Desire Infoweb assistant. I'm doing great, thank you! I can help you with information about our IT services, AI projects, pricing, and more. How can I help you today?"
     if intent == IntentCategory.PERMISSION_QUESTION:
         return intent, "Sure, please go ahead and ask your question about Desire Infoweb. I'll do my best to assist you!"
     if intent == IntentCategory.ACKNOWLEDGEMENT:
