@@ -228,6 +228,31 @@ def run_suite() -> list[QAResult]:
 
     results.append(_run_check("Exclusion of JSON citations", _check_json_citation_exclusion))
 
+    def _check_company_profile_citation_case_variants() -> tuple[bool, str]:
+        answer = "Desire Infoweb Pvt Ltd is a certified Microsoft Partner and IT consulting company."
+        query_variants = [
+            "what is desire infoweb",
+            "What Is Desire Infoweb?",
+            "WHAT IS DESIRE INFOWEB",
+        ]
+
+        for query in query_variants:
+            should_attach = main._should_attach_citations(answer, query, citations=[])
+            selected = main._select_response_citations(
+                citations=[],
+                limit=5,
+                normalized_query=query,
+                answer_text=answer,
+            )
+            if not should_attach:
+                return False, f"did not attach citations for query '{query}'"
+            if len(selected) != 1 or selected[0].get("url") != "https://desireinfoweb.com/about-us":
+                return False, f"bad citation for query '{query}': {selected}"
+
+        return True, "Company profile citation fallback works for lower/title/upper case queries"
+
+    results.append(_run_check("Company profile citation case variants", _check_company_profile_citation_case_variants))
+
     def _check_service_citation_override() -> tuple[bool, str]:
         specific_tests = {
             "tell me about SharePoint": "SharePoint",
@@ -327,6 +352,17 @@ def run_suite() -> list[QAResult]:
         return ok, f"videos={videos}"
 
     results.append(_run_check("Typo query gets project video fallback", _check_project_video_fallback_for_typo_query))
+
+    def _check_unrelated_service_rejects_pmp_video() -> tuple[bool, str]:
+        context = (
+            "Project Management Portal walkthrough https://youtu.be/pmportal123 "
+            "Learning Management System (LMS) demo https://youtu.be/lmsdemo456"
+        )
+        seo_videos = main._extract_video_sources_from_context(context, "seo project", limit=1)
+        ok = len(seo_videos) == 0
+        return ok, f"seo_videos={seo_videos}"
+
+    results.append(_run_check("Unrelated service query rejects misaligned product video", _check_unrelated_service_rejects_pmp_video))
 
     def _check_semantic_intent_normalization_with_typos() -> tuple[bool, str]:
         learning_typo = main._normalize_user_query("give me deatil about the leaning managment poratl")

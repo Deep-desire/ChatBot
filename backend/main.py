@@ -1492,6 +1492,9 @@ def _classify_intent(query: str, session_id: str | None = None) -> IntentCategor
     if re.match(r"^(hi+|hello+|hey+|good morning|good afternoon|good evening)\b", compact) and len(compact.split()) <= 4:
         return IntentCategory.GREETING
 
+    if _is_desire_infoweb_profile_query(query):
+        return IntentCategory.RAG_GENERAL
+
     # LLM classification for more complex intents
     history_text = ""
     if session_id:
@@ -2628,11 +2631,19 @@ def _to_video_embed_url(url: str) -> str:
 def _tokenize_video_match_terms(value: str) -> set[str]:
     if not value:
         return set()
-    return {
+    tokens = {
         token
         for token in re.findall(r"[a-z0-9]{2,}", value.lower())
         if token and token not in VIDEO_MATCH_STOPWORDS
     }
+    lowered = value.lower()
+    if "pmp" in tokens or ("project" in lowered and "management" in lowered):
+        tokens.add("pmp")
+        tokens.add("management")
+    if "lms" in tokens or ("learning" in lowered and "management" in lowered):
+        tokens.add("lms")
+        tokens.add("learning")
+    return tokens
 
 
 def _tokenize_source_match_terms(value: str) -> list[str]:
@@ -2688,6 +2699,27 @@ def _is_company_profile_query(query_text: str) -> bool:
         or "company" in lowered
     )
     if not mentions_company:
+        return False
+
+    profile_terms = [
+        "vision",
+        "mission",
+        "about",
+        "overview",
+        "profile",
+        "corporate",
+        "who is",
+        "what is",
+    ]
+    return any(term in lowered for term in profile_terms)
+
+
+def _is_desire_infoweb_profile_query(query_text: str) -> bool:
+    lowered = re.sub(r"\s+", " ", (query_text or "").lower()).strip()
+    if not lowered:
+        return False
+
+    if "desire infoweb" not in lowered and "desireinfoweb" not in lowered:
         return False
 
     profile_terms = [
@@ -2901,11 +2933,14 @@ def _extract_video_sources_from_context(context_text: str, query_text: str, limi
         local_pre_context = re.sub(r"https?://[^\s<>'\"]+", " ", local_pre_context, flags=re.IGNORECASE)
         local_pre_context = re.sub(r"\s+", " ", local_pre_context).strip()
         local_pre_context = local_pre_context[-90:]
-        text_for_match = f"{normalized_url} {local_pre_context}"
+        text_for_match = f"{normalized_url} {local_pre_context}" 
         match_score = 1
         if query_tokens:
+            candidate_tokens = _tokenize_video_match_terms(text_for_match)
+            if not candidate_tokens.intersection(query_tokens):
+                continue
             match_score = _score_query_source_alignment(query_text, text_for_match)
-            min_required_score = 7 if len(query_tokens) >= 2 else 1
+            min_required_score = 7 if len(query_tokens) >= 2 else 5
             if match_score < min_required_score:
                 continue
 
@@ -4418,9 +4453,21 @@ def _is_non_kb_intent(query: str, answer: str) -> bool:
     return False
 
 
+def _company_profile_citation() -> dict[str, Any]:
+    return {
+        "title": "About Us",
+        "url": "https://desireinfoweb.com/about-us",
+        "id": "desire-infoweb-about-us",
+        "score": 1.0,
+    }
+
+
 def _should_attach_citations(answer: str, normalized_query: str, citations: list[dict[str, Any]]) -> bool:
     if _is_non_kb_intent(normalized_query, answer):
         return False
+
+    if _is_company_profile_query(normalized_query):
+        return True
 
     if _is_service_query(normalized_query) or _find_catalog_citation_match(normalized_query) is not None:
         return True
@@ -4466,9 +4513,6 @@ def _select_response_citations(
             }
         ]
 
-    if not citations:
-        return []
-
     resolved_limit = _get_citation_max_items() if limit is None else max(1, min(limit, 5))
     selected: list[dict[str, Any]] = []
     seen_urls: set[str] = set()
@@ -4477,6 +4521,9 @@ def _select_response_citations(
     citations_pool = [dict(item or {}) for item in citations]
 
     if _is_company_profile_query(normalized_query):
+        if not citations_pool:
+            return [_company_profile_citation()]
+
         hint_citations = _fetch_company_profile_citation_hint(normalized_query)
         if hint_citations:
             citations_pool = hint_citations + citations_pool
@@ -4485,6 +4532,10 @@ def _select_response_citations(
                 count=len(hint_citations),
                 primary=hint_citations[0] if hint_citations else None,
             )
+        citations_pool.append(_company_profile_citation())
+
+    if not citations_pool:
+        return []
 
     ranked_citations: list[tuple[tuple[Any, ...], dict[str, Any]]] = []
     for raw_item in citations_pool:

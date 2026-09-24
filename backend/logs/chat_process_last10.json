@@ -1,270 +1,12 @@
 [
   {
-    "trace_id": "cb1799fa-f4f5-48e4-8284-7c8fb23e48ce",
-    "started_at": "2026-05-27T07:13:11.724216+00:00",
-    "ended_at": "2026-05-27T07:13:12.164850+00:00",
+    "trace_id": "41fd9530-c865-493d-92c2-013a7c8579cb",
+    "started_at": "2026-09-24T11:05:11.208518+00:00",
+    "ended_at": "2026-09-24T11:05:16.956417+00:00",
     "endpoint": "/api/chat/text/stream",
     "streaming": true,
     "status": "success",
-    "duration_ms": 440.63,
-    "session_id": "cf5efcf0-7945-4455-a54f-845a9d8c44b6",
-    "user_query": "heyyy",
-    "process": {
-      "user_request": {
-        "query": "heyyy",
-        "endpoint": "/api/chat/text/stream",
-        "stream": true,
-        "ts": "2026-05-27T07:13:11.724216+00:00"
-      },
-      "ai_request": {
-        "mode": "direct_answer",
-        "model_input_chars": 0,
-        "stream": true,
-        "intent": "greeting",
-        "ts": "2026-05-27T07:13:11.724216+00:00"
-      },
-      "ai_search_response": {
-        "source": "direct_answer",
-        "context_chars": 0,
-        "top_score": 0.0,
-        "citations_count": 0,
-        "stream": true,
-        "ts": "2026-05-27T07:13:11.724216+00:00"
-      },
-      "ai_search_json_response": {},
-      "ai_search_blob_response": {},
-      "ai_selection": {},
-      "ai_openai_response": {
-        "source": "direct_answer",
-        "answer_chars": 32,
-        "stream": true,
-        "ts": "2026-05-27T07:13:12.164850+00:00"
-      },
-      "display_response": {
-        "status_code": 200,
-        "answer_chars": 32,
-        "citations_count": 0,
-        "stream": true,
-        "ts": "2026-05-27T07:13:12.164850+00:00"
-      },
-      "ai_research_response": {
-        "source": "direct_answer",
-        "context_chars": 0,
-        "top_score": 0.0,
-        "citations_count": 0,
-        "stream": true,
-        "ts": "2026-05-27T07:13:11.724216+00:00"
-      }
-    },
-    "summary": {
-      "status_code": 200,
-      "reply": "Hello! How can I help you today?",
-      "stream": true
-    }
-  },
-  {
-    "trace_id": "725daf09-878b-4dab-9ddf-6bfcf8b57e26",
-    "started_at": "2026-05-27T07:15:45.854758+00:00",
-    "ended_at": "2026-05-27T07:15:46.240793+00:00",
-    "endpoint": "/api/chat/text/stream",
-    "streaming": true,
-    "status": "success",
-    "duration_ms": 386.04,
-    "session_id": "cf5efcf0-7945-4455-a54f-845a9d8c44b6",
-    "user_query": "heyy",
-    "process": {
-      "user_request": {
-        "query": "heyy",
-        "endpoint": "/api/chat/text/stream",
-        "stream": true,
-        "ts": "2026-05-27T07:15:45.854758+00:00"
-      },
-      "ai_request": {
-        "mode": "direct_answer",
-        "model_input_chars": 0,
-        "stream": true,
-        "intent": "greeting",
-        "ts": "2026-05-27T07:15:45.859773+00:00"
-      },
-      "ai_search_response": {
-        "source": "direct_answer",
-        "context_chars": 0,
-        "top_score": 0.0,
-        "citations_count": 0,
-        "stream": true,
-        "ts": "2026-05-27T07:15:45.859773+00:00"
-      },
-      "ai_search_json_response": {},
-      "ai_search_blob_response": {},
-      "ai_selection": {},
-      "ai_openai_response": {
-        "source": "direct_answer",
-        "answer_chars": 32,
-        "stream": true,
-        "ts": "2026-05-27T07:15:46.240793+00:00"
-      },
-      "display_response": {
-        "status_code": 200,
-        "answer_chars": 32,
-        "citations_count": 0,
-        "stream": true,
-        "ts": "2026-05-27T07:15:46.240793+00:00"
-      },
-      "ai_research_response": {
-        "source": "direct_answer",
-        "context_chars": 0,
-        "top_score": 0.0,
-        "citations_count": 0,
-        "stream": true,
-        "ts": "2026-05-27T07:15:45.859773+00:00"
-      }
-    },
-    "summary": {
-      "status_code": 200,
-      "reply": "Hello! How can I help you today?",
-      "stream": true
-    }
-  },
-  {
-    "trace_id": "47d80f5e-8f07-4972-8cdd-df3ae60b757d",
-    "started_at": "2026-05-27T07:19:02.888451+00:00",
-    "ended_at": "2026-05-27T07:19:05.918715+00:00",
-    "endpoint": "/api/chat/text",
-    "streaming": false,
-    "status": "success",
-    "duration_ms": 3030.26,
-    "session_id": "qa-direct",
-    "user_query": "what is desire infoweb",
-    "process": {
-      "user_request": {
-        "query": "what is desire infoweb",
-        "endpoint": "/api/chat/text",
-        "stream": false,
-        "ts": "2026-05-27T07:19:02.889978+00:00"
-      },
-      "ai_request": {
-        "mode": "direct_answer",
-        "model_input_chars": 0,
-        "intent": "incomplete_question",
-        "ts": "2026-05-27T07:19:05.918715+00:00"
-      },
-      "ai_search_response": {
-        "source": "direct_answer",
-        "context_chars": 0,
-        "top_score": 0.0,
-        "citations_count": 0,
-        "ts": "2026-05-27T07:19:05.918715+00:00"
-      },
-      "ai_search_json_response": {},
-      "ai_search_blob_response": {},
-      "ai_selection": {},
-      "ai_openai_response": {
-        "source": "direct_answer",
-        "answer_chars": 101,
-        "ts": "2026-05-27T07:19:05.918715+00:00"
-      },
-      "display_response": {
-        "status_code": 200,
-        "answer_chars": 101,
-        "citations_count": 0,
-        "stream": false,
-        "ts": "2026-05-27T07:19:05.918715+00:00"
-      },
-      "ai_research_response": {
-        "source": "direct_answer",
-        "context_chars": 0,
-        "top_score": 0.0,
-        "citations_count": 0,
-        "ts": "2026-05-27T07:19:05.918715+00:00"
-      }
-    },
-    "summary": {
-      "status_code": 200,
-      "reply": "Could you please specify what you would like to know more about? I'd be happy to provide the details!"
-    }
-  },
-  {
-    "trace_id": "7bc3b59c-1f7d-4fb4-945b-5e541f9feab1",
-    "started_at": "2026-05-27T07:19:05.964272+00:00",
-    "ended_at": "2026-05-27T07:19:13.485285+00:00",
-    "endpoint": "/api/chat/text",
-    "streaming": false,
-    "status": "success",
-    "duration_ms": 7521.01,
-    "session_id": "qa-cite",
-    "user_query": "give me detail about the fluentify ai project",
-    "process": {
-      "user_request": {
-        "query": "give me detail about the fluentify ai project",
-        "endpoint": "/api/chat/text",
-        "stream": false,
-        "ts": "2026-05-27T07:19:05.964272+00:00"
-      },
-      "ai_request": {
-        "mode": "rag",
-        "model": "gpt-4o",
-        "model_input_chars": 216,
-        "intent": "projects",
-        "ts": "2026-05-27T07:19:07.505517+00:00"
-      },
-      "ai_search_response": {
-        "source": "azure_ai_search",
-        "context_chars": 17,
-        "top_score": 0.91,
-        "citations_count": 1,
-        "videos_count": 0,
-        "citation": {
-          "title": "Fluentify Source",
-          "url": "https://example.com/fluentify.pdf",
-          "id": "1",
-          "score": 0.91
-        },
-        "ts": "2026-05-27T07:19:13.485285+00:00"
-      },
-      "ai_search_json_response": {},
-      "ai_search_blob_response": {},
-      "ai_selection": {},
-      "ai_openai_response": {
-        "source": "azure_openai",
-        "answer_chars": 25,
-        "ts": "2026-05-27T07:19:13.485285+00:00"
-      },
-      "display_response": {
-        "status_code": 200,
-        "answer_chars": 25,
-        "citations_count": 1,
-        "videos_count": 0,
-        "stream": false,
-        "ts": "2026-05-27T07:19:13.485285+00:00"
-      },
-      "ai_research_response": {
-        "source": "azure_ai_search",
-        "context_chars": 17,
-        "top_score": 0.91,
-        "citations_count": 1,
-        "videos_count": 0,
-        "citation": {
-          "title": "Fluentify Source",
-          "url": "https://example.com/fluentify.pdf",
-          "id": "1",
-          "score": 0.91
-        },
-        "ts": "2026-05-27T07:19:13.485285+00:00"
-      }
-    },
-    "summary": {
-      "status_code": 200,
-      "reply": "Fluentify detailed answer"
-    }
-  },
-  {
-    "trace_id": "8e05197b-aef8-423f-86b4-2287fc77babb",
-    "started_at": "2026-05-27T07:19:13.510038+00:00",
-    "ended_at": "2026-05-27T07:19:20.637983+00:00",
-    "endpoint": "/api/chat/text/stream",
-    "streaming": true,
-    "status": "success",
-    "duration_ms": 7127.94,
+    "duration_ms": 5747.9,
     "session_id": "qa-cite",
     "user_query": "give me detail about the fluentify ai project",
     "process": {
@@ -272,7 +14,7 @@
         "query": "give me detail about the fluentify ai project",
         "endpoint": "/api/chat/text/stream",
         "stream": true,
-        "ts": "2026-05-27T07:19:13.510038+00:00"
+        "ts": "2026-09-24T11:05:11.209989+00:00"
       },
       "ai_request": {
         "mode": "rag",
@@ -280,7 +22,7 @@
         "model_input_chars": 328,
         "stream": true,
         "intent": "projects",
-        "ts": "2026-05-27T07:19:15.939271+00:00"
+        "ts": "2026-09-24T11:05:13.395574+00:00"
       },
       "ai_search_response": {
         "source": "azure_ai_search",
@@ -295,7 +37,7 @@
           "score": 0.91
         },
         "stream": true,
-        "ts": "2026-05-27T07:19:20.637983+00:00"
+        "ts": "2026-09-24T11:05:16.952417+00:00"
       },
       "ai_search_json_response": {},
       "ai_search_blob_response": {},
@@ -304,14 +46,14 @@
         "source": "azure_openai",
         "answer_chars": 25,
         "stream": true,
-        "ts": "2026-05-27T07:19:20.637983+00:00"
+        "ts": "2026-09-24T11:05:16.955417+00:00"
       },
       "display_response": {
         "status_code": 200,
         "answer_chars": 25,
         "citations_count": 1,
         "stream": true,
-        "ts": "2026-05-27T07:19:20.637983+00:00"
+        "ts": "2026-09-24T11:05:16.955417+00:00"
       },
       "ai_research_response": {
         "source": "azure_ai_search",
@@ -326,7 +68,7 @@
           "score": 0.91
         },
         "stream": true,
-        "ts": "2026-05-27T07:19:20.637983+00:00"
+        "ts": "2026-09-24T11:05:16.952417+00:00"
       }
     },
     "summary": {
@@ -336,406 +78,1370 @@
     }
   },
   {
-    "trace_id": "7fc8de55-3248-4c21-aa06-ae75d108edf6",
-    "started_at": "2026-05-27T07:21:43.265605+00:00",
-    "ended_at": "2026-05-27T07:21:43.648543+00:00",
+    "trace_id": "3fa5cc37-25bc-4e81-b5cf-f7c54de397ed",
+    "started_at": "2026-09-24T11:07:19.395062+00:00",
+    "ended_at": "2026-09-24T11:07:37.841914+00:00",
     "endpoint": "/api/chat/text/stream",
     "streaming": true,
     "status": "success",
-    "duration_ms": 382.94,
+    "duration_ms": 18446.85,
     "session_id": "cf5efcf0-7945-4455-a54f-845a9d8c44b6",
-    "user_query": "heyyy",
+    "user_query": "What type of AI projects has Desire Infoweb completed?",
     "process": {
       "user_request": {
-        "query": "heyyy",
+        "query": "What type of AI projects has Desire Infoweb completed?",
         "endpoint": "/api/chat/text/stream",
         "stream": true,
-        "ts": "2026-05-27T07:21:43.266604+00:00"
-      },
-      "ai_request": {
-        "mode": "direct_answer",
-        "model_input_chars": 0,
-        "stream": true,
-        "intent": "greeting",
-        "ts": "2026-05-27T07:21:43.266604+00:00"
-      },
-      "ai_search_response": {
-        "source": "direct_answer",
-        "context_chars": 0,
-        "top_score": 0.0,
-        "citations_count": 0,
-        "stream": true,
-        "ts": "2026-05-27T07:21:43.266604+00:00"
-      },
-      "ai_search_json_response": {},
-      "ai_search_blob_response": {},
-      "ai_selection": {},
-      "ai_openai_response": {
-        "source": "direct_answer",
-        "answer_chars": 32,
-        "stream": true,
-        "ts": "2026-05-27T07:21:43.648543+00:00"
-      },
-      "display_response": {
-        "status_code": 200,
-        "answer_chars": 32,
-        "citations_count": 0,
-        "stream": true,
-        "ts": "2026-05-27T07:21:43.648543+00:00"
-      },
-      "ai_research_response": {
-        "source": "direct_answer",
-        "context_chars": 0,
-        "top_score": 0.0,
-        "citations_count": 0,
-        "stream": true,
-        "ts": "2026-05-27T07:21:43.266604+00:00"
-      }
-    },
-    "summary": {
-      "status_code": 200,
-      "reply": "Hello! How can I help you today?",
-      "stream": true
-    }
-  },
-  {
-    "trace_id": "8d18be97-7ada-4ddc-a543-7165b3f16dcc",
-    "started_at": "2026-05-28T10:04:15.772734+00:00",
-    "ended_at": "2026-05-28T10:04:21.418736+00:00",
-    "endpoint": "/api/chat/text/stream",
-    "streaming": true,
-    "status": "success",
-    "duration_ms": 5646.0,
-    "session_id": "e7b3a0c8-6ecb-4df7-8315-89bf047616f5",
-    "user_query": "What is Desire Infoweb?",
-    "process": {
-      "user_request": {
-        "query": "What is Desire Infoweb?",
-        "endpoint": "/api/chat/text/stream",
-        "stream": true,
-        "ts": "2026-05-28T10:04:15.925223+00:00"
-      },
-      "ai_request": {
-        "mode": "direct_answer",
-        "model_input_chars": 0,
-        "stream": true,
-        "intent": "small_talk",
-        "ts": "2026-05-28T10:04:20.430595+00:00"
-      },
-      "ai_search_response": {
-        "source": "direct_answer",
-        "context_chars": 0,
-        "top_score": 0.0,
-        "citations_count": 0,
-        "stream": true,
-        "ts": "2026-05-28T10:04:20.430595+00:00"
-      },
-      "ai_search_json_response": {},
-      "ai_search_blob_response": {},
-      "ai_selection": {},
-      "ai_openai_response": {
-        "source": "direct_answer",
-        "answer_chars": 175,
-        "stream": true,
-        "ts": "2026-05-28T10:04:21.418736+00:00"
-      },
-      "display_response": {
-        "status_code": 200,
-        "answer_chars": 175,
-        "citations_count": 0,
-        "stream": true,
-        "ts": "2026-05-28T10:04:21.418736+00:00"
-      },
-      "ai_research_response": {
-        "source": "direct_answer",
-        "context_chars": 0,
-        "top_score": 0.0,
-        "citations_count": 0,
-        "stream": true,
-        "ts": "2026-05-28T10:04:20.430595+00:00"
-      }
-    },
-    "summary": {
-      "status_code": 200,
-      "reply": "I am the Desire Infoweb assistant. I'm doing great, thank you! I can help you with information about our IT services, AI projects, pricing, and more. How can I help you today?",
-      "stream": true
-    }
-  },
-  {
-    "trace_id": "0f039c6c-ef26-4ea0-b157-b927c0992a6b",
-    "started_at": "2026-05-28T10:05:20.246076+00:00",
-    "ended_at": "2026-05-28T10:05:23.285657+00:00",
-    "endpoint": "/api/chat/text/stream",
-    "streaming": true,
-    "status": "success",
-    "duration_ms": 3039.58,
-    "session_id": "e7b3a0c8-6ecb-4df7-8315-89bf047616f5",
-    "user_query": "What is Desire Infoweb?",
-    "process": {
-      "user_request": {
-        "query": "What is Desire Infoweb?",
-        "endpoint": "/api/chat/text/stream",
-        "stream": true,
-        "ts": "2026-05-28T10:05:20.246076+00:00"
-      },
-      "ai_request": {
-        "mode": "direct_answer",
-        "model_input_chars": 0,
-        "stream": true,
-        "intent": "small_talk",
-        "ts": "2026-05-28T10:05:22.750974+00:00"
-      },
-      "ai_search_response": {
-        "source": "direct_answer",
-        "context_chars": 0,
-        "top_score": 0.0,
-        "citations_count": 0,
-        "stream": true,
-        "ts": "2026-05-28T10:05:22.750974+00:00"
-      },
-      "ai_search_json_response": {},
-      "ai_search_blob_response": {},
-      "ai_selection": {},
-      "ai_openai_response": {
-        "source": "direct_answer",
-        "answer_chars": 175,
-        "stream": true,
-        "ts": "2026-05-28T10:05:23.285657+00:00"
-      },
-      "display_response": {
-        "status_code": 200,
-        "answer_chars": 175,
-        "citations_count": 0,
-        "stream": true,
-        "ts": "2026-05-28T10:05:23.285657+00:00"
-      },
-      "ai_research_response": {
-        "source": "direct_answer",
-        "context_chars": 0,
-        "top_score": 0.0,
-        "citations_count": 0,
-        "stream": true,
-        "ts": "2026-05-28T10:05:22.750974+00:00"
-      }
-    },
-    "summary": {
-      "status_code": 200,
-      "reply": "I am the Desire Infoweb assistant. I'm doing great, thank you! I can help you with information about our IT services, AI projects, pricing, and more. How can I help you today?",
-      "stream": true
-    }
-  },
-  {
-    "trace_id": "8619c9ca-0c1a-4a3b-9227-ee868c0b51d2",
-    "started_at": "2026-05-28T10:07:23.613111+00:00",
-    "ended_at": "2026-05-28T10:07:26.395525+00:00",
-    "endpoint": "/api/chat/text/stream",
-    "streaming": true,
-    "status": "success",
-    "duration_ms": 2782.41,
-    "session_id": "e7b3a0c8-6ecb-4df7-8315-89bf047616f5",
-    "user_query": "What is Desire Infoweb?",
-    "process": {
-      "user_request": {
-        "query": "What is Desire Infoweb?",
-        "endpoint": "/api/chat/text/stream",
-        "stream": true,
-        "ts": "2026-05-28T10:07:23.613111+00:00"
-      },
-      "ai_request": {
-        "mode": "direct_answer",
-        "model_input_chars": 0,
-        "stream": true,
-        "intent": "small_talk",
-        "ts": "2026-05-28T10:07:25.634692+00:00"
-      },
-      "ai_search_response": {
-        "source": "direct_answer",
-        "context_chars": 0,
-        "top_score": 0.0,
-        "citations_count": 0,
-        "stream": true,
-        "ts": "2026-05-28T10:07:25.634692+00:00"
-      },
-      "ai_search_json_response": {},
-      "ai_search_blob_response": {},
-      "ai_selection": {},
-      "ai_openai_response": {
-        "source": "direct_answer",
-        "answer_chars": 175,
-        "stream": true,
-        "ts": "2026-05-28T10:07:26.395525+00:00"
-      },
-      "display_response": {
-        "status_code": 200,
-        "answer_chars": 175,
-        "citations_count": 0,
-        "stream": true,
-        "ts": "2026-05-28T10:07:26.395525+00:00"
-      },
-      "ai_research_response": {
-        "source": "direct_answer",
-        "context_chars": 0,
-        "top_score": 0.0,
-        "citations_count": 0,
-        "stream": true,
-        "ts": "2026-05-28T10:07:25.634692+00:00"
-      }
-    },
-    "summary": {
-      "status_code": 200,
-      "reply": "I am the Desire Infoweb assistant. I'm doing great, thank you! I can help you with information about our IT services, AI projects, pricing, and more. How can I help you today?",
-      "stream": true
-    }
-  },
-  {
-    "trace_id": "25091d9f-0eb1-4f14-bb6a-af10a3c2b8c5",
-    "started_at": "2026-05-28T10:08:15.394787+00:00",
-    "ended_at": "2026-05-28T10:08:48.935759+00:00",
-    "endpoint": "/api/chat/text/stream",
-    "streaming": true,
-    "status": "success",
-    "duration_ms": 33540.97,
-    "session_id": "e7b3a0c8-6ecb-4df7-8315-89bf047616f5",
-    "user_query": "What is Desire Infoweb?",
-    "process": {
-      "user_request": {
-        "query": "What is Desire Infoweb?",
-        "endpoint": "/api/chat/text/stream",
-        "stream": true,
-        "ts": "2026-05-28T10:08:15.396788+00:00"
+        "ts": "2026-09-24T11:07:19.397062+00:00"
       },
       "ai_request": {
         "mode": "rag",
         "model": "gpt-4o",
-        "model_input_chars": 194,
+        "model_input_chars": 225,
         "stream": true,
-        "intent": "small_talk",
-        "ts": "2026-05-28T10:08:17.781610+00:00"
+        "intent": "projects",
+        "ts": "2026-09-24T11:07:21.721914+00:00"
       },
       "ai_search_response": {
         "source": "azure_ai_search",
-        "context_chars": 7967,
-        "top_score": 9.117103,
-        "citations_count": 11,
+        "context_chars": 3173,
+        "top_score": 9.558665,
+        "citations_count": 10,
         "videos_count": 0,
         "citation": {
           "title": "about-us",
           "url": "https://desireinfoweb.com/about-us",
           "id": "s_c2VydmljZUNhdGFsb2cudHh0_i_0_u_c76371ec982743fd978ca381a3778da9",
-          "score": 9.117103,
+          "score": 9.558665,
           "context_snippet": "[companyProfile] About Desire Infoweb Desire Infoweb is an IT services and consulting company focused on Microsoft technologies, enterprise automation, modern collaboration platforms, analytics, and AI-powered business solutions. Core capabilities include SharePoint, Power Platform, Power BI, Microsoft Teams, Dynamics 365, Azure, .NET development, migration, governance, and custom AI/chatbot implementations. https://desireinfoweb.com/about-us [products] Organization Chart An organizational chart shows the internal structure of an organization or company. The employees and positions are represented by boxes or other shapes, sometimes including photos, contact information, email and page links, icons, and illustrations. Straight or elbowed lines link the levels together. https://desireinfoweb.com/products/organization-chart",
-          "overlap_count": 3,
-          "overlap_ratio": 1.0,
-          "entry_rank": 0.946029,
+          "overlap_count": 4,
+          "overlap_ratio": 0.571429,
+          "entry_rank": 0.648091,
           "retrieval_mode": "text",
           "source_scope": "knowledge"
         },
         "stream": true,
-        "ts": "2026-05-28T10:08:36.453278+00:00"
+        "ts": "2026-09-24T11:07:32.523258+00:00"
       },
       "ai_search_json_response": {
         "source_scope": "knowledge",
         "found": true,
         "retrieval_mode": "text",
-        "score": 9.117103,
-        "normalized_score": 0.820097,
-        "rank": 0.98846,
-        "overlap_ratio": 1.0,
-        "overlap_count": 3,
-        "query_term_count": 3,
+        "score": 9.558665,
+        "normalized_score": 0.82697,
+        "rank": 0.829864,
+        "overlap_ratio": 0.571429,
+        "overlap_count": 4,
+        "query_term_count": 7,
         "meets_score": true,
         "meets_overlap": true,
-        "context_chars": 7967,
+        "context_chars": 3173,
+        "context_preview": "[companyProfile] About Desire Infoweb Desire Infoweb is an IT services and consulting company focused on Microsoft technologies, enterprise automation, modern collaboration platforms, analytics, and AI-powered business solutions. Core capabilities include SharePoint, Power Platform, Power BI, Microsoft Teams, Dynamics 365, Azure, .NET development, migration, governance, and custom AI/chatbot implementations. https://desireinfoweb.com/about-us [products] Organization Chart An organizational chart shows the internal structure of an organization or company. The employees and positions are represe",
+        "citations_count": 3,
+        "citation": {
+          "title": "about-us",
+          "url": "https://desireinfoweb.com/about-us",
+          "id": "s_c2VydmljZUNhdGFsb2cudHh0_i_0_u_c76371ec982743fd978ca381a3778da9",
+          "score": 9.558665,
+          "context_snippet": "[companyProfile] About Desire Infoweb Desire Infoweb is an IT services and consulting company focused on Microsoft technologies, enterprise automation, modern collaboration platforms, analytics, and AI-powered business solutions. Core capabilities include SharePoint, Power Platform, Power BI, Microsoft Teams, Dynamics 365, Azure, .NET development, migration, governance, and custom AI/chatbot implementations. https://desireinfoweb.com/about-us [products] Organization Chart An organizational chart shows the internal structure of an organization or company. The employees and positions are represented by boxes or other shapes, sometimes including photos, contact information, email and page links, icons, and illustrations. Straight or elbowed lines link the levels together. https://desireinfoweb.com/products/organization-chart",
+          "overlap_count": 4,
+          "overlap_ratio": 0.571429,
+          "entry_rank": 0.648091,
+          "retrieval_mode": "text"
+        },
+        "ts": "2026-09-24T11:07:28.947785+00:00"
+      },
+      "ai_search_blob_response": {
+        "source_scope": "blob_fallback",
+        "found": true,
+        "retrieval_mode": "text",
+        "score": 14.311049,
+        "normalized_score": 0.877384,
+        "rank": 0.809692,
+        "overlap_ratio": 0.857143,
+        "overlap_count": 6,
+        "query_term_count": 7,
+        "meets_score": true,
+        "meets_overlap": true,
+        "context_chars": 13345,
+        "context_preview": "Empowering Your Vis ion Through S trategic IT Innovation Desire Infoweb Pvt Ltd. — Specialists in AI, Microsoft 365, Azure, SharePoint, Power Platform, Dynamics 365 & more WHO WE ARE Professional AI & Microsoft 365 Consulting We provide professional AI and Microsoft 365 consulting services for businesses in Europe, Australia, USA, South Africa, and Canada. Our team helps organizations improve productivity through customized Microsoft 365 solutions, smooth migration, secure setup, and reliable ongoing support. We focus on aligning Microsoft tools with your business needs to ensure better collab",
+        "citations_count": 4,
+        "citation": {
+          "title": "Company Presentation New.pdf",
+          "url": "https://desirechatbotweb.blob.core.windows.net/desirechatbotweb/Company%20Presentation%20New.pdf",
+          "id": "42c7ea830793_aHR0cHM6Ly9kZXNpcmVjaGF0Ym90d2ViLmJsb2IuY29yZS53aW5kb3dzLm5ldC9kZXNpcmVjaGF0Ym90d2ViL0NvbXBhbnklMjBQcmVzZW50YXRpb24lMjBOZXcucGRm0_pages_0",
+          "score": 14.311049,
+          "context_snippet": "Empowering Your Vis ion Through S trategic IT Innovation Desire Infoweb Pvt Ltd. — Specialists in AI, Microsoft 365, Azure, SharePoint, Power Platform, Dynamics 365 & more WHO WE ARE Professional AI & Microsoft 365 Consulting We provide professional AI and Microsoft 365 consulting services for businesses in Europe, Australia, USA, South Africa, and Canada. Our team helps organizations improve productivity through customized Microsoft 365 solutions, smooth migration, secure setup, and reliable ongoing support. We focus on aligning Microsoft tools with your business needs to ensure better collaboration and long-term growth. Customized Solutions Tailored Microsoft 365 solutions aligned with your unique business objectives and workflows. Smooth Migration Seamless migration, secure setup, and reliable ongoing support for your organization. AI-Powered Services Cutting-edge AI services to help your business stay competitive and future-ready. Long-Term Growth Partnering with you to drive sustainable collaboration, productivity, and business growth. Indus tries We S erve Education & E-learning Retail E-commerce Finance Real Estate Travel On-demand Solutions Healthcare & Fitness Logistics & Distribution OUR TRACK RECORD Global Reach, Proven Track Record With over a decade of experience, Desire Infoweb has established a strong global presence and a consistent record of delivering results for clients across more than 25 countries. 1200+ Projects Delivered Successful IT projects completed across diverse industries and geographies. 200+ Clients Worldwide Trusted by over 200 businesses across Europe, Australia, USA, South Africa, and Canada. 25+ Countries Served Global reach with local understanding across more than 25 countries. 10+ Years of Experience Over 10 years of expertise in I",
+          "overlap_count": 6,
+          "overlap_ratio": 0.857143,
+          "entry_rank": 0.863215,
+          "retrieval_mode": "text"
+        },
+        "ts": "2026-09-24T11:07:28.948784+00:00"
+      },
+      "ai_selection": {
+        "selected_source_scope": "knowledge",
+        "selected_retrieval_mode": "text",
+        "selected_score": 9.558665,
+        "selected_rank": 0.829864,
+        "selected_overlap_ratio": 0.571429,
+        "candidate_count": 4,
+        "ts": "2026-09-24T11:07:28.948784+00:00"
+      },
+      "ai_openai_response": {
+        "source": "azure_openai",
+        "answer_chars": 759,
+        "stream": true,
+        "ts": "2026-09-24T11:07:36.114351+00:00"
+      },
+      "display_response": {
+        "status_code": 200,
+        "answer_chars": 759,
+        "citations_count": 1,
+        "stream": true,
+        "ts": "2026-09-24T11:07:37.840986+00:00"
+      },
+      "ai_research_response": {
+        "source": "azure_ai_search",
+        "context_chars": 3173,
+        "top_score": 9.558665,
+        "citations_count": 10,
+        "videos_count": 0,
+        "citation": {
+          "title": "about-us",
+          "url": "https://desireinfoweb.com/about-us",
+          "id": "s_c2VydmljZUNhdGFsb2cudHh0_i_0_u_c76371ec982743fd978ca381a3778da9",
+          "score": 9.558665,
+          "context_snippet": "[companyProfile] About Desire Infoweb Desire Infoweb is an IT services and consulting company focused on Microsoft technologies, enterprise automation, modern collaboration platforms, analytics, and AI-powered business solutions. Core capabilities include SharePoint, Power Platform, Power BI, Microsoft Teams, Dynamics 365, Azure, .NET development, migration, governance, and custom AI/chatbot implementations. https://desireinfoweb.com/about-us [products] Organization Chart An organizational chart shows the internal structure of an organization or company. The employees and positions are represented by boxes or other shapes, sometimes including photos, contact information, email and page links, icons, and illustrations. Straight or elbowed lines link the levels together. https://desireinfoweb.com/products/organization-chart",
+          "overlap_count": 4,
+          "overlap_ratio": 0.571429,
+          "entry_rank": 0.648091,
+          "retrieval_mode": "text",
+          "source_scope": "knowledge"
+        },
+        "stream": true,
+        "ts": "2026-09-24T11:07:32.523258+00:00"
+      }
+    },
+    "summary": {
+      "status_code": 200,
+      "reply": "Desire Infoweb has delivered diverse AI projects, including:\n\n- **Fluentify AI**: Language proficiency assessment using MS Teams, Zoom, and Google Meet recordings.\n- **Insurance Chatbot**: Policy verification reduced from 15–20 minutes to seconds with document referencing.\n- **Social Omni**: AI-driven multi-platform campaign creator, cutting creation time from hours to seconds.\n- **AI-Powered Document Review Specialist**: Built on Google Gemini, detects clerical/logical errors 24/7.\n- **Smart Learning Chatbot**: Conversational AI integrated with Azure-hosted video resources.\n- **Workflow-Driven Document Creation**: Automates email-to-SharePoint storage and NDA/agreement generation.\n\nLearn more at [AI Services](https://desireinfoweb.com/services/ai).",
+      "stream": true
+    }
+  },
+  {
+    "trace_id": "eef0d7d5-3162-49ba-bece-c83ce8acdd68",
+    "started_at": "2026-09-24T11:07:52.538866+00:00",
+    "ended_at": "2026-09-24T11:08:07.064074+00:00",
+    "endpoint": "/api/chat/text/stream",
+    "streaming": true,
+    "status": "success",
+    "duration_ms": 14525.21,
+    "session_id": "cf5efcf0-7945-4455-a54f-845a9d8c44b6",
+    "user_query": "sharepoint project",
+    "process": {
+      "user_request": {
+        "query": "sharepoint project",
+        "endpoint": "/api/chat/text/stream",
+        "stream": true,
+        "ts": "2026-09-24T11:07:52.538866+00:00"
+      },
+      "ai_request": {
+        "mode": "rag",
+        "model": "gpt-4o",
+        "model_input_chars": 1044,
+        "stream": true,
+        "intent": "projects",
+        "ts": "2026-09-24T11:07:54.761589+00:00"
+      },
+      "ai_search_response": {
+        "source": "azure_ai_search",
+        "context_chars": 6289,
+        "top_score": 0.724126,
+        "citations_count": 9,
+        "videos_count": 0,
+        "citation": {
+          "title": "project-management-portal",
+          "url": "https://desireinfoweb.com/products/project-management-portal",
+          "id": "s_c2VydmljZUNhdGFsb2cudHh0_i_2_u_7ecec9d85b1e405a993d4e0f8080aba6",
+          "score": 0.719592,
+          "context_snippet": "[products] Project Management Portal Transform the way your organization plans, tracks, and delivers projects. A SharePoint-based Project Management Portal centralizes your PMO and gives every stakeholder visibility from task boards to executive dashboards. https://desireinfoweb.com/products/project-management-portal [products] Learning Management System A Learning Management System helps organizations provide online training, courses, and learning materials to employees, students, or customers in a centralized system. https://desireinfoweb.com/products/learning-management-system [products] Audit System The Audit System project in SharePoint Online is a centralized solution for managing audits and compliance. It streamlines record tracking, monitoring, and evaluation to improve transparency and accountability. https://desireinfoweb.com/products/audit-system",
+          "overlap_count": 2,
+          "overlap_ratio": 1.0,
+          "entry_rank": 0.915878,
+          "retrieval_mode": "vector",
+          "source_scope": "knowledge"
+        },
+        "stream": true,
+        "ts": "2026-09-24T11:08:02.857962+00:00"
+      },
+      "ai_search_json_response": {
+        "source_scope": "knowledge",
+        "found": true,
+        "retrieval_mode": "vector",
+        "score": 0.724126,
+        "normalized_score": 0.724126,
+        "rank": 0.928958,
+        "overlap_ratio": 1.0,
+        "overlap_count": 2,
+        "query_term_count": 2,
+        "meets_score": true,
+        "meets_overlap": true,
+        "context_chars": 6289,
+        "context_preview": "[products] Project Management Portal Transform the way your organization plans, tracks, and delivers projects. A SharePoint-based Project Management Portal centralizes your PMO and gives every stakeholder visibility from task boards to executive dashboards. https://desireinfoweb.com/products/project-management-portal [products] Learning Management System A Learning Management System helps organizations provide online training, courses, and learning materials to employees, students, or customers in a centralized system. https://desireinfoweb.com/products/learning-management-system [products] Au",
+        "citations_count": 3,
+        "citation": {
+          "title": "project-management-portal",
+          "url": "https://desireinfoweb.com/products/project-management-portal",
+          "id": "s_c2VydmljZUNhdGFsb2cudHh0_i_2_u_7ecec9d85b1e405a993d4e0f8080aba6",
+          "score": 0.719592,
+          "context_snippet": "[products] Project Management Portal Transform the way your organization plans, tracks, and delivers projects. A SharePoint-based Project Management Portal centralizes your PMO and gives every stakeholder visibility from task boards to executive dashboards. https://desireinfoweb.com/products/project-management-portal [products] Learning Management System A Learning Management System helps organizations provide online training, courses, and learning materials to employees, students, or customers in a centralized system. https://desireinfoweb.com/products/learning-management-system [products] Audit System The Audit System project in SharePoint Online is a centralized solution for managing audits and compliance. It streamlines record tracking, monitoring, and evaluation to improve transparency and accountability. https://desireinfoweb.com/products/audit-system",
+          "overlap_count": 2,
+          "overlap_ratio": 1.0,
+          "entry_rank": 0.915878,
+          "retrieval_mode": "vector"
+        },
+        "ts": "2026-09-24T11:07:59.021339+00:00"
+      },
+      "ai_search_blob_response": {
+        "source_scope": "blob_fallback",
+        "found": true,
+        "retrieval_mode": "vector",
+        "score": 0.749947,
+        "normalized_score": 0.749947,
+        "rank": 0.784967,
+        "overlap_ratio": 1.0,
+        "overlap_count": 2,
+        "query_term_count": 2,
+        "meets_score": true,
+        "meets_overlap": true,
+        "context_chars": 1965,
+        "context_preview": "SHAREPOINT-BASED SOLUTION Project Management Portal Transform the way your organization plans, tracks, and delivers projects. Centralize your PMO with complete visibility from task boards to executive dashboards. 200+ Clients 24/7 Support 100+ Features Request Demo → THE CHALLENGE Is Your Team Struggling With This? Scattered Data Projects live in emails, spreadsheets, and chat threads with no single source of truth. Zero Visibility Leadership has no real-time view into project health, risks, or resource utilization. Missed Deadlines Tasks fall through the cracks without clear ownership, milest",
+        "citations_count": 1,
+        "citation": {
+          "title": "PMP.pdf",
+          "url": "https://desirechatbotweb.blob.core.windows.net/desirechatbotweb/PMP.pdf",
+          "id": "42c7ea830793_aHR0cHM6Ly9kZXNpcmVjaGF0Ym90d2ViLmJsb2IuY29yZS53aW5kb3dzLm5ldC9kZXNpcmVjaGF0Ym90d2ViL1BNUC5wZGY1_pages_0",
+          "score": 0.749947,
+          "context_snippet": "SHAREPOINT-BASED SOLUTION Project Management Portal Transform the way your organization plans, tracks, and delivers projects. Centralize your PMO with complete visibility from task boards to executive dashboards. 200+ Clients 24/7 Support 100+ Features Request Demo → THE CHALLENGE Is Your Team Struggling With This? Scattered Data Projects live in emails, spreadsheets, and chat threads with no single source of truth. Zero Visibility Leadership has no real-time view into project health, risks, or resource utilization. Missed Deadlines Tasks fall through the cracks without clear ownership, milestones, or escalation workflows. Security Gaps Sensitive project data shared without role-based controls or audit trails. www.desireinfoweb.com THE SOLUTION One Portal. Complete Control. Our SharePoint-based Project Management Portal centralizes your entire PMO giving every stakeholder complete visibility, from task boards to executive dashboards.  Built on Microsoft SharePoint secure, scalable & compliant  Real-time dashboards with KPIs, milestones & project health  Kanban boards, Gantt charts, and smart task assignment  Integrates with Microsoft 365, Teams, and Azure AD www.desireinfoweb.com POWERFUL FEATURES Everything You Need to Deliver Projects PMO Dashboard Live dashboard with active vs. completed projects, KPIs, milestones and real-time project health across your entire organization. Task & Milestone Tracking Assign tasks, set deadlines, define milestones, and visualize workloads with Kanban boards, Gantt charts, and list views. Document Management Centralized libraries with version control, co-authoring, and permission-based access so teams always use the latest files. Risk & Issue Register Track risks, issues, and change requests with custom fields for probability, impa",
+          "overlap_count": 2,
+          "overlap_ratio": 1.0,
+          "entry_rank": 0.924984,
+          "retrieval_mode": "vector"
+        },
+        "ts": "2026-09-24T11:07:59.022339+00:00"
+      },
+      "ai_selection": {
+        "selected_source_scope": "knowledge",
+        "selected_retrieval_mode": "vector",
+        "selected_score": 0.724126,
+        "selected_rank": 0.928958,
+        "selected_overlap_ratio": 1.0,
+        "candidate_count": 4,
+        "ts": "2026-09-24T11:07:59.022339+00:00"
+      },
+      "ai_openai_response": {
+        "source": "azure_openai",
+        "answer_chars": 681,
+        "stream": true,
+        "ts": "2026-09-24T11:08:06.650947+00:00"
+      },
+      "display_response": {
+        "status_code": 200,
+        "answer_chars": 681,
+        "citations_count": 1,
+        "stream": true,
+        "ts": "2026-09-24T11:08:07.064074+00:00"
+      },
+      "ai_research_response": {
+        "source": "azure_ai_search",
+        "context_chars": 6289,
+        "top_score": 0.724126,
+        "citations_count": 9,
+        "videos_count": 0,
+        "citation": {
+          "title": "project-management-portal",
+          "url": "https://desireinfoweb.com/products/project-management-portal",
+          "id": "s_c2VydmljZUNhdGFsb2cudHh0_i_2_u_7ecec9d85b1e405a993d4e0f8080aba6",
+          "score": 0.719592,
+          "context_snippet": "[products] Project Management Portal Transform the way your organization plans, tracks, and delivers projects. A SharePoint-based Project Management Portal centralizes your PMO and gives every stakeholder visibility from task boards to executive dashboards. https://desireinfoweb.com/products/project-management-portal [products] Learning Management System A Learning Management System helps organizations provide online training, courses, and learning materials to employees, students, or customers in a centralized system. https://desireinfoweb.com/products/learning-management-system [products] Audit System The Audit System project in SharePoint Online is a centralized solution for managing audits and compliance. It streamlines record tracking, monitoring, and evaluation to improve transparency and accountability. https://desireinfoweb.com/products/audit-system",
+          "overlap_count": 2,
+          "overlap_ratio": 1.0,
+          "entry_rank": 0.915878,
+          "retrieval_mode": "vector",
+          "source_scope": "knowledge"
+        },
+        "stream": true,
+        "ts": "2026-09-24T11:08:02.857962+00:00"
+      }
+    },
+    "summary": {
+      "status_code": 200,
+      "reply": "Desire Infoweb has delivered impactful SharePoint projects, including:\n\n- **Riyadh Airport Intranet**: Arabic + English portal with custom web parts, event calendar, and social media integration.  \n- **NBAD Intranet**: Responsive, branded intranet with themes and templates for multi-device use.  \n- **Healthcare Intranet**: Multi-department collaboration hub with real-time co-editing and task management.  \n- **P&G Intranet**: Multi-language, mobile-accessible intranet for global teams.  \n- **Mortgage Refinancing Portal**: Hybrid intranet combining SharePoint OOTB + SPFx custom features.  \n\nExplore more at [SharePoint Services](https://desireinfoweb.com/services/sharepoint).",
+      "stream": true
+    }
+  },
+  {
+    "trace_id": "d8330a92-3c35-4d64-b4f9-c02624a20053",
+    "started_at": "2026-09-24T11:08:38.314723+00:00",
+    "ended_at": "2026-09-24T11:08:56.112218+00:00",
+    "endpoint": "/api/chat/text/stream",
+    "streaming": true,
+    "status": "success",
+    "duration_ms": 17797.5,
+    "session_id": "cf5efcf0-7945-4455-a54f-845a9d8c44b6",
+    "user_query": "SEO project",
+    "process": {
+      "user_request": {
+        "query": "SEO project",
+        "endpoint": "/api/chat/text/stream",
+        "stream": true,
+        "ts": "2026-09-24T11:08:38.314723+00:00"
+      },
+      "ai_request": {
+        "mode": "rag",
+        "model": "gpt-4o",
+        "model_input_chars": 1755,
+        "stream": true,
+        "intent": "projects",
+        "ts": "2026-09-24T11:08:40.608206+00:00"
+      },
+      "ai_search_response": {
+        "source": "azure_ai_search",
+        "context_chars": 6515,
+        "top_score": 5.4446225,
+        "citations_count": 10,
+        "videos_count": 0,
+        "citation": {
+          "title": "sharepoint",
+          "url": "https://desireinfoweb.com/services/sharepoint",
+          "id": "s_c2VydmljZUNhdGFsb2cudHh0_i_18_u_3018b1907aea468cafbae1ca17d88a4f",
+          "score": 5.444623,
+          "context_snippet": "[services] SharePoint Microsoft SharePoint enables document management, content sharing, and collaboration through centralized platforms that enhance team productivity. https://desireinfoweb.com/services/sharepoint [services] SEO Services SEO services improve search rankings, organic traffic, and online visibility using keyword research, on-page optimization, technical SEO, and content strategies. https://desireinfoweb.com/services/seo [services] Mobile Development Mobile development services include iOS, Android, and cross-platform apps covering strategy, design, development, launch, and ongoing support. https://desireinfoweb.com/services/mobile-development [serviceCatalogFromCode] AI or Artificial Intelligence Intelligent assistants, automation experiences, and knowledge-driven solutions built for faster decisions and stronger user support. https://desireinfoweb.com/services/ai",
+          "overlap_count": 1,
+          "overlap_ratio": 0.5,
+          "entry_rank": 0.489405,
+          "retrieval_mode": "text",
+          "source_scope": "knowledge"
+        },
+        "stream": true,
+        "ts": "2026-09-24T11:08:51.744844+00:00"
+      },
+      "ai_search_json_response": {
+        "source_scope": "knowledge",
+        "found": true,
+        "retrieval_mode": "text",
+        "score": 5.444623,
+        "normalized_score": 0.73135,
+        "rank": 0.933437,
+        "overlap_ratio": 1.0,
+        "overlap_count": 2,
+        "query_term_count": 2,
+        "meets_score": true,
+        "meets_overlap": true,
+        "context_chars": 6515,
+        "context_preview": "[services] SharePoint Microsoft SharePoint enables document management, content sharing, and collaboration through centralized platforms that enhance team productivity. https://desireinfoweb.com/services/sharepoint [services] SEO Services SEO services improve search rankings, organic traffic, and online visibility using keyword research, on-page optimization, technical SEO, and content strategies. https://desireinfoweb.com/services/seo [services] Mobile Development Mobile development services include iOS, Android, and cross-platform apps covering strategy, design, development, launch, and ongo",
+        "citations_count": 4,
+        "citation": {
+          "title": "sharepoint",
+          "url": "https://desireinfoweb.com/services/sharepoint",
+          "id": "s_c2VydmljZUNhdGFsb2cudHh0_i_18_u_3018b1907aea468cafbae1ca17d88a4f",
+          "score": 5.444623,
+          "context_snippet": "[services] SharePoint Microsoft SharePoint enables document management, content sharing, and collaboration through centralized platforms that enhance team productivity. https://desireinfoweb.com/services/sharepoint [services] SEO Services SEO services improve search rankings, organic traffic, and online visibility using keyword research, on-page optimization, technical SEO, and content strategies. https://desireinfoweb.com/services/seo [services] Mobile Development Mobile development services include iOS, Android, and cross-platform apps covering strategy, design, development, launch, and ongoing support. https://desireinfoweb.com/services/mobile-development [serviceCatalogFromCode] AI or Artificial Intelligence Intelligent assistants, automation experiences, and knowledge-driven solutions built for faster decisions and stronger user support. https://desireinfoweb.com/services/ai",
+          "overlap_count": 1,
+          "overlap_ratio": 0.5,
+          "entry_rank": 0.489405,
+          "retrieval_mode": "text"
+        },
+        "ts": "2026-09-24T11:08:45.498033+00:00"
+      },
+      "ai_search_blob_response": {
+        "source_scope": "blob_fallback",
+        "found": true,
+        "retrieval_mode": "text",
+        "score": 8.837373,
+        "normalized_score": 0.815453,
+        "rank": 0.825581,
+        "overlap_ratio": 1.0,
+        "overlap_count": 2,
+        "query_term_count": 2,
+        "meets_score": true,
+        "meets_overlap": true,
+        "context_chars": 13802,
+        "context_preview": "SEO CASE STUDY Transforming Digital Presence Through Strategic Search Engine Optimization vijay@desireinfoweb.com www.desireinfoweb.com USA +1 (217) 576-9653 UK +44 (117) 428-8244 India +91-8780468807 OUR SERVICES We offer comprehensive IT solutions tailored to automate and optimize your business requirements. Microsoft SharePoint Microsoft PowerApps Microsoft Power Automate Microsoft Power BI .Net Core Web Development Azure Services AI Services Azure DevOps SEO Dynamics365 CRM Flutter Development What is SEO Search Engine Optimization improves website visibility and ranking in organic search ",
+        "citations_count": 6,
+        "citation": {
+          "title": "SEO Case Study.pdf",
+          "url": "https://desirechatbotweb.blob.core.windows.net/desirechatbotweb/SEO%20Case%20Study.pdf",
+          "id": "42c7ea830793_aHR0cHM6Ly9kZXNpcmVjaGF0Ym90d2ViLmJsb2IuY29yZS53aW5kb3dzLm5ldC9kZXNpcmVjaGF0Ym90d2ViL1NFTyUyMENhc2UlMjBTdHVkeS5wZGY1_pages_0",
+          "score": 8.837373,
+          "context_snippet": "SEO CASE STUDY Transforming Digital Presence Through Strategic Search Engine Optimization vijay@desireinfoweb.com www.desireinfoweb.com USA +1 (217) 576-9653 UK +44 (117) 428-8244 India +91-8780468807 OUR SERVICES We offer comprehensive IT solutions tailored to automate and optimize your business requirements. Microsoft SharePoint Microsoft PowerApps Microsoft Power Automate Microsoft Power BI .Net Core Web Development Azure Services AI Services Azure DevOps SEO Dynamics365 CRM Flutter Development What is SEO Search Engine Optimization improves website visibility and ranking in organic search results. SEO involves optimizing content, site structure, and technical aspects to help search engines understand and rank content for relevant queries. Key Aspects On-Page SEO Optimizing individual pages, content, and HTML source code Off-Page SEO Building authority through backlinks and external factors Technical SEO Improving backend structure, site speed, and crawlability Enhanced visibility Better user experience Organic traffic growth CASE STUDY Artificial Plants Wholesale & Retail Challenge • Limited organic visibility • Highly competitive market • Slow website traffic growth Solution • Strategic content optimization • Location-based SEO strategy • Authority link building • Technical SEO improvements Impact Organic Users +90.49% Keywords Ranked 50+ New Users Growth +25.2% Revenue Increase +56.72% CASE STUDY Plastic Product Manufacturing Company Challenge • Limited organic search visibility • High industry competition • Under-optimized website content • Technical performance issues Solution • High-value keyword optimization • Quality backlink strategy • Content structuring for AI search • FAQ optimization Impact Improved Search Rankings Multiple high-intent keywords for indus",
+          "overlap_count": 1,
+          "overlap_ratio": 0.5,
+          "entry_rank": 0.514636,
+          "retrieval_mode": "text"
+        },
+        "ts": "2026-09-24T11:08:45.499033+00:00"
+      },
+      "ai_selection": {
+        "selected_source_scope": "knowledge",
+        "selected_retrieval_mode": "text",
+        "selected_score": 5.444623,
+        "selected_rank": 0.933437,
+        "selected_overlap_ratio": 1.0,
+        "candidate_count": 4,
+        "ts": "2026-09-24T11:08:45.499033+00:00"
+      },
+      "ai_openai_response": {
+        "source": "azure_openai",
+        "answer_chars": 534,
+        "stream": true,
+        "ts": "2026-09-24T11:08:55.371775+00:00"
+      },
+      "display_response": {
+        "status_code": 200,
+        "answer_chars": 534,
+        "citations_count": 1,
+        "stream": true,
+        "ts": "2026-09-24T11:08:56.112218+00:00"
+      },
+      "ai_research_response": {
+        "source": "azure_ai_search",
+        "context_chars": 6515,
+        "top_score": 5.4446225,
+        "citations_count": 10,
+        "videos_count": 0,
+        "citation": {
+          "title": "sharepoint",
+          "url": "https://desireinfoweb.com/services/sharepoint",
+          "id": "s_c2VydmljZUNhdGFsb2cudHh0_i_18_u_3018b1907aea468cafbae1ca17d88a4f",
+          "score": 5.444623,
+          "context_snippet": "[services] SharePoint Microsoft SharePoint enables document management, content sharing, and collaboration through centralized platforms that enhance team productivity. https://desireinfoweb.com/services/sharepoint [services] SEO Services SEO services improve search rankings, organic traffic, and online visibility using keyword research, on-page optimization, technical SEO, and content strategies. https://desireinfoweb.com/services/seo [services] Mobile Development Mobile development services include iOS, Android, and cross-platform apps covering strategy, design, development, launch, and ongoing support. https://desireinfoweb.com/services/mobile-development [serviceCatalogFromCode] AI or Artificial Intelligence Intelligent assistants, automation experiences, and knowledge-driven solutions built for faster decisions and stronger user support. https://desireinfoweb.com/services/ai",
+          "overlap_count": 1,
+          "overlap_ratio": 0.5,
+          "entry_rank": 0.489405,
+          "retrieval_mode": "text",
+          "source_scope": "knowledge"
+        },
+        "stream": true,
+        "ts": "2026-09-24T11:08:51.744844+00:00"
+      }
+    },
+    "summary": {
+      "status_code": 200,
+      "reply": "Desire Infoweb specializes in SEO projects that enhance online visibility and search rankings. Key capabilities include:\n\n- **Keyword Research**: Identifying high-impact keywords for targeted traffic.  \n- **On-Page Optimization**: Improving meta tags, headers, and content for better rankings.  \n- **Technical SEO**: Fixing site speed, mobile usability, and crawl errors.  \n- **Content Strategies**: Creating engaging, optimized content to drive organic growth.  \n\nLearn more at [SEO Services](https://desireinfoweb.com/services/seo).",
+      "stream": true
+    }
+  },
+  {
+    "trace_id": "be393eba-b746-4351-8172-e8257b8a918c",
+    "started_at": "2026-09-24T11:09:27.146669+00:00",
+    "ended_at": "2026-09-24T11:09:42.691038+00:00",
+    "endpoint": "/api/chat/text/stream",
+    "streaming": true,
+    "status": "success",
+    "duration_ms": 15544.37,
+    "session_id": "cf5efcf0-7945-4455-a54f-845a9d8c44b6",
+    "user_query": "powerplatfoem project",
+    "process": {
+      "user_request": {
+        "query": "powerplatfoem project",
+        "endpoint": "/api/chat/text/stream",
+        "stream": true,
+        "ts": "2026-09-24T11:09:27.147668+00:00"
+      },
+      "ai_request": {
+        "mode": "rag",
+        "model": "gpt-4o",
+        "model_input_chars": 2329,
+        "stream": true,
+        "intent": "services",
+        "ts": "2026-09-24T11:09:29.360311+00:00"
+      },
+      "ai_search_response": {
+        "source": "azure_ai_search",
+        "context_chars": 2515,
+        "top_score": 0.62743765,
+        "citations_count": 13,
+        "videos_count": 0,
+        "citation": {
+          "title": "power-platform",
+          "url": "https://desireinfoweb.com/services/power-platform",
+          "id": "s_c2VydmljZUNhdGFsb2cudHh0_i_10_u_0ca9e8b1db7e46369dc88e523853f71f",
+          "score": 0.627438,
+          "context_snippet": "[powerPlatformProjectServicesShowcaseData] Timesheet Management Process of capturing and managing employee work hours A solution for medium-sized IT services companies to track employee and project hours accurately and improve resource allocation and billing quality. Multi language, Notification Flows, Customized Design, Event Calendar https://desireinfoweb.com/services/power-platform [powerPlatformProjectServicesShowcaseData] Onboarding Automation with PowerApps Onboarding process using PowerApps, automating tasks A multinational manufacturing company onboarding solution to streamline employee onboarding, compliance checks, and paperwork reduction. HR processes, Role-based Permissions, Custom workflows, Modern UI https://desireinfoweb.com/services/power-platform",
+          "overlap_count": 1,
+          "overlap_ratio": 0.5,
+          "entry_rank": 0.458231,
+          "retrieval_mode": "vector",
+          "source_scope": "knowledge"
+        },
+        "stream": true,
+        "ts": "2026-09-24T11:09:38.233522+00:00"
+      },
+      "ai_search_json_response": {
+        "source_scope": "knowledge",
+        "found": true,
+        "retrieval_mode": "vector",
+        "score": 0.627438,
+        "normalized_score": 0.627438,
+        "rank": 0.559011,
+        "overlap_ratio": 0.5,
+        "overlap_count": 1,
+        "query_term_count": 2,
+        "meets_score": true,
+        "meets_overlap": true,
+        "context_chars": 2515,
+        "context_preview": "[powerPlatformProjectServicesShowcaseData] Timesheet Management Process of capturing and managing employee work hours A solution for medium-sized IT services companies to track employee and project hours accurately and improve resource allocation and billing quality. Multi language, Notification Flows, Customized Design, Event Calendar https://desireinfoweb.com/services/power-platform [powerPlatformProjectServicesShowcaseData] Onboarding Automation with PowerApps Onboarding process using PowerApps, automating tasks A multinational manufacturing company onboarding solution to streamline employe",
+        "citations_count": 2,
+        "citation": {
+          "title": "power-platform",
+          "url": "https://desireinfoweb.com/services/power-platform",
+          "id": "s_c2VydmljZUNhdGFsb2cudHh0_i_10_u_0ca9e8b1db7e46369dc88e523853f71f",
+          "score": 0.627438,
+          "context_snippet": "[powerPlatformProjectServicesShowcaseData] Timesheet Management Process of capturing and managing employee work hours A solution for medium-sized IT services companies to track employee and project hours accurately and improve resource allocation and billing quality. Multi language, Notification Flows, Customized Design, Event Calendar https://desireinfoweb.com/services/power-platform [powerPlatformProjectServicesShowcaseData] Onboarding Automation with PowerApps Onboarding process using PowerApps, automating tasks A multinational manufacturing company onboarding solution to streamline employee onboarding, compliance checks, and paperwork reduction. HR processes, Role-based Permissions, Custom workflows, Modern UI https://desireinfoweb.com/services/power-platform",
+          "overlap_count": 1,
+          "overlap_ratio": 0.5,
+          "entry_rank": 0.458231,
+          "retrieval_mode": "vector"
+        },
+        "ts": "2026-09-24T11:09:34.286873+00:00"
+      },
+      "ai_search_blob_response": {
+        "source_scope": "blob_fallback",
+        "found": true,
+        "retrieval_mode": "vector",
+        "score": 0.630956,
+        "normalized_score": 0.630956,
+        "rank": 0.401193,
+        "overlap_ratio": 0.5,
+        "overlap_count": 1,
+        "query_term_count": 2,
+        "meets_score": true,
+        "meets_overlap": true,
+        "context_chars": 7890,
+        "context_preview": "SHAREPOINT-BASED SOLUTION Project Management Portal Transform the way your organization plans, tracks, and delivers projects. Centralize your PMO with complete visibility from task boards to executive dashboards. 200+ Clients 24/7 Support 100+ Features Request Demo → THE CHALLENGE Is Your Team Struggling With This? Scattered Data Projects live in emails, spreadsheets, and chat threads with no single source of truth. Zero Visibility Leadership has no real-time view into project health, risks, or resource utilization. Missed Deadlines Tasks fall through the cracks without clear ownership, milest",
+        "citations_count": 4,
+        "citation": {
+          "title": "PMP.pdf",
+          "url": "https://desirechatbotweb.blob.core.windows.net/desirechatbotweb/PMP.pdf",
+          "id": "42c7ea830793_aHR0cHM6Ly9kZXNpcmVjaGF0Ym90d2ViLmJsb2IuY29yZS53aW5kb3dzLm5ldC9kZXNpcmVjaGF0Ym90d2ViL1BNUC5wZGY1_pages_0",
+          "score": 0.630956,
+          "context_snippet": "SHAREPOINT-BASED SOLUTION Project Management Portal Transform the way your organization plans, tracks, and delivers projects. Centralize your PMO with complete visibility from task boards to executive dashboards. 200+ Clients 24/7 Support 100+ Features Request Demo → THE CHALLENGE Is Your Team Struggling With This? Scattered Data Projects live in emails, spreadsheets, and chat threads with no single source of truth. Zero Visibility Leadership has no real-time view into project health, risks, or resource utilization. Missed Deadlines Tasks fall through the cracks without clear ownership, milestones, or escalation workflows. Security Gaps Sensitive project data shared without role-based controls or audit trails. www.desireinfoweb.com THE SOLUTION One Portal. Complete Control. Our SharePoint-based Project Management Portal centralizes your entire PMO giving every stakeholder complete visibility, from task boards to executive dashboards.  Built on Microsoft SharePoint secure, scalable & compliant  Real-time dashboards with KPIs, milestones & project health  Kanban boards, Gantt charts, and smart task assignment  Integrates with Microsoft 365, Teams, and Azure AD www.desireinfoweb.com POWERFUL FEATURES Everything You Need to Deliver Projects PMO Dashboard Live dashboard with active vs. completed projects, KPIs, milestones and real-time project health across your entire organization. Task & Milestone Tracking Assign tasks, set deadlines, define milestones, and visualize workloads with Kanban boards, Gantt charts, and list views. Document Management Centralized libraries with version control, co-authoring, and permission-based access so teams always use the latest files. Risk & Issue Register Track risks, issues, and change requests with custom fields for probability, impa",
+          "overlap_count": 1,
+          "overlap_ratio": 0.5,
+          "entry_rank": 0.459287,
+          "retrieval_mode": "vector"
+        },
+        "ts": "2026-09-24T11:09:34.287872+00:00"
+      },
+      "ai_selection": {
+        "selected_source_scope": "knowledge",
+        "selected_retrieval_mode": "vector",
+        "selected_score": 0.627438,
+        "selected_rank": 0.559011,
+        "selected_overlap_ratio": 0.5,
+        "candidate_count": 4,
+        "ts": "2026-09-24T11:09:34.287872+00:00"
+      },
+      "ai_openai_response": {
+        "source": "azure_openai",
+        "answer_chars": 698,
+        "stream": true,
+        "ts": "2026-09-24T11:09:41.855454+00:00"
+      },
+      "display_response": {
+        "status_code": 200,
+        "answer_chars": 698,
+        "citations_count": 1,
+        "stream": true,
+        "ts": "2026-09-24T11:09:42.691038+00:00"
+      },
+      "ai_research_response": {
+        "source": "azure_ai_search",
+        "context_chars": 2515,
+        "top_score": 0.62743765,
+        "citations_count": 13,
+        "videos_count": 0,
+        "citation": {
+          "title": "power-platform",
+          "url": "https://desireinfoweb.com/services/power-platform",
+          "id": "s_c2VydmljZUNhdGFsb2cudHh0_i_10_u_0ca9e8b1db7e46369dc88e523853f71f",
+          "score": 0.627438,
+          "context_snippet": "[powerPlatformProjectServicesShowcaseData] Timesheet Management Process of capturing and managing employee work hours A solution for medium-sized IT services companies to track employee and project hours accurately and improve resource allocation and billing quality. Multi language, Notification Flows, Customized Design, Event Calendar https://desireinfoweb.com/services/power-platform [powerPlatformProjectServicesShowcaseData] Onboarding Automation with PowerApps Onboarding process using PowerApps, automating tasks A multinational manufacturing company onboarding solution to streamline employee onboarding, compliance checks, and paperwork reduction. HR processes, Role-based Permissions, Custom workflows, Modern UI https://desireinfoweb.com/services/power-platform",
+          "overlap_count": 1,
+          "overlap_ratio": 0.5,
+          "entry_rank": 0.458231,
+          "retrieval_mode": "vector",
+          "source_scope": "knowledge"
+        },
+        "stream": true,
+        "ts": "2026-09-24T11:09:38.233522+00:00"
+      }
+    },
+    "summary": {
+      "status_code": 200,
+      "reply": "Desire Infoweb has delivered innovative Power Platform projects, including:\n\n- **Timesheet Management**: Tracks employee and project hours with multi-language support, notification flows, customized design, and event calendar.  \n- **Onboarding Automation**: Streamlines HR processes for a multinational company, including compliance checks, role-based permissions, and modern UI.  \n- **Invoice Management**: Automates invoice creation, tracking, and approval for manufacturing businesses.  \n- **Contract Management**: Tracks milestones, renewal dates, and automates approval workflows using templates.  \n\nExplore more at [Power Platform Services](https://desireinfoweb.com/services/power-platform).",
+      "stream": true
+    }
+  },
+  {
+    "trace_id": "9532f226-a394-4614-86f8-ce928d4b6510",
+    "started_at": "2026-09-24T11:10:18.923734+00:00",
+    "ended_at": "2026-09-24T11:10:30.117569+00:00",
+    "endpoint": "/api/chat/text/stream",
+    "streaming": true,
+    "status": "success",
+    "duration_ms": 11193.84,
+    "session_id": "cf5efcf0-7945-4455-a54f-845a9d8c44b6",
+    "user_query": "please give me deatil about the PMP ?",
+    "process": {
+      "user_request": {
+        "query": "please give me detail about the PMP ?",
+        "endpoint": "/api/chat/text/stream",
+        "stream": true,
+        "ts": "2026-09-24T11:10:18.924728+00:00"
+      },
+      "ai_request": {
+        "mode": "rag",
+        "model": "gpt-4o",
+        "model_input_chars": 3083,
+        "stream": true,
+        "intent": "services",
+        "ts": "2026-09-24T11:10:21.625699+00:00"
+      },
+      "ai_search_response": {
+        "source": "azure_ai_search",
+        "context_chars": 5062,
+        "top_score": 4.796006,
+        "citations_count": 12,
+        "videos_count": 0,
+        "citation": {
+          "title": "about-us",
+          "url": "https://desireinfoweb.com/about-us",
+          "id": "s_c2VydmljZUNhdGFsb2cudHh0_i_0_u_c76371ec982743fd978ca381a3778da9",
+          "score": 4.796006,
+          "context_snippet": "[companyProfile] About Desire Infoweb Desire Infoweb is an IT services and consulting company focused on Microsoft technologies, enterprise automation, modern collaboration platforms, analytics, and AI-powered business solutions. Core capabilities include SharePoint, Power Platform, Power BI, Microsoft Teams, Dynamics 365, Azure, .NET development, migration, governance, and custom AI/chatbot implementations. https://desireinfoweb.com/about-us [products] Organization Chart An organizational chart shows the internal structure of an organization or company. The employees and positions are represented by boxes or other shapes, sometimes including photos, contact information, email and page links, icons, and illustrations. Straight or elbowed lines link the levels together. https://desireinfoweb.com/products/organization-chart",
+          "overlap_count": 0,
+          "overlap_ratio": 0.0,
+          "entry_rank": -0.088287,
+          "retrieval_mode": "text",
+          "source_scope": "knowledge"
+        },
+        "stream": true,
+        "ts": "2026-09-24T11:10:29.646386+00:00"
+      },
+      "ai_search_json_response": {
+        "source_scope": "knowledge",
+        "found": true,
+        "retrieval_mode": "text",
+        "score": 4.796006,
+        "normalized_score": 0.70571,
+        "rank": 0.06754,
+        "overlap_ratio": 0.0,
+        "overlap_count": 0,
+        "query_term_count": 3,
+        "meets_score": true,
+        "meets_overlap": false,
+        "context_chars": 5062,
         "context_preview": "[companyProfile] About Desire Infoweb Desire Infoweb is an IT services and consulting company focused on Microsoft technologies, enterprise automation, modern collaboration platforms, analytics, and AI-powered business solutions. Core capabilities include SharePoint, Power Platform, Power BI, Microsoft Teams, Dynamics 365, Azure, .NET development, migration, governance, and custom AI/chatbot implementations. https://desireinfoweb.com/about-us [products] Organization Chart An organizational chart shows the internal structure of an organization or company. The employees and positions are represe",
         "citations_count": 4,
         "citation": {
           "title": "about-us",
           "url": "https://desireinfoweb.com/about-us",
           "id": "s_c2VydmljZUNhdGFsb2cudHh0_i_0_u_c76371ec982743fd978ca381a3778da9",
-          "score": 9.117103,
+          "score": 4.796006,
           "context_snippet": "[companyProfile] About Desire Infoweb Desire Infoweb is an IT services and consulting company focused on Microsoft technologies, enterprise automation, modern collaboration platforms, analytics, and AI-powered business solutions. Core capabilities include SharePoint, Power Platform, Power BI, Microsoft Teams, Dynamics 365, Azure, .NET development, migration, governance, and custom AI/chatbot implementations. https://desireinfoweb.com/about-us [products] Organization Chart An organizational chart shows the internal structure of an organization or company. The employees and positions are represented by boxes or other shapes, sometimes including photos, contact information, email and page links, icons, and illustrations. Straight or elbowed lines link the levels together. https://desireinfoweb.com/products/organization-chart",
-          "overlap_count": 3,
-          "overlap_ratio": 1.0,
-          "entry_rank": 0.946029,
+          "overlap_count": 0,
+          "overlap_ratio": 0.0,
+          "entry_rank": -0.088287,
           "retrieval_mode": "text"
         },
-        "ts": "2026-05-28T10:08:33.360380+00:00"
+        "ts": "2026-09-24T11:10:26.222505+00:00"
       },
       "ai_search_blob_response": {
         "source_scope": "blob_fallback",
         "found": true,
         "retrieval_mode": "text",
-        "score": 7.212659,
-        "normalized_score": 0.782907,
-        "rank": 0.805403,
-        "overlap_ratio": 1.0,
-        "overlap_count": 3,
+        "score": 4.156248,
+        "normalized_score": 0.675127,
+        "rank": -0.111421,
+        "overlap_ratio": 0.0,
+        "overlap_count": 0,
         "query_term_count": 3,
         "meets_score": true,
-        "meets_overlap": true,
-        "context_chars": 13571,
-        "context_preview": "with role-based access, data encryption, and advanced threat monitoring. Custom Workflows Automate HR updates via Power Automate and sync seamlessly with core systems. CORE FEATURES Intelligent &Secure Advanced capabilities to manage your workforce efficiently and safely. Microsoft Partner Since 2023 Empowering Digital Transformation Desire Infoweb is a leading IT offshoring company delivering trusted AI and cloud solutions to businesses globally. Trusted globally by: Startups • Enterprises• Agencies 50+ Certified Experts 100% Success Rate 99% On-Time Delivery 4.9 Client Rating SharePoint Intr",
-        "citations_count": 6,
+        "meets_overlap": false,
+        "context_chars": 13529,
+        "context_preview": "to explore our organizational chart web part. A powerful tool designed to bring clarity, transparency, and efficiency to your digital workplace. Whether you're onboarding new employees, planning team structures, or simply trying to understand your company better, this solution helps you see your organization in a whole new way. Custom add-ons. Need tailored integrations, branding, or additional features. We've got you covered with flexible customization options. Ready to deploy? Click the link below to purchase and get started today. Need help? Our friendly support team is always just a messag",
+        "citations_count": 4,
         "citation": {
-          "title": "Organization Chart.pdf",
-          "url": "https://desirechatbotweb.blob.core.windows.net/desirechatbotweb/Organization%20Chart.pdf",
-          "id": "42c7ea830793_aHR0cHM6Ly9kZXNpcmVjaGF0Ym90d2ViLmJsb2IuY29yZS53aW5kb3dzLm5ldC9kZXNpcmVjaGF0Ym90d2ViL09yZ2FuaXphdGlvbiUyMENoYXJ0LnBkZg2_pages_1",
-          "score": 7.212659,
-          "context_snippet": "with role-based access, data encryption, and advanced threat monitoring. Custom Workflows Automate HR updates via Power Automate and sync seamlessly with core systems. CORE FEATURES Intelligent &Secure Advanced capabilities to manage your workforce efficiently and safely. Microsoft Partner Since 2023 Empowering Digital Transformation Desire Infoweb is a leading IT offshoring company delivering trusted AI and cloud solutions to businesses globally. Trusted globally by: Startups • Enterprises• Agencies 50+ Certified Experts 100% Success Rate 99% On-Time Delivery 4.9 Client Rating SharePoint Intranets, Document Management, & Team Sites. Power Platform Automations, Custom Apps, & Business Intelligence. Azure OpenAI Advanced AI, NLP Solutions, & Intelligent Agents. Dynamics 365 Operations, Sales, & Customer Engagement. MS Teams Collaboration, Communication, & Custom Tabs. .NET Robust Web, Cloud Applications, & APIs. OUR CAPABILITIES CoreExpertise A comprehensive suite of Microsoft technologies to drive your digital transformation. Organization Chart Learning Management System Intranet Portals Employee Directory Power BI Dashboards Project Management Portal Calendar & Celebrations Our Product Ecosystem Integrated solutions for a seamless digital workplace Ready to Transform Your Workspace? Let's build something great together. Reach out to our global team for expert consulting and custom solutions. Headquarters 509, 510 - Ganesh Glory, Jagatpur Road, Near Nirma University, Ahmedabad, India. Get In Touch Global Lines India: +91-8780468807 US: +1-260-560-2128 Canada: +1-639-997-9925 © 2026 Desire Infoweb Pvt Ltd. All Rights Reserved. hr@desireinfoweb.com vijay@desireinfoweb.com www.desireinfoweb.com",
-          "overlap_count": 3,
-          "overlap_ratio": 1.0,
-          "entry_rank": 0.934872,
+          "title": "Product  Video Content.pdf",
+          "url": "https://desirechatbotweb.blob.core.windows.net/desirechatbotweb/Product%C2%A0%20Video%20Content.pdf",
+          "id": "42c7ea830793_aHR0cHM6Ly9kZXNpcmVjaGF0Ym90d2ViLmJsb2IuY29yZS53aW5kb3dzLm5ldC9kZXNpcmVjaGF0Ym90d2ViL1Byb2R1Y3QlQzIlQTAlMjBWaWRlbyUyMENvbnRlbnQucGRm0_pages_1",
+          "score": 4.156248,
+          "context_snippet": "to explore our organizational chart web part. A powerful tool designed to bring clarity, transparency, and efficiency to your digital workplace. Whether you're onboarding new employees, planning team structures, or simply trying to understand your company better, this solution helps you see your organization in a whole new way. Custom add-ons. Need tailored integrations, branding, or additional features. We've got you covered with flexible customization options. Ready to deploy? Click the link below to purchase and get started today. Need help? Our friendly support team is always just a message away. Let's build a smarter, more connected organization together. Until next time, stay informed, stay organized, and keep growing. For live demo, please visit www.desireinfoeb.com. Project Management Portal YouTube URL: https://youtu.be/uue2gmznRD0 Aa Video Nu Content Niche Nahi New Video Banayo Che enu Content Che. Welcome to our powerful project management portal, your all-in-one solution for tracking projects and boosting productivity. Get a high-level view of your entire portfolio and task progress right from your personalized dashboard. Deep dive into project health with detailed insights, health scores, and real-time performance metrics to stay on track. https://www.desireinfoeb.com/ https://youtu.be/uue2gmznRD0 https://youtu.be/uue2gmznRD0 Manage your workflow effortlessly by tracking every task through initiation, execution, and final closure. Collaborate seamlessly with your entire team, managing all in one centralized location. Streamline your projects and empower your team today with our project management portal. Thanks for watching. Audit System https://youtu.be/VnH1hFP0vhM Welcome to the Audit System, your centralized dashboard for smarter audit oversight and deci",
+          "overlap_count": 0,
+          "overlap_ratio": 0.0,
+          "entry_rank": -0.097462,
           "retrieval_mode": "text"
         },
-        "ts": "2026-05-28T10:08:33.360380+00:00"
+        "ts": "2026-09-24T11:10:26.223504+00:00"
       },
       "ai_selection": {
         "selected_source_scope": "knowledge",
         "selected_retrieval_mode": "text",
-        "selected_score": 9.117103,
-        "selected_rank": 0.98846,
-        "selected_overlap_ratio": 1.0,
+        "selected_score": 4.796006,
+        "selected_rank": 0.06754,
+        "selected_overlap_ratio": 0.0,
         "candidate_count": 4,
-        "ts": "2026-05-28T10:08:33.360380+00:00"
+        "ts": "2026-09-24T11:10:26.223504+00:00"
       },
       "ai_openai_response": {
         "source": "azure_openai",
-        "answer_chars": 538,
+        "answer_chars": 314,
         "stream": true,
-        "ts": "2026-05-28T10:08:43.699260+00:00"
+        "ts": "2026-09-24T11:10:29.646386+00:00"
       },
       "display_response": {
         "status_code": 200,
-        "answer_chars": 538,
-        "citations_count": 1,
+        "answer_chars": 314,
+        "citations_count": 0,
         "stream": true,
-        "ts": "2026-05-28T10:08:45.399701+00:00"
+        "ts": "2026-09-24T11:10:30.116570+00:00"
       },
       "ai_research_response": {
         "source": "azure_ai_search",
-        "context_chars": 7967,
-        "top_score": 9.117103,
-        "citations_count": 11,
+        "context_chars": 5062,
+        "top_score": 4.796006,
+        "citations_count": 12,
         "videos_count": 0,
         "citation": {
           "title": "about-us",
           "url": "https://desireinfoweb.com/about-us",
           "id": "s_c2VydmljZUNhdGFsb2cudHh0_i_0_u_c76371ec982743fd978ca381a3778da9",
-          "score": 9.117103,
+          "score": 4.796006,
           "context_snippet": "[companyProfile] About Desire Infoweb Desire Infoweb is an IT services and consulting company focused on Microsoft technologies, enterprise automation, modern collaboration platforms, analytics, and AI-powered business solutions. Core capabilities include SharePoint, Power Platform, Power BI, Microsoft Teams, Dynamics 365, Azure, .NET development, migration, governance, and custom AI/chatbot implementations. https://desireinfoweb.com/about-us [products] Organization Chart An organizational chart shows the internal structure of an organization or company. The employees and positions are represented by boxes or other shapes, sometimes including photos, contact information, email and page links, icons, and illustrations. Straight or elbowed lines link the levels together. https://desireinfoweb.com/products/organization-chart",
-          "overlap_count": 3,
-          "overlap_ratio": 1.0,
-          "entry_rank": 0.946029,
+          "overlap_count": 0,
+          "overlap_ratio": 0.0,
+          "entry_rank": -0.088287,
           "retrieval_mode": "text",
           "source_scope": "knowledge"
         },
         "stream": true,
-        "ts": "2026-05-28T10:08:36.453278+00:00"
+        "ts": "2026-09-24T11:10:29.646386+00:00"
       }
     },
     "summary": {
       "status_code": 200,
-      "reply": "Desire Infoweb Pvt Ltd is a certified Microsoft Partner and IT consulting company founded in 2015. Headquartered in Ahmedabad, India, with offices in Canada and the USA, it specializes in Microsoft technologies, AI solutions, cloud applications, and enterprise automation. The company has delivered 500+ projects for 250+ global clients across industries like healthcare, finance, and retail. Key services include SharePoint, Power Platform, AI, Dynamics 365, and Power BI.  \n\nLearn more at [About Us](https://desireinfoweb.com/about-us).",
+      "reply": "Thank you for your query. At the moment, I'm unable to provide a relevant response as it falls outside my current scope.\n\nFor further assistance, please contact our support team:\n- vijay@desireinfoweb.com\n- hr@desireinfoweb.in\n- India: +91-8780468807\n- USA: +1 260 560 2128\n\nWe will be happy to assist you further.",
+      "stream": true
+    }
+  },
+  {
+    "trace_id": "3466332b-ef3d-4ef2-a4b4-c4dd1d041679",
+    "started_at": "2026-09-24T11:10:56.619219+00:00",
+    "ended_at": "2026-09-24T11:11:14.608120+00:00",
+    "endpoint": "/api/chat/text/stream",
+    "streaming": true,
+    "status": "success",
+    "duration_ms": 17987.9,
+    "session_id": "cf5efcf0-7945-4455-a54f-845a9d8c44b6",
+    "user_query": "project management portal ?",
+    "process": {
+      "user_request": {
+        "query": "project management portal ?",
+        "endpoint": "/api/chat/text/stream",
+        "stream": true,
+        "ts": "2026-09-24T11:10:56.620220+00:00"
+      },
+      "ai_request": {
+        "mode": "rag",
+        "model": "gpt-4o",
+        "model_input_chars": 3443,
+        "stream": true,
+        "intent": "services",
+        "ts": "2026-09-24T11:11:00.065499+00:00"
+      },
+      "ai_search_response": {
+        "source": "azure_ai_search",
+        "context_chars": 2522,
+        "top_score": 0.7387181,
+        "citations_count": 9,
+        "videos_count": 1,
+        "citation": {
+          "title": "project-management-portal",
+          "url": "https://desireinfoweb.com/products/project-management-portal",
+          "id": "s_c2VydmljZUNhdGFsb2cudHh0_i_2_u_6657cc83b9484ac6ab55894dfe7db253",
+          "score": 0.738718,
+          "context_snippet": "[products] Project Management Portal Transform the way your organization plans, tracks, and delivers projects. A SharePoint-based Project Management Portal centralizes your PMO and gives every stakeholder visibility from task boards to executive dashboards. https://desireinfoweb.com/products/project-management-portal [products] Learning Management System A Learning Management System helps organizations provide online training, courses, and learning materials to employees, students, or customers in a centralized system. https://desireinfoweb.com/products/learning-management-system [products] Audit System The Audit System project in SharePoint Online is a centralized solution for managing audits and compliance. It streamlines record tracking, monitoring, and evaluation to improve transparency and accountability. https://desireinfoweb.com/products/audit-system",
+          "overlap_count": 3,
+          "overlap_ratio": 1.0,
+          "entry_rank": 0.921615,
+          "retrieval_mode": "vector",
+          "source_scope": "knowledge"
+        },
+        "stream": true,
+        "ts": "2026-09-24T11:11:10.664942+00:00"
+      },
+      "ai_search_json_response": {
+        "source_scope": "knowledge",
+        "found": true,
+        "retrieval_mode": "vector",
+        "score": 0.738718,
+        "normalized_score": 0.738718,
+        "rank": 0.938005,
+        "overlap_ratio": 1.0,
+        "overlap_count": 3,
+        "query_term_count": 3,
+        "meets_score": true,
+        "meets_overlap": true,
+        "context_chars": 2522,
+        "context_preview": "[products] Project Management Portal Transform the way your organization plans, tracks, and delivers projects. A SharePoint-based Project Management Portal centralizes your PMO and gives every stakeholder visibility from task boards to executive dashboards. https://desireinfoweb.com/products/project-management-portal [products] Learning Management System A Learning Management System helps organizations provide online training, courses, and learning materials to employees, students, or customers in a centralized system. https://desireinfoweb.com/products/learning-management-system [products] Au",
+        "citations_count": 1,
+        "citation": {
+          "title": "project-management-portal",
+          "url": "https://desireinfoweb.com/products/project-management-portal",
+          "id": "s_c2VydmljZUNhdGFsb2cudHh0_i_2_u_6657cc83b9484ac6ab55894dfe7db253",
+          "score": 0.738718,
+          "context_snippet": "[products] Project Management Portal Transform the way your organization plans, tracks, and delivers projects. A SharePoint-based Project Management Portal centralizes your PMO and gives every stakeholder visibility from task boards to executive dashboards. https://desireinfoweb.com/products/project-management-portal [products] Learning Management System A Learning Management System helps organizations provide online training, courses, and learning materials to employees, students, or customers in a centralized system. https://desireinfoweb.com/products/learning-management-system [products] Audit System The Audit System project in SharePoint Online is a centralized solution for managing audits and compliance. It streamlines record tracking, monitoring, and evaluation to improve transparency and accountability. https://desireinfoweb.com/products/audit-system",
+          "overlap_count": 3,
+          "overlap_ratio": 1.0,
+          "entry_rank": 0.921615,
+          "retrieval_mode": "vector"
+        },
+        "ts": "2026-09-24T11:11:08.957196+00:00"
+      },
+      "ai_search_blob_response": {
+        "source_scope": "blob_fallback",
+        "found": true,
+        "retrieval_mode": "vector",
+        "score": 0.774253,
+        "normalized_score": 0.774253,
+        "rank": 0.800037,
+        "overlap_ratio": 1.0,
+        "overlap_count": 3,
+        "query_term_count": 3,
+        "meets_score": true,
+        "meets_overlap": true,
+        "context_chars": 7549,
+        "context_preview": "SHAREPOINT-BASED SOLUTION Project Management Portal Transform the way your organization plans, tracks, and delivers projects. Centralize your PMO with complete visibility from task boards to executive dashboards. 200+ Clients 24/7 Support 100+ Features Request Demo → THE CHALLENGE Is Your Team Struggling With This? Scattered Data Projects live in emails, spreadsheets, and chat threads with no single source of truth. Zero Visibility Leadership has no real-time view into project health, risks, or resource utilization. Missed Deadlines Tasks fall through the cracks without clear ownership, milest",
+        "citations_count": 3,
+        "citation": {
+          "title": "PMP.pdf",
+          "url": "https://desirechatbotweb.blob.core.windows.net/desirechatbotweb/PMP.pdf",
+          "id": "42c7ea830793_aHR0cHM6Ly9kZXNpcmVjaGF0Ym90d2ViLmJsb2IuY29yZS53aW5kb3dzLm5ldC9kZXNpcmVjaGF0Ym90d2ViL1BNUC5wZGY1_pages_0",
+          "score": 0.774253,
+          "context_snippet": "SHAREPOINT-BASED SOLUTION Project Management Portal Transform the way your organization plans, tracks, and delivers projects. Centralize your PMO with complete visibility from task boards to executive dashboards. 200+ Clients 24/7 Support 100+ Features Request Demo → THE CHALLENGE Is Your Team Struggling With This? Scattered Data Projects live in emails, spreadsheets, and chat threads with no single source of truth. Zero Visibility Leadership has no real-time view into project health, risks, or resource utilization. Missed Deadlines Tasks fall through the cracks without clear ownership, milestones, or escalation workflows. Security Gaps Sensitive project data shared without role-based controls or audit trails. www.desireinfoweb.com THE SOLUTION One Portal. Complete Control. Our SharePoint-based Project Management Portal centralizes your entire PMO giving every stakeholder complete visibility, from task boards to executive dashboards.  Built on Microsoft SharePoint secure, scalable & compliant  Real-time dashboards with KPIs, milestones & project health  Kanban boards, Gantt charts, and smart task assignment  Integrates with Microsoft 365, Teams, and Azure AD www.desireinfoweb.com POWERFUL FEATURES Everything You Need to Deliver Projects PMO Dashboard Live dashboard with active vs. completed projects, KPIs, milestones and real-time project health across your entire organization. Task & Milestone Tracking Assign tasks, set deadlines, define milestones, and visualize workloads with Kanban boards, Gantt charts, and list views. Document Management Centralized libraries with version control, co-authoring, and permission-based access so teams always use the latest files. Risk & Issue Register Track risks, issues, and change requests with custom fields for probability, impa",
+          "overlap_count": 3,
+          "overlap_ratio": 1.0,
+          "entry_rank": 0.932276,
+          "retrieval_mode": "vector"
+        },
+        "ts": "2026-09-24T11:11:08.957196+00:00"
+      },
+      "ai_selection": {
+        "selected_source_scope": "knowledge",
+        "selected_retrieval_mode": "vector",
+        "selected_score": 0.738718,
+        "selected_rank": 0.938005,
+        "selected_overlap_ratio": 1.0,
+        "candidate_count": 4,
+        "ts": "2026-09-24T11:11:08.957196+00:00"
+      },
+      "ai_openai_response": {
+        "source": "azure_openai",
+        "answer_chars": 556,
+        "stream": true,
+        "ts": "2026-09-24T11:11:14.112700+00:00"
+      },
+      "display_response": {
+        "status_code": 200,
+        "answer_chars": 556,
+        "citations_count": 1,
+        "stream": true,
+        "ts": "2026-09-24T11:11:14.608120+00:00"
+      },
+      "ai_research_response": {
+        "source": "azure_ai_search",
+        "context_chars": 2522,
+        "top_score": 0.7387181,
+        "citations_count": 9,
+        "videos_count": 1,
+        "citation": {
+          "title": "project-management-portal",
+          "url": "https://desireinfoweb.com/products/project-management-portal",
+          "id": "s_c2VydmljZUNhdGFsb2cudHh0_i_2_u_6657cc83b9484ac6ab55894dfe7db253",
+          "score": 0.738718,
+          "context_snippet": "[products] Project Management Portal Transform the way your organization plans, tracks, and delivers projects. A SharePoint-based Project Management Portal centralizes your PMO and gives every stakeholder visibility from task boards to executive dashboards. https://desireinfoweb.com/products/project-management-portal [products] Learning Management System A Learning Management System helps organizations provide online training, courses, and learning materials to employees, students, or customers in a centralized system. https://desireinfoweb.com/products/learning-management-system [products] Audit System The Audit System project in SharePoint Online is a centralized solution for managing audits and compliance. It streamlines record tracking, monitoring, and evaluation to improve transparency and accountability. https://desireinfoweb.com/products/audit-system",
+          "overlap_count": 3,
+          "overlap_ratio": 1.0,
+          "entry_rank": 0.921615,
+          "retrieval_mode": "vector",
+          "source_scope": "knowledge"
+        },
+        "stream": true,
+        "ts": "2026-09-24T11:11:10.664942+00:00"
+      }
+    },
+    "summary": {
+      "status_code": 200,
+      "reply": "The **Project Management Portal** is a SharePoint-based solution designed to centralize project planning, tracking, and delivery. Key features include:\n\n- **Task Boards**: Visualize tasks and progress for teams.\n- **Executive Dashboards**: Provide stakeholders with real-time project insights.\n- **Centralized PMO**: Streamlines project management processes in one platform.\n- **Collaboration Tools**: Enhance team communication and document sharing.\n\nLearn more at [Project Management Portal](https://desireinfoweb.com/products/project-management-portal).",
+      "stream": true
+    }
+  },
+  {
+    "trace_id": "4db90d91-1d17-4dc5-b0a8-dda75b20ad37",
+    "started_at": "2026-09-24T11:12:49.862104+00:00",
+    "ended_at": "2026-09-24T11:13:04.109928+00:00",
+    "endpoint": "/api/chat/text/stream",
+    "streaming": true,
+    "status": "success",
+    "duration_ms": 14247.82,
+    "session_id": "cf5efcf0-7945-4455-a54f-845a9d8c44b6",
+    "user_query": "What type of AI projects has Desire Infoweb completed?",
+    "process": {
+      "user_request": {
+        "query": "What type of AI projects has Desire Infoweb completed?",
+        "endpoint": "/api/chat/text/stream",
+        "stream": true,
+        "ts": "2026-09-24T11:12:49.863104+00:00"
+      },
+      "ai_request": {
+        "mode": "rag",
+        "model": "gpt-4o",
+        "model_input_chars": 4072,
+        "stream": true,
+        "intent": "projects",
+        "ts": "2026-09-24T11:12:52.091518+00:00"
+      },
+      "ai_search_response": {
+        "source": "azure_ai_search",
+        "context_chars": 3173,
+        "top_score": 9.558665,
+        "citations_count": 10,
+        "videos_count": 0,
+        "citation": {
+          "title": "about-us",
+          "url": "https://desireinfoweb.com/about-us",
+          "id": "s_c2VydmljZUNhdGFsb2cudHh0_i_0_u_c76371ec982743fd978ca381a3778da9",
+          "score": 9.558665,
+          "context_snippet": "[companyProfile] About Desire Infoweb Desire Infoweb is an IT services and consulting company focused on Microsoft technologies, enterprise automation, modern collaboration platforms, analytics, and AI-powered business solutions. Core capabilities include SharePoint, Power Platform, Power BI, Microsoft Teams, Dynamics 365, Azure, .NET development, migration, governance, and custom AI/chatbot implementations. https://desireinfoweb.com/about-us [products] Organization Chart An organizational chart shows the internal structure of an organization or company. The employees and positions are represented by boxes or other shapes, sometimes including photos, contact information, email and page links, icons, and illustrations. Straight or elbowed lines link the levels together. https://desireinfoweb.com/products/organization-chart",
+          "overlap_count": 4,
+          "overlap_ratio": 0.571429,
+          "entry_rank": 0.648091,
+          "retrieval_mode": "text",
+          "source_scope": "knowledge"
+        },
+        "stream": true,
+        "ts": "2026-09-24T11:13:00.200651+00:00"
+      },
+      "ai_search_json_response": {
+        "source_scope": "knowledge",
+        "found": true,
+        "retrieval_mode": "text",
+        "score": 9.558665,
+        "normalized_score": 0.82697,
+        "rank": 0.829864,
+        "overlap_ratio": 0.571429,
+        "overlap_count": 4,
+        "query_term_count": 7,
+        "meets_score": true,
+        "meets_overlap": true,
+        "context_chars": 3173,
+        "context_preview": "[companyProfile] About Desire Infoweb Desire Infoweb is an IT services and consulting company focused on Microsoft technologies, enterprise automation, modern collaboration platforms, analytics, and AI-powered business solutions. Core capabilities include SharePoint, Power Platform, Power BI, Microsoft Teams, Dynamics 365, Azure, .NET development, migration, governance, and custom AI/chatbot implementations. https://desireinfoweb.com/about-us [products] Organization Chart An organizational chart shows the internal structure of an organization or company. The employees and positions are represe",
+        "citations_count": 3,
+        "citation": {
+          "title": "about-us",
+          "url": "https://desireinfoweb.com/about-us",
+          "id": "s_c2VydmljZUNhdGFsb2cudHh0_i_0_u_c76371ec982743fd978ca381a3778da9",
+          "score": 9.558665,
+          "context_snippet": "[companyProfile] About Desire Infoweb Desire Infoweb is an IT services and consulting company focused on Microsoft technologies, enterprise automation, modern collaboration platforms, analytics, and AI-powered business solutions. Core capabilities include SharePoint, Power Platform, Power BI, Microsoft Teams, Dynamics 365, Azure, .NET development, migration, governance, and custom AI/chatbot implementations. https://desireinfoweb.com/about-us [products] Organization Chart An organizational chart shows the internal structure of an organization or company. The employees and positions are represented by boxes or other shapes, sometimes including photos, contact information, email and page links, icons, and illustrations. Straight or elbowed lines link the levels together. https://desireinfoweb.com/products/organization-chart",
+          "overlap_count": 4,
+          "overlap_ratio": 0.571429,
+          "entry_rank": 0.648091,
+          "retrieval_mode": "text"
+        },
+        "ts": "2026-09-24T11:12:56.494447+00:00"
+      },
+      "ai_search_blob_response": {
+        "source_scope": "blob_fallback",
+        "found": true,
+        "retrieval_mode": "text",
+        "score": 14.311049,
+        "normalized_score": 0.877384,
+        "rank": 0.809692,
+        "overlap_ratio": 0.857143,
+        "overlap_count": 6,
+        "query_term_count": 7,
+        "meets_score": true,
+        "meets_overlap": true,
+        "context_chars": 13345,
+        "context_preview": "Empowering Your Vis ion Through S trategic IT Innovation Desire Infoweb Pvt Ltd. — Specialists in AI, Microsoft 365, Azure, SharePoint, Power Platform, Dynamics 365 & more WHO WE ARE Professional AI & Microsoft 365 Consulting We provide professional AI and Microsoft 365 consulting services for businesses in Europe, Australia, USA, South Africa, and Canada. Our team helps organizations improve productivity through customized Microsoft 365 solutions, smooth migration, secure setup, and reliable ongoing support. We focus on aligning Microsoft tools with your business needs to ensure better collab",
+        "citations_count": 4,
+        "citation": {
+          "title": "Company Presentation New.pdf",
+          "url": "https://desirechatbotweb.blob.core.windows.net/desirechatbotweb/Company%20Presentation%20New.pdf",
+          "id": "42c7ea830793_aHR0cHM6Ly9kZXNpcmVjaGF0Ym90d2ViLmJsb2IuY29yZS53aW5kb3dzLm5ldC9kZXNpcmVjaGF0Ym90d2ViL0NvbXBhbnklMjBQcmVzZW50YXRpb24lMjBOZXcucGRm0_pages_0",
+          "score": 14.311049,
+          "context_snippet": "Empowering Your Vis ion Through S trategic IT Innovation Desire Infoweb Pvt Ltd. — Specialists in AI, Microsoft 365, Azure, SharePoint, Power Platform, Dynamics 365 & more WHO WE ARE Professional AI & Microsoft 365 Consulting We provide professional AI and Microsoft 365 consulting services for businesses in Europe, Australia, USA, South Africa, and Canada. Our team helps organizations improve productivity through customized Microsoft 365 solutions, smooth migration, secure setup, and reliable ongoing support. We focus on aligning Microsoft tools with your business needs to ensure better collaboration and long-term growth. Customized Solutions Tailored Microsoft 365 solutions aligned with your unique business objectives and workflows. Smooth Migration Seamless migration, secure setup, and reliable ongoing support for your organization. AI-Powered Services Cutting-edge AI services to help your business stay competitive and future-ready. Long-Term Growth Partnering with you to drive sustainable collaboration, productivity, and business growth. Indus tries We S erve Education & E-learning Retail E-commerce Finance Real Estate Travel On-demand Solutions Healthcare & Fitness Logistics & Distribution OUR TRACK RECORD Global Reach, Proven Track Record With over a decade of experience, Desire Infoweb has established a strong global presence and a consistent record of delivering results for clients across more than 25 countries. 1200+ Projects Delivered Successful IT projects completed across diverse industries and geographies. 200+ Clients Worldwide Trusted by over 200 businesses across Europe, Australia, USA, South Africa, and Canada. 25+ Countries Served Global reach with local understanding across more than 25 countries. 10+ Years of Experience Over 10 years of expertise in I",
+          "overlap_count": 6,
+          "overlap_ratio": 0.857143,
+          "entry_rank": 0.863215,
+          "retrieval_mode": "text"
+        },
+        "ts": "2026-09-24T11:12:56.495446+00:00"
+      },
+      "ai_selection": {
+        "selected_source_scope": "knowledge",
+        "selected_retrieval_mode": "text",
+        "selected_score": 9.558665,
+        "selected_rank": 0.829864,
+        "selected_overlap_ratio": 0.571429,
+        "candidate_count": 4,
+        "ts": "2026-09-24T11:12:56.495446+00:00"
+      },
+      "ai_openai_response": {
+        "source": "azure_openai",
+        "answer_chars": 759,
+        "stream": true,
+        "ts": "2026-09-24T11:13:03.739173+00:00"
+      },
+      "display_response": {
+        "status_code": 200,
+        "answer_chars": 759,
+        "citations_count": 1,
+        "stream": true,
+        "ts": "2026-09-24T11:13:04.108930+00:00"
+      },
+      "ai_research_response": {
+        "source": "azure_ai_search",
+        "context_chars": 3173,
+        "top_score": 9.558665,
+        "citations_count": 10,
+        "videos_count": 0,
+        "citation": {
+          "title": "about-us",
+          "url": "https://desireinfoweb.com/about-us",
+          "id": "s_c2VydmljZUNhdGFsb2cudHh0_i_0_u_c76371ec982743fd978ca381a3778da9",
+          "score": 9.558665,
+          "context_snippet": "[companyProfile] About Desire Infoweb Desire Infoweb is an IT services and consulting company focused on Microsoft technologies, enterprise automation, modern collaboration platforms, analytics, and AI-powered business solutions. Core capabilities include SharePoint, Power Platform, Power BI, Microsoft Teams, Dynamics 365, Azure, .NET development, migration, governance, and custom AI/chatbot implementations. https://desireinfoweb.com/about-us [products] Organization Chart An organizational chart shows the internal structure of an organization or company. The employees and positions are represented by boxes or other shapes, sometimes including photos, contact information, email and page links, icons, and illustrations. Straight or elbowed lines link the levels together. https://desireinfoweb.com/products/organization-chart",
+          "overlap_count": 4,
+          "overlap_ratio": 0.571429,
+          "entry_rank": 0.648091,
+          "retrieval_mode": "text",
+          "source_scope": "knowledge"
+        },
+        "stream": true,
+        "ts": "2026-09-24T11:13:00.200651+00:00"
+      }
+    },
+    "summary": {
+      "status_code": 200,
+      "reply": "Desire Infoweb has delivered diverse AI projects, including:\n\n- **Fluentify AI**: Language proficiency assessment using MS Teams, Zoom, and Google Meet recordings.\n- **Insurance Chatbot**: Policy verification reduced from 15–20 minutes to seconds with document referencing.\n- **Social Omni**: AI-driven multi-platform campaign creator, cutting creation time from hours to seconds.\n- **AI-Powered Document Review Specialist**: Built on Google Gemini, detects clerical/logical errors 24/7.\n- **Smart Learning Chatbot**: Conversational AI integrated with Azure-hosted video resources.\n- **Workflow-Driven Document Creation**: Automates email-to-SharePoint storage and NDA/agreement generation.\n\nLearn more at [AI Services](https://desireinfoweb.com/services/ai).",
+      "stream": true
+    }
+  },
+  {
+    "trace_id": "a1744c81-f9ac-4c14-9eb9-d70f59f8996c",
+    "started_at": "2026-09-24T11:13:28.474995+00:00",
+    "ended_at": "2026-09-24T11:13:47.106441+00:00",
+    "endpoint": "/api/chat/text/stream",
+    "streaming": true,
+    "status": "success",
+    "duration_ms": 18631.45,
+    "session_id": "cf5efcf0-7945-4455-a54f-845a9d8c44b6",
+    "user_query": "sharepoint peoject",
+    "process": {
+      "user_request": {
+        "query": "sharepoint peoject",
+        "endpoint": "/api/chat/text/stream",
+        "stream": true,
+        "ts": "2026-09-24T11:13:28.475994+00:00"
+      },
+      "ai_request": {
+        "mode": "rag",
+        "model": "gpt-4o",
+        "model_input_chars": 4036,
+        "stream": true,
+        "intent": "services",
+        "ts": "2026-09-24T11:13:32.774308+00:00"
+      },
+      "ai_search_response": {
+        "source": "azure_ai_search",
+        "context_chars": 5001,
+        "top_score": 0.7074389,
+        "citations_count": 9,
+        "videos_count": 0,
+        "citation": {
+          "title": "sharepoint",
+          "url": "https://desireinfoweb.com/services/sharepoint",
+          "id": "s_c2VydmljZUNhdGFsb2cudHh0_i_13_u_64915b70b1454c0ba52a356144374e50",
+          "score": 0.707439,
+          "context_snippet": "[sharePointProjectServicesShowcaseData] Healthcare intranet Multi-department SharePoint portal Team sites for departments and projects serving as collaboration hubs where users share information, calendars, tasks, and co-edit documents in real time. Hub Intranet, FAQs, Multi departments, User friendly https://desireinfoweb.com/services/sharepoint [sharePointProjectServicesShowcaseData] P and G Intranet Intranet designed for employee engagement A customized intranet with themes and branding, designed to be accessible and functional across smartphones and tablets. Multi language, Customized Design, Notification Flows, Event Calendar https://desireinfoweb.com/services/sharepoint",
+          "overlap_count": 1,
+          "overlap_ratio": 0.5,
+          "entry_rank": 0.482232,
+          "retrieval_mode": "vector",
+          "source_scope": "knowledge"
+        },
+        "stream": true,
+        "ts": "2026-09-24T11:13:42.786703+00:00"
+      },
+      "ai_search_json_response": {
+        "source_scope": "knowledge",
+        "found": true,
+        "retrieval_mode": "vector",
+        "score": 0.707439,
+        "normalized_score": 0.707439,
+        "rank": 0.608612,
+        "overlap_ratio": 0.5,
+        "overlap_count": 1,
+        "query_term_count": 2,
+        "meets_score": true,
+        "meets_overlap": true,
+        "context_chars": 5001,
+        "context_preview": "[sharePointProjectServicesShowcaseData] Healthcare intranet Multi-department SharePoint portal Team sites for departments and projects serving as collaboration hubs where users share information, calendars, tasks, and co-edit documents in real time. Hub Intranet, FAQs, Multi departments, User friendly https://desireinfoweb.com/services/sharepoint [sharePointProjectServicesShowcaseData] P and G Intranet Intranet designed for employee engagement A customized intranet with themes and branding, designed to be accessible and functional across smartphones and tablets. Multi language, Customized Desi",
+        "citations_count": 2,
+        "citation": {
+          "title": "sharepoint",
+          "url": "https://desireinfoweb.com/services/sharepoint",
+          "id": "s_c2VydmljZUNhdGFsb2cudHh0_i_13_u_64915b70b1454c0ba52a356144374e50",
+          "score": 0.707439,
+          "context_snippet": "[sharePointProjectServicesShowcaseData] Healthcare intranet Multi-department SharePoint portal Team sites for departments and projects serving as collaboration hubs where users share information, calendars, tasks, and co-edit documents in real time. Hub Intranet, FAQs, Multi departments, User friendly https://desireinfoweb.com/services/sharepoint [sharePointProjectServicesShowcaseData] P and G Intranet Intranet designed for employee engagement A customized intranet with themes and branding, designed to be accessible and functional across smartphones and tablets. Multi language, Customized Design, Notification Flows, Event Calendar https://desireinfoweb.com/services/sharepoint",
+          "overlap_count": 1,
+          "overlap_ratio": 0.5,
+          "entry_rank": 0.482232,
+          "retrieval_mode": "vector"
+        },
+        "ts": "2026-09-24T11:13:39.157680+00:00"
+      },
+      "ai_search_blob_response": {
+        "source_scope": "blob_fallback",
+        "found": true,
+        "retrieval_mode": "vector",
+        "score": 0.72387,
+        "normalized_score": 0.72387,
+        "rank": 0.458799,
+        "overlap_ratio": 0.5,
+        "overlap_count": 1,
+        "query_term_count": 2,
+        "meets_score": true,
+        "meets_overlap": true,
+        "context_chars": 1965,
+        "context_preview": "SHAREPOINT-BASED SOLUTION Project Management Portal Transform the way your organization plans, tracks, and delivers projects. Centralize your PMO with complete visibility from task boards to executive dashboards. 200+ Clients 24/7 Support 100+ Features Request Demo → THE CHALLENGE Is Your Team Struggling With This? Scattered Data Projects live in emails, spreadsheets, and chat threads with no single source of truth. Zero Visibility Leadership has no real-time view into project health, risks, or resource utilization. Missed Deadlines Tasks fall through the cracks without clear ownership, milest",
+        "citations_count": 1,
+        "citation": {
+          "title": "PMP.pdf",
+          "url": "https://desirechatbotweb.blob.core.windows.net/desirechatbotweb/PMP.pdf",
+          "id": "42c7ea830793_aHR0cHM6Ly9kZXNpcmVjaGF0Ym90d2ViLmJsb2IuY29yZS53aW5kb3dzLm5ldC9kZXNpcmVjaGF0Ym90d2ViL1BNUC5wZGY1_pages_0",
+          "score": 0.72387,
+          "context_snippet": "SHAREPOINT-BASED SOLUTION Project Management Portal Transform the way your organization plans, tracks, and delivers projects. Centralize your PMO with complete visibility from task boards to executive dashboards. 200+ Clients 24/7 Support 100+ Features Request Demo → THE CHALLENGE Is Your Team Struggling With This? Scattered Data Projects live in emails, spreadsheets, and chat threads with no single source of truth. Zero Visibility Leadership has no real-time view into project health, risks, or resource utilization. Missed Deadlines Tasks fall through the cracks without clear ownership, milestones, or escalation workflows. Security Gaps Sensitive project data shared without role-based controls or audit trails. www.desireinfoweb.com THE SOLUTION One Portal. Complete Control. Our SharePoint-based Project Management Portal centralizes your entire PMO giving every stakeholder complete visibility, from task boards to executive dashboards.  Built on Microsoft SharePoint secure, scalable & compliant  Real-time dashboards with KPIs, milestones & project health  Kanban boards, Gantt charts, and smart task assignment  Integrates with Microsoft 365, Teams, and Azure AD www.desireinfoweb.com POWERFUL FEATURES Everything You Need to Deliver Projects PMO Dashboard Live dashboard with active vs. completed projects, KPIs, milestones and real-time project health across your entire organization. Task & Milestone Tracking Assign tasks, set deadlines, define milestones, and visualize workloads with Kanban boards, Gantt charts, and list views. Document Management Centralized libraries with version control, co-authoring, and permission-based access so teams always use the latest files. Risk & Issue Register Track risks, issues, and change requests with custom fields for probability, impa",
+          "overlap_count": 1,
+          "overlap_ratio": 0.5,
+          "entry_rank": 0.487161,
+          "retrieval_mode": "vector"
+        },
+        "ts": "2026-09-24T11:13:39.157680+00:00"
+      },
+      "ai_selection": {
+        "selected_source_scope": "knowledge",
+        "selected_retrieval_mode": "vector",
+        "selected_score": 0.707439,
+        "selected_rank": 0.608612,
+        "selected_overlap_ratio": 0.5,
+        "candidate_count": 4,
+        "ts": "2026-09-24T11:13:39.157680+00:00"
+      },
+      "ai_openai_response": {
+        "source": "azure_openai",
+        "answer_chars": 759,
+        "stream": true,
+        "ts": "2026-09-24T11:13:46.566134+00:00"
+      },
+      "display_response": {
+        "status_code": 200,
+        "answer_chars": 759,
+        "citations_count": 1,
+        "stream": true,
+        "ts": "2026-09-24T11:13:47.106441+00:00"
+      },
+      "ai_research_response": {
+        "source": "azure_ai_search",
+        "context_chars": 5001,
+        "top_score": 0.7074389,
+        "citations_count": 9,
+        "videos_count": 0,
+        "citation": {
+          "title": "sharepoint",
+          "url": "https://desireinfoweb.com/services/sharepoint",
+          "id": "s_c2VydmljZUNhdGFsb2cudHh0_i_13_u_64915b70b1454c0ba52a356144374e50",
+          "score": 0.707439,
+          "context_snippet": "[sharePointProjectServicesShowcaseData] Healthcare intranet Multi-department SharePoint portal Team sites for departments and projects serving as collaboration hubs where users share information, calendars, tasks, and co-edit documents in real time. Hub Intranet, FAQs, Multi departments, User friendly https://desireinfoweb.com/services/sharepoint [sharePointProjectServicesShowcaseData] P and G Intranet Intranet designed for employee engagement A customized intranet with themes and branding, designed to be accessible and functional across smartphones and tablets. Multi language, Customized Design, Notification Flows, Event Calendar https://desireinfoweb.com/services/sharepoint",
+          "overlap_count": 1,
+          "overlap_ratio": 0.5,
+          "entry_rank": 0.482232,
+          "retrieval_mode": "vector",
+          "source_scope": "knowledge"
+        },
+        "stream": true,
+        "ts": "2026-09-24T11:13:42.786703+00:00"
+      }
+    },
+    "summary": {
+      "status_code": 200,
+      "reply": "Desire Infoweb has successfully delivered impactful SharePoint projects, such as:\n\n- **Riyadh Airport Intranet**: Bilingual portal (Arabic + English) with custom web parts, event calendar, and social media integration.  \n- **NBAD Intranet**: Responsive, branded intranet with multi-device accessibility and custom themes.  \n- **Healthcare Intranet**: Multi-department collaboration hub with real-time co-editing, task management, and shared calendars.  \n- **P&G Intranet**: Multi-language, mobile-friendly intranet with notification flows and event calendar.  \n- **Mortgage Refinancing Portal**: Hybrid intranet combining SharePoint OOTB features with SPFx customizations.\n\nExplore more at [SharePoint Services](https://desireinfoweb.com/services/sharepoint).",
+      "stream": true
+    }
+  },
+  {
+    "trace_id": "30be8cff-098f-4d74-85e1-1d09ace7abc9",
+    "started_at": "2026-09-24T11:14:04.363737+00:00",
+    "ended_at": "2026-09-24T11:14:18.792231+00:00",
+    "endpoint": "/api/chat/text/stream",
+    "streaming": true,
+    "status": "success",
+    "duration_ms": 14428.49,
+    "session_id": "cf5efcf0-7945-4455-a54f-845a9d8c44b6",
+    "user_query": "SEO project",
+    "process": {
+      "user_request": {
+        "query": "SEO project",
+        "endpoint": "/api/chat/text/stream",
+        "stream": true,
+        "ts": "2026-09-24T11:14:04.363737+00:00"
+      },
+      "ai_request": {
+        "mode": "rag",
+        "model": "gpt-4o",
+        "model_input_chars": 4107,
+        "stream": true,
+        "intent": "projects",
+        "ts": "2026-09-24T11:14:06.387965+00:00"
+      },
+      "ai_search_response": {
+        "source": "azure_ai_search",
+        "context_chars": 6515,
+        "top_score": 5.4446225,
+        "citations_count": 10,
+        "videos_count": 0,
+        "citation": {
+          "title": "sharepoint",
+          "url": "https://desireinfoweb.com/services/sharepoint",
+          "id": "s_c2VydmljZUNhdGFsb2cudHh0_i_18_u_3018b1907aea468cafbae1ca17d88a4f",
+          "score": 5.444623,
+          "context_snippet": "[services] SharePoint Microsoft SharePoint enables document management, content sharing, and collaboration through centralized platforms that enhance team productivity. https://desireinfoweb.com/services/sharepoint [services] SEO Services SEO services improve search rankings, organic traffic, and online visibility using keyword research, on-page optimization, technical SEO, and content strategies. https://desireinfoweb.com/services/seo [services] Mobile Development Mobile development services include iOS, Android, and cross-platform apps covering strategy, design, development, launch, and ongoing support. https://desireinfoweb.com/services/mobile-development [serviceCatalogFromCode] AI or Artificial Intelligence Intelligent assistants, automation experiences, and knowledge-driven solutions built for faster decisions and stronger user support. https://desireinfoweb.com/services/ai",
+          "overlap_count": 1,
+          "overlap_ratio": 0.5,
+          "entry_rank": 0.489405,
+          "retrieval_mode": "text",
+          "source_scope": "knowledge"
+        },
+        "stream": true,
+        "ts": "2026-09-24T11:14:14.759483+00:00"
+      },
+      "ai_search_json_response": {
+        "source_scope": "knowledge",
+        "found": true,
+        "retrieval_mode": "text",
+        "score": 5.444623,
+        "normalized_score": 0.73135,
+        "rank": 0.933437,
+        "overlap_ratio": 1.0,
+        "overlap_count": 2,
+        "query_term_count": 2,
+        "meets_score": true,
+        "meets_overlap": true,
+        "context_chars": 6515,
+        "context_preview": "[services] SharePoint Microsoft SharePoint enables document management, content sharing, and collaboration through centralized platforms that enhance team productivity. https://desireinfoweb.com/services/sharepoint [services] SEO Services SEO services improve search rankings, organic traffic, and online visibility using keyword research, on-page optimization, technical SEO, and content strategies. https://desireinfoweb.com/services/seo [services] Mobile Development Mobile development services include iOS, Android, and cross-platform apps covering strategy, design, development, launch, and ongo",
+        "citations_count": 4,
+        "citation": {
+          "title": "sharepoint",
+          "url": "https://desireinfoweb.com/services/sharepoint",
+          "id": "s_c2VydmljZUNhdGFsb2cudHh0_i_18_u_3018b1907aea468cafbae1ca17d88a4f",
+          "score": 5.444623,
+          "context_snippet": "[services] SharePoint Microsoft SharePoint enables document management, content sharing, and collaboration through centralized platforms that enhance team productivity. https://desireinfoweb.com/services/sharepoint [services] SEO Services SEO services improve search rankings, organic traffic, and online visibility using keyword research, on-page optimization, technical SEO, and content strategies. https://desireinfoweb.com/services/seo [services] Mobile Development Mobile development services include iOS, Android, and cross-platform apps covering strategy, design, development, launch, and ongoing support. https://desireinfoweb.com/services/mobile-development [serviceCatalogFromCode] AI or Artificial Intelligence Intelligent assistants, automation experiences, and knowledge-driven solutions built for faster decisions and stronger user support. https://desireinfoweb.com/services/ai",
+          "overlap_count": 1,
+          "overlap_ratio": 0.5,
+          "entry_rank": 0.489405,
+          "retrieval_mode": "text"
+        },
+        "ts": "2026-09-24T11:14:11.164544+00:00"
+      },
+      "ai_search_blob_response": {
+        "source_scope": "blob_fallback",
+        "found": true,
+        "retrieval_mode": "text",
+        "score": 8.837373,
+        "normalized_score": 0.815453,
+        "rank": 0.825581,
+        "overlap_ratio": 1.0,
+        "overlap_count": 2,
+        "query_term_count": 2,
+        "meets_score": true,
+        "meets_overlap": true,
+        "context_chars": 13802,
+        "context_preview": "SEO CASE STUDY Transforming Digital Presence Through Strategic Search Engine Optimization vijay@desireinfoweb.com www.desireinfoweb.com USA +1 (217) 576-9653 UK +44 (117) 428-8244 India +91-8780468807 OUR SERVICES We offer comprehensive IT solutions tailored to automate and optimize your business requirements. Microsoft SharePoint Microsoft PowerApps Microsoft Power Automate Microsoft Power BI .Net Core Web Development Azure Services AI Services Azure DevOps SEO Dynamics365 CRM Flutter Development What is SEO Search Engine Optimization improves website visibility and ranking in organic search ",
+        "citations_count": 6,
+        "citation": {
+          "title": "SEO Case Study.pdf",
+          "url": "https://desirechatbotweb.blob.core.windows.net/desirechatbotweb/SEO%20Case%20Study.pdf",
+          "id": "42c7ea830793_aHR0cHM6Ly9kZXNpcmVjaGF0Ym90d2ViLmJsb2IuY29yZS53aW5kb3dzLm5ldC9kZXNpcmVjaGF0Ym90d2ViL1NFTyUyMENhc2UlMjBTdHVkeS5wZGY1_pages_0",
+          "score": 8.837373,
+          "context_snippet": "SEO CASE STUDY Transforming Digital Presence Through Strategic Search Engine Optimization vijay@desireinfoweb.com www.desireinfoweb.com USA +1 (217) 576-9653 UK +44 (117) 428-8244 India +91-8780468807 OUR SERVICES We offer comprehensive IT solutions tailored to automate and optimize your business requirements. Microsoft SharePoint Microsoft PowerApps Microsoft Power Automate Microsoft Power BI .Net Core Web Development Azure Services AI Services Azure DevOps SEO Dynamics365 CRM Flutter Development What is SEO Search Engine Optimization improves website visibility and ranking in organic search results. SEO involves optimizing content, site structure, and technical aspects to help search engines understand and rank content for relevant queries. Key Aspects On-Page SEO Optimizing individual pages, content, and HTML source code Off-Page SEO Building authority through backlinks and external factors Technical SEO Improving backend structure, site speed, and crawlability Enhanced visibility Better user experience Organic traffic growth CASE STUDY Artificial Plants Wholesale & Retail Challenge • Limited organic visibility • Highly competitive market • Slow website traffic growth Solution • Strategic content optimization • Location-based SEO strategy • Authority link building • Technical SEO improvements Impact Organic Users +90.49% Keywords Ranked 50+ New Users Growth +25.2% Revenue Increase +56.72% CASE STUDY Plastic Product Manufacturing Company Challenge • Limited organic search visibility • High industry competition • Under-optimized website content • Technical performance issues Solution • High-value keyword optimization • Quality backlink strategy • Content structuring for AI search • FAQ optimization Impact Improved Search Rankings Multiple high-intent keywords for indus",
+          "overlap_count": 1,
+          "overlap_ratio": 0.5,
+          "entry_rank": 0.514636,
+          "retrieval_mode": "text"
+        },
+        "ts": "2026-09-24T11:14:11.165539+00:00"
+      },
+      "ai_selection": {
+        "selected_source_scope": "knowledge",
+        "selected_retrieval_mode": "text",
+        "selected_score": 5.444623,
+        "selected_rank": 0.933437,
+        "selected_overlap_ratio": 1.0,
+        "candidate_count": 4,
+        "ts": "2026-09-24T11:14:11.165539+00:00"
+      },
+      "ai_openai_response": {
+        "source": "azure_openai",
+        "answer_chars": 534,
+        "stream": true,
+        "ts": "2026-09-24T11:14:18.215956+00:00"
+      },
+      "display_response": {
+        "status_code": 200,
+        "answer_chars": 534,
+        "citations_count": 1,
+        "stream": true,
+        "ts": "2026-09-24T11:14:18.791232+00:00"
+      },
+      "ai_research_response": {
+        "source": "azure_ai_search",
+        "context_chars": 6515,
+        "top_score": 5.4446225,
+        "citations_count": 10,
+        "videos_count": 0,
+        "citation": {
+          "title": "sharepoint",
+          "url": "https://desireinfoweb.com/services/sharepoint",
+          "id": "s_c2VydmljZUNhdGFsb2cudHh0_i_18_u_3018b1907aea468cafbae1ca17d88a4f",
+          "score": 5.444623,
+          "context_snippet": "[services] SharePoint Microsoft SharePoint enables document management, content sharing, and collaboration through centralized platforms that enhance team productivity. https://desireinfoweb.com/services/sharepoint [services] SEO Services SEO services improve search rankings, organic traffic, and online visibility using keyword research, on-page optimization, technical SEO, and content strategies. https://desireinfoweb.com/services/seo [services] Mobile Development Mobile development services include iOS, Android, and cross-platform apps covering strategy, design, development, launch, and ongoing support. https://desireinfoweb.com/services/mobile-development [serviceCatalogFromCode] AI or Artificial Intelligence Intelligent assistants, automation experiences, and knowledge-driven solutions built for faster decisions and stronger user support. https://desireinfoweb.com/services/ai",
+          "overlap_count": 1,
+          "overlap_ratio": 0.5,
+          "entry_rank": 0.489405,
+          "retrieval_mode": "text",
+          "source_scope": "knowledge"
+        },
+        "stream": true,
+        "ts": "2026-09-24T11:14:14.759483+00:00"
+      }
+    },
+    "summary": {
+      "status_code": 200,
+      "reply": "Desire Infoweb specializes in SEO projects that drive organic growth and improve search rankings. Key capabilities include:\n\n- **Keyword Research**: Targeting high-impact keywords for better visibility.  \n- **On-Page Optimization**: Enhancing meta tags, headers, and content for search engines.  \n- **Technical SEO**: Resolving site speed, mobile usability, and crawl issues.  \n- **Content Strategies**: Developing optimized content to attract and retain users.  \n\nLearn more at [SEO Services](https://desireinfoweb.com/services/seo).",
       "stream": true
     }
   }
