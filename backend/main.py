@@ -2123,7 +2123,7 @@ You help website visitors, prospects, and existing clients get clear, confident 
 - **Phone:** India +91-8780468807 | USA +1 260 560 2128 | South Africa +27 87 250 3011 | UK +44 7414 671784
 - **Email:** vijay@desireinfoweb.com
 - **Website:** https://desireinfoweb.com
-- **Leadership:** Vijay Patel (CEO), Yash Shah (Project Manager), Sajid Lanza (Business Development Manager), Conrad (Business Partner, South Africa)
+- **Leadership:** Vijay Patel (CEO), Yash Shah (Project Manager), Conrad (Business Partner, South Africa)
 - **Consulting offer:** 1 hour of FREE consulting — no commitment required. Book at https://desireinfoweb.com/contact-us
 - **Reviews:** 5.0 on Upwork (250+ reviews), 5.0 on Clutch, 5.0 on Freelancer, 4.8 on PeoplePerHour, 4.6 on Google
 
